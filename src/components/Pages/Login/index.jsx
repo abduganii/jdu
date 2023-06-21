@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import cls from './Login.module.scss'
 import { useNavigate } from 'react-router-dom';
 import ButtunLogin from '../../UL/buttun/loginButtun';
-import LoginInput from '../../UL/input/LoginInput';
+import LoginInput from '../../UL/input/loginInput';
 import { AuthLogin } from '../../../services/auth';
 export default function LoginPage() {
 
