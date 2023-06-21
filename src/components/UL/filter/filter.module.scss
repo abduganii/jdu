@@ -1,0 +1,93 @@
+.Filter {
+    background: #FFFFFF;
+    border: 1px solid rgba(168, 171, 179, 0.3);
+    border-radius: 8px;
+    display: flex;
+
+    &__btn {
+        padding: 14px 20px;
+        padding-right: 30px;
+        background: #5627DC;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
+        margin-right: 5px;
+    }
+
+    &__Select {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        padding-left: 20px;
+        padding-right: 10px;
+        border-right: 1px solid rgba(134, 141, 152, 0.2);
+        cursor: pointer;
+        position: relative;
+
+        &__p {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #344054;
+            opacity: 0.6;
+            width: 107px;
+
+        }
+
+        &__dropdown {
+            display: none;
+            position: absolute;
+            padding: 11px 15px;
+            padding-bottom: 37px;
+            background: #FFFFFF;
+            box-shadow: -20px 24px 54px #DCDCDC;
+            border-radius: 19px;
+            width: 173px;
+            top: 58px;
+            left: 0;
+            z-index: 20;
+
+            &__text {
+                width: 100%;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                color: #000000;
+                padding: 12px;
+                padding-top: 13px;
+
+            }
+
+            &__textActive1 {
+                width: 100%;
+                background: #5627DC;
+                opacity: 0.1;
+                border-radius: 9px;
+                color: white !important;
+            }
+        }
+    }
+
+    &__backround {
+        display: none;
+        position: fixed;
+        width: 100vw;
+        overflow: hidden;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 15;
+
+    }
+}

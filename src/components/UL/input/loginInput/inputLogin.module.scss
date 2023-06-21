@@ -1,0 +1,29 @@
+.LoginInput {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #121212;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgb(102, 112, 133, 0.2);
+    padding-bottom: 3px;
+    outline: none;
+    background-position: center 3px left;
+    background-repeat: no-repeat;
+    padding-left: 27px;
+
+    &::placeholder {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #121212;
+
+        opacity: 0.6;
+    }
+
+
+}

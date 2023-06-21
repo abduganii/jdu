@@ -1,0 +1,39 @@
+.OnePerson {
+    &__container {
+        margin-top: 100px !important;
+        margin-right: 375px !important;
+    }
+
+    &__title {
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 120%;
+        /* or 19px */
+
+
+        color: #101828;
+        margin-top: 22px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgb(16, 24, 40, .1);
+        margin-bottom: 17px;
+        margin-left: 177px;
+
+
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+
+        color: #101828;
+        margin-left: 177px;
+        opacity: 0.8;
+    }
+
+}

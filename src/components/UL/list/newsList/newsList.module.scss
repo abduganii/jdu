@@ -1,0 +1,63 @@
+.NewsList {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 20px;
+
+
+    &__top {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__img {
+        min-width: 324px;
+        height: 196px;
+    }
+
+    &__date {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        color: #0B212B;
+        gap: 4px;
+
+        opacity: 0.6;
+    }
+
+    &__category {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+
+        color: #932F46;
+        border-radius: 40px;
+        padding: 5px 10px;
+    }
+
+    &__content {
+        cursor: pointer;
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 28px;
+        color: #0B212B;
+        margin-top: 16px;
+
+        &:hover {
+            color: #5627DC;
+        }
+    }
+
+}

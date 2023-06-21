@@ -1,0 +1,75 @@
+.Person {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 21px;
+    margin-left: 24px;
+
+    img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__name {
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 39px;
+
+        color: #000000;
+
+    }
+
+    &__div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+
+    &__id {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #1381E6;
+        border: 1px solid #1381E6;
+        border-radius: 1000px;
+        padding: 4px 8px;
+
+    }
+
+    &__year {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #74828F;
+        border: 1px solid #74828F;
+        border-radius: 1000px;
+        padding: 4px 8px;
+
+
+    }
+
+    &__rate {
+        display: flex;
+        align-items: center;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        text-align: center;
+        gap: 7px;
+        color: #000000;
+
+    }
+}

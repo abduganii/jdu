@@ -1,0 +1,37 @@
+.TopNewsList {
+    width: 100%;
+    padding: 20px 12px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 7px;
+
+        &__text {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 800;
+            font-size: 11px;
+            line-height: 13px;
+            color: #0B212B;
+
+        }
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        color: #0B212B;
+
+    }
+}

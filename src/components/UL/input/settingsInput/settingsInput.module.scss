@@ -1,0 +1,42 @@
+.SettingsInput {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 19px;
+    position: relative;
+
+    &__label {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #101828;
+        margin-bottom: 8px;
+
+    }
+
+    &__input {
+        width: 100%;
+        background: #FFFFFF;
+        border: 1px solid rgba(16, 24, 40, 0.1);
+        border-radius: 8px;
+        padding: 15px 13px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        outline: none;
+        color: #101828;
+
+    }
+
+    &__eye {
+        position: absolute;
+        right: 16px;
+        bottom: 10px;
+        cursor: pointer;
+    }
+
+
+}

@@ -1,0 +1,70 @@
+.NewPage {
+    display: flex;
+    width: 100%;
+
+    &__left {
+        background: #FFFFFF;
+        width: 100%;
+        max-width: 335px;
+        margin-right: 20px;
+        position: sticky;
+        top: 100px;
+        height: 100vh;
+        overflow-x: scroll;
+
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+
+        &__btn {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        &__title {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19px;
+
+            color: #000000;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        position: relative;
+        margin-bottom: 20px;
+
+        &__text {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            color: #000000;
+            width: 100%;
+            max-width: 90px;
+            cursor: pointer;
+
+        }
+
+        &__textActive {
+            color: #5627DC;
+        }
+
+        &__line {
+            position: absolute;
+            background: #5627DC;
+            width: 90px;
+            height: 2px;
+            bottom: 0;
+            transition: .5s all ease;
+        }
+    }
+}

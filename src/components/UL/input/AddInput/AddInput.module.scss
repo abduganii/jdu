@@ -1,0 +1,62 @@
+.AddInput {
+    width: calc((100% - 20px) /3);
+    display: inline-block;
+
+    &__label {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        color: #101828;
+        margin-bottom: 6px;
+
+    }
+
+    &__input {
+        background: #FFFFFF;
+        border: 1px solid rgba(16, 24, 40, 0.1);
+        border-radius: 8px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #101828;
+        padding: 15px 13px;
+        padding-bottom: 14px;
+        outline: none;
+        width: 100%;
+
+
+        &:focus {
+            border: 1px solid rgba(16, 24, 40, 0.3);
+        }
+    }
+
+    &__textArea {
+        background: #FFFFFF;
+        border: 1px solid rgba(16, 24, 40, 0.1);
+        border-radius: 8px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #101828;
+        padding: 15px 13px;
+        padding-bottom: 14px;
+        outline: none;
+        width: 100%;
+        resize: none;
+        height: 155px;
+
+        &:focus {
+            border: 1px solid rgba(16, 24, 40, 0.3);
+        }
+    }
+}
+
+.widthFull {
+    width: 100% !important;
+}

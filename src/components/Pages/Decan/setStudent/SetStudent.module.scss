@@ -1,0 +1,120 @@
+.SetStudent {
+    &__container {
+        width: 100%;
+        max-width: 868px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__Info {
+            display: flex;
+            align-items: center;
+
+            button {
+                border: none;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &__btns {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        &__role {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #252430;
+            margin-left: 4px;
+            margin-right: 14px;
+
+        }
+
+        margin-bottom: 36px;
+    }
+
+    &__lesson {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        color: #252430;
+        margin-bottom: 32px;
+
+        &__number {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 18px;
+            color: #252430;
+            margin-bottom: 19px;
+
+        }
+
+        &__wrap {
+            display: flex;
+
+            justify-content: space-between;
+        }
+    }
+
+    &__Sertifacet {
+        &__Download {
+            display: inline-block;
+            cursor: pointer;
+            width: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #EEECF4;
+            border-radius: 8px;
+            padding: 5px 6px;
+            padding-left: 12px;
+            margin-top: 6px;
+
+            input {
+                display: none;
+            }
+
+            &__text {
+
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+                color: #5627DC;
+
+            }
+        }
+    }
+
+    &__skill {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+    }
+
+    &__progress {
+        margin-bottom: 20px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 16px;
+        color: #252430;
+        opacity: 0.5;
+    }
+
+}

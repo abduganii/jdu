@@ -1,0 +1,53 @@
+.AvatarInput {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+
+
+    input {
+        display: none;
+    }
+
+    &__avatar {
+        background: #EEECF4;
+        border-radius: 100px;
+        width: 85px;
+        height: 85px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__text {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            color: #5627DC;
+            text-align: center;
+        }
+
+        &__img {
+
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        color: #101828;
+
+        opacity: 0.4;
+        width: 100%;
+        max-width: 260px;
+        margin-top: 15px;
+    }
+}

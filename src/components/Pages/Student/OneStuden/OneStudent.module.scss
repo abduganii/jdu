@@ -1,0 +1,289 @@
+.OneStudent {
+    &__container {
+        margin-top: 100px !important;
+        margin-right: 375px !important;
+        margin-bottom: 200px !important;
+    }
+
+    &__content {
+        margin-left: 89px;
+        margin-top: 60px;
+        width: 100%;
+        max-width: 690px;
+
+        progress {
+            border-radius: 0px;
+            width: 100%;
+            height: 1px;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #E7E8EA;
+            border-radius: 0px;
+
+
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #5627DC;
+
+            border-radius: 0px;
+
+            box-shadow: 0px -1px 0px #5627DC;
+            border: 1px solid #5627DC;
+
+        }
+    }
+
+    &__title {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 120%;
+        color: #000000;
+    }
+
+    &__title1 {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 120%;
+        color: #000000;
+        margin-bottom: 27px;
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #000000;
+        opacity: 0.8;
+        margin-top: 16px;
+        margin-bottom: 25px;
+    }
+
+    &__text2 {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 120%;
+        color: #101828;
+        margin-top: 32px;
+        padding-bottom: 21px;
+        border-bottom: 1px solid #EEEEEE;
+        margin-bottom: 20px;
+    }
+
+    &__text3 {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #000000;
+
+        opacity: 0.8;
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    &__imgs {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 60px;
+    }
+
+    &__skills {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #000000;
+
+        &__progress {
+            width: 100%;
+            height: 10px;
+        }
+
+        &__text {
+
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 24px;
+            color: #000000;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+        }
+    }
+
+    &__Percentage {
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+
+        color: #000000;
+        margin-bottom: 1px;
+
+        &__text {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 13px;
+            line-height: 16px;
+
+            color: #303030;
+            margin-bottom: 10px;
+
+        }
+
+        &__wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 64px;
+        }
+
+        &__div {
+            width: 100%;
+            max-width: calc((100% - 36px) / 2);
+            margin-bottom: 23px;
+        }
+
+        &__top {
+
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 13px;
+        }
+
+        &__title {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+
+        }
+
+        &__progress {
+
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+
+
+            color: #000000;
+        }
+
+
+    }
+
+    &__list {
+        padding: 24px 10px 20px 10px;
+
+        &__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 11px;
+
+            &__text {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 18px;
+                color: rgb(16, 24, 40, .6);
+                margin-left: 10px;
+                width: 100%;
+
+                &:first-child {
+                    width: 100%;
+                    margin-left: 16px;
+                    max-width: 246px !important;
+                }
+
+                &:nth-child(2) {
+                    text-align: center;
+                    max-width: 78px;
+                }
+
+                &:nth-child(3) {
+                    max-width: 150px;
+                    margin-left: 70px;
+                }
+
+                &:last-child {
+                    max-width: 80px;
+                    margin-left: auto;
+                }
+            }
+        }
+
+        &__bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 17px;
+
+            background: #F5F4F7;
+            border-radius: 8px;
+
+            &__text {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 20px;
+                color: #101828;
+                margin-left: 10px;
+                width: 100%;
+
+                &:first-child {
+                    width: 100%;
+                    margin-left: 0;
+                    max-width: 246px !important;
+                }
+
+                &:nth-child(2) {
+                    text-align: center;
+                    max-width: 78px;
+                }
+
+                &:nth-child(3) {
+                    max-width: 150px;
+                    margin-left: 70px;
+                }
+
+                &:last-child {
+                    max-width: 80px;
+                    margin-left: auto;
+                }
+            }
+        }
+
+    }
+
+}
