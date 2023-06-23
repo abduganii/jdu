@@ -13,6 +13,8 @@ import cls from "./SetStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
 import LessonTable from '../../../UL/LassonTable'
 import SkillBtn from '../../../UL/buttun/skill'
+import { Select } from 'antd'
+import { useForm } from 'react-hook-form'
 const lesson = [
     {
         id: 1,
@@ -40,9 +42,19 @@ const lesson = [
     }
 ]
 
-export default function SetStudent() {
+export default function SetStudent({ data }) {
     const router = useNavigate()
+    const { register, handleSubmit, reset } = useForm();
+    const AddLessonFunc = async (data) => {
+        const formData = new FormData()
 
+        // formData.append("firstName", data?.firstName)
+
+
+
+
+
+    }
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
             <div className={cls.SetStudent__top}>
@@ -182,7 +194,32 @@ export default function SetStudent() {
                 <RangeInput style={{ marginBottom: "29px" }} lessonType={"All marks"} />
 
             </div>
-            <LessonTable lassons={lesson}>
+            <LessonTable lassons={data?.lessons} >
+
+                <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit(AddLessonFunc)} >
+                    <input
+                        className={cls.SetStudent__lesson__input}
+                        type="text" placeholder='Lesson name'
+                        {...register('lessonName', { required: true })}
+                    />
+                    <Select
+                        className={"seclectLesson"}
+                        defaultValue={"Incompleted"}
+                        options={[{ value: "Incompleted", label: "Incompleted" }, { value: "Completed", label: "Completed" }]}
+                        {...register('status', { required: true })}
+                    />
+                    <input
+                        className={cls.SetStudent__lesson__input}
+                        type="text" placeholder='University name'
+                        {...register('university', { required: true })}
+                    />
+                    <input
+                        className={cls.SetStudent__lesson__inputNumber}
+                        type="number" placeholder='0'
+                        {...register('credit', { required: true })}
+                    />
+                    <button className={cls.SetStudent__lesson__btn}>add</button>
+                </form>
                 <div className={cls.SetStudent__list}>
                     <div className={cls.SetStudent__list__top}>
                         <p className={cls.SetStudent__list__top__text}>科目</p>
@@ -198,7 +235,8 @@ export default function SetStudent() {
                         <p className={cls.SetStudent__list__bottom__text}>クレジット</p>
                     </div>
                 </div>
-            </LessonTable>
+
+            </LessonTable >
         </Container >
     )
 }

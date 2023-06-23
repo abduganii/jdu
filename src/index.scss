@@ -80,6 +80,22 @@ button {
 }
 
 .ant-select-selector {
+
   padding-top: 5px !important;
   height: 44px !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.seclectLesson{
+
+  .ant-select-selector {
+  width: 150px !important;}
 }

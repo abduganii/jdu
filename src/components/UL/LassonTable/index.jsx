@@ -1,13 +1,25 @@
 'use client'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import cls from "./LessonTable.module.scss"
 
-export default function LessonTable({ children, lassons = [], onClick, ...other }) {
+export default function LessonTable({ children, lassons = [], chengeSemestur, onClick, ...other }) {
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
 
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    useEffect(() => {
+        if (!lessonId) {
+            setLessonId(lassons?.[0]?.id)
+        }
+    }, [lassons])
+
+    useEffect(() => {
+        const arr = lassons?.find(e => e.id == lessonId)
+        setsemestorId(arr?.semesters?.[0]?.id)
+    }, [lessonId])
+
+
+    const arr = lassons?.find(e => e.id == lessonId)
     return (
         <>
             <h3 className={cls.LessonTable__title}>Lessons</h3>
@@ -17,7 +29,7 @@ export default function LessonTable({ children, lassons = [], onClick, ...other 
                         key={e?.id}
                         className={`${cls.LessonTable__list__text} ${e?.id === lessonId ? cls.LessonTable__lisActive : ""}`}
                         onClick={() => setLessonId(e?.id)}>
-                        {e?.text}
+                        {e?.name}
                     </p>
                 ))}
             </div>
@@ -25,12 +37,15 @@ export default function LessonTable({ children, lassons = [], onClick, ...other 
                 <div className={cls.LessonTable__table__semester}>
                     <div className={cls.LessonTable__table__semester__div} >
                         <p className={cls.LessonTable__table__text}>semester:</p>
-                        {arr.map(e => (
+                        {arr?.semesters?.map(e => (
                             <button
                                 key={e}
-                                className={`${cls.LessonTable__table__btn} ${semestorId == e ? cls.LessonTable__table__btnActive : ""}`}
-                                onClick={() => setsemestorId(e)}>
-                                {e}
+                                className={`${cls.LessonTable__table__btn} ${semestorId == e?.id ? cls.LessonTable__table__btnActive : ""}`}
+                                onClick={() => {
+                                    setsemestorId(e?.id)
+                                    chengeSemestur(e?.id)
+                                }}>
+                                {e?.semesterNumber}
                             </button>
                         ))}
                     </div>
