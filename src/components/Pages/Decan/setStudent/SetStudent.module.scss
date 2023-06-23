@@ -272,6 +272,11 @@
 
             background: #F5F4F7;
             border-radius: 8px;
+            margin-bottom: 4px;
+
+            &:hover {
+                background: #E0DEE4;
+            }
 
             &__text {
                 font-family: 'Inter';
@@ -300,6 +305,7 @@
                 }
 
                 &:last-child {
+                    text-align: end;
                     max-width: 80px;
                     margin-left: auto;
                 }
@@ -309,4 +315,3 @@
     }
 
 }
-

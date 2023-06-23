@@ -3,20 +3,7 @@ import { useEffect, useState } from "react"
 
 import cls from "./LessonTable.module.scss"
 
-export default function LessonTable({ children, lassons = [], chengeSemestur, onClick, ...other }) {
-    const [lessonId, setLessonId] = useState()
-    const [semestorId, setsemestorId] = useState()
-
-    useEffect(() => {
-        if (!lessonId) {
-            setLessonId(lassons?.[0]?.id)
-        }
-    }, [lassons])
-
-    useEffect(() => {
-        const arr = lassons?.find(e => e.id == lessonId)
-        setsemestorId(arr?.semesters?.[0]?.id)
-    }, [lessonId])
+export default function LessonTable({ children, lassons = [], lessonId, setLessonId, semestorId, setsemestorId, onClick, ...other }) {
 
 
     const arr = lassons?.find(e => e.id == lessonId)
@@ -41,10 +28,7 @@ export default function LessonTable({ children, lassons = [], chengeSemestur, on
                             <button
                                 key={e}
                                 className={`${cls.LessonTable__table__btn} ${semestorId == e?.id ? cls.LessonTable__table__btnActive : ""}`}
-                                onClick={() => {
-                                    setsemestorId(e?.id)
-                                    chengeSemestur(e?.id)
-                                }}>
+                                onClick={() => setsemestorId(e?.id)}>
                                 {e?.semesterNumber}
                             </button>
                         ))}

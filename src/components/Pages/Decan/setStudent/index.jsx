@@ -8,13 +8,14 @@ import RangeInput from '../../../UL/input/rangeInput'
 import SearchSkill from '../../../UL/input/SearchSkill'
 import AddInput from '../../../UL/input/AddInput'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import cls from "./SetStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
 import LessonTable from '../../../UL/LassonTable'
 import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
+import { LessonsAdd } from '../../../../services/Lesson'
 const lesson = [
     {
         id: 1,
@@ -44,17 +45,50 @@ const lesson = [
 
 export default function SetStudent({ data }) {
     const router = useNavigate()
-    const { register, handleSubmit, reset } = useForm();
-    const AddLessonFunc = async (data) => {
-        const formData = new FormData()
+    const [lessonId, setLessonId] = useState()
+    const [semestorId, setsemestorId] = useState()
+    const [lassonsArr, setLessonArr] = useState([])
 
-        // formData.append("firstName", data?.firstName)
+    useEffect(() => {
+        if (!lessonId) {
+            setLessonId(data.lessons?.[0]?.id)
+        }
+    }, [data.lessons])
 
+    useEffect(() => {
+        const arr = data.lessons?.find(e => e.id == lessonId)
+        setLessonArr(arr?.semesters)
+        setsemestorId(arr?.semesters?.[0]?.id)
 
+    }, [lessonId])
 
+    console.log(lassonsArr);
 
+    const { register, handleSubmit, setValue } = useForm({ defaultValues: { status: "Incompleted" } });
+    const AddLessonFunc = async (body) => {
+        await LessonsAdd(body, semestorId)
+            .then(res => {
+                if (res.status === 201) {
+
+                    setLessonArr(status => {
+                        return status.map(el => {
+                            if (el.id === semestorId) {
+                                return {
+                                    ...el,
+                                    results: [res.data, ...el.results]
+                                }
+                            } else {
+                                return el
+                            }
+                        })
+
+                    })
+                }
+            })
+            .catch(err => console.log(err))
 
     }
+    console.log(lassonsArr)
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
             <div className={cls.SetStudent__top}>
@@ -194,7 +228,7 @@ export default function SetStudent({ data }) {
                 <RangeInput style={{ marginBottom: "29px" }} lessonType={"All marks"} />
 
             </div>
-            <LessonTable lassons={data?.lessons} >
+            <LessonTable lassons={data?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
 
                 <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit(AddLessonFunc)} >
                     <input
@@ -206,7 +240,7 @@ export default function SetStudent({ data }) {
                         className={"seclectLesson"}
                         defaultValue={"Incompleted"}
                         options={[{ value: "Incompleted", label: "Incompleted" }, { value: "Completed", label: "Completed" }]}
-                        {...register('status', { required: true })}
+                        onChange={(e) => setValue('status', e)}
                     />
                     <input
                         className={cls.SetStudent__lesson__input}
@@ -216,7 +250,8 @@ export default function SetStudent({ data }) {
                     <input
                         className={cls.SetStudent__lesson__inputNumber}
                         type="number" placeholder='0'
-                        {...register('credit', { required: true })}
+                        defaultValue={0}
+                        {...register('credit')}
                     />
                     <button className={cls.SetStudent__lesson__btn}>add</button>
                 </form>
@@ -227,13 +262,19 @@ export default function SetStudent({ data }) {
                         <p className={cls.SetStudent__list__top__text}>科目</p>
                         <p className={cls.SetStudent__list__top__text}>クレジット</p>
                     </div>
-                    <div className={cls.SetStudent__list__bottom}>
-                        <p className={cls.SetStudent__list__bottom__text}>科目</p>
-                        <p className={cls.SetStudent__list__bottom__text}>
-                            <SkillBtn name={"完成した"} color={'#E44D26'} backround={'rgba(241, 101, 41, 0.1)'} /></p>
-                        <p className={cls.SetStudent__list__bottom__text}>状態</p>
-                        <p className={cls.SetStudent__list__bottom__text}>クレジット</p>
-                    </div>
+
+                    {
+                        lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(e => (
+                            < div className={cls.SetStudent__list__bottom} key={e?.id} >
+                                <p className={cls.SetStudent__list__bottom__text}>{e?.lessonName}</p>
+                                <p className={cls.SetStudent__list__bottom__text}>
+                                    {e?.status}</p>
+                                <p className={cls.SetStudent__list__bottom__text}>{e?.university}</p>
+                                <p className={cls.SetStudent__list__bottom__text}>{e?.credit}</p>
+                            </div>
+
+                        ))
+                    }
                 </div>
 
             </LessonTable >
