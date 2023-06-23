@@ -15,7 +15,7 @@ export default function AddMadal({ role, children, closeMadal, OnSubmit }) {
 
         }}>
             <form className={cls.AddMadal__content} onSubmit={OnSubmit}>
-                <h3 className={cls.AddMadal__top}>Add {role}</h3>
+                <h3 className={cls.AddMadal__top}> {role}</h3>
                 <div className={cls.AddMadal__inputs}>{children}</div>
                 <div className={cls.AddMadal__btm}>
                     <CancelBtn onClick={closeMadal}>Cancel</CancelBtn>

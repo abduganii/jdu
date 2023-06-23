@@ -12,8 +12,8 @@
     z-index: 9;
 
     top: 100px;
-    overflow: scroll;
-    height: calc(100vh - 134px);
+    overflow-X: scroll;
+    height: 100%;
     padding-bottom: 100px;
 
     &::-webkit-scrollbar {

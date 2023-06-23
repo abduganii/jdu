@@ -21,13 +21,18 @@ export default function MainLayout() {
             })
 
     }, [router]);
-    return (
-        <div>
-            <Header user={user} />
-            <div className={cls.MainLayout__content}>
-                <SideBar user={user} />
-                <Outlet />
+    if (user) {
+        return (
+            <div>
+                <Header user={user} />
+                <div className={cls.MainLayout__content}>
+                    <SideBar user={user} />
+                    <Outlet />
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        <>
+        </>
+    }
 }

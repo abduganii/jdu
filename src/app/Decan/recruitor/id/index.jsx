@@ -19,8 +19,6 @@ export default function DecanRecruitorBuId() {
             })
 
     }, []);
-    console.log(data)
-
 
     return (
         <>

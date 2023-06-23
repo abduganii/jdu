@@ -26,6 +26,11 @@
         width: 100%;
         max-width: 246px;
         cursor: pointer;
+
+        img {
+            border-radius: 50%;
+            object-fit: contain;
+        }
     }
 
     &__name {

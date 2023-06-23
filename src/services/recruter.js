@@ -24,6 +24,13 @@ export const RecruitorAdd = async (data) => {
     }});
     return response;
 }
+export const RecruitorUpdate = async ( data, id ) => { 
+    const response = await api.put(`/recruitor/${id}`, data, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}
 
 export const Recruitordelete = async (id) => {
     try {

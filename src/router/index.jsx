@@ -16,6 +16,8 @@ import RecHome from '../app/Recruitor/home'
 import RecStudent from '../app/Recruitor/student'
 import OneStudent from '../components/Pages/Student/OneStuden'
 import RecSeelctStudent from '../app/Recruitor/selectedStudent'
+import OnePerson from '../components/Pages/OnePerson'
+import SetStudent from '../components/Pages/Decan/setStudent'
 
 export default function AppRouter() {
 
@@ -25,8 +27,9 @@ export default function AppRouter() {
                 <Route path="/decan/home" element={< DecanHome />} />
                 <Route path="/decan/students" element={< DecanStudent />} />
                 <Route path="/decan/students/:id" element={< OneStudent />} />
+                <Route path="/decan/studentsSet/:id" element={< SetStudent />} />
                 <Route path="/decan/teachers" element={< DecanTeacher />} />
-                {/* <Route path="/decan/teachers/:id" element={< OnePerson />} /> */}
+                <Route path="/decan/teachers/:id" element={< OnePerson />} />
                 <Route path="/decan/recruitors" element={< DecanRecruitor />} />
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/schedule" element={<></>} />

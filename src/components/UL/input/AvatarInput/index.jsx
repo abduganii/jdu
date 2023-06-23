@@ -5,23 +5,20 @@ import { useState } from 'react'
 import { UploadNewIcon } from '../../icons'
 import cls from "./AvatarInput.module.scss"
 
-export default function AvatarInput({ onChange, ...other }) {
-    const [file, setFile] = useState()
-    const hendleimg = (e) => {
-        if (e.target.files[0]) {
-            setFile(e.target.files[0])
-        }
-    }
+export default function AvatarInput({ onChange, url, ...other }) {
+
+
+
+
     return (
         <div className={cls.AvatarInput}  {...other} >
             <label >
                 <input type="file" onChange={(e) => {
-                    hendleimg(e)
                     onChange(e)
                 }
                 } />
                 <div className={cls.AvatarInput__avatar}>
-                    {file ? <img className={cls.AvatarInput__avatar__img} src={URL.createObjectURL(file)} alt="img" /> : <UploadNewIcon color={"#5627DC"} />}
+                    {url ? <img className={cls.AvatarInput__avatar__img} src={url} alt="img" /> : <UploadNewIcon color={"#5627DC"} />}
                 </div>
                 <p className={cls.AvatarInput__avatar__text}>avatar</p>
             </label>

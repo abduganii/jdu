@@ -89,7 +89,7 @@ export default function SideBar({ user }) {
                     <div>
                         <CancelBtn onClick={async () => {
                             await Loginout()
-                            // router('/auth/login')
+                            router('/auth/login')
                         }}>
                             Yes
                         </CancelBtn>

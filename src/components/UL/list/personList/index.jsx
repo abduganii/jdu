@@ -6,22 +6,22 @@ import SkillBtn from '../../buttun/skill'
 import ListModal from '../../madals/listMadal'
 import React from 'react'
 import { useRef, useState } from 'react'
-
+import Avatar from 'react-avatar';
 import cls from "./personlist.module.scss"
 
-export default function PersonList({ id, img, name, gruop, rate, phone, skill = [], email, remove, update, onClick }) {
+export default function PersonList({ id, img, name, gruop, student, rate, phone, skill = [], email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
     const x = useRef()
     return (
         <div className={cls.PersonList}>
             <div className={cls.PersonList__fillname} onClick={onClick}>
-                <img
+                {img ? <img
                     src={img}
                     width={48}
                     height={48}
-                    alt={"img"}
-                    objectFit={"cover"}
-                />
+                    alt={img}
+                /> : <Avatar name={name} size="44" round={true} />
+                }
                 <p className={cls.PersonList__name}>{name}</p>
             </div>
             <div className={cls.PersonList__id}>
@@ -34,12 +34,13 @@ export default function PersonList({ id, img, name, gruop, rate, phone, skill = 
             </div>
             }
             {phone && <p className={cls.PersonList__phone}>{phone}</p>}
-            {skill.length !== 0 && <div className={cls.PersonList__skill}>
+            {skill.length !== 0 ? <div className={cls.PersonList__skill}>
                 {skill.slice(0, 3).map(e => (
-                    <SkillBtn name={e} color={'#E44D26'} backround={'rgba(241, 101, 41, 0.1)'} />
+
+                    <SkillBtn name={e?.skill?.name} color={e?.skill?.color} backround={'rgba(241, 101, 41, 0.1)'} />
                 ))}
-                <PlusBtn lenght={skill.length - 3} />
-            </div>}
+                {(skill?.length - 3) > 0 ? <PlusBtn lenght={skill.length - 3} /> : ""}
+            </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
             {email && <p className={cls.PersonList__email}>{email}</p>}
             <DoteBtn style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
             <ListModal
