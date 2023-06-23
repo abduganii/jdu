@@ -20,7 +20,7 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                     width={48}
                     height={48}
                     alt={img}
-                /> : <Avatar name={name} size="44" round={true} />
+                /> : <Avatar name={name} size="48" round={true} />
                 }
                 <p className={cls.PersonList__name}>{name}</p>
             </div>

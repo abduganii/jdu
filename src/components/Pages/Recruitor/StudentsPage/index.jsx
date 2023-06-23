@@ -8,7 +8,8 @@ import cls from "./StudentsPage.module.scss"
 
 import { Student } from "./data"
 
-export default function StudentsPage({ selected }) {
+export default function StudentsPage({ data, selected }) {
+    console.log(data, selected)
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -19,16 +20,32 @@ export default function StudentsPage({ selected }) {
                     <li className={cls.StudentsPage__top__item}>Skills</li>
                 </ul>
                 <ul>
-                    {Student?.map(e => {
+                    {data && data?.map(e => {
                         if (selected) {
-                            if (e.isSelcted === true) {
+                            if (e.isSelected === true) {
                                 return (
-                                    <StudentList key={e?.id} name={e?.name} id={e?.id} avatar={e?.avater} skills={e?.skills} rate={e?.progress} isSelcted={e?.isSelcted} />
+                                    <StudentList
+                                        key={e?.id}
+                                        name={`${e?.firstName} ${e?.lastName}`}
+                                        id={e?.loginId}
+                                        avatar={e?.avater}
+                                        skills={e?.itQualification?.skills}
+                                        rate={e?.universityPercentage?.AllMarks}
+                                        isSelcted={e?.isSelected}
+                                    />
                                 )
                             }
                         } else {
                             return (
-                                <StudentList key={e?.id} name={e?.name} id={e?.id} avatar={e?.avater} skills={e?.skills} rate={e?.progress} isSelcted={e?.isSelcted} />
+                                <StudentList
+                                    key={e?.id}
+                                    name={`${e?.firstName} ${e?.lastName}`}
+                                    id={e?.loginId}
+                                    avatar={e?.avater}
+                                    skills={e?.itQualification?.skills}
+                                    rate={e?.universityPercentage?.AllMarks}
+                                    isSelcted={e?.isSelected}
+                                />
                             )
                         }
                     })}

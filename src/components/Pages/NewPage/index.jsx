@@ -17,19 +17,7 @@ export default function NewPage() {
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
     const [endex, setInedex] = useState(query)
-    const [roles, setRoles] = useState("")
 
-    useEffect(() => {
-
-        const role = JSON.parse(localStorage.getItem("role"))
-        if (role == "decan") {
-            setRoles(true)
-        } else {
-            setRoles(false)
-        }
-
-
-    }, []);
     return (
         <>
             <Container style={{ marginTop: "112px" }}>
