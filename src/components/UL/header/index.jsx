@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import cls from "./header.module.scss"
 import Avatar from 'react-avatar';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 export default function Header({ user }) {
     const [roles, setRoles] = useState("")
     const router = useNavigate()
+
+
     useEffect(() => {
         const role = user?.role
         if (role == "decan") {
@@ -18,7 +20,7 @@ export default function Header({ user }) {
         <header className={cls.Header}>
             <h3 className={cls.Header__logo}>{roles} Panel</h3>
             <div className={cls.Header__left}>
-                <input className={cls.Header__search} type="text" placeholder="Search" />
+                <input className={cls.Header__search} type="text" placeholder="Search" onChange={(e) => router(`?search=${e?.target.value}`)} />
                 <div className={cls.Header__clock}>
                     <div className={cls.Header__clock__japon}>
                         <p className={cls.Header__clock__title}>Japan</p>

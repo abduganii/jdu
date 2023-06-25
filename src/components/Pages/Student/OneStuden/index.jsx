@@ -6,7 +6,7 @@ import LessonTable from '../../../UL/LassonTable'
 import Person from '../../../UL/person'
 import RateTest from '../../../UL/RateTest'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import cls from "./OneStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
@@ -50,27 +50,77 @@ const lesson = [
     }
 ]
 
-export default function OneStudent() {
+export default function OneStudent({ user }) {
     const router = useNavigate()
+
+    const [lessonId, setLessonId] = useState()
+    const [semestorId, setsemestorId] = useState()
+    const [lassonsArr, setLessonArr] = useState([])
+
+    useEffect(() => {
+        if (!lessonId) {
+            setLessonId(user.lessons?.[0]?.id)
+        }
+    }, [user.lessons])
+
+    useEffect(() => {
+        const arr = user.lessons?.find(e => e.id == lessonId)
+        setLessonArr(arr?.semesters)
+        setsemestorId(arr?.semesters?.[0]?.id)
+
+    }, [lessonId])
     return (
         <Container className={cls.OneStudent__container} >
             <BackBtn onClick={(e) => router(-1)} style={{ marginBottom: "40px" }} />
-            <Person id={data.id} name={data.name} rate={data.rate} avatar={data.avater} year={data.year} />
+            <Person
+                id={user?.loginId}
+                name={`${user?.firstName} ${user?.lastName}`}
+                avatar={user?.avatar}
+                year={user?.courseNumber + "yaer"} />
             <div className={cls.OneStudent__content}>
-                <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
-                <p className={cls.OneStudent__text}>{data.text}</p>
-                <p className={cls.OneStudent__title}>Gallery</p>
-                <div className={cls.OneStudent__imgs}>
-                    <img
-                        src={'/Image/Rectangle502.png'}
-                        width={223}
-                        height={160}
-                        alt='img'
-                    />
-                </div>
+                {
+                    user?.bio && <>
+                        <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
+                        <p className={cls.OneStudent__text}>{user?.bio}</p>
+                    </>
+                }
+                {
+                    <>
+                        <p className={cls.OneStudent__title}>Gallery</p>
+                        <div className={cls.OneStudent__imgs}>
+                            <img
+                                src={'/Image/Rectangle502.png'}
+                                width={223}
+                                height={160}
+                                alt='img'
+                            />
+                            <img
+                                src={'/Image/Rectangle502.png'}
+                                width={223}
+                                height={160}
+                                alt='img'
+                            />
+                            <img
+                                src={'/Image/Rectangle502.png'}
+                                width={223}
+                                height={160}
+                                alt='img'
+                            />
+                        </div>
+                    </>}
                 <h3 className={cls.OneStudent__title1}>Japan Language tests</h3>
-                <RateTest title={"JLPT"} text={"N4"} Listening={45} writing={65} Reading={85} />
-                <RateTest title={"NAT"} text={"Q2"} Listening={85} writing={65} Reading={45} />
+                {
+                    user?.japanLanguageTests && user?.japanLanguageTests.map(e => (
+                        < RateTest
+                            title={e?.name}
+                            Listening={e?.listening}
+                            writing={e?.reading}
+                            Reading={e?.writing}
+                        />
+                    ))
+
+                }
+
                 <p className={cls.OneStudent__title}>IT qualification</p>
                 <p className={cls.OneStudent__text2}>Soft Skills Percentage </p>
                 {
@@ -91,33 +141,55 @@ export default function OneStudent() {
                     <div className={cls.OneStudent__Percentage__div}>
                         <div className={cls.OneStudent__Percentage__top}>
                             <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>69%</p>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.Attendee}%</p>
                         </div>
-                        <progress value={69} max="100"></progress>
+                        <progress value={user?.universityPercentage?.Attendee} max="100"></progress>
                     </div>
                     <div className={cls.OneStudent__Percentage__div}>
                         <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>69%</p>
+                            <h3 className={cls.OneStudent__Percentage__title}>It course</h3>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.ItCourse}%</p>
                         </div>
-                        <progress value={69} max="100"></progress>
+                        <progress value={user?.universityPercentage?.ItCourse} max="100"></progress>
                     </div>
                     <div className={cls.OneStudent__Percentage__div}>
                         <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>69%</p>
+                            <h3 className={cls.OneStudent__Percentage__title}>Japan language</h3>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.JapanLanguage}%</p>
                         </div>
-                        <progress value={69} max="100"></progress>
+                        <progress value={user?.universityPercentage?.JapanLanguage} max="100"></progress>
                     </div>
                     <div className={cls.OneStudent__Percentage__div}>
                         <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>69%</p>
+                            <h3 className={cls.OneStudent__Percentage__title}>Sanno university</h3>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.SannoUniversity}%</p>
                         </div>
-                        <progress value={69} max="100"></progress>
+                        <progress value={user?.universityPercentage?.SannoUniversity} max="100"></progress>
                     </div>
+                    <div className={cls.OneStudent__Percentage__div}>
+                        <div className={cls.OneStudent__Percentage__top}>
+                            <h3 className={cls.OneStudent__Percentage__title}>Uz. SWL university</h3>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.UzSWLUniversity}%</p>
+                        </div>
+                        <progress value={user?.universityPercentage?.UzSWLUniversity} max="100"></progress>
+                    </div>
+                    <div className={cls.OneStudent__Percentage__div}>
+                        <div className={cls.OneStudent__Percentage__top}>
+                            <h3 className={cls.OneStudent__Percentage__title}>Co work</h3>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.CoWork}%</p>
+                        </div>
+                        <progress value={user?.universityPercentage?.CoWork} max="100"></progress>
+                    </div>
+                    <div className={cls.OneStudent__Percentage__div}>
+                        <div className={cls.OneStudent__Percentage__top}>
+                            <h3 className={cls.OneStudent__Percentage__title}>All marks</h3>
+                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.AllMarks}%</p>
+                        </div>
+                        <progress value={user?.universityPercentage?.AllMarks} max="100"></progress>
+                    </div>
+
                 </div>
-                <LessonTable lassons={lesson}>
+                <LessonTable lassons={user?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
                     <div className={cls.OneStudent__list}>
                         <div className={cls.OneStudent__list__top}>
                             <p className={cls.OneStudent__list__top__text}>科目</p>
@@ -125,13 +197,16 @@ export default function OneStudent() {
                             <p className={cls.OneStudent__list__top__text}>科目</p>
                             <p className={cls.OneStudent__list__top__text}>クレジット</p>
                         </div>
-                        <div className={cls.OneStudent__list__bottom}>
-                            <p className={cls.OneStudent__list__bottom__text}>科目</p>
-                            <p className={cls.OneStudent__list__bottom__text}>
-                                <SkillBtn name={"完成した"} color={'#E44D26'} backround={'rgba(241, 101, 41, 0.1)'} /></p>
-                            <p className={cls.OneStudent__list__bottom__text}>状態</p>
-                            <p className={cls.OneStudent__list__bottom__text}>クレジット</p>
-                        </div>
+                        {
+                            lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
+                                <div className={cls.OneStudent__list__bottom} key={el?.id}>
+                                    <p className={cls.OneStudent__list__bottom__text}>{el?.lessonName}</p>
+                                    <p className={cls.OneStudent__list__bottom__text}>{el?.status}</p>
+                                    <p className={cls.OneStudent__list__bottom__text}>{el?.university}</p>
+                                    <p className={cls.OneStudent__list__bottom__text}>{el?.credit}</p>
+                                </div>
+                            ))
+                        }
                     </div>
                 </LessonTable>
             </div>

@@ -25,6 +25,7 @@
         background: #5627DC !important;
         border-radius: 8px !important;
         color: #FFFFFF !important;
+
     }
 
     &__text {
@@ -119,6 +120,13 @@
     border-radius: 8px;
 
     width: 100%;
+
+
+
+    &:hover {
+        background: rgb(86, 39, 220, 0.1);
+    }
+
 
 
 }

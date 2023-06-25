@@ -1,7 +1,7 @@
 .SetStudent {
     &__container {
         width: 100%;
-        max-width: 868px;
+        max-width: 868px !important;
         margin-bottom: 86px !important;
     }
 
@@ -14,7 +14,8 @@
             display: flex;
             align-items: center;
 
-            button {
+            div {
+                cursor: pointer;
                 border: none;
                 display: flex;
                 align-items: center;
@@ -225,7 +226,7 @@
 
         &__top {
             display: flex;
-            align-items: center;
+
             justify-content: space-between;
             margin-bottom: 11px;
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MainLayout from '../components/Layouts/Main'
 import DecanHome from '../app/Decan/home'
@@ -19,15 +19,30 @@ import RecSeelctStudent from '../app/Recruitor/selectedStudent'
 import OnePerson from '../components/Pages/OnePerson'
 
 import SetStudentpage from '../app/Decan/students/set'
+import StudentById from '../app/Decan/students/id'
+import { TopStudentsGet } from '../services/student'
 
 export default function AppRouter() {
+    const [topStudent, setTopStudent] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await TopStudentsGet();
+            setTopStudent(res?.rows)
+        }
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
+
+
+    }, [])
 
     return (
         <Routes>
             <Route path="/" element={<MainLayout />} >
-                <Route path="/decan/home" element={< DecanHome />} />
+                <Route path="/decan/home" element={< DecanHome data={topStudent} />} />
                 <Route path="/decan/students" element={< DecanStudent />} />
-                <Route path="/decan/students/:id" element={< OneStudent />} />
+                <Route path="/decan/students/:id" element={< StudentById />} />
                 <Route path="/decan/studentsSet/:id" element={< SetStudentpage />} />
                 <Route path="/decan/teachers" element={< DecanTeacher />} />
                 <Route path="/decan/teachers/:id" element={< OnePerson />} />
@@ -35,10 +50,10 @@ export default function AppRouter() {
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/schedule" element={<></>} />
                 <Route path="/decan/courses" element={<></>} />
-                <Route path="/recruitor/home" element={<RecHome />} />
-                <Route path="/recruitor/students" element={<RecStudent />} />
-                <Route path="/recruitor/students/:id" element={<OneStudent />} />
-                <Route path="/recruitor/selected" element={<RecSeelctStudent />} />
+                <Route path="/recruitor/home" element={<RecHome data={topStudent} />} />
+                <Route path="/recruitor/students" element={<RecStudent data={topStudent} />} />
+                <Route path="/recruitor/students/:id" element={<StudentById />} />
+                <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} />} />
                 RecStudent
                 <Route path="/news" element={<News />} />
                 <Route path="/newsAdd" element={<AddNews />} />

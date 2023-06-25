@@ -11,11 +11,19 @@
 
     &:hover {
         box-shadow: 10px 10px 30px -10px rgba(0, 0, 0, 0.15);
+        transform: translate(5px);
     }
 
     &__img {
         min-width: 44px !important;
         min-height: 44px !important;
+
+        img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     }
 
     &__top {

@@ -1,4 +1,3 @@
-
 import Container from '../../../UL/container'
 import Filter from '../../../UL/filter'
 import StudentList from '../../../UL/list/studentList'
@@ -6,10 +5,7 @@ import TopStudents from '../../../UL/topStudents'
 
 import cls from "./StudentsPage.module.scss"
 
-import { Student } from "./data"
-
-export default function StudentsPage({ data, selected }) {
-    console.log(data, selected)
+export default function StudentsPage({ data, selected, student }) {
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -27,8 +23,9 @@ export default function StudentsPage({ data, selected }) {
                                     <StudentList
                                         key={e?.id}
                                         name={`${e?.firstName} ${e?.lastName}`}
-                                        id={e?.loginId}
-                                        avatar={e?.avater}
+                                        id={e?.id}
+                                        loginId={e?.loginId}
+                                        avatar={e?.avatar}
                                         skills={e?.itQualification?.skills}
                                         rate={e?.universityPercentage?.AllMarks}
                                         isSelcted={e?.isSelected}
@@ -40,8 +37,9 @@ export default function StudentsPage({ data, selected }) {
                                 <StudentList
                                     key={e?.id}
                                     name={`${e?.firstName} ${e?.lastName}`}
-                                    id={e?.loginId}
-                                    avatar={e?.avater}
+                                    id={e?.id}
+                                    loginId={e?.loginId}
+                                    avatar={e?.avatar}
                                     skills={e?.itQualification?.skills}
                                     rate={e?.universityPercentage?.AllMarks}
                                     isSelcted={e?.isSelected}
@@ -51,7 +49,7 @@ export default function StudentsPage({ data, selected }) {
                     })}
                 </ul>
             </Container>
-            <TopStudents />
+            <TopStudents students={student} />
         </>
     )
 }

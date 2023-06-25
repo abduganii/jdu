@@ -8,9 +8,7 @@ import TopList from '../../../UL/list/TopList'
 import AddMadal from '../../../UL/madals/AddMadal'
 import DeleteMadel from '../../../UL/madals/deleteModel'
 
-
 import React, { useState } from 'react'
-import { Student } from './data'
 import cls from "./Recruitor.module.scss"
 import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
@@ -74,6 +72,7 @@ export default function RecruitorPage({ data, onChange }) {
                         toast('recrutiar updated')
                         setOpenMadal(false)
                         onChange()
+                        setAvatar(null)
                     }
                 })
                 .catch(err => toast(err.response.data.message))
@@ -114,7 +113,7 @@ export default function RecruitorPage({ data, onChange }) {
                     Add Recruitor
                 </BlueButtun>
             </div>
-            <TopList text={["Recruitor", "Recruitor ID", "Group", "Number", "E-mail", "Actions"]} />
+            <TopList text={["Recruitor", "Recruitor ID", "Company", "Number", "E-mail", "Actions"]} />
             {data && data?.map(e => (
                 <PersonList
                     onClick={() => router(`/decan/recruitors/${e?.id}`)}
@@ -162,6 +161,7 @@ export default function RecruitorPage({ data, onChange }) {
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
+                        setAvatar(null)
                         reset()
                     }}>
                     <AvatarInput

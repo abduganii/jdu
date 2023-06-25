@@ -16,44 +16,29 @@ import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
 import { LessonsAdd } from '../../../../services/Lesson'
-const lesson = [
-    {
-        id: 1,
-        text: "IT web",
-    },
-    {
-        id: 12,
-        text: "Jabon",
-    },
-    {
-        id: 13,
-        text: "English",
-    },
-    {
-        id: 22,
-        text: "Web",
-    },
-    {
-        id: 3,
-        text: "English",
-    },
-    {
-        id: 2,
-        text: "Web",
-    }
-]
+import { StudentsUpdate } from '../../../../services/student'
+import toast, { Toaster } from 'react-hot-toast'
+import Avatar from 'react-avatar'
 
-export default function SetStudent({ data }) {
+export default function SetStudent({ data, Specialisation }) {
     const router = useNavigate()
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
+    const [avatar, setAvatar] = useState()
     const [lassonsArr, setLessonArr] = useState([])
+    const [specialisationtext, setSpecialisationtext] = useState("Specialisation")
 
+    const { register, handleSubmit, setValue, watch } = useForm({ defaultValues: { status: "Incompleted" } });
+    const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
+
+    const watchedFiles = watch()
+    const watchedFiles2 = watch2()
     useEffect(() => {
         if (!lessonId) {
             setLessonId(data.lessons?.[0]?.id)
         }
     }, [data.lessons])
+
 
     useEffect(() => {
         const arr = data.lessons?.find(e => e.id == lessonId)
@@ -62,14 +47,45 @@ export default function SetStudent({ data }) {
 
     }, [lessonId])
 
-    console.log(lassonsArr);
+    useEffect(() => {
+        setValue2("avatar", data?.avatar)
+        setValue2("firstName", data?.firstName)
+        setValue2("lastName", data?.lastName)
+        setValue2("loginId", data?.loginId)
+        setValue2("groupNumber", data?.groupNumber)
+        setValue2("courseNumber", data?.courseNumber)
+        setValue2('specialisationId', data?.specialisation?.id)
+        setSpecialisationtext(data?.specialisation?.name)
+        setAvatar(data?.avatar)
+    }, [data])
 
-    const { register, handleSubmit, setValue } = useForm({ defaultValues: { status: "Incompleted" } });
+    const AddDataSubmit = async (body) => {
+        const formData = new FormData()
+        if (body.avatar) formData.append("avatar", body.avatar)
+        if (body.firstName) formData.append("firstName", body.firstName)
+        if (body.lastName) formData.append("lastName", body.lastName)
+        if (body.loginId) formData.append("loginId", body.loginId)
+        if (body.groupNumber) formData.append("groupNumber", body.groupNumber)
+        if (body.courseNumber) formData.append("courseNumber", body.courseNumber)
+        if (body.specialisationId) formData.append("specialisationId", body.specialisationId)
+
+        await StudentsUpdate(formData, data?.id)
+            .then(res => {
+                if (res?.data?.message) {
+                    toast(res?.data?.message)
+                } else if (res.status == 203) {
+                    toast('recrutiar updated')
+                    router('/decan/students')
+
+                }
+            })
+            .catch(err => toast(err.response.data.message))
+    }
+
     const AddLessonFunc = async (body) => {
         await LessonsAdd(body, semestorId)
             .then(res => {
                 if (res.status === 201) {
-
                     setLessonArr(status => {
                         return status.map(el => {
                             if (el.id === semestorId) {
@@ -81,155 +97,169 @@ export default function SetStudent({ data }) {
                                 return el
                             }
                         })
-
                     })
                 }
             })
             .catch(err => console.log(err))
-
     }
-    console.log(lassonsArr)
+
+    const hendleimg = (e) => {
+        if (e.target.files[0]) {
+            setValue2('avatar', e.target.files[0])
+            setAvatar(URL.createObjectURL(e.target.files[0]))
+        }
+    }
+
+
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
-            <div className={cls.SetStudent__top}>
-                <div className={cls.SetStudent__top__Info}>
-                    <button onClick={() => router(-1)}>
-                        <LeftIcon />
-                        <p className={cls.SetStudent__top__role}>Student</p>
-                    </button>
+            <form onSubmit={handleSubmit2(AddDataSubmit)} >
+                <div className={cls.SetStudent__top}>
+                    <div className={cls.SetStudent__top__Info}>
+                        <div onClick={() => router(-1)}>
+                            <LeftIcon />
+                            <p className={cls.SetStudent__top__role}>Student</p>
+                        </div>
 
-                    <h3 className={cls.SetStudent__top__fName}>Saidakhmetov Bekmurod</h3>
+                        <h3 className={cls.SetStudent__top__fName}>Saidakhmetov Bekmurod</h3>
+                    </div>
+                    <div className={cls.SetStudent__top__btns}>
+                        <CancelBtn onClick={() => router(-1)}>
+                            Cancel
+                        </CancelBtn>
+                        <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
+                            Save changes
+                        </BlueButtun>
+                    </div>
                 </div>
-                <div className={cls.SetStudent__top__btns}>
-                    <CancelBtn onClick={() => router(-1)}>
-                        Cancel
-                    </CancelBtn>
-                    <BlueButtun style={{ padding: "14px 30px" }}>
-                        Save changes
-                    </BlueButtun>
-                </div>
-            </div>
-            <div className={cls.SetStudent__inputs}>
-                <label className={cls.SetStudent__upload} >
-                    <img
-                        src={"/Image/Ellipse08.png"}
-                        width={150}
-                        height={150}
-                        alt="img"
+                <div className={cls.SetStudent__inputs}>
+                    <label className={cls.SetStudent__upload} >
+                        {avatar ?
+                            < img
+                                src={avatar}
+                                width={150}
+                                height={150}
+                                alt="img"
 
-                    />
-                    <input className={cls.SetStudent__upload__file} type="file" />
-                    <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
-                </label>
-                <div className={cls.SetStudent__content}>
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                    <AddInput
-                        style={{ marginTop: "10px" }}
-                        type={"text"}
-                        label={"Specialisation"}
-                        placeholder={"Specialisation"}
-                    />
-                </div>
-            </div>
-            <h3 className={cls.SetStudent__lesson}>Japan Language tests</h3>
-            <p className={cls.SetStudent__lesson__number}>JLPT №4</p>
-            <div className={cls.SetStudent__lesson__wrap}>
-                <RangeInput lessonType={"Listening"} />
-                <RangeInput lessonType={"Reading"} />
-                <RangeInput lessonType={"Writing"} />
-                <div className={cls.SetStudent__Sertifacet}>
-                    <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
-                    <label className={cls.SetStudent__Sertifacet__Download} >
-                        <p className={cls.SetStudent__Sertifacet__Download__text}>File not uploaded</p>
-                        <DownloadIcons />
-                        <input type="file" />
+                            /> : <Avatar name={data?.firstName} size="150" round={true} />
+                        }
+                        <input className={cls.SetStudent__upload__file} type="file" onChange={(e) => hendleimg(e)} />
+                        <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
                     </label>
+                    <div className={cls.SetStudent__content}>
+                        <AddInput
+                            style={{ marginTop: "10px" }}
+                            type={"text"}
+                            label={"Firstname"}
+                            placeholder={"Firstname"}
+                            register={{ ...register2('firstName') }}
+                            value={watchedFiles2?.firstName || ''}
+                        />
+                        <AddInput
+                            style={{ marginTop: "10px" }}
+                            type={"text"}
+                            label={"Lastname"}
+                            placeholder={"Lastname"}
+                            register={{ ...register2('lastName') }}
+                            value={watchedFiles2?.lastName || ''}
+                        />
+                        <AddInput
+                            style={{ marginTop: "10px" }}
+                            type={"text"}
+                            label={"ID"}
+                            placeholder={"LoginID"}
+                            register={{ ...register2('loginId') }}
+                            value={watchedFiles2?.loginId || ''}
+                        />
+                        <AddInput
+                            type={"select"}
+                            label={"Specialisation"}
+                            placeholder={specialisationtext}
+                            Specialisation={Specialisation}
+                            onChange={(e) => {
+                                setValue2('specialisationId', e)
+                            }}
+                        />
+                        <AddInput
+                            style={{ marginTop: "10px" }}
+                            type={"text"}
+                            label={"Group"}
+                            placeholder={"Group"}
+                            register={{ ...register2('groupNumber') }}
+                            value={watchedFiles2?.groupNumber || ''}
+                        />
+                        <AddInput
+                            style={{ marginTop: "10px" }}
+                            type={"text"}
+                            label={"Course number"}
+                            placeholder={"Course number"}
+                            register={{ ...register2('courseNumber') }}
+                            value={watchedFiles2?.courseNumber || ''}
+                        />
+                        <AddInput
+                            style={{ marginTop: "10px" }}
+                            type={"password"}
+                            label={"Password"}
+                            placeholder={"Password"}
+                            register={{ ...register2('password') }}
+                        />
+                    </div>
                 </div>
-            </div>
-            <p className={cls.SetStudent__lesson__number} style={{ marginTop: "33px" }}>NAT Q2 №4</p>
-            <div className={cls.SetStudent__lesson__wrap}>
-                <RangeInput lessonType={"Listening"} />
-                <RangeInput lessonType={"Reading"} />
-                <RangeInput lessonType={"Writing"} />
-                <div className={cls.SetStudent__Sertifacet}>
-                    <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
-                    <label className={cls.SetStudent__Sertifacet__Download} >
-                        <p className={cls.SetStudent__Sertifacet__Download__text}>File not uploaded</p>
-                        <DownloadIcons />
-                        <input type="file" />
-                    </label>
+                <h3 className={cls.SetStudent__lesson}>Japan Language tests</h3>
+                <p className={cls.SetStudent__lesson__number}>JLPT №4</p>
+                <div className={cls.SetStudent__lesson__wrap}>
+                    <RangeInput lessonType={"Listening"} />
+                    <RangeInput lessonType={"Reading"} />
+                    <RangeInput lessonType={"Writing"} />
+                    <div className={cls.SetStudent__Sertifacet}>
+                        <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
+                        <label className={cls.SetStudent__Sertifacet__Download} >
+                            <p className={cls.SetStudent__Sertifacet__Download__text}>File not uploaded</p>
+                            <DownloadIcons />
+                            <input type="file" />
+                        </label>
+                    </div>
                 </div>
-            </div>
+                <p className={cls.SetStudent__lesson__number} style={{ marginTop: "33px" }}>NAT Q2 №4</p>
+                <div className={cls.SetStudent__lesson__wrap}>
+                    <RangeInput lessonType={"Listening"} />
+                    <RangeInput lessonType={"Reading"} />
+                    <RangeInput lessonType={"Writing"} />
+                    <div className={cls.SetStudent__Sertifacet}>
+                        <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
+                        <label className={cls.SetStudent__Sertifacet__Download} >
+                            <p className={cls.SetStudent__Sertifacet__Download__text}>File not uploaded</p>
+                            <DownloadIcons />
+                            <input type="file" />
+                        </label>
+                    </div>
+                </div>
 
-            <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT qualification</h3>
+                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT qualification</h3>
 
-            <div className={cls.SetStudent__skill}>
-                <SearchSkill label={"Soft skills"} placeholder={"write name skills"} style={{ marginBottom: "24px" }} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Hyper Text Markup language"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Cascading style sheet"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Java Script"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Vue Js"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"React JS"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Android"} />
-
-            </div>
-            <AddInput type={"textarea"} label={"Description"} placeholder={"Write here description"} style={{ marginTop: "25px" }} />
-            <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> University Percentage</h3>
-            <p className={cls.SetStudent__progress}>Subjects Progress</p>
-            <div className={cls.SetStudent__skill}>
-
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Attendee"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"IT course"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Japan language"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Sanno University"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"UzSWLUniversity"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"Co-Work"} />
-                <RangeInput style={{ marginBottom: "29px" }} lessonType={"All marks"} />
-
-            </div>
+                <div className={cls.SetStudent__skill}>
+                    <SearchSkill label={"Soft skills"} placeholder={"write name skills"} style={{ marginBottom: "24px" }} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Hyper Text Markup language"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Cascading style sheet"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Java Script"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Vue Js"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"React JS"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Android"} />
+                </div>
+                <AddInput type={"textarea"} label={"Description"} placeholder={"Write here description"} style={{ marginTop: "25px" }} />
+                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> University Percentage</h3>
+                <p className={cls.SetStudent__progress}>Subjects Progress</p>
+                <div className={cls.SetStudent__skill}>
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Attendee"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"IT course"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Japan language"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Sanno University"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"UzSWLUniversity"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Co-Work"} />
+                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"All marks"} />
+                </div>
+            </form>
             <LessonTable lassons={data?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
-
                 <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit(AddLessonFunc)} >
                     <input
                         className={cls.SetStudent__lesson__input}
@@ -262,22 +292,20 @@ export default function SetStudent({ data }) {
                         <p className={cls.SetStudent__list__top__text}>科目</p>
                         <p className={cls.SetStudent__list__top__text}>クレジット</p>
                     </div>
-
                     {
-                        lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(e => (
-                            < div className={cls.SetStudent__list__bottom} key={e?.id} >
-                                <p className={cls.SetStudent__list__bottom__text}>{e?.lessonName}</p>
+                        lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
+                            < div className={cls.SetStudent__list__bottom} key={el?.id} >
+                                <p className={cls.SetStudent__list__bottom__text}>{el?.lessonName}</p>
                                 <p className={cls.SetStudent__list__bottom__text}>
-                                    {e?.status}</p>
-                                <p className={cls.SetStudent__list__bottom__text}>{e?.university}</p>
-                                <p className={cls.SetStudent__list__bottom__text}>{e?.credit}</p>
+                                    {el?.status}</p>
+                                <p className={cls.SetStudent__list__bottom__text}>{el?.university}</p>
+                                <p className={cls.SetStudent__list__bottom__text}>{el?.credit}</p>
                             </div>
-
                         ))
                     }
                 </div>
-
             </LessonTable >
+            <Toaster />
         </Container >
     )
 }

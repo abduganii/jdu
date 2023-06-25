@@ -1,12 +1,29 @@
 import api from "./api"
 export const StudentsGet = async () => {
     try {
-     const res = await api.get('/students', {withCredentials: true})
+     const res = await api.get(`/students`, {withCredentials: true})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);
     }
 }
+export const StudentsGetSearch = async (query) => {
+    try {
+     const res = await api.get(`/students?search=${query}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
+export const TopStudentsGet = async () => {
+    try {
+     const res = await api.get('/students/top', {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
+
 export const StudentsGetById = async (id) => {
     try {
      const res = await api.get(`/student/${id}`, {withCredentials: true})

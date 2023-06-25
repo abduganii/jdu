@@ -25,7 +25,7 @@ export default function Filter() {
             }}>
                 <p className={cls.Filter__Select__p}>Skills</p>
                 <img
-                    src={'/Image/icons.svg'}
+                    src={'/Image/Icons.svg'}
                     width={16}
                     height={16}
                 />
@@ -48,7 +48,7 @@ export default function Filter() {
             }}>
                 <p className={cls.Filter__Select__p} >Rate</p>
                 <img
-                    src={'/Image/icons.svg'}
+                    src={'/Image/Icons.svg'}
                     width={16}
                     height={16}
                 />
@@ -68,7 +68,7 @@ export default function Filter() {
             <div className={cls.Filter__Select}>
                 <p className={cls.Filter__Select__p}>Year</p>
                 <img
-                    src={'/Image/icons.svg'}
+                    src={'/Image/Icons.svg'}
                     width={16}
                     height={16}
                     objectFit="contain"

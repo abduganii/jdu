@@ -8,6 +8,14 @@ export const RecruitorGet = async () => {
      console.log(error.response.data.message);
     }
 }
+export const RecruitorGetSearch = async (query) => {
+    try {
+     const res = await api.get(`/recruitors?search=${query}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
 export const RecruitorGetById = async (id) => {
     try {
      const res = await api.get(`/recruitor/${id}`, {withCredentials: true})
@@ -32,6 +40,14 @@ export const RecruitorUpdate = async ( data, id ) => {
     return response;
 }
 
+export const StudentSelect = async (id) => { 
+    const response = await api.post(`/recruitor/select_student/${id}`, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}
+
 export const Recruitordelete = async (id) => {
     try {
         const response = await api.delete(`/recruitor/${id}`);
@@ -39,4 +55,11 @@ export const Recruitordelete = async (id) => {
        } catch (error) {
         console.log(error.response.data.message);
        }
+}
+export const StudentSelectDel = async (  id ) => { 
+    const response = await api.delete(`/recruitor/remove_student/${id}`, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
 }

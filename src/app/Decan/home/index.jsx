@@ -1,9 +1,9 @@
 import HomePage from "../../../components/Pages/Recruitor/homePage";
 
-export default function DecanHome() {
+export default function DecanHome({ data }) {
   return (
     <>
-        <HomePage/>
+      <HomePage data={data} />
     </>
   )
 }
