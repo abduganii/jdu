@@ -13,8 +13,6 @@ import Datapicker from '../../../UL/input/Datapicker'
 
 
 import toast, { Toaster } from 'react-hot-toast';
-
-// import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import cls from "./AddNews.module.scss"
 import { Category } from "../data"
@@ -55,7 +53,7 @@ export default function AddNewsPage() {
                     <NewsInput label={"Image for Title"} type={"file"} />
                 </div>
                 <p className={cls.AddNews__dicr}>Description</p>
-                {/* <RichText /> */}
+                <RichText onChange={(e) => console.log(e)} />
 
             </Container>
             <div className={cls.AddNews__right}>
@@ -68,7 +66,7 @@ export default function AddNewsPage() {
                         Publish News
                     </BlueButtun>
                 </div>
-                <RightAsideWrapper style={{ padding: "40px 14px 40px 30px", marginTop: "20px" }}>
+                <div className={cls.AddNews__wrap} style={{ padding: "40px 14px 40px 30px", marginTop: "20px" }}>
                     <p className={cls.AddNews__category__text}>Choose category</p>
                     {Category?.map(e => (
                         <div key={e?.id}>
@@ -86,11 +84,12 @@ export default function AddNewsPage() {
                             </label>
                         </div>
                     ))}
+                    <p className={cls.AddNews__Putlishtext}>Putlish Date</p>
                     <div className={cls.AddNews__data}>
                         <Timepicker label='Time' />
                         <Datapicker label={"Date"} />
                     </div>
-                </RightAsideWrapper>
+                </div>
             </div>
             <Toaster />
         </from>

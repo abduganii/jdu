@@ -119,6 +119,20 @@
         display: flex;
         gap: 10px;
     }
+
+    &__wrap {
+        border-radius: 8px;
+        background-color: #F5F5F5;
+        height: calc(100vh - 197px);
+    }
+
+    &__Putlishtext {
+        color: #0B212B;
+        font-size: 11px;
+        font-family: Inter;
+        margin-top: 60px;
+        margin-bottom: 12px;
+    }
 }
 
 

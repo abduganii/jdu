@@ -94,8 +94,22 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-.seclectLesson{
+
+.seclectLesson {
 
   .ant-select-selector {
-  width: 150px !important;}
+    width: 150px !important;
+  }
+}
+
+.fr-toolbar {
+  &:nth-child(3) {
+    display: none;
+  }
+}
+
+.fr-second-toolbar {
+  &:nth-child(7) {
+    display: none;
+  }
 }

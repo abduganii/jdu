@@ -1,5 +1,3 @@
-"use client"
-
 import FroalaEditor from "react-froala-wysiwyg";
 import Froalaeditor from "froala-editor";
 import "froala-editor/css/froala_style.min.css";
@@ -142,9 +140,8 @@ const RichText = ({
     onChange = () => { },
 }) => {
     useEffect(() => {
-        if (process.env.NOTE_ENV === 'production') {
-            import('./removeLisence.scss')
-        }
+        import('./removeLisence.scss')
+
     }, [])
     locale = name?.split('.')?.[0]
     return (
