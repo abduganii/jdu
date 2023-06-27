@@ -83,13 +83,13 @@ export default function AddNewsPage({ categoryArr }) {
                             placeholder={"News Title"}
                             type={"text"}
                             style={{ marginBottom: "20px" }}
-                            register={...register(`title`)}
+                            register={{ ...register(`title`) }}
                         />
                         <NewsInput
                             label={"Short description"}
                             placeholder={"Short description"}
                             type={"textarea"}
-                            register={...register(`shortDescription`)}
+                            register={{ ...register(`shortDescription`) }}
                         />
                     </div>
                     <NewsInput
