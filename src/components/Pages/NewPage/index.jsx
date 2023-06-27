@@ -12,7 +12,8 @@ import { Category, News } from './data'
 import cls from "./NewPage.module.scss"
 import { useLocation, useNavigate } from 'react-router-dom'
 
-export default function NewPage() {
+export default function NewPage({ data }) {
+
     const router = useNavigate()
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
@@ -44,13 +45,13 @@ export default function NewPage() {
                     <div className={cls.NewPage__top__line} style={{ left: 90 * endex }}></div>
                 </div>
                 {
-                    News?.slice(0, 10).map(e => (
+                    data && data?.slice(0, 10).map(e => (
                         <NewsList
                             key={e?.id}
                             img={e?.image}
-                            category={e?.categore}
-                            createAt={e?.createAt}
-                            text={e?.title}
+                            category={e?.category?.name}
+                            createAt={e?.publishDate}
+                            text={e?.languages[0]?.title}
                             onClick={() => router(`/news/${e?.id}`)} />
                     ))
                 }

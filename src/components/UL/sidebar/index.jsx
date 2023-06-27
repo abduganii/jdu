@@ -31,7 +31,7 @@ export default function SideBar({ user }) {
 
     return (
         <div className={cls.SideBar}>
-            <div>
+            <div className={cls.SideBar__hello}>
                 <p className={cls.SideBar__text}>General </p>
                 {navLinks?.map(e => {
 

@@ -6,26 +6,21 @@ import { UploadNewIcon } from '../../icons'
 
 import cls from "./newsInput.module.scss"
 
-export default function NewsInput({ label, type, placeholder, onChange, ...other }) {
-    const [file, setFile] = useState()
-    const hendleimg = (e) => {
-        if (e.target.files[0]) {
-            setFile(e.target.files[0])
-        }
-    }
+export default function NewsInput({ label, type, placeholder, register = {}, url, onChange, ...other }) {
+
     return (
         <label className={`${cls.NewsInput} ${type == "file" ? cls.NewsInputFile : ""}`} {...other}>
             <p className={cls.NewsInput__label}>{label}</p>
             {
                 type == "textarea" ?
-                    <textarea className={`${cls.NewsInput__input} ${cls.NewsInput__textarae}`} placeholder={placeholder}></textarea>
+                    <textarea className={`${cls.NewsInput__input} ${cls.NewsInput__textarae}`} placeholder={placeholder}  {...register}></textarea>
                     :
                     type == "file" ?
                         <div className={cls.NewsInput__file}>
-                            <input type="file" onChange={hendleimg} />
+                            <input type="file" onChange={onChange} />
                             <div className={cls.NewsInput__file__top}>
-                                {file ?
-                                    <img className={cls.NewsInput__input__img} src={URL.createObjectURL(file)} alt="img" /> :
+                                {url ?
+                                    <img className={cls.NewsInput__input__img} src={URL.createObjectURL(url)} alt="img" /> :
                                     <p className={cls.NewsInput__file__imgtext}>NO IMAGE</p>}
                             </div>
                             <div className={cls.NewsInput__file__btm}>
@@ -42,6 +37,7 @@ export default function NewsInput({ label, type, placeholder, onChange, ...other
                             className={cls.NewsInput__input}
                             type={type} placeholder={placeholder}
                             onChange={onChange}
+                            {...register}
                         />
             }
         </label >

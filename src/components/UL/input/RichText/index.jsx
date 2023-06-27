@@ -135,7 +135,7 @@ const RichText = ({
     register,
     setValue = () => { },
     getValues = () => { },
-    value = '',
+
     name = '',
     onChange = () => { },
 }) => {
@@ -148,8 +148,8 @@ const RichText = ({
         <>
             {/* <Toaster /> */}
             <FroalaEditor
-                model={value}
-                onModelChange={(model) => { onChange(model); setValue(name, model) }}
+
+                onModelChange={(model) => onChange(model)}
                 config={config(setValue, getValues)}
                 {...register}
             />

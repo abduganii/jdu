@@ -15,15 +15,12 @@ import Datapicker from '../../../UL/input/Datapicker'
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from 'react'
 import cls from "./AddNews.module.scss"
-import { Category } from "../data"
+// import { Category } from "../data"
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { NewsAdd } from '../../../../services/news'
 
 const data = [
-    {
-        id: 2121,
-        text: "Uzbek",
-        lang: "uz"
-    },
     {
         id: 3421,
         text: "Japon",
@@ -36,39 +33,86 @@ const data = [
     },
 ]
 
-export default function AddNewsPage() {
+export default function AddNewsPage({ categoryArr }) {
     const [category, setCategory] = useState(false)
+    const [lang, setLang] = useState(data[0].lang)
+    const [dicr, setDicr] = useState()
+    const [avatar, setAvatar] = useState()
+
+    const { register, handleSubmit } = useForm()
     const router = useNavigate()
+
+    const AddNew = async (data) => {
+        const formData = new FormData()
+
+        const content = JSON.stringify({
+            title: data?.title,
+            shortDescription: data?.shortDescription,
+            description: dicr
+        })
+        formData.append("image", avatar)
+        formData.append(lang, content)
+        formData.append("categoryId", category)
+        if (avatar && category && content) {
+
+            await NewsAdd(formData)
+                .then(res => {
+                    router('/news')
+                    toast("news Created")
+                })
+                .catch(err => toast(err.messege))
+        } else {
+            toast("complate all inputs")
+        }
+    }
+    const hendleimg = (e) => {
+        if (e.target.files[0]) {
+            setAvatar(e.target.files[0])
+        }
+    }
+
     return (
-        <from className={cls.AddNews}>
+        <form onSubmit={handleSubmit(AddNew)} className={cls.AddNews} >
 
             <Container style={{ marginTop: "112px", marginRight: "51px" }}>
-                <Language language={data} />
-
+                <Language language={data} onClick={(e) => setLang(e?.lang)} />
                 <div className={cls.AddNews__top}>
                     <div className={cls.AddNews__titles}>
-                        <NewsInput label={"News Title"} placeholder={"News Title"} type={"text"} style={{ marginBottom: "20px" }} />
-                        <NewsInput label={"Short description"} placeholder={"Short description"} type={"textarea"} />
+                        <NewsInput
+                            label={"News Title"}
+                            placeholder={"News Title"}
+                            type={"text"}
+                            style={{ marginBottom: "20px" }}
+                            register={...register(`title`)}
+                        />
+                        <NewsInput
+                            label={"Short description"}
+                            placeholder={"Short description"}
+                            type={"textarea"}
+                            register={...register(`shortDescription`)}
+                        />
                     </div>
-                    <NewsInput label={"Image for Title"} type={"file"} />
+                    <NewsInput
+                        label={"Image for Title"}
+                        type={"file"}
+                        url={avatar}
+                        onChange={e => hendleimg(e)}
+                    />
                 </div>
                 <p className={cls.AddNews__dicr}>Description</p>
-                <RichText onChange={(e) => console.log(e)} />
+                <RichText onChange={(e) => setDicr(e)} />
 
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>
                     <div className={cls.AddNews__show} onClick={() => router('/news/1')}><ShowIcons /> Quick view</div>
-                    <BlueButtun onClick={() => {
-                        toast("news created")
-                        router('/news/1')
-                    }}>
+                    <BlueButtun type='submit'>
                         Publish News
                     </BlueButtun>
                 </div>
                 <div className={cls.AddNews__wrap} style={{ padding: "40px 14px 40px 30px", marginTop: "20px" }}>
                     <p className={cls.AddNews__category__text}>Choose category</p>
-                    {Category?.map(e => (
+                    {categoryArr?.map(e => (
                         <div key={e?.id}>
                             <label className={cls.AddNews__category}>
                                 <input type={"radio"} name='category' value={e?.id} onChange={(el) => {
@@ -80,18 +124,18 @@ export default function AddNewsPage() {
                                 <div className={`${cls.AddNews__category__check} ${category == e?.id ? cls.categoryActive : ""}`}>
                                     <div></div>
                                 </div>
-                                <p className={cls.AddNews__category__text1}> {e?.text}</p>
+                                <p className={cls.AddNews__category__text1}> {e?.name}</p>
                             </label>
                         </div>
                     ))}
-                    <p className={cls.AddNews__Putlishtext}>Putlish Date</p>
+                    {/* <p className={cls.AddNews__Putlishtext}>Putlish Date</p>
                     <div className={cls.AddNews__data}>
                         <Timepicker label='Time' />
                         <Datapicker label={"Date"} />
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <Toaster />
-        </from>
+        </form>
     )
 }
