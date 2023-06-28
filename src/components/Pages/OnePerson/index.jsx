@@ -17,12 +17,12 @@ const data = {
     year: "2 year",
 
 }
-export default function OnePerson({ loginId, firstName, lastName, avatar, bio, work }) {
+export default function OnePerson({ loginId, firstName, lastName, email, avatar, bio, work }) {
     const router = useNavigate()
     return (
         <Container className={cls.OnePerson__container}>
             <BackBtn onClick={() => router(-1)} style={{ marginBottom: "40px" }} />
-            <Person id={loginId} name={`${firstName} ${lastName}`} avatar={avatar} year={work} />
+            <Person id={loginId} name={`${firstName} ${lastName}`} email={email} avatar={avatar} year={work} />
             <h3 className={cls.OnePerson__title}>Bio</h3>
             <p className={cls.OnePerson__text}>{bio}</p>
         </Container>

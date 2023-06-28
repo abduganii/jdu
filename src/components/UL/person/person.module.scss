@@ -56,7 +56,9 @@
         border-radius: 1000px;
         padding: 4px 8px;
 
-
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
     &__rate {
@@ -71,5 +73,21 @@
         gap: 7px;
         color: #000000;
 
+    }
+
+    &__contect {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 590px;
+
+    }
+
+    &__email {
+        margin-top: 10px;
+        width: 155px;
+        height: 19px;
+        flex-shrink: 0;
+        color: #0094FF;
     }
 }

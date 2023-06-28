@@ -7,17 +7,23 @@ export default function RecStudent({ data }) {
     const [datas, setData] = useState([])
     const location = useLocation()
     const query = location?.search.split('?')?.[1]?.split('=')?.[1]
+    const [change, setChange] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await StudentsGetSearch(query);
             setData(res?.rows)
         }
-        fetchData()
-            .then((err) => {
-                console.log(err);
-            })
 
+        if (query?.length === 0) {
+            setChange(!change)
+        }
+        if (query) {
+            fetchData()
+                .then((err) => {
+                    console.log(err);
+                })
+        }
     }, [query])
     useEffect(() => {
         const fetchData = async () => {
@@ -30,7 +36,7 @@ export default function RecStudent({ data }) {
             })
 
 
-    }, [])
+    }, [change])
     return (
         <>
             <StudentsPage data={datas} student={data} />

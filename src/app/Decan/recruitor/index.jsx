@@ -9,20 +9,22 @@ export default function DecanRecruitor() {
   const location = useLocation()
   const query = location?.search.split('?')?.[1]?.split('=')?.[1]
 
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await RecruitorGetSearch(query)
       setData(res?.rows)
     }
-    if (query === "true" || query === "false") {
+    if (query === "true" || query === "false" || query == undefined) {
       console.log("error")
     } else {
+
       fetchData()
-        .then((err) => {
+        .catch((err) => {
           console.log(err);
         })
-    }
 
+    }
   }, [query])
 
   useEffect(() => {

@@ -6,7 +6,6 @@ export default function ListModal({ update, remove, onClick, className, ...other
         <div className={`${cls.ListModal} ${className && className}`} {...other}>
             <button className={cls.ListModal__btn} onClick={update}>Edit</button>
             <button className={cls.ListModal__btn} onClick={remove}>Delete</button>
-            <button className={cls.ListModal__btn} onClick={onClick}>Action</button>
         </div>
     )
 }

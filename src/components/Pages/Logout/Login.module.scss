@@ -62,10 +62,9 @@
 }
 
 .Form {
-    margin-top: 30px;
+    margin-top: 38px;
     width: 100%;
     max-width: 246px;
-    margin-left: auto;
 
     &__idtext {
         font-family: 'Inter';
@@ -114,5 +113,6 @@
         text-decoration-line: underline;
         cursor: pointer;
         color: #000000;
+        margin-bottom: 10px;
     }
 }

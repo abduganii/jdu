@@ -60,7 +60,7 @@ export default function RecruitorPage({ data, onChange }) {
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("email", data?.email)
         formData.append("loginId", data?.loginId)
-        formData.append("password", data?.password)
+        if (data?.password) formData.append("password", data?.password)
         formData.append("bio", data?.bio)
 
         if (query == "true") {
@@ -222,7 +222,7 @@ export default function RecruitorPage({ data, onChange }) {
                             value={watchedFiles?.loginId || ''}
                         />
                         <AddInput
-                            register={{ ...register('password', { required: true }) }}
+                            register={{ ...register('password') }}
                             type={"text"}
                             label={"Password"}
                             placeholder={"Password"}

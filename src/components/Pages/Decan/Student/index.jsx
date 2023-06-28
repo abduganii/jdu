@@ -39,6 +39,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
         formData.append("specialisationId", specialisation)
         formData.append("groupNumber", data?.groupNumber)
         formData.append("courseNumber", data?.courseNumber)
+        formData.append("email", data?.email)
         formData.append("password", data?.password)
 
 
@@ -69,6 +70,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
         }
     }
 
+
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
@@ -96,6 +98,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                 />
             ))}
 
+
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}
@@ -103,7 +106,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     avater={oneStuednt?.avatar}
                     role={'student'}
                     progress={oneStuednt?.universityPercentage?.AllMarks}
-                    years={"2years"}
+                    years={`${oneStuednt?.courseNumber} years`}
                     remove={async () => {
                         await Studentsdelete(oneStuednt?.id)
                             .then(data => {
@@ -119,7 +122,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
             }
             {openMadal &&
                 <AddMadal
-                    role={"student"}
+                    role={"Add student"}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
@@ -167,6 +170,12 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                             type={"text"}
                             label={"Course number"}
                             placeholder={"Course number"}
+                        />
+                        <AddInput
+                            register={{ ...register('email', { required: true }) }}
+                            type={"text"}
+                            label={"E-mail"}
+                            placeholder={"E-mail"}
                         />
                         <AddInput
                             register={{ ...register('password', { required: true }) }}

@@ -12,7 +12,7 @@ import { Category, News } from './data'
 import cls from "./NewPage.module.scss"
 import { useLocation, useNavigate } from 'react-router-dom'
 
-export default function NewPage({ data }) {
+export default function NewPage({ data, user }) {
 
     const router = useNavigate()
     const Lacation = useLocation()
@@ -58,7 +58,7 @@ export default function NewPage({ data }) {
 
             </Container>
             <div className={cls.NewPage__left}>
-                {true ? <div className={cls.NewPage__left__btn}>
+                {user?.role == "decan" ? <div className={cls.NewPage__left__btn}>
                     <BlueButtun onClick={() => router(`/newsAdd`)} >
                         <PlusIcon />Add News
                     </BlueButtun>

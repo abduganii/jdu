@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import MainLayout from '../components/Layouts/Main'
 import DecanHome from '../app/Decan/home'
 import DecanStudent from '../app/Decan/students'
@@ -21,25 +21,46 @@ import OnePerson from '../components/Pages/OnePerson'
 import SetStudentpage from '../app/Decan/students/set'
 import StudentById from '../app/Decan/students/id'
 import { TopStudentsGet } from '../services/student'
+import { GetMe } from '../services/me'
+import Logout from '../app/auth/logout'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
+    const [user, setUser] = useState()
+    const router = useLocation()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await GetMe()
+                .then(res => setUser(res?.data))
+                .catch(err => navigate('auth/login'))
+        }
+        if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout') {
+            fetchData()
+                .then((err) => {
+                    console.log(err);
+                })
+        }
+
+    }, [router]);
+
     useEffect(() => {
         const fetchData = async () => {
             const res = await TopStudentsGet();
             setTopStudent(res?.rows)
         }
-        fetchData()
-            .then((err) => {
-                console.log(err);
-            })
-
-
-    }, [])
+        if (user) {
+            fetchData()
+                .then((err) => {
+                    console.log(err);
+                })
+        }
+    }, [user])
 
     return (
         <Routes>
-            <Route path="/" element={<MainLayout />} >
+            <Route path="/" element={<MainLayout user={user} />}  >
                 <Route path="/decan/home" element={< DecanHome data={topStudent} />} />
                 <Route path="/decan/students" element={< DecanStudent />} />
                 <Route path="/decan/students/:id" element={< StudentById />} />
@@ -55,13 +76,14 @@ export default function AppRouter() {
                 <Route path="/recruitor/students/:id" element={<StudentById />} />
                 <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} />} />
                 RecStudent
-                <Route path="/news" element={<News />} />
+                <Route path="/news" element={<News user={user} />} />
                 <Route path="/newsAdd" element={<AddNews />} />
                 <Route path="/news/:id" element={<OneNews />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/help" element={<Help />} />
             </Route>
             <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/logout" element={<Logout />} />
 
         </Routes>
     )

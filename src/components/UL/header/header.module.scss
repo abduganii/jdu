@@ -33,7 +33,7 @@
     }
 
     &__search {
-        margin: 0 29px;
+        padding: 0 60px;
         border: none;
         font-family: 'Inter';
         font-style: normal;
@@ -45,11 +45,15 @@
         width: 100%;
 
         margin-right: 100px;
+        background-image: url('/Image/icons/search.png');
+        background-repeat: no-repeat;
+        background-position: center left 30px;
+        background-size: 20px 20px;
 
         &::placeholder {
             color: rgb(45, 46, 47, 0.6);
-
         }
+
     }
 
     &__clock {
@@ -144,6 +148,7 @@
         &__img {
             min-width: 44px;
             min-height: 44px;
+            border-radius: 50%;
         }
 
         &__name {

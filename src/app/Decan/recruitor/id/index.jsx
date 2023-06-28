@@ -29,6 +29,7 @@ export default function DecanRecruitorBuId() {
                 loginId={data?.loginId}
                 work={data?.specialisation}
                 bio={data?.bio}
+                email={data?.email}
             />
         </>
     )

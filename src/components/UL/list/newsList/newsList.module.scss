@@ -4,6 +4,12 @@
     gap: 24px;
     margin-bottom: 20px;
 
+    &:hover {
+        .NewsList__text {
+            color: #5627DC;
+        }
+    }
+
 
     &__top {
         display: flex;
@@ -62,9 +68,7 @@
         color: #0B212B;
         margin-top: 16px;
 
-        &:hover {
-            color: #5627DC;
-        }
+
     }
 
 }

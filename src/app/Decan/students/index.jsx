@@ -16,10 +16,12 @@ export default function DecanStudent() {
       const res = await StudentsGetSearch(query);
       setData(res?.rows)
     }
-    fetchData()
-      .then((err) => {
-        console.log(err);
-      })
+    if (query) {
+      fetchData()
+        .then((err) => {
+          console.log(err);
+        })
+    }
 
   }, [query])
 
@@ -32,19 +34,18 @@ export default function DecanStudent() {
       const res = await SpecialisationsGet();
       setSpecialisation(res)
     }
+
     fetchData()
       .then((err) => {
         console.log(err);
       })
+
     fetchSpecialisations()
       .then((err) => {
         console.log(err);
       })
 
   }, [cahnge])
-
-
-
 
   return (
     <>

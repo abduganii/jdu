@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NewPage from "../../components/Pages/NewPage";
 import { GetNews } from "../../services/news";
 
-export default function News() {
+export default function News({ user }) {
     const [data, setData] = useState([])
     useEffect(() => {
         const fetchData = async () => {
@@ -17,7 +17,7 @@ export default function News() {
     }, [])
     return (
         <>
-            <NewPage data={data} />
+            <NewPage data={data} user={user} />
         </>
     )
 }

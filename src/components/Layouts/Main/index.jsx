@@ -5,22 +5,8 @@ import Header from '../../UL/header'
 import SideBar from '../../UL/sidebar'
 import cls from "./Main.module.scss"
 
-export default function MainLayout() {
-    const [user, setUser] = useState()
-    const router = useLocation()
-    const navigate = useNavigate()
-    useEffect(() => {
-        const fetchData = async () => {
-            await GetMe()
-                .then(res => setUser(res?.data))
-                .catch(err => navigate('auth/login'))
-        }
-        fetchData()
-            .then((err) => {
-                console.log(err);
-            })
+export default function MainLayout({ user }) {
 
-    }, [router]);
     if (user) {
         return (
             <div>

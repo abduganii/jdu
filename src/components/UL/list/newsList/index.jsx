@@ -12,7 +12,7 @@ export default function NewsList({ img, category, text, createAt, onClick }) {
     const weeksDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
     return (
-        <div className={cls.NewsList} >
+        <div className={cls.NewsList} onClick={onClick} >
             <div className={cls.NewsList__img}>
                 <img
                     src={img}
@@ -21,7 +21,7 @@ export default function NewsList({ img, category, text, createAt, onClick }) {
                     alt="img"
                 />
             </div>
-            <div className={cls.NewsList__content} onClick={onClick}>
+            <div className={cls.NewsList__content} >
                 <div className={cls.NewsList__top}>
                     <p className={cls.NewsList__category} style={{ border: "1px solid #932F46", color: "#932F46" }}>{category}</p>
                     <p className={cls.NewsList__date}><ClockIcon />{Hours}:{Minutes} {weeksDay[date.getDay()]}</p>

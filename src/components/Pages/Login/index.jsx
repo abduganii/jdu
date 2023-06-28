@@ -46,7 +46,7 @@ export default function LoginPage() {
                         <LoginInput
                             type={'text'}
                             placeholder={"Enter your ID"}
-                            style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "21px" }}
+                            style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "30px" }}
                             register={{ ...register("loginId", { required: true }) }}
                         />
                         <LoginInput
@@ -60,7 +60,7 @@ export default function LoginPage() {
                                 <input className={cls.Form__chechbox} type="checkbox" />
                                 Remember
                             </label>
-                            <p className={cls.Form__forget}>Forgot password</p>
+                            <p className={cls.Form__forget} onClick={() => router('/auth/logout')}>Forgot password</p>
                         </div>
                         <ButtunLogin type='submit'>Log in</ButtunLogin>
                     </form>

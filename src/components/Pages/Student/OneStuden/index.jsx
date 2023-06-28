@@ -69,6 +69,7 @@ export default function OneStudent({ user }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
+
     return (
         <Container className={cls.OneStudent__container} >
             <BackBtn onClick={(e) => router(-1)} style={{ marginBottom: "40px" }} />
@@ -76,7 +77,10 @@ export default function OneStudent({ user }) {
                 id={user?.loginId}
                 name={`${user?.firstName} ${user?.lastName}`}
                 avatar={user?.avatar}
-                year={user?.courseNumber + "yaer"} />
+                year={user?.courseNumber + " yaer"}
+                email={user?.email}
+            />
+
             <div className={cls.OneStudent__content}>
                 {
                     user?.bio && <>
@@ -120,7 +124,6 @@ export default function OneStudent({ user }) {
                     ))
 
                 }
-
                 <p className={cls.OneStudent__title}>IT qualification</p>
                 <p className={cls.OneStudent__text2}>Soft Skills Percentage </p>
                 {

@@ -12,10 +12,16 @@ import cls from "./personlist.module.scss"
 export default function PersonList({ id, img, name, gruop, student, rate, phone, skill = [], email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
     const x = useRef()
+    const y = useRef()
+
     return (
         <div style={{ position: 'relative' }}>
-            <div className={cls.PersonList}>
-                <div className={cls.PersonList__fillname} onClick={onClick}>
+            <div className={cls.PersonList} onClick={(e) => {
+                if (e.target != y.current) {
+                    onClick(e)
+                }
+            }} >
+                <div className={cls.PersonList__fillname} >
                     {img ? <img
                         src={img}
                         width={48}
@@ -43,7 +49,7 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                     {(skill?.length - 3) > 0 ? <PlusBtn lenght={skill.length - 3} /> : ""}
                 </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
                 {email && <p className={cls.PersonList__email}>{email}</p>}
-                <DoteBtn style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
+                <DoteBtn ref={y} style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
                 <hr className={cls.PersonList__line} />
             </div>
             <div

@@ -34,7 +34,7 @@ export default function Filter() {
                         <p
                             key={e?.id}
                             className={`${cls.Filter__Select__dropdown__text} `}
-                            onClick={() => navigate(`?rate=${e.link}`)}
+                        // onClick={() => navigate(`?rate=${e.link}`)}
                         >
                             {e.text}
                         </p>
@@ -57,7 +57,7 @@ export default function Filter() {
                         <p
                             key={e?.id}
                             className={`${cls.Filter__Select__dropdown__text} `}
-                            onClick={() => navigate(`?rate=${e.link}`)}
+                        // onClick={() => navigate(`?rate=${e.link}`)}
                         >
                             {e.text}
                         </p>

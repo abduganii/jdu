@@ -23,12 +23,13 @@ export default function SettingsPage({ data }) {
     const [eyeicons2, setEyeicons2] = useState(true)
     const [newPass, setnewPass] = useState('password')
     const [conPass, setconPass] = useState('password')
-    const [avatar, setAvatar] = useState()
+    const [avatar, setAvatar] = useState(data?.avatar)
 
     const { register, handleSubmit, setValue, watch } = useForm();
     const watchedFiles = watch()
 
     useEffect(() => {
+        setAvatar(data?.avatar)
         setValue("avatar", data?.avatar)
         setValue("firstName", data?.firstName)
         setValue("lastName", data?.lastName)
@@ -40,7 +41,6 @@ export default function SettingsPage({ data }) {
     }, [data])
 
     const addData = async (body) => {
-
         const formData = new FormData()
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body?.firstName)

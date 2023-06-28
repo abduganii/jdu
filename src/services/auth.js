@@ -8,3 +8,7 @@ export const Loginout = async () => {
     const response = await api.post('/auth/logout' );
     return response;
 }
+export const Forget = async () => {
+    const response = await api.post('/auth/reset_password' );
+    return response;
+}

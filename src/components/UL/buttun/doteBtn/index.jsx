@@ -1,11 +1,13 @@
 import cls from "./doteBtn.module.scss"
+import { forwardRef } from "react"
 
-export default function DoteBtn({ onClick, ...other }) {
+const DoteBtn = forwardRef(({ onClick, ...other }, ref) => {
     return (
-        <div className={cls.DoteBtn} onClick={onClick} {...other}>
+        <div className={cls.DoteBtn} ref={ref} onClick={onClick} {...other}>
             <div></div>
             <div></div>
             <div></div>
         </div>
     )
-}
+})
+export default DoteBtn

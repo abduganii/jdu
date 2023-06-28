@@ -3,6 +3,7 @@ import cls from "./header.module.scss"
 import Avatar from 'react-avatar';
 import { useLocation, useNavigate } from 'react-router-dom';
 export default function Header({ user }) {
+
     const [roles, setRoles] = useState("")
     const router = useNavigate()
 
@@ -46,7 +47,7 @@ export default function Header({ user }) {
                     {
                         user?.avatar ? <img
                             className={cls.Header__profil__img}
-                            src={'/Image/person.png'}
+                            src={user?.avatar}
                             width={44}
                             height={44}
                             alt={"img"}

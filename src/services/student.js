@@ -32,7 +32,16 @@ export const StudentsGetById = async (id) => {
      console.log(error.response.data.message);
     }
 }
- 
+
+export const GetSkills = async () => {
+    try {
+     const res = await api.get('/skills', {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
+
 export const StudentsAdd = async (data) => { 
     const response = await api.post('/student', data, {
         headers: {

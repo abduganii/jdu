@@ -16,7 +16,7 @@ import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
 import { LessonsAdd } from '../../../../services/Lesson'
-import { StudentsUpdate } from '../../../../services/student'
+import { GetSkills, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 
@@ -26,13 +26,19 @@ export default function SetStudent({ data, Specialisation }) {
     const [semestorId, setsemestorId] = useState()
     const [avatar, setAvatar] = useState()
     const [lassonsArr, setLessonArr] = useState([])
+    const [skills, setSkills] = useState([])
     const [specialisationtext, setSpecialisationtext] = useState("Specialisation")
+    const [skillsArr, setSkillArr] = useState([])
 
-    const { register, handleSubmit, setValue, watch } = useForm({ defaultValues: { status: "Incompleted" } });
+    const { register, handleSubmit, setValue, watch, reset } = useForm({ defaultValues: { status: "Incompleted" } });
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
 
     const watchedFiles = watch()
     const watchedFiles2 = watch2()
+
+    const [newSkill, setNewArr] = useState([])
+
+
     useEffect(() => {
         if (!lessonId) {
             setLessonId(data.lessons?.[0]?.id)
@@ -44,7 +50,6 @@ export default function SetStudent({ data, Specialisation }) {
         const arr = data.lessons?.find(e => e.id == lessonId)
         setLessonArr(arr?.semesters)
         setsemestorId(arr?.semesters?.[0]?.id)
-
     }, [lessonId])
 
     useEffect(() => {
@@ -55,12 +60,37 @@ export default function SetStudent({ data, Specialisation }) {
         setValue2("groupNumber", data?.groupNumber)
         setValue2("courseNumber", data?.courseNumber)
         setValue2('specialisationId', data?.specialisation?.id)
+        setValue2('email', data?.email)
         setSpecialisationtext(data?.specialisation?.name)
         setAvatar(data?.avatar)
+        const fetchData = async () => {
+            const res = await GetSkills();
+            setSkills(res)
+        }
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
     }, [data])
+
+    const updateFieldChanged = index => e => {
+        setNewArr(
+            newSkill.map((item, i) =>
+                i === index
+                    ? { ...item, procent: e }
+                    : item
+            ))
+    }
 
     const AddDataSubmit = async (body) => {
         const formData = new FormData()
+        console.log(newSkill, body.description)
+
+        const content = JSON.stringify({
+            description: body.description,
+            skills: newSkill
+        })
+
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body.firstName)
         if (body.lastName) formData.append("lastName", body.lastName)
@@ -68,14 +98,15 @@ export default function SetStudent({ data, Specialisation }) {
         if (body.groupNumber) formData.append("groupNumber", body.groupNumber)
         if (body.courseNumber) formData.append("courseNumber", body.courseNumber)
         if (body.specialisationId) formData.append("specialisationId", body.specialisationId)
-
+        if (body.email) formData.append("email", body.email)
+        formData.append("itQualification", content)
         await StudentsUpdate(formData, data?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
                 } else if (res.status == 203) {
                     toast('recrutiar updated')
-                    router('/decan/students')
+                    // router('/decan/students')
 
                 }
             })
@@ -98,6 +129,7 @@ export default function SetStudent({ data, Specialisation }) {
                             }
                         })
                     })
+                    reset()
                 }
             })
             .catch(err => console.log(err))
@@ -109,6 +141,7 @@ export default function SetStudent({ data, Specialisation }) {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
+
 
 
     return (
@@ -198,6 +231,13 @@ export default function SetStudent({ data, Specialisation }) {
                         />
                         <AddInput
                             style={{ marginTop: "10px" }}
+                            type={"text"}
+                            label={"E-mail"}
+                            placeholder={"E-mail"}
+                            register={{ ...register2('email') }}
+                        />
+                        <AddInput
+                            style={{ marginTop: "10px" }}
                             type={"password"}
                             label={"Password"}
                             placeholder={"Password"}
@@ -238,15 +278,43 @@ export default function SetStudent({ data, Specialisation }) {
                 <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT qualification</h3>
 
                 <div className={cls.SetStudent__skill}>
-                    <SearchSkill label={"Soft skills"} placeholder={"write name skills"} style={{ marginBottom: "24px" }} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Hyper Text Markup language"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Cascading style sheet"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Java Script"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Vue Js"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"React JS"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Android"} />
+                    <SearchSkill
+                        label={"Soft skills"}
+                        placeholder={"write name skills"}
+                        skill={skills}
+                        style={{ marginBottom: "24px" }}
+                        onChange={(e) => {
+                            setSkillArr(state => [...state, { skillId: e, procent: 0 }])
+
+                            skills.map(s => {
+                                if (s?.id == e) {
+                                    setNewArr(state => [...state, { skillId: e, name: s.name, procent: 0 }])
+                                }
+                            })
+                            setSkills(skills.filter(item => item.id !== e));
+
+
+                        }}
+                    />
+                    {newSkill && newSkill?.map((nS, index) => (
+                        <RangeInput
+                            key={index}
+                            style={{ marginBottom: "29px" }}
+                            defaultRange={nS?.procent}
+                            lessonType={nS?.name}
+                            onChange={updateFieldChanged(index)}
+                        />
+                    ))}
+
                 </div>
-                <AddInput type={"textarea"} label={"Description"} placeholder={"Write here description"} style={{ marginTop: "25px" }} />
+                <AddInput
+                    type={"textarea"}
+                    label={"Description"}
+                    placeholder={"Write here description"}
+                    style={{ marginTop: "25px" }}
+
+                    register={{ ...register2('description') }} />
+                value={watchedFiles2?.description || ''}
                 <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> University Percentage</h3>
                 <p className={cls.SetStudent__progress}>Subjects Progress</p>
                 <div className={cls.SetStudent__skill}>

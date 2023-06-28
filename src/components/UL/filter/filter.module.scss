@@ -3,14 +3,16 @@
     border: 1px solid rgba(168, 171, 179, 0.3);
     border-radius: 8px;
     display: flex;
+    padding: 6px;
+    width: 100%;
+    max-width: 779px;
 
     &__btn {
-        padding: 14px 20px;
-        padding-right: 30px;
+        padding: 8px 12px;
         background: #5627DC;
         border-radius: 8px;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         gap: 10px;
         font-family: 'Inter';
         font-style: normal;
@@ -18,7 +20,7 @@
         font-size: 16px;
         line-height: 20px;
         color: #FFFFFF;
-        margin-right: 5px;
+        margin-right: 10px;
     }
 
     &__Select {
