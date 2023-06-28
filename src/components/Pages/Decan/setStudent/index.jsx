@@ -27,16 +27,14 @@ export default function SetStudent({ data, Specialisation }) {
     const [avatar, setAvatar] = useState()
     const [lassonsArr, setLessonArr] = useState([])
     const [skills, setSkills] = useState([])
+    const [newSkill, setNewArr] = useState(data?.itQualification?.skills)
     const [specialisationtext, setSpecialisationtext] = useState("Specialisation")
-    const [skillsArr, setSkillArr] = useState([])
 
     const { register, handleSubmit, setValue, watch, reset } = useForm({ defaultValues: { status: "Incompleted" } });
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
 
     const watchedFiles = watch()
     const watchedFiles2 = watch2()
-
-    const [newSkill, setNewArr] = useState([])
 
 
     useEffect(() => {
@@ -53,6 +51,7 @@ export default function SetStudent({ data, Specialisation }) {
     }, [lessonId])
 
     useEffect(() => {
+        setNewArr(data?.itQualification?.skills)
         setValue2("avatar", data?.avatar)
         setValue2("firstName", data?.firstName)
         setValue2("lastName", data?.lastName)
@@ -66,12 +65,20 @@ export default function SetStudent({ data, Specialisation }) {
         const fetchData = async () => {
             const res = await GetSkills();
             setSkills(res)
+
+
+
         }
         fetchData()
             .then((err) => {
                 console.log(err);
             })
+
+
+
+
     }, [data])
+
 
     const updateFieldChanged = index => e => {
         setNewArr(
@@ -84,7 +91,6 @@ export default function SetStudent({ data, Specialisation }) {
 
     const AddDataSubmit = async (body) => {
         const formData = new FormData()
-        console.log(newSkill, body.description)
 
         const content = JSON.stringify({
             description: body.description,
@@ -141,8 +147,6 @@ export default function SetStudent({ data, Specialisation }) {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
-
 
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
@@ -284,11 +288,9 @@ export default function SetStudent({ data, Specialisation }) {
                         skill={skills}
                         style={{ marginBottom: "24px" }}
                         onChange={(e) => {
-                            setSkillArr(state => [...state, { skillId: e, procent: 0 }])
-
                             skills.map(s => {
                                 if (s?.id == e) {
-                                    setNewArr(state => [...state, { skillId: e, name: s.name, procent: 0 }])
+                                    setNewArr(state => [...state, { skillId: e, skill: { name: s.name, color: s?.color }, procent: 0 }])
                                 }
                             })
                             setSkills(skills.filter(item => item.id !== e));
@@ -301,7 +303,8 @@ export default function SetStudent({ data, Specialisation }) {
                             key={index}
                             style={{ marginBottom: "29px" }}
                             defaultRange={nS?.procent}
-                            lessonType={nS?.name}
+                            color={nS?.skill?.color}
+                            lessonType={nS?.skill?.name}
                             onChange={updateFieldChanged(index)}
                         />
                     ))}

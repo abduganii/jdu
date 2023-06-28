@@ -13,11 +13,13 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
     const [useId, setIseId] = useState()
     const x = useRef()
     const y = useRef()
+    const o = useRef()
+    const [number, setNumber] = useState(0)
 
     return (
         <div style={{ position: 'relative' }}>
             <div className={cls.PersonList} onClick={(e) => {
-                if (e.target != y.current) {
+                if (e.target != y.current && e.target != o.current) {
                     onClick(e)
                 }
             }} >
@@ -42,11 +44,11 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                 }
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}
                 {skill.length !== 0 ? <div className={cls.PersonList__skill}>
-                    {skill.slice(0, 3).map(e => (
+                    {skill.slice(number, number + 3).map(e => (
 
-                        <SkillBtn name={e?.skill?.name} color={e?.skill?.color} backround={'rgba(241, 101, 41, 0.1)'} />
+                        <SkillBtn name={e?.skill?.name} color={e?.skill?.color} backround={e?.skill?.color} />
                     ))}
-                    {(skill?.length - 3) > 0 ? <PlusBtn lenght={skill.length - 3} /> : ""}
+                    {(skill?.length - (number + 3)) > 0 ? <PlusBtn ref={o} onClick={() => setNumber(number + 3)} lenght={skill.length - (number + 3)} /> : ""}
                 </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
                 {email && <p className={cls.PersonList__email}>{email}</p>}
                 <DoteBtn ref={y} style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
