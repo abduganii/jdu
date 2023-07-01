@@ -4,7 +4,7 @@ import TopStudents from '../../../UL/topStudents'
 
 import cls from "./homePage.module.scss"
 
-export default function HomePage({ data }) {
+export default function HomePage({ data, role, count }) {
 
     return (
         <>
@@ -23,7 +23,7 @@ export default function HomePage({ data }) {
                     </div>
                 </Container>
             </div>
-            <TopStudents students={data} />
+            <TopStudents students={data} role={role} count={count} />
         </>
     )
 }

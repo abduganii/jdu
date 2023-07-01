@@ -29,8 +29,6 @@
         outline: none;
         width: 100%;
 
-
-
         &:focus {
             border: 1px solid rgba(16, 24, 40, 0.3);
         }
@@ -57,6 +55,44 @@
             border: 1px solid rgba(16, 24, 40, 0.3);
         }
     }
+
+    &__labelinut {
+        position: relative;
+
+    }
+}
+
+.AddInputRoundno {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    cursor: pointer;
+    transition: 1s all ease;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    div {
+        width: 18px;
+        height: 18px;
+        transition: 1s all ease;
+    }
+
+    &:hover {
+        background: rgb(86, 39, 220, .1);
+
+    }
+}
+
+.AddInputRound {
+    div {
+        transform: rotate(-720deg);
+    }
+
 }
 
 .widthFull {

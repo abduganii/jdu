@@ -27,6 +27,7 @@ import Logout from '../app/auth/logout'
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
     const [user, setUser] = useState()
+    const [count, setCount] = useState()
     const router = useLocation()
     const navigate = useNavigate()
 
@@ -49,6 +50,7 @@ export default function AppRouter() {
         const fetchData = async () => {
             const res = await TopStudentsGet();
             setTopStudent(res?.rows)
+            setCount(res?.count)
         }
         if (user) {
             fetchData()
@@ -61,9 +63,9 @@ export default function AppRouter() {
     return (
         <Routes>
             <Route path="/" element={<MainLayout user={user} />}  >
-                <Route path="/decan/home" element={< DecanHome data={topStudent} />} />
+                <Route path="/decan/home" element={< DecanHome data={topStudent} role={user?.role} count={count} />} />
                 <Route path="/decan/students" element={< DecanStudent />} />
-                <Route path="/decan/students/:id" element={< StudentById />} />
+                <Route path="/decan/students/:id" element={< StudentById role={user?.role} />} />
                 <Route path="/decan/studentsSet/:id" element={< SetStudentpage />} />
                 <Route path="/decan/teachers" element={< DecanTeacher />} />
                 <Route path="/decan/teachers/:id" element={< OnePerson />} />
@@ -71,10 +73,10 @@ export default function AppRouter() {
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/schedule" element={<></>} />
                 <Route path="/decan/courses" element={<></>} />
-                <Route path="/recruitor/home" element={<RecHome data={topStudent} />} />
-                <Route path="/recruitor/students" element={<RecStudent data={topStudent} />} />
+                <Route path="/recruitor/home" element={<RecHome data={topStudent} role={user?.role} count={count} />} />
+                <Route path="/recruitor/students" element={<RecStudent data={topStudent} role={user?.role} count={count} />} />
                 <Route path="/recruitor/students/:id" element={<StudentById />} />
-                <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} />} />
+                <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} role={user?.role} count={count} />} />
                 RecStudent
                 <Route path="/news" element={<News user={user} />} />
                 <Route path="/newsAdd" element={<AddNews />} />

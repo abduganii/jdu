@@ -3,7 +3,7 @@ import { DownloadIcons } from '../icons'
 import cls from "./rateTest.module.scss"
 
 import { saveAs } from "file-saver";
-export default function RateTest({ Listening, Reading, writing, title, text, docs }) {
+export default function RateTest({ Listening, Reading, writing, title, text, file }) {
 
 
     const setColor = (e) => {
@@ -19,7 +19,7 @@ export default function RateTest({ Listening, Reading, writing, title, text, doc
     }
     const saveFile = () => {
         saveAs(
-            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+            file,
             "example.pdf"
         );
     };

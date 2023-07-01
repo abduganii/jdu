@@ -220,6 +220,8 @@ export default function RecruitorPage({ data, onChange }) {
                             label={"Id"}
                             placeholder={"Id"}
                             value={watchedFiles?.loginId || ''}
+                            geterat={true}
+                            loginGenerate={(e) => setValue("loginId", e)}
                         />
                         <AddInput
                             register={{ ...register('password') }}
@@ -227,14 +229,16 @@ export default function RecruitorPage({ data, onChange }) {
                             label={"Password"}
                             placeholder={"Password"}
                             value={watchedFiles?.password || ''}
+                            geterat={true}
+                            passwordGenerate={(e) => setValue("password", e)}
                         />
-                        <AddInput
+                        {/* <AddInput
                             register={{ ...register('bio', { required: true }) }}
                             type={"textarea"}
                             label={"Bio"}
                             placeholder={"Bio"}
                             value={watchedFiles?.bio || ''}
-                        />
+                        /> */}
 
                     </div>
                 </AddMadal>

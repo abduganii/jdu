@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import StudentsPage from "../../../components/Pages/Recruitor/StudentsPage";
 import { StudentsGet, StudentsGetSearch } from "../../../services/student";
 
-export default function RecSeelctStudent({ data }) {
+export default function RecSeelctStudent({ data, role, count }) {
     const [datas, setData] = useState([])
     const location = useLocation()
     const query = location?.search.split('?')?.[1]?.split('=')?.[1]
@@ -40,7 +40,7 @@ export default function RecSeelctStudent({ data }) {
 
     return (
         <>
-            <StudentsPage selected={true} data={datas} student={data} />
+            <StudentsPage selected={true} data={datas} student={data} role={role} count={count} />
         </>
     )
 }

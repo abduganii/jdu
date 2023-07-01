@@ -8,12 +8,7 @@ import cls from "./AddMadal.module.scss"
 export default function AddMadal({ role, children, closeMadal, OnSubmit }) {
     const x = useRef()
     return (
-        <div ref={x} className={cls.AddMadal} onClick={(e) => {
-            if (e.target === x.current) {
-                closeMadal()
-            }
-
-        }}>
+        <div ref={x} className={cls.AddMadal}>
             <form className={cls.AddMadal__content} onSubmit={OnSubmit}>
                 <h3 className={cls.AddMadal__top}> {role}</h3>
                 <div className={cls.AddMadal__inputs}>{children}</div>
@@ -25,3 +20,10 @@ export default function AddMadal({ role, children, closeMadal, OnSubmit }) {
         </div >
     )
 }
+
+// onClick={(e) => {
+//     if (e.target === x.current) {
+//         closeMadal()
+//     }
+
+// }}

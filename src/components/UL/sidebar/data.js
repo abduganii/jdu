@@ -92,4 +92,4 @@ export const settingLinks = [
 
 export const recruitorLink = ['Home', 'Students', 'Selected']
 
-export const decanLink = ['Home','Students',"Teachers","Recruitors","Schedule","Courses"]
+export const decanLink = ['Home','Students',"Teachers","Recruitors","Schedule"]

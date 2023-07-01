@@ -1,8 +1,12 @@
 .OneStudent {
-
+    display: flex;
+    align-items: flex-start;
+    margin-top: 100px !important;
+    width: 100%;
+    margin-right: 20px;
 
     &__container {
-        margin-top: 100px !important;
+
         margin-right: 375px !important;
         margin-bottom: 200px !important;
     }
@@ -253,6 +257,11 @@
 
             background: #F5F4F7;
             border-radius: 8px;
+            margin-bottom: 4px;
+
+            &:hover {
+                background: #E0DEE4;
+            }
 
             &__text {
                 font-family: 'Inter';
@@ -287,6 +296,11 @@
             }
         }
 
+    }
+
+    &__btn {
+        width: 100% !important;
+        max-width: 143px !important;
     }
 
 }

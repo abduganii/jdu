@@ -17,6 +17,14 @@ export const GetNews = async () => {
      console.log(error.response.data.message);
     }
 }
+export const SearchNews = async (query) => {
+    try {
+     const res = await api.get(`/news?search=${query}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
 export const GetNewsById = async (id) => {
     try {
      const res = await api.get(`/news/${id}`, {withCredentials: true})
@@ -32,4 +40,13 @@ export const NewsAdd = async (data) => {
         'Content-Type': "multipart/form-data"
     }});
     return response;
+}
+
+export const getNewsCategories = async () => {
+    try {
+        const res = await api.get('/news_categories')
+        return res?.data
+    } catch (error) {
+        console.log(error);
+    }
 }

@@ -16,7 +16,7 @@ import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
 import { LessonsAdd } from '../../../../services/Lesson'
-import { GetSkills, StudentsUpdate } from '../../../../services/student'
+import { FileUploadStudent, GetSkills, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 
@@ -27,8 +27,29 @@ export default function SetStudent({ data, Specialisation }) {
     const [avatar, setAvatar] = useState()
     const [lassonsArr, setLessonArr] = useState([])
     const [skills, setSkills] = useState([])
-    const [newSkill, setNewArr] = useState(data?.itQualification?.skills)
+    const [newSkill, setNewArr] = useState([])
+
+    const [file, setFile] = useState()
+    const [file1, setFile1] = useState()
+    const [japonId, SetJaponId] = useState()
+    const [japonId1, SetJaponId1] = useState()
+    const [listening, SetListing] = useState()
+    const [reading, SetReading] = useState()
+    const [writing, SetWriting] = useState()
+    const [listening1, SetListing1] = useState()
+    const [reading1, SetReading1] = useState()
+    const [writing1, SetWriting1] = useState()
     const [specialisationtext, setSpecialisationtext] = useState("Specialisation")
+
+    const [Attendee, setAttendee] = useState()
+    const [ItCourse, setItCourse] = useState()
+    const [JPlanguage, setJPlanguage] = useState()
+    const [Sanno, setSanno] = useState()
+    const [SWL, setSWL] = useState()
+    const [CoWork, setCoWork] = useState()
+    const [AllMarks, setAllMarks] = useState()
+
+
 
     const { register, handleSubmit, setValue, watch, reset } = useForm({ defaultValues: { status: "Incompleted" } });
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
@@ -51,7 +72,9 @@ export default function SetStudent({ data, Specialisation }) {
     }, [lessonId])
 
     useEffect(() => {
-        setNewArr(data?.itQualification?.skills)
+
+        setNewArr(data?.itQualification?.skills?.map(sp =>
+            ({ skillId: sp?.skill?.id, procent: sp?.procent, skill: { color: sp?.skill?.color, name: sp?.skill?.name } })))
         setValue2("avatar", data?.avatar)
         setValue2("firstName", data?.firstName)
         setValue2("lastName", data?.lastName)
@@ -62,29 +85,39 @@ export default function SetStudent({ data, Specialisation }) {
         setValue2('email', data?.email)
         setSpecialisationtext(data?.specialisation?.name)
         setAvatar(data?.avatar)
+        setFile(data?.japanLanguageTests?.[0]?.sertificate)
+        SetListing(data?.japanLanguageTests?.[0]?.listening)
+        SetReading(data?.japanLanguageTests?.[0]?.reading)
+        SetWriting(data?.japanLanguageTests?.[0]?.writing)
+        SetJaponId(data?.japanLanguageTests?.[0]?.id)
+        setFile1(data?.japanLanguageTests?.[1]?.sertificate)
+        SetListing1(data?.japanLanguageTests?.[1]?.listening)
+        SetReading1(data?.japanLanguageTests?.[1]?.reading)
+        SetWriting1(data?.japanLanguageTests?.[1]?.writing)
+        SetJaponId1(data?.japanLanguageTests?.[1]?.id)
+        setAttendee(data?.universityPercentage?.Attendee)
+        setItCourse(data?.universityPercentage?.ItCourse)
+        setJPlanguage(data?.universityPercentage?.JapanLanguage)
+        setSanno(data?.universityPercentage?.SannoUniversity)
+        setSWL(data?.universityPercentage?.UzSWLUniversity)
+        setCoWork(data?.universityPercentage?.CoWork)
+        setAllMarks(data?.universityPercentage?.AllMarks)
         const fetchData = async () => {
+
             const res = await GetSkills();
-            setSkills(res)
-
-
-
+            setSkills(res.filter(re => !newSkill.find(e => e?.skill?.name == re.name)))
         }
         fetchData()
             .then((err) => {
                 console.log(err);
             })
 
-
-
-
     }, [data])
-
-
     const updateFieldChanged = index => e => {
         setNewArr(
             newSkill.map((item, i) =>
                 i === index
-                    ? { ...item, procent: e }
+                    ? { ...item, procent: Number(e) }
                     : item
             ))
     }
@@ -96,6 +129,31 @@ export default function SetStudent({ data, Specialisation }) {
             description: body.description,
             skills: newSkill
         })
+        const japanLanguageTests = JSON.stringify([
+            {
+                id: japonId,
+                listening: listening,
+                reading: reading,
+                writing: writing,
+                sertificate: file
+            },
+            {
+                id: japonId1,
+                listening: listening1,
+                reading: reading1,
+                writing: writing1,
+                sertificate: file1
+            }
+        ])
+        const universityPercentage = JSON.stringify({
+            Attendee: Attendee,
+            CoWork: CoWork,
+            ItCourse: ItCourse,
+            JapanLanguage: JPlanguage,
+            SannoUniversity: Sanno,
+            UzSWLUniversity: SWL
+        })
+
 
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body.firstName)
@@ -106,13 +164,16 @@ export default function SetStudent({ data, Specialisation }) {
         if (body.specialisationId) formData.append("specialisationId", body.specialisationId)
         if (body.email) formData.append("email", body.email)
         formData.append("itQualification", content)
+        formData.append("japanLanguageTests", japanLanguageTests)
+        formData.append("universityPercentage", universityPercentage)
+
         await StudentsUpdate(formData, data?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
                 } else if (res.status == 203) {
-                    toast('recrutiar updated')
-                    // router('/decan/students')
+                    toast('student updated')
+                    router('/decan/students')
 
                 }
             })
@@ -148,6 +209,32 @@ export default function SetStudent({ data, Specialisation }) {
         }
     }
 
+    const hendleFile = async (e) => {
+        if (e.target.files[0]) {
+            const formData = new FormData()
+            formData.append("file", e.target.files[0])
+            await FileUploadStudent(formData)
+                .then(data => setFile(data?.url))
+                .catch(err => console.log(err))
+
+        }
+    }
+    const hendleFile1 = async (e) => {
+        if (e.target.files[0]) {
+            const formData = new FormData()
+            formData.append("file", e.target.files[0])
+            await FileUploadStudent(formData)
+                .then(data => setFile1(data?.url))
+                .catch(err => console.log(err))
+
+        }
+    }
+
+    const caltAlMark = () => {
+        setAllMarks((Number(Attendee) + Number(CoWork) + Number(ItCourse) + Number(JPlanguage) + Number(Sanno) + Number(SWL)) / 6)
+
+    }
+
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
             <form onSubmit={handleSubmit2(AddDataSubmit)} >
@@ -158,7 +245,7 @@ export default function SetStudent({ data, Specialisation }) {
                             <p className={cls.SetStudent__top__role}>Student</p>
                         </div>
 
-                        <h3 className={cls.SetStudent__top__fName}>Saidakhmetov Bekmurod</h3>
+                        <h3 className={cls.SetStudent__top__fName}>{data?.firstName} {data?.lastName}</h3>
                     </div>
                     <div className={cls.SetStudent__top__btns}>
                         <CancelBtn onClick={() => router(-1)}>
@@ -250,34 +337,60 @@ export default function SetStudent({ data, Specialisation }) {
                     </div>
                 </div>
                 <h3 className={cls.SetStudent__lesson}>Japan Language tests</h3>
-                <p className={cls.SetStudent__lesson__number}>JLPT №4</p>
+
+                <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[0]?.name}</p>
                 <div className={cls.SetStudent__lesson__wrap}>
-                    <RangeInput lessonType={"Listening"} />
-                    <RangeInput lessonType={"Reading"} />
-                    <RangeInput lessonType={"Writing"} />
+                    <RangeInput
+                        lessonType={"Listening"}
+                        defaultRange={listening}
+                        onChange={(pr) => SetListing(pr)}
+                    />
+                    <RangeInput
+                        lessonType={"Reading"}
+                        defaultRange={reading}
+                        onChange={(pr) => SetReading(pr)}
+                    />
+                    <RangeInput
+                        lessonType={"Writing"}
+                        defaultRange={writing}
+                        onChange={(pr) => SetWriting(pr)}
+                    />
                     <div className={cls.SetStudent__Sertifacet}>
                         <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={cls.SetStudent__Sertifacet__Download__text}>File not uploaded</p>
+                            <p className={cls.SetStudent__Sertifacet__Download__text}>{file ? " File uploaded" : "File not uploaded"}</p>
                             <DownloadIcons />
-                            <input type="file" />
+                            <input type="file" onChange={(e) => hendleFile(e)} />
                         </label>
                     </div>
                 </div>
-                <p className={cls.SetStudent__lesson__number} style={{ marginTop: "33px" }}>NAT Q2 №4</p>
+                <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[1]?.name}</p>
                 <div className={cls.SetStudent__lesson__wrap}>
-                    <RangeInput lessonType={"Listening"} />
-                    <RangeInput lessonType={"Reading"} />
-                    <RangeInput lessonType={"Writing"} />
+                    <RangeInput
+                        lessonType={"Listening"}
+                        defaultRange={listening1}
+                        onChange={(pr) => SetListing1(pr)}
+                    />
+                    <RangeInput
+                        lessonType={"Reading"}
+                        defaultRange={reading1}
+                        onChange={(pr) => SetReading1(pr)}
+                    />
+                    <RangeInput
+                        lessonType={"Writing"}
+                        defaultRange={writing1}
+                        onChange={(pr) => SetWriting1(pr)}
+                    />
                     <div className={cls.SetStudent__Sertifacet}>
                         <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={cls.SetStudent__Sertifacet__Download__text}>File not uploaded</p>
+                            <p className={cls.SetStudent__Sertifacet__Download__text}>{file1 ? " File uploaded" : "File not uploaded"}</p>
                             <DownloadIcons />
-                            <input type="file" />
+                            <input type="file" onChange={(e) => hendleFile1(e)} />
                         </label>
                     </div>
                 </div>
+
 
                 <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT qualification</h3>
 
@@ -290,7 +403,7 @@ export default function SetStudent({ data, Specialisation }) {
                         onChange={(e) => {
                             skills.map(s => {
                                 if (s?.id == e) {
-                                    setNewArr(state => [...state, { skillId: e, skill: { name: s.name, color: s?.color }, procent: 0 }])
+                                    setNewArr(state => [...state, { skillId: e, procent: 0, skill: { color: s?.color, name: s?.name } }])
                                 }
                             })
                             setSkills(skills.filter(item => item.id !== e));
@@ -315,19 +428,74 @@ export default function SetStudent({ data, Specialisation }) {
                     label={"Description"}
                     placeholder={"Write here description"}
                     style={{ marginTop: "25px" }}
+                    register={{ ...register2('description') }}
+                    value={watchedFiles2?.description || ''}
+                />
 
-                    register={{ ...register2('description') }} />
-                value={watchedFiles2?.description || ''}
                 <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> University Percentage</h3>
                 <p className={cls.SetStudent__progress}>Subjects Progress</p>
                 <div className={cls.SetStudent__skill}>
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Attendee"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"IT course"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Japan language"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Sanno University"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"UzSWLUniversity"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"Co-Work"} />
-                    <RangeInput style={{ marginBottom: "29px" }} lessonType={"All marks"} />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"Attendee"}
+                        defaultRange={Attendee}
+                        onChange={(pr) => {
+                            setAttendee(pr)
+                            caltAlMark()
+                        }}
+                    />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"IT course"}
+                        defaultRange={ItCourse}
+                        onChange={(pr) => {
+                            setItCourse(pr)
+                            caltAlMark()
+                        }}
+                    />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"Japan language"}
+                        defaultRange={JPlanguage}
+                        onChange={(pr) => {
+                            setJPlanguage(pr)
+                            caltAlMark()
+                        }}
+                    />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"Sanno University"}
+                        defaultRange={Sanno}
+                        onChange={(pr) => {
+                            setSanno(pr)
+                            caltAlMark()
+                        }}
+                    />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"UzSWLUniversity"}
+                        defaultRange={SWL}
+                        onChange={(pr) => {
+                            setSWL(pr)
+                            caltAlMark()
+                        }}
+                    />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"Co-Work"}
+                        defaultRange={CoWork}
+                        onChange={(pr) => {
+                            setCoWork(pr)
+                            caltAlMark()
+                        }}
+                    />
+                    <RangeInput
+                        style={{ marginBottom: "29px" }}
+                        lessonType={"All marks"}
+                        defaultRange={AllMarks}
+                        disabled={true}
+                        onChange={(pr) => setAllMarks(AllMarks)}
+                    />
                 </div>
             </form>
             <LessonTable lassons={data?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
@@ -380,3 +548,5 @@ export default function SetStudent({ data, Specialisation }) {
         </Container >
     )
 }
+
+

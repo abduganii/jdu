@@ -5,7 +5,7 @@ import TopStudents from '../../../UL/topStudents'
 
 import cls from "./StudentsPage.module.scss"
 
-export default function StudentsPage({ data, selected, student }) {
+export default function StudentsPage({ data, selected, student, count }) {
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -49,7 +49,7 @@ export default function StudentsPage({ data, selected, student }) {
                     })}
                 </ul>
             </Container>
-            <TopStudents students={student} />
+            <TopStudents students={student} count={count} />
         </>
     )
 }

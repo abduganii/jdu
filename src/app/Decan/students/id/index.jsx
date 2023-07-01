@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import OneStudent from "../../../../components/Pages/Student/OneStuden";
 import { StudentsGetById } from "../../../../services/student";
 
-export default function StudentById() {
+export default function StudentById({ role }) {
     const [data, setData] = useState([])
     const param = useParams()
 
@@ -20,7 +20,7 @@ export default function StudentById() {
     }, []);
     return (
         <>
-            <OneStudent user={data} />
+            <OneStudent user={data} role={role} />
         </>
     )
 }

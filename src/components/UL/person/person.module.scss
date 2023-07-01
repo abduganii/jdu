@@ -85,9 +85,12 @@
 
     &__email {
         margin-top: 10px;
-        width: 155px;
+
         height: 19px;
         flex-shrink: 0;
         color: #0094FF;
+        display: flex;
+        align-items: center;
+        gap: 11px;
     }
 }

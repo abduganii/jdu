@@ -140,8 +140,9 @@ const RichText = ({
     onChange = () => { },
 }) => {
     useEffect(() => {
+        // if (import.meta.env.PROD) {
         import('./removeLisence.scss')
-
+        // }
     }, [])
     locale = name?.split('.')?.[0]
     return (

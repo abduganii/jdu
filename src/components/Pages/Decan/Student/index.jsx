@@ -49,7 +49,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
                     } else if (res.status == 201) {
-                        toast('recrutiar created')
+                        toast('Student created')
                         setOpenMadal(false)
                         onChange()
                         reset()
@@ -62,14 +62,12 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
     }
 
-
     const hendleimg = (e) => {
         if (e.target.files[0]) {
             setValue('avatar', e.target.files[0])
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
 
     return (
         <div className={cls.StudentPage}>
@@ -182,6 +180,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                             type={"text"}
                             label={"Password"}
                             placeholder={"Password"}
+                            geterat={true}
+                            passwordGenerate={(e) => setValue("password", e)}
                         />
                     </div>
                 </AddMadal>}

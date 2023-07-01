@@ -8,4 +8,10 @@
     font-size: 14px;
     line-height: 20px;
     color: #252430;
+    padding: 10px;
+    border-radius: 10px;
+
+    &:hover {
+        background: #EFEFF4;
+    }
 }

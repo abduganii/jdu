@@ -4,7 +4,7 @@ import OnePerson from "../../../../components/Pages/OnePerson";
 import { RecruitorGetById } from "../../../../services/recruter";
 
 
-export default function DecanRecruitorBuId({ role }) {
+export default function DecanRecruitorBuId() {
 
     const [data, setData] = useState([])
     const param = useParams()
@@ -30,7 +30,6 @@ export default function DecanRecruitorBuId({ role }) {
                 work={data?.specialisation}
                 bio={data?.bio}
                 email={data?.email}
-
             />
         </>
     )

@@ -10,47 +10,13 @@ import React, { useEffect, useState } from 'react'
 
 import cls from "./OneStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
+import BlueButtun from '../../../UL/buttun/blueBtn'
 
-const data = {
-    id: 0,
-    name: "Annette Black",
-    skills: ['html', 'scss', 'java', 'node'],
-    avater: '/Image/Ellipse08.png',
-    progress: '98',
-    rate: 4.7,
-    isSelcted: true,
-    year: "2 year",
-    text: "Dynamic, innovative with 2+ years of highly valuable hands-on experience in handling multiple simultaneous creative design projects, concept creation, graphic design, animations and visual conceptualization. Ability to leverage skills gained in the creative industry, identify opportunities, overcome objections, build long-term mutually beneficial relationships with vendors, labor, and clients, and increase brand awareness by establishing a successful and profitable firm."
-}
 
-const lesson = [
-    {
-        id: 1,
-        text: "IT web",
-    },
-    {
-        id: 12,
-        text: "Jabon",
-    },
-    {
-        id: 13,
-        text: "English",
-    },
-    {
-        id: 22,
-        text: "Web",
-    },
-    {
-        id: 3,
-        text: "English",
-    },
-    {
-        id: 2,
-        text: "Web",
-    }
-]
 
-export default function OneStudent({ user }) {
+
+
+export default function OneStudent({ user, role }) {
     const router = useNavigate()
 
     const [lessonId, setLessonId] = useState()
@@ -69,150 +35,169 @@ export default function OneStudent({ user }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
+    console.log(user)
 
     return (
-        <Container className={cls.OneStudent__container} >
-            <BackBtn onClick={(e) => router(-1)} style={{ marginBottom: "40px" }} />
-            <Person
-                id={user?.loginId}
-                name={`${user?.firstName} ${user?.lastName}`}
-                avatar={user?.avatar}
-                year={user?.courseNumber + " yaer"}
-                email={user?.email}
-            />
+        <div className={cls.OneStudent}>
 
-            <div className={cls.OneStudent__content}>
-                {
-                    user?.bio && <>
-                        <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
-                        <p className={cls.OneStudent__text}>{user?.bio}</p>
-                    </>
-                }
-                {
-                    <>
-                        <p className={cls.OneStudent__title}>Gallery</p>
-                        <div className={cls.OneStudent__imgs}>
-                            <img
-                                src={'/Image/Rectangle502.png'}
-                                width={223}
-                                height={160}
-                                alt='img'
-                            />
-                            <img
-                                src={'/Image/Rectangle502.png'}
-                                width={223}
-                                height={160}
-                                alt='img'
-                            />
-                            <img
-                                src={'/Image/Rectangle502.png'}
-                                width={223}
-                                height={160}
-                                alt='img'
-                            />
-                        </div>
-                    </>}
-                <h3 className={cls.OneStudent__title1}>Japan Language tests</h3>
-                {
-                    user?.japanLanguageTests && user?.japanLanguageTests.map(e => (
-                        < RateTest
-                            title={e?.name}
-                            Listening={e?.listening}
-                            writing={e?.reading}
-                            Reading={e?.writing}
-                        />
-                    ))
+            <Container className={cls.OneStudent__container} >
+                <BackBtn onClick={(e) => router(-1)} role={true} style={{ marginBottom: "40px" }} />
+                <Person
+                    id={user?.loginId}
+                    name={`${user?.firstName} ${user?.lastName}`}
+                    avatar={user?.avatar}
+                    year={user?.courseNumber + " yaer"}
+                    email={user?.email}
+                />
 
-                }
-                <p className={cls.OneStudent__title}>IT qualification</p>
-                <p className={cls.OneStudent__text2}>Soft Skills Percentage </p>
-                {
-                    data.skills.map(e => (
-                        <>
-                            <p className={cls.OneStudent__skills}>{e}</p>
-                            <progress className={cls.OneStudent__skills__progress} value={data.progress} max="100"></progress>
-                            <p className={cls.OneStudent__skills__text}>{data.progress}%</p>
+                <div className={cls.OneStudent__content}>
+                    {
+                        user?.bio && <>
+                            <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
+                            <p className={cls.OneStudent__text}>{user?.bio}</p>
                         </>
-                    ))
-                }
-                <p className={cls.OneStudent__text3}>Dynamic, innovative with 2+ years of highly valuable hands-on experience in handling multiple simultaneous creative design projects, concept creation, graphic design, animations and visual conceptualization. Ability to leverage skills gained in the creative industry, identify opportunities, overcome objections, build long-term mutually beneficial relationships with vendors, labor, and clients, and increase brand awareness by establishing a successful and profitable firm.</p>
+                    }
+                    {
+                        <>
+                            <p className={cls.OneStudent__title}>Gallery</p>
+                            <div className={cls.OneStudent__imgs}>
+                                <img
+                                    src={'/Image/Rectangle502.png'}
+                                    width={223}
+                                    height={160}
+                                    alt='img'
+                                />
+                                <img
+                                    src={'/Image/Rectangle502.png'}
+                                    width={223}
+                                    height={160}
+                                    alt='img'
+                                />
+                                <img
+                                    src={'/Image/Rectangle502.png'}
+                                    width={223}
+                                    height={160}
+                                    alt='img'
+                                />
+                            </div>
+                        </>}
+                    <h3 className={cls.OneStudent__title1}>Japan Language tests</h3>
+                    {
+                        user?.japanLanguageTests && user?.japanLanguageTests.map(e => {
+                            if (e?.sertificate) {
+                                return (
+                                    < RateTest
+                                        title={e?.name}
+                                        Listening={e?.listening}
+                                        writing={e?.reading}
+                                        Reading={e?.writing}
+                                        file={e?.sertificate}
+                                    />
+                                )
+                            }
+                        })
+
+                    }
+                    <p className={cls.OneStudent__title}>IT qualification</p>
+                    <p className={cls.OneStudent__text2}>Soft Skills Percentage </p>
+                    {
+                        user?.itQualification?.skills?.map(e => (
+                            <>
+                                <p className={cls.OneStudent__skills}>{e?.skill?.name}</p>
+                                <progress className={cls.OneStudent__skills__progress} value={e?.procent} max="100"></progress>
+                                <p className={cls.OneStudent__skills__text}>{e?.procent}%</p>
+                            </>
+                        ))
+                    }
+                    <p className={cls.OneStudent__text3}>Dynamic, innovative with 2+ years of highly valuable hands-on experience in handling multiple simultaneous creative design projects, concept creation, graphic design, animations and visual conceptualization. Ability to leverage skills gained in the creative industry, identify opportunities, overcome objections, build long-term mutually beneficial relationships with vendors, labor, and clients, and increase brand awareness by establishing a successful and profitable firm.</p>
 
 
-                <h3 className={cls.OneStudent__Percentage}>University Percentage</h3>
-                <p className={cls.OneStudent__Percentage__text}>Subjects Progress</p>
-                <div className={cls.OneStudent__Percentage__wrap}>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.Attendee}%</p>
+                    <h3 className={cls.OneStudent__Percentage}>University Percentage</h3>
+                    <p className={cls.OneStudent__Percentage__text}>Subjects Progress</p>
+                    <div className={cls.OneStudent__Percentage__wrap}>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.Attendee}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.Attendee} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.Attendee} max="100"></progress>
-                    </div>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>It course</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.ItCourse}%</p>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>It course</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.ItCourse}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.ItCourse} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.ItCourse} max="100"></progress>
-                    </div>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Japan language</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.JapanLanguage}%</p>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>Japan language</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.JapanLanguage}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.JapanLanguage} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.JapanLanguage} max="100"></progress>
-                    </div>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Sanno university</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.SannoUniversity}%</p>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>Sanno university</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.SannoUniversity}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.SannoUniversity} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.SannoUniversity} max="100"></progress>
-                    </div>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Uz. SWL university</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.UzSWLUniversity}%</p>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>Uz. SWL university</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.UzSWLUniversity}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.UzSWLUniversity} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.UzSWLUniversity} max="100"></progress>
-                    </div>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>Co work</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.CoWork}%</p>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>Co work</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.CoWork}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.CoWork} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.CoWork} max="100"></progress>
-                    </div>
-                    <div className={cls.OneStudent__Percentage__div}>
-                        <div className={cls.OneStudent__Percentage__top}>
-                            <h3 className={cls.OneStudent__Percentage__title}>All marks</h3>
-                            <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.AllMarks}%</p>
+                        <div className={cls.OneStudent__Percentage__div}>
+                            <div className={cls.OneStudent__Percentage__top}>
+                                <h3 className={cls.OneStudent__Percentage__title}>All marks</h3>
+                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.AllMarks}%</p>
+                            </div>
+                            <progress value={user?.universityPercentage?.AllMarks} max="100"></progress>
                         </div>
-                        <progress value={user?.universityPercentage?.AllMarks} max="100"></progress>
-                    </div>
 
+                    </div>
+                    <LessonTable lassons={user?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
+                        <div className={cls.OneStudent__list}>
+                            <div className={cls.OneStudent__list__top}>
+                                <p className={cls.OneStudent__list__top__text}>科目</p>
+                                <p className={cls.OneStudent__list__top__text}>状態</p>
+                                <p className={cls.OneStudent__list__top__text}>科目</p>
+                                <p className={cls.OneStudent__list__top__text}>クレジット</p>
+                            </div>
+                            {
+                                lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
+                                    <div className={cls.OneStudent__list__bottom} key={el?.id}>
+                                        <p className={cls.OneStudent__list__bottom__text}>{el?.lessonName}</p>
+                                        <p className={cls.OneStudent__list__bottom__text}>{el?.status}</p>
+                                        <p className={cls.OneStudent__list__bottom__text}>{el?.university}</p>
+                                        <p className={cls.OneStudent__list__bottom__text}>{el?.credit}</p>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </LessonTable>
                 </div>
-                <LessonTable lassons={user?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
-                    <div className={cls.OneStudent__list}>
-                        <div className={cls.OneStudent__list__top}>
-                            <p className={cls.OneStudent__list__top__text}>科目</p>
-                            <p className={cls.OneStudent__list__top__text}>状態</p>
-                            <p className={cls.OneStudent__list__top__text}>科目</p>
-                            <p className={cls.OneStudent__list__top__text}>クレジット</p>
-                        </div>
-                        {
-                            lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
-                                <div className={cls.OneStudent__list__bottom} key={el?.id}>
-                                    <p className={cls.OneStudent__list__bottom__text}>{el?.lessonName}</p>
-                                    <p className={cls.OneStudent__list__bottom__text}>{el?.status}</p>
-                                    <p className={cls.OneStudent__list__bottom__text}>{el?.university}</p>
-                                    <p className={cls.OneStudent__list__bottom__text}>{el?.credit}</p>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </LessonTable>
-            </div>
-        </Container >
+            </Container >
+            {
+                role && role === "decan" ?
+                    <BlueButtun
+                        className={cls.OneStudent__btn}
+                        onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
+                        style={{ padding: "14px 30px" }}
+                    >
+                        Edit profile
+                    </BlueButtun> : ""
+            }
+        </div >
     )
 }

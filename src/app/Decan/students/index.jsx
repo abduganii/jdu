@@ -16,7 +16,9 @@ export default function DecanStudent() {
       const res = await StudentsGetSearch(query);
       setData(res?.rows)
     }
-    if (query) {
+    if (query == undefined) {
+      console.log("error")
+    } else {
       fetchData()
         .then((err) => {
           console.log(err);

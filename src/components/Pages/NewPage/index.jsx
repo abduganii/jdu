@@ -1,4 +1,3 @@
-'use client'
 import RightAsideWrapper from '../../UL/Aside/RightAsideWrapper'
 import BlueButtun from '../../UL/buttun/blueBtn'
 import { PlusIcon } from '../../UL/icons'
@@ -11,13 +10,19 @@ import { useState, useEffect } from 'react'
 import { Category, News } from './data'
 import cls from "./NewPage.module.scss"
 import { useLocation, useNavigate } from 'react-router-dom'
+import { getNewsCategories } from '../../../services/news'
 
 export default function NewPage({ data, user }) {
-
+    const [categories, setCategories] = useState([])
     const router = useNavigate()
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
     const [endex, setInedex] = useState(query)
+
+    useEffect(() => {
+        getNewsCategories()
+            .then(categories => setCategories(categories))
+    }, [])
 
     return (
         <>
@@ -31,14 +36,14 @@ export default function NewPage({ data, user }) {
                         }}
                     >All News</p>
                     {
-                        Category?.map((e, i) => (
+                        categories?.map((e, i) => (
                             <p
                                 onClick={() => {
                                     router(`/news?categoryNew=${e?.id}`)
                                     setInedex(i + 1)
                                 }}
                                 className={`${cls.NewPage__top__text} ${e.id == query ? cls.NewPage__top__textActive : ""} `}
-                            >{e.text}
+                            >{e.name}
                             </p>
                         ))}
 
@@ -55,11 +60,10 @@ export default function NewPage({ data, user }) {
                             onClick={() => router(`/news/${e?.id}`)} />
                     ))
                 }
-
             </Container>
             <div className={cls.NewPage__left}>
                 {user?.role == "decan" ? <div className={cls.NewPage__left__btn}>
-                    <BlueButtun onClick={() => router(`/newsAdd`)} >
+                    <BlueButtun onClick={() => router(`/newsAdd`)} style={{ marginLeft: "auto", marginRight: "20px" }}>
                         <PlusIcon />Add News
                     </BlueButtun>
                 </div> : <></>}

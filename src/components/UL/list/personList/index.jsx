@@ -7,19 +7,22 @@ import ListModal from '../../madals/listMadal'
 import React from 'react'
 import { useRef, useState } from 'react'
 import Avatar from 'react-avatar';
-import cls from "./personlist.module.scss"
+import cls from "./personlist.module.scss";
+
 
 export default function PersonList({ id, img, name, gruop, student, rate, phone, skill = [], email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
+    const [clickTrue, setClick] = useState(false)
     const x = useRef()
     const y = useRef()
     const o = useRef()
+    const u = useRef()
     const [number, setNumber] = useState(0)
 
     return (
         <div style={{ position: 'relative' }}>
             <div className={cls.PersonList} onClick={(e) => {
-                if (e.target != y.current && e.target != o.current) {
+                if (e.target != y.current && e.target != o.current && e.target != u.current) {
                     onClick(e)
                 }
             }} >
@@ -43,12 +46,35 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                 </div>
                 }
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}
-                {skill.length !== 0 ? <div className={cls.PersonList__skill}>
-                    {skill.slice(number, number + 3).map(e => (
+                {skill.length !== 0 ? <div className={cls.PersonList__skill} style={clickTrue ? { overflowX: "auto" } : { overflow: "hidden" }}>
+                    {skill?.slice(0, (number + 3))?.map(e => (
+                        <SkillBtn
 
-                        <SkillBtn name={e?.skill?.name} color={e?.skill?.color} backround={e?.skill?.color} />
+                            name={e?.skill?.name}
+                            color={e?.skill?.color}
+                            backround={e?.skill?.color} />
                     ))}
-                    {(skill?.length - (number + 3)) > 0 ? <PlusBtn ref={o} onClick={() => setNumber(number + 3)} lenght={skill.length - (number + 3)} /> : ""}
+                    {
+                        (skill?.length - (number + 3)) > 0 ?
+                            <PlusBtn
+                                label={"+"}
+                                ref={o}
+                                onClick={() => {
+                                    setNumber(number + skill?.length)
+                                    setClick(true)
+                                }}
+                                lenght={skill.length - (number + 3)}
+                            />
+                            : clickTrue ? <PlusBtn
+                                label={"<"}
+                                ref={u}
+                                onClick={() => {
+                                    setNumber(number - skill?.length)
+                                    setClick(false)
+                                }}
+                            /> : ""
+                    }
+
                 </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
                 {email && <p className={cls.PersonList__email}>{email}</p>}
                 <DoteBtn ref={y} style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />

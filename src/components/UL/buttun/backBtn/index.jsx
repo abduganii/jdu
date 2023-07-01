@@ -1,10 +1,16 @@
-import { LeftIcon } from '../../icons'
+import { DownLoadIcon, LeftIcon } from '../../icons'
 import cls from "./BackBtn.module.scss"
 
-export default function BackBtn({ onClick, ...other }) {
+export default function BackBtn({ onClick, role, ...other }) {
     return (
-        <div className={cls.BackBtn} onClick={onClick} {...other}>
-            <LeftIcon />Back
+        <div className={cls.BackBtn} {...other}>
+            <div onClick={onClick}> <LeftIcon />Back</div>
+
+            {role && <label >
+                <input type="file" />
+                Download resume
+                <DownLoadIcon />
+            </label>}
         </div>
     )
 }

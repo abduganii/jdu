@@ -65,3 +65,15 @@ export const Studentsdelete = async (id) => {
         console.log(error.response.data.message);
        }
 }
+export const FileUploadStudent = async (data) => {
+    try {
+        const response = await api.post(`/upload`,data, {
+            headers: {
+            'Content-Type': "multipart/form-data"
+        }});
+        return response?.data;
+       } catch (error) {
+        console.log(error.response.data.message);
+       }
+}
+

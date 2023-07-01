@@ -7,6 +7,7 @@
     width: 100%;
     margin-top: 41px;
 
+
     &__item {
         font-family: 'Inter';
         font-style: normal;
@@ -40,13 +41,13 @@
         }
 
         &:nth-child(5) {
-            max-width: 185px;
-            margin-left: 90px;
+            max-width: 230px;
+            margin-left: 70px;
         }
 
         &:nth-child(6) {
             max-width: 50px;
-            margin-left: 16px;
+            margin-left: 36px;
             margin-right: 22px;
         }
     }
