@@ -8,7 +8,7 @@ import RangeInput from '../../../UL/input/rangeInput'
 import SearchSkill from '../../../UL/input/SearchSkill'
 import AddInput from '../../../UL/input/AddInput'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import cls from "./SetStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
 import LessonTable from '../../../UL/LassonTable'
@@ -21,6 +21,8 @@ import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 
 export default function SetStudent({ data, Specialisation }) {
+    const x = useRef()
+    const y = useRef()
     const router = useNavigate()
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
@@ -237,10 +239,29 @@ export default function SetStudent({ data, Specialisation }) {
 
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
+            <div className={cls.SetStudent__logout2__wrap} ref={x} onClick={(e) => {
+                if (e.target == x.current) {
+                    x.current.classList.remove("displayBlock")
+                }
+
+            }}>
+                <div className={cls.SetStudent__logout2} ref={y}>
+                    <p className={cls.SetStudent__logout2__text}>
+                        Do you want to leave without save changes?
+                    </p>
+                    <div>
+                        <CancelBtn onClick={() => router(-1)}>
+                            Yes
+                        </CancelBtn>
+                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >No</BlueButtun>
+                    </div>
+                </div>
+            </div>
             <form onSubmit={handleSubmit2(AddDataSubmit)} >
+
                 <div className={cls.SetStudent__top}>
                     <div className={cls.SetStudent__top__Info}>
-                        <div onClick={() => router(-1)}>
+                        <div onClick={() => x.current.classList.add("displayBlock")}>
                             <LeftIcon />
                             <p className={cls.SetStudent__top__role}>Student</p>
                         </div>

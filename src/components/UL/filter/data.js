@@ -15,3 +15,4 @@ export const filterRate = [
         link:'High',
     }
 ]
+

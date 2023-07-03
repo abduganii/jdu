@@ -23,7 +23,7 @@ export default function Filter() {
                 y.current.classList.add("displayBlock")
                 w.current.classList.toggle('displayBlock')
             }}>
-                <p className={cls.Filter__Select__p}>Skills</p>
+                <p className={cls.Filter__Select__p}>Group</p>
                 <img
                     src={'/Image/Icons.svg'}
                     width={16}
