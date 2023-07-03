@@ -5,7 +5,6 @@ import TopStudents from '../../../UL/topStudents'
 import cls from "./homePage.module.scss"
 
 export default function HomePage({ data, role, count }) {
-
     return (
         <>
             <div className={cls.HomePage} >

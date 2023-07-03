@@ -29,7 +29,7 @@ export default function TopStudentList({ name, avatar, progress, onClick }) {
                 </div>
                 <div className={cls.TopStudentList__btm}>
                     <progress className={cls.TopStudentList__btm__progress} value={progress} max="100">70 %</progress>
-                    <p className={cls.TopStudentList__btm__text}>{progress}%</p>
+                    <p className={cls.TopStudentList__btm__text}>{Number(Math.round(progress))}%</p>
                 </div>
             </div>
         </div>

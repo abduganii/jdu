@@ -170,6 +170,29 @@
             width: 100%;
             max-width: calc((100% - 36px) / 2);
             margin-bottom: 23px;
+
+            progress::-webkit-progress-value {
+                background-color: #121212;
+
+                border-radius: 0px;
+
+                box-shadow: 0px -1px 0px #121212;
+                border: 1px solid #121212;
+
+            }
+
+
+            &:last-child {
+                progress::-webkit-progress-value {
+                    background-color: #5627DC;
+
+                    border-radius: 0px;
+
+                    box-shadow: 0px -1px 0px #5627DC;
+                    border: 1px solid #5627DC;
+
+                }
+            }
         }
 
         &__top {

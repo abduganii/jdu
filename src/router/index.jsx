@@ -23,6 +23,7 @@ import StudentById from '../app/Decan/students/id'
 import { TopStudentsGet } from '../services/student'
 import { GetMe } from '../services/me'
 import Logout from '../app/auth/logout'
+import LoginNewPage from '../components/Pages/NewPassword'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -37,7 +38,7 @@ export default function AppRouter() {
                 .then(res => setUser(res?.data))
                 .catch(err => navigate('auth/login'))
         }
-        if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout') {
+        if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout' && router?.pathname != '/auth/newPassword') {
             fetchData()
                 .then((err) => {
                     console.log(err);
@@ -86,6 +87,7 @@ export default function AppRouter() {
             </Route>
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/logout" element={<Logout />} />
+            <Route path="/auth/newPassword" element={<LoginNewPage />} />
 
         </Routes>
     )

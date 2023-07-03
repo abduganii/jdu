@@ -42,7 +42,7 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                 <p className={cls.PersonList__Gruop}>{gruop}</p>
                 {rate && <div className={cls.PersonList__progres}>
                     <progress className={cls.PersonList__progres__progress} value={rate} max="100">70 %</progress>
-                    <p className={cls.PersonList__progres__text}>{rate}%</p>
+                    <p className={cls.PersonList__progres__text}>{Number(Math.round(rate))}%</p>
                 </div>
                 }
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}

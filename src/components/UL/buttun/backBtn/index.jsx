@@ -7,7 +7,6 @@ export default function BackBtn({ onClick, role, ...other }) {
             <div onClick={onClick}> <LeftIcon />Back</div>
 
             {role && <label >
-                <input type="file" />
                 Download resume
                 <DownLoadIcon />
             </label>}

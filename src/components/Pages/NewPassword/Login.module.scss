@@ -18,18 +18,16 @@
             align-items: center;
             gap: 13px;
             margin-bottom: 16px;
-            width: 100%;
-            max-width: 319px;
         }
 
         &__title {
-            font-family: 'Inter';
             color: #121212;
             font-size: 32px;
+            font-family: Inter;
+            font-style: normal;
             font-weight: 600;
-            line-height: 40px;
-
-            color: #121212;
+            line-height: normal;
+            margin-bottom: 48px;
         }
 
         &__text {
@@ -64,9 +62,10 @@
 }
 
 .Form {
-    margin-top: 38px;
+
     width: 100%;
     max-width: 246px;
+    margin-bottom: 30px;
 
     &__idtext {
         font-family: 'Inter';
@@ -115,6 +114,5 @@
         text-decoration-line: underline;
         cursor: pointer;
         color: #000000;
-        margin-bottom: 10px;
     }
 }

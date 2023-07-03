@@ -160,7 +160,7 @@ export default function OneStudent({ user, role }) {
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
                                 <h3 className={cls.OneStudent__Percentage__title}>All marks</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.AllMarks}%</p>
+                                <p className={cls.OneStudent__Percentage__progress}>{Number(Math.round(user?.universityPercentage?.AllMarks))}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.AllMarks} max="100"></progress>
                         </div>

@@ -15,6 +15,7 @@ export default function TopStudents({ students = [], role, count }) {
                 <TopStudentList
                     key={e.id}
                     avatar={e.avatar}
+
                     name={`${e?.firstName} ${e?.lastName}`}
                     progress={e?.universityPercentage?.AllMarks}
                     onClick={() => router(`/${role}/students/${e.id}`)}
