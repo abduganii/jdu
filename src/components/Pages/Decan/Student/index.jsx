@@ -17,12 +17,14 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'
 import { StudentsAdd, Studentsdelete } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
+import Loader from '../../../UL/loader'
 
 
 export default function StudentPage({ data, Specialisation, onChange }) {
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
     const [specialisation, setSpecialisation] = useState()
 
@@ -31,6 +33,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
     const { register, handleSubmit, reset, setValue, watch } = useForm();
     const watchedFiles = watch()
     const AddStudentFunc = async (data) => {
+        setLoading(true)
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
         formData.append("firstName", data?.firstName)
@@ -48,14 +51,21 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
-                    } else if (res.status == 201) {
+                        setLoading(false)
+
+                    }
+                    if (res.status == 201) {
                         toast('Student created')
                         setOpenMadal(false)
                         onChange()
                         reset()
+                        setLoading(false)
                     }
                 })
-                .catch(err => toast(err.response.data.message))
+                .catch(err => {
+                    toast(err.response.data.message)
+                    setLoading(false)
+                })
         } else {
             toast('specialisation shuold not be empty')
         }
@@ -106,13 +116,23 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     progress={oneStuednt?.universityPercentage?.AllMarks}
                     years={`${oneStuednt?.courseNumber} years`}
                     remove={async () => {
+                        setLoading(true)
+
                         await Studentsdelete(oneStuednt?.id)
                             .then(data => {
-                                toast("Student deleted")
+                                if (data) {
+                                    toast("Student deleted")
+                                }
                                 setPersonId(false)
                                 onChange()
+                                setLoading(false)
+
                             })
-                            .catch(err => toast(err))
+                            .catch(err => {
+                                toast(err)
+                                setLoading(false)
+
+                            })
                     }}
                     className={personId ? cls.openMadal : ''}
                     close={() => setPersonId(false)}
@@ -186,6 +206,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     </div>
                 </AddMadal>}
             <Toaster />
+
+            {loading && <Loader />}
         </div>
     )
 }

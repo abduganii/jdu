@@ -1,5 +1,6 @@
 import React from 'react'
 import Avatar from 'react-avatar'
+import { Link } from 'react-router-dom'
 import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
@@ -25,7 +26,7 @@ export default function Person({ avatar, name, id, year, email, Professor, rate 
                     </div>
                     {rate && <div className={cls.Person__rate}><SelectIcon fill={"black"} border={"black"} /> <p>{rate}</p></div>}
                 </div>
-                <div className={cls.Person__email}><EmailNewIcon /> {email}</div>
+                {email && <Link href={`mailto:${email}`} className={cls.Person__email}><EmailNewIcon /> {email}</Link>}
             </div>
         </div>
     )

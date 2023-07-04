@@ -109,7 +109,7 @@ export default function OneStudent({ user, role }) {
                             </>
                         ))
                     }
-                    <p className={cls.OneStudent__text3}>Dynamic, innovative with 2+ years of highly valuable hands-on experience in handling multiple simultaneous creative design projects, concept creation, graphic design, animations and visual conceptualization. Ability to leverage skills gained in the creative industry, identify opportunities, overcome objections, build long-term mutually beneficial relationships with vendors, labor, and clients, and increase brand awareness by establishing a successful and profitable firm.</p>
+                    <p className={cls.OneStudent__text3}>{user?.itQualification?.description}.</p>
 
 
                     <h3 className={cls.OneStudent__Percentage}>University Percentage</h3>

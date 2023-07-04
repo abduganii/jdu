@@ -17,14 +17,15 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom'
 import { TeacherAdd } from '../../../../services/teacher'
 import { useForm } from 'react-hook-form'
+import Loader from '../../../UL/loader'
 
 
 export default function TeacherPage({ data, onChange }) {
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
     const oneStuednt = Student.find(e => e.id === personId)
+    const [loading, setLoading] = useState(false)
     const router = useNavigate()
-    console.log(data)
 
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
@@ -59,6 +60,7 @@ export default function TeacherPage({ data, onChange }) {
     // }
 
     const AddStudentFunc = async (data) => {
+        setLoading(true)
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
         formData.append("firstName", data?.firstName)
@@ -96,8 +98,13 @@ export default function TeacherPage({ data, onChange }) {
                         setOpenMadal(false)
                         onChange()
                     }
+                    setLoading(false)
+
                 })
-                .catch(err => toast(err.response.data.message))
+                .catch(err => {
+                    toast(err.response.data.message)
+                    setLoading(false)
+                })
         }
     }
 
@@ -153,8 +160,10 @@ export default function TeacherPage({ data, onChange }) {
                     progress={oneStuednt?.progress}
                     years={"2years"}
                     remove={() => {
+
                         toast("Teacher deleted")
                         setPersonId(false)
+
                     }}
                     className={personId ? cls.openMadal : ''}
                     close={() => setPersonId(false)}
@@ -252,6 +261,7 @@ export default function TeacherPage({ data, onChange }) {
                 </AddMadal>
             }
             <Toaster />
+            {loading && <Loader />}
         </div>
     )
 }

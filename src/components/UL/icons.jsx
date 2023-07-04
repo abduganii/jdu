@@ -126,12 +126,12 @@ export function LeftIcon() {
 
     )
 }
-export function DownloadIcons() {
+export function DownloadIcons({ color, back }) {
     return (
         <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="17" cy="16.9999" r="16.5" stroke="#5627DC" />
-            <circle cx="17" cy="16.9999" r="13" fill="#5627DC" />
-            <path d="M13 19.4999V20.4999C13 20.7651 13.1054 21.0195 13.2929 21.207C13.4804 21.3946 13.7348 21.4999 14 21.4999H20C20.2652 21.4999 20.5196 21.3946 20.7071 21.207C20.8946 21.0195 21 20.7651 21 20.4999V19.4999M14.5 16.4999L17 18.9999M17 18.9999L19.5 16.4999M17 18.9999V12.9999" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+            {/* <circle cx="17" cy="16.9999" r="16.5" stroke={back} /> */}
+            <circle cx="17" cy="16.9999" r="13" fill={back} />
+            <path d="M13 19.4999V20.4999C13 20.7651 13.1054 21.0195 13.2929 21.207C13.4804 21.3946 13.7348 21.4999 14 21.4999H20C20.2652 21.4999 20.5196 21.3946 20.7071 21.207C20.8946 21.0195 21 20.7651 21 20.4999V19.4999M14.5 16.4999L17 18.9999M17 18.9999L19.5 16.4999M17 18.9999V12.9999" stroke={color} stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     )
 }

@@ -73,7 +73,6 @@ export default function Filter() {
                     height={16}
                     objectFit="contain"
                 />
-
             </div>
             <div ref={y} onClick={(e) => {
                 if (e.target == y.current) {

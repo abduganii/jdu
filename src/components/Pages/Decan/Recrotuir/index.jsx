@@ -14,11 +14,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { RecruitorAdd, Recruitordelete, RecruitorGetById, RecruitorUpdate } from '../../../../services/recruter'
+import Loader from '../../../UL/loader'
 
 export default function RecruitorPage({ data, onChange }) {
     const [personId, setPersonId] = useState(false)
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
+    const [loading, setLoading] = useState(false)
 
     const oneStuednt = data.find(e => e.id === personId)
     const router = useNavigate()
@@ -31,6 +33,7 @@ export default function RecruitorPage({ data, onChange }) {
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
+
             const res = await RecruitorGetById(id);
 
             setValue("avatar", res?.avatar)
@@ -51,6 +54,8 @@ export default function RecruitorPage({ data, onChange }) {
     }
 
     const AddStudentFunc = async (data) => {
+        setLoading(true)
+
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
         formData.append("firstName", data?.firstName)
@@ -68,14 +73,20 @@ export default function RecruitorPage({ data, onChange }) {
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
+
                     } else if (res.status == 203) {
                         toast('recrutiar updated')
                         setOpenMadal(false)
                         onChange()
                         setAvatar(null)
                     }
+                    setLoading(false)
+
                 })
-                .catch(err => toast(err.response.data.message))
+                .catch(err => {
+                    setLoading(false)
+                    toast(err.response.data.message)
+                })
         } else {
             await RecruitorAdd(formData)
                 .then(res => {
@@ -86,8 +97,14 @@ export default function RecruitorPage({ data, onChange }) {
                         setOpenMadal(false)
                         onChange()
                     }
+                    setLoading(false)
+
                 })
-                .catch(err => toast(err.response.data.message))
+                .catch(err => {
+                    toast(err.response.data.message)
+                    setLoading(false)
+
+                })
         }
     }
 
@@ -145,10 +162,17 @@ export default function RecruitorPage({ data, onChange }) {
                     remove={async () => {
                         await Recruitordelete(oneStuednt?.id)
                             .then(data => {
-                                toast("Recruitor deleted")
+                                if (data) {
+                                    toast("Recruitor deleted")
+                                }
                                 setPersonId(false)
                                 onChange()
-                            }).catch(err => toast(err))
+                                setLoading(false)
+                            }).catch(err => {
+                                toast(err)
+                                setLoading(false)
+
+                            })
 
                     }}
                     className={personId ? cls.openMadal : ''}
@@ -244,6 +268,8 @@ export default function RecruitorPage({ data, onChange }) {
                 </AddMadal>
             }
             <Toaster />
+
+            {loading && <Loader />}
         </div >
     )
 }

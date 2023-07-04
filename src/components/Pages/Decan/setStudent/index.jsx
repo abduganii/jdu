@@ -19,11 +19,14 @@ import { LessonsAdd } from '../../../../services/Lesson'
 import { FileUploadStudent, GetSkills, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
+import Loader from '../../../UL/loader'
 
 export default function SetStudent({ data, Specialisation }) {
     const x = useRef()
     const y = useRef()
     const router = useNavigate()
+    const [loading, setLoading] = useState(false)
+
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
     const [avatar, setAvatar] = useState()
@@ -74,6 +77,7 @@ export default function SetStudent({ data, Specialisation }) {
     }, [lessonId])
 
     useEffect(() => {
+        console.log(data)
 
         setNewArr(data?.itQualification?.skills?.map(sp =>
             ({ skillId: sp?.skill?.id, procent: sp?.procent, skill: { color: sp?.skill?.color, name: sp?.skill?.name } })))
@@ -85,6 +89,7 @@ export default function SetStudent({ data, Specialisation }) {
         setValue2("courseNumber", data?.courseNumber)
         setValue2('specialisationId', data?.specialisation?.id)
         setValue2('email', data?.email)
+        setValue2('description', data?.itQualification?.description)
         setSpecialisationtext(data?.specialisation?.name)
         setAvatar(data?.avatar)
         setFile(data?.japanLanguageTests?.[0]?.sertificate)
@@ -125,6 +130,7 @@ export default function SetStudent({ data, Specialisation }) {
     }
 
     const AddDataSubmit = async (body) => {
+        setLoading(true)
         const formData = new FormData()
 
         const content = JSON.stringify({
@@ -178,12 +184,20 @@ export default function SetStudent({ data, Specialisation }) {
                     router('/decan/students')
 
                 }
+                setLoading(false)
             })
-            .catch(err => toast(err.response.data.message))
+            .catch(err => {
+                toast(err.response.data.message)
+                setLoading(false)
+
+            })
     }
 
     const AddLessonFunc = async (body) => {
+        setLoading(true)
+
         await LessonsAdd(body, semestorId)
+
             .then(res => {
                 if (res.status === 201) {
                     setLessonArr(status => {
@@ -200,8 +214,10 @@ export default function SetStudent({ data, Specialisation }) {
                     })
                     reset()
                 }
+                setLoading(false)
+
             })
-            .catch(err => console.log(err))
+            .catch(err => setLoading(false))
     }
 
     const hendleimg = (e) => {
@@ -379,8 +395,11 @@ export default function SetStudent({ data, Specialisation }) {
                     <div className={cls.SetStudent__Sertifacet}>
                         <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={cls.SetStudent__Sertifacet__Download__text}>{file ? " File uploaded" : "File not uploaded"}</p>
-                            <DownloadIcons />
+                            <p className={`${file ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file ? " File uploaded" : "File not uploaded"}</p>
+                            <div className={`${file && cls.SetStudent__Sertifacet__Download__round}`}>
+                                <div className={cls.SetStudent__Sertifacet__Download__}></div>
+                                <DownloadIcons color={file ? "white" : "#121212"} back={file ? "#5627DC" : "#C8C4D2"} />
+                            </div>
                             <input type="file" onChange={(e) => hendleFile(e)} />
                         </label>
                     </div>
@@ -405,8 +424,10 @@ export default function SetStudent({ data, Specialisation }) {
                     <div className={cls.SetStudent__Sertifacet}>
                         <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={cls.SetStudent__Sertifacet__Download__text}>{file1 ? " File uploaded" : "File not uploaded"}</p>
-                            <DownloadIcons />
+                            <p className={`${file1 ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file1 ? " File uploaded" : "File not uploaded"}</p>
+                            <div className={`${file1 && cls.SetStudent__Sertifacet__Download__round}`}>
+                                <DownloadIcons color={file1 ? "white" : "#121212"} back={file1 ? "#5627DC" : "#C8C4D2"} />
+                            </div>
                             <input type="file" onChange={(e) => hendleFile1(e)} />
                         </label>
                     </div>
@@ -451,6 +472,7 @@ export default function SetStudent({ data, Specialisation }) {
                     style={{ marginTop: "25px" }}
                     register={{ ...register2('description') }}
                     value={watchedFiles2?.description || ''}
+
                 />
 
                 <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> University Percentage</h3>
@@ -566,6 +588,8 @@ export default function SetStudent({ data, Specialisation }) {
                 </div>
             </LessonTable >
             <Toaster />
+            {loading && <Loader />}
+
         </Container >
     )
 }
