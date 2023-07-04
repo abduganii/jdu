@@ -37,16 +37,15 @@ export default function SideBar({ user }) {
 
                     if (links?.includes(e.label)) {
                         return (
-                            <>
+                            <React.Fragment  key={e?.id}>
                                 <Link
                                     className={`${cls.SideBarBtn} ${pashName.pathname.includes(`/${user?.role}` + e?.link) ? cls.SideBar__active : ""}`}
-                                    key={e?.id}
                                     to={`/${user?.role}${e?.link}`}
                                 >
                                     {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
                                     {e?.label}
                                 </Link>
-                            </>
+                            </React.Fragment>
                         )
                     }
                     if (e.link == '/news') {
@@ -54,7 +53,7 @@ export default function SideBar({ user }) {
                             <Link
                                 className={`${cls.SideBarBtn} ${pashName.pathname.includes(e?.link) ? cls.SideBar__active : ""}`}
                                 key={e?.id}
-                                to={e?.link + "?categoryNew=0"}
+                                to={e?.link}
                             >
                                 {e?.icon(`${pashName.pathname.includes(e?.link) ? "white" : "black"}`)}
                                 {e?.label}

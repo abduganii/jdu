@@ -24,7 +24,6 @@ export default function TeacherPage({ data, onChange }) {
     const [openMadal, setOpenMadal] = useState(false)
     const oneStuednt = Student.find(e => e.id === personId)
     const router = useNavigate()
-    console.log(data)
 
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
@@ -73,7 +72,6 @@ export default function TeacherPage({ data, onChange }) {
         formData.append("bio", data?.bio)
 
         if (query == "true") {
-            console.log(data)
             // await RecruitorUpdate(formData, personId1)
             //     .then(res => {
             //         if (res?.data?.message) {

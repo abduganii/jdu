@@ -35,7 +35,6 @@ export default function OneStudent({ user, role }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
-    console.log(user)
 
     return (
         <div className={cls.OneStudent}>
