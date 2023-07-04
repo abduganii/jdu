@@ -45,19 +45,32 @@
     }
 
     input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      background: #5627DC;
-      cursor: ew-resize;
-      transition: background .3s ease-in-out;
-  }
+        -webkit-appearance: none;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background: #5627DC;
+        cursor: ew-resize;
+        transition: background .3s ease-in-out;
+    }
 
     input[type=range]::-webkit-slider-runnable-track {
         -webkit-appearance: none;
         box-shadow: none;
         border: none;
         background: transparent;
+    }
+
+    &__disabled {
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 10px !important;
+            width: 2px !important;
+            border-radius: 0% !important;
+            background: #5627DC;
+            cursor: ew-resize;
+            transition: background .3s ease-in-out;
+            cursor: default;
+        }
     }
 }

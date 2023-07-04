@@ -47,7 +47,7 @@ export default function RateTest({ Listening, Reading, writing, title, text, fil
                 </div>
                 <div className={cls.RateTest__Download} onClick={saveFile}>
                     <p className={cls.RateTest__Download__text}>Download Cestificate</p>
-                    <DownloadIcons />
+                    <DownloadIcons color={'white'} back={'#5627DC'} back2={'#5627DC'} />
                 </div>
 
             </div>

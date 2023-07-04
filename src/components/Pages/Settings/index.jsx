@@ -2,11 +2,11 @@
 import BlueButtun from '../../UL/buttun/blueBtn'
 import CancelBtn from '../../UL/buttun/cancel'
 import Container from '../../UL/container'
-import { eyeOpenIcons, eyeCloseIcons, UploadIcons } from '../../UL/icons'
+import { eyeOpenIcons, eyeCloseIcons, UploadIcons, LeftIcon } from '../../UL/icons'
 import SettingsInput from '../../UL/input/settingsInput'
 import BackBtn2 from '../../UL/buttun/backBtns'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import cls from "./Settings.module.scss"
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +16,8 @@ import { DecanUpdate } from '../../../services/decan'
 import { RecruitorUpdate } from '../../../services/recruter'
 
 export default function SettingsPage({ data }) {
+    const x = useRef()
+    const y = useRef()
     const router = useNavigate()
     const [curPass, setcurPass] = useState('password')
     const [eyeicons, setEyeicons] = useState(true)
@@ -73,158 +75,180 @@ export default function SettingsPage({ data }) {
         }
     }
     return (
-        <form onSubmit={handleSubmit(addData)}>
-            <Container className={cls.SettingsPage__container}>
-                <div className={cls.SettingsPage__top} >
-                    <div className={cls.SettingsPage__top__div}>
-                        <BackBtn2 onClick={() => router(-1)} />
-                        <h3 className={cls.SettingsPage__top__name}>Jerome Bell</h3>
-                    </div>
-                    <div className={cls.SettingsPage__top__div}>
+        <>
+            <div className={cls.SettingsPage__logout2__wrap} ref={x} onClick={(e) => {
+                if (e.target == x.current) {
+                    x.current.classList.remove("displayBlock")
+                }
+
+            }}>
+                <div className={cls.SettingsPage__logout2} ref={y}>
+                    <p className={cls.SettingsPage__logout2__text}>
+                        Do you want to leave without save changes?
+                    </p>
+                    <div>
                         <CancelBtn onClick={() => router(-1)}>
-                            Cancel
+                            Yes
                         </CancelBtn>
-                        <BlueButtun type='submit'>Save changes</BlueButtun>
+                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >No</BlueButtun>
                     </div>
                 </div>
-                <div className={cls.SettingsPage__form}>
-                    <label className={cls.SettingsPage__upload} >
-                        {
-                            avatar ? <img
-                                src={avatar || watchedFiles?.avatar}
-                                width={150}
-                                height={150}
-                                alt="img"
+            </div>
 
-                            /> : <Avatar name={data?.firstName} size="150" round={true} />
-                        }
+            <form onSubmit={handleSubmit(addData)}>
+                <Container className={cls.SettingsPage__container}>
+                    <div className={cls.SettingsPage__top} >
+                        <div className={cls.SettingsPage__top__Info}>
+                            <div onClick={() => x.current.classList.add("displayBlock")}>
+                                <LeftIcon />
+                                <p className={cls.SettingsPage__top__role}>Student</p>
+                            </div>
 
-                        <input
-                            className={cls.SettingsPage__upload__file}
-                            type="file"
-                            onChange={(e) => hendleimg(e)}
-                        />
-                        <div className={cls.SettingsPage__upload__icon}>  <UploadIcons /> </div>
-                    </label>
-                    <div className={cls.SettingsPage__inputs}>
-                        <div className={cls.SettingsPage__inputs__div}>
-                            <SettingsInput
-                                label={"First name"}
-                                placeholder={"Full name"}
-                                type={"text"}
-                                register={{ ...register("firstName") }}
-                                value={watchedFiles?.firstName || ''}
-                            />
-                            <SettingsInput
-                                label={"Last name"}
-                                placeholder={"Last name"}
-                                type={"text"}
-                                register={{ ...register("lastName") }}
-                                value={watchedFiles?.lastName || ''}
-                            />
+                            <h3 className={cls.SettingsPage__top__fName}>{watchedFiles?.firstName} {watchedFiles?.lastName}</h3>
                         </div>
-                        {data?.role == "recruitor" && <div className={cls.SettingsPage__inputs__div}>
-                            <SettingsInput
-                                label={"Company"}
-                                placeholder={"Company"}
-                                type={"text"}
-                                register={{ ...register("companyName") }}
-                                value={watchedFiles?.companyName || ''}
-                            />
-                            <SettingsInput
-                                label={"Phone Number"}
-                                placeholder={"998 "}
-                                type={"text"}
-                                register={{ ...register("phoneNumber") }}
-                                value={watchedFiles?.phoneNumber || ''}
-                            />
+                        <div className={cls.SettingsPage__top__div}>
+                            <CancelBtn onClick={() => router(-1)}>
+                                Cancel
+                            </CancelBtn>
+                            <BlueButtun type='submit'>Save changes</BlueButtun>
                         </div>
-                        }
-                        <div className={cls.SettingsPage__inputs__div}>
-                            <SettingsInput
-                                label={"E-mail"}
-                                placeholder={"E-mail"}
-                                type={"email"}
-                                register={{ ...register("email") }}
-                                value={watchedFiles?.email || ''}
-                            />
-                            {data?.role == "decan" && <SettingsInput
-                                label={"LoginId"}
-                                placeholder={"LoginId"}
-                                type={"text"}
-                                register={{ ...register("loginId") }}
-                                value={watchedFiles?.loginId || ''}
-                            />}
-                            {data?.role == "recruitor" && <SettingsInput
-                                label={"Specialisation"}
-                                placeholder={"Specialisation"}
-                                type={"text"}
-                                register={{ ...register("specialisation") }}
-                                value={watchedFiles?.specialisation || ''}
-                            />}
-                        </div>
-
-
                     </div>
-                </div>
+                    <div className={cls.SettingsPage__form}>
+                        <label className={cls.SettingsPage__upload} >
+                            {
+                                avatar ? <img
+                                    src={avatar || watchedFiles?.avatar}
+                                    width={150}
+                                    height={150}
+                                    alt="img"
 
-                <div className={cls.SettingsPage__aboutMe}>
-                    <h3 className={cls.SettingsPage__aboutMe__title}>About me</h3>
-                    <p className={cls.SettingsPage__aboutMe__text}>Featuring a private sandy beach, 5-star Atlantis Hotel is located in Dubai's Palm Jumeirah. The hotel offers stunning views of the Persian Gulf. The hotel has an underwater aquarium. Guests also have free access to Aquaventure Water Park and Lost Chambers Aquarium. The exquisite boutiques and shops at the hotel have everything you need for a relaxing holiday.</p>
-                </div>
+                                /> : <Avatar name={data?.firstName} size="150" round={true} />
+                            }
 
-                <p className={cls.SettingsPage__passsword}>password</p>
-                <div className={cls.SettingsPage__passsword__wrap}>
-                    <SettingsInput
-                        style={{ maxWidth: "205px" }}
-                        label={"Current Password"}
-                        placeholder={"Current Password"}
-                        type={curPass}
-                        icon={eyeOpenIcons()}
-                        icon2={eyeCloseIcons()}
-                        eyeOpen={eyeicons}
-                        eyeClick={(e) => {
-                            setcurPass(state => state == "password" ? "text" : "password")
-                            setEyeicons(!eyeicons)
+                            <input
+                                className={cls.SettingsPage__upload__file}
+                                type="file"
+                                onChange={(e) => hendleimg(e)}
+                            />
+                            <div className={cls.SettingsPage__upload__icon}>  <UploadIcons /> </div>
+                        </label>
+                        <div className={cls.SettingsPage__inputs}>
+                            <div className={cls.SettingsPage__inputs__div}>
+                                <SettingsInput
+                                    label={"First name"}
+                                    placeholder={"Full name"}
+                                    type={"text"}
+                                    register={{ ...register("firstName") }}
+                                    value={watchedFiles?.firstName || ''}
+                                />
+                                <SettingsInput
+                                    label={"Last name"}
+                                    placeholder={"Last name"}
+                                    type={"text"}
+                                    register={{ ...register("lastName") }}
+                                    value={watchedFiles?.lastName || ''}
+                                />
+                            </div>
+                            {data?.role == "recruitor" && <div className={cls.SettingsPage__inputs__div}>
+                                <SettingsInput
+                                    label={"Company"}
+                                    placeholder={"Company"}
+                                    type={"text"}
+                                    register={{ ...register("companyName") }}
+                                    value={watchedFiles?.companyName || ''}
+                                />
+                                <SettingsInput
+                                    label={"Phone Number"}
+                                    placeholder={"998 "}
+                                    type={"text"}
+                                    register={{ ...register("phoneNumber") }}
+                                    value={watchedFiles?.phoneNumber || ''}
+                                />
+                            </div>
+                            }
+                            <div className={cls.SettingsPage__inputs__div}>
+                                <SettingsInput
+                                    label={"E-mail"}
+                                    placeholder={"E-mail"}
+                                    type={"email"}
+                                    register={{ ...register("email") }}
+                                    value={watchedFiles?.email || ''}
+                                />
+                                {data?.role == "decan" && <SettingsInput
+                                    label={"LoginId"}
+                                    placeholder={"LoginId"}
+                                    type={"text"}
+                                    register={{ ...register("loginId") }}
+                                    value={watchedFiles?.loginId || ''}
+                                />}
+                                {data?.role == "recruitor" && <SettingsInput
+                                    label={"Specialisation"}
+                                    placeholder={"Specialisation"}
+                                    type={"text"}
+                                    register={{ ...register("specialisation") }}
+                                    value={watchedFiles?.specialisation || ''}
+                                />}
+                            </div>
 
-                        }}
 
-                        register={{ ...register("currentPassword") }}
-                    />
-                    <div className={cls.SettingsPage__passsword__div}>
+                        </div>
+                    </div>
+
+
+
+                    <p className={cls.SettingsPage__passsword}>password</p>
+                    <div className={cls.SettingsPage__passsword__wrap}>
                         <SettingsInput
                             style={{ maxWidth: "205px" }}
-                            label={"New password"}
-                            placeholder={"New password"}
-                            type={newPass}
+                            label={"Current Password"}
+                            placeholder={"Current Password"}
+                            type={curPass}
                             icon={eyeOpenIcons()}
                             icon2={eyeCloseIcons()}
-                            eyeOpen={eyeicons1}
+                            eyeOpen={eyeicons}
                             eyeClick={(e) => {
-                                setnewPass(state => state == "password" ? "text" : "password")
-                                setEyeicons1(!eyeicons1)
-                            }}
-                            register={{ ...register("password") }}
-                        />
-                        <SettingsInput
-                            style={{ maxWidth: "205px" }}
-                            label={"Confirm Password"}
-                            placeholder={"Confirm Password"}
-                            icon={eyeOpenIcons()}
-                            icon2={eyeCloseIcons()}
-                            eyeOpen={eyeicons2}
-                            eyeClick={(e) => {
-                                setconPass(state => state == "password" ? "text" : "password")
-                                setEyeicons2(!eyeicons2)
-                            }}
-                            type={conPass}
-                            register={{ ...register("confirmPassword") }}
-                        />
+                                setcurPass(state => state == "password" ? "text" : "password")
+                                setEyeicons(!eyeicons)
 
+                            }}
+
+                            register={{ ...register("currentPassword") }}
+                        />
+                        <div className={cls.SettingsPage__passsword__div}>
+                            <SettingsInput
+                                style={{ maxWidth: "205px" }}
+                                label={"New password"}
+                                placeholder={"New password"}
+                                type={newPass}
+                                icon={eyeOpenIcons()}
+                                icon2={eyeCloseIcons()}
+                                eyeOpen={eyeicons1}
+                                eyeClick={(e) => {
+                                    setnewPass(state => state == "password" ? "text" : "password")
+                                    setEyeicons1(!eyeicons1)
+                                }}
+                                register={{ ...register("password") }}
+                            />
+                            <SettingsInput
+                                style={{ maxWidth: "205px" }}
+                                label={"Confirm Password"}
+                                placeholder={"Confirm Password"}
+                                icon={eyeOpenIcons()}
+                                icon2={eyeCloseIcons()}
+                                eyeOpen={eyeicons2}
+                                eyeClick={(e) => {
+                                    setconPass(state => state == "password" ? "text" : "password")
+                                    setEyeicons2(!eyeicons2)
+                                }}
+                                type={conPass}
+                                register={{ ...register("confirmPassword") }}
+                            />
+
+                        </div>
                     </div>
-                </div>
-            </Container>
-        </form>
+                </Container>
+            </form>
+        </>
     )
 }
 

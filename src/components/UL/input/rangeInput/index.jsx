@@ -17,7 +17,7 @@ export default function RangeInput({ lessonType, color, defaultRange, disabled =
                     type="range"
                     value={rangeValue}
                     disabled={disabled}
-                    className={cls.RangeInput__input}
+                    className={`${cls.RangeInput__input} ${disabled && cls.RangeInput__disabled}`}
                     style={{ background: color, WebkitSliderThumb: color }}
                     onChange={(e) => {
                         setRangeValue(e.target.value)
