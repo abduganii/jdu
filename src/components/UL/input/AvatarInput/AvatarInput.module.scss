@@ -15,8 +15,11 @@
         height: 85px;
         margin-bottom: 6px;
         display: flex;
-        align-items: center;
+        padding-top: 30px;
+        // align-items: center;
         justify-content: center;
+        text-align: center;
+
 
         &__text {
             font-family: 'Inter';
@@ -26,6 +29,9 @@
             line-height: 15px;
             color: #5627DC;
             text-align: center;
+            margin-top: 5px;
+
+
         }
 
         &__img {

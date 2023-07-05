@@ -163,28 +163,33 @@ export default function SettingsPage({ data }) {
                             <div className={cls.SettingsPage__upload__icon}>  <UploadIcons /> </div>
                         </label>
                         <div className={cls.SettingsPage__inputs}>
-                            <div className={cls.SettingsPage__inputs__div}>
+
+                            <SettingsInput
+                                className={cls.SettingsPage__inputs__wrap}
+                                label={"First name"}
+                                placeholder={"Full name"}
+                                type={"text"}
+                                register={{ ...register("firstName", { required: "firstName is required" }) }}
+                                value={watchedFiles?.firstName || ''}
+                                alert={errors.firstName?.message}
+                                onChange={() => clearErrors("firstName")}
+                            />
+                            <SettingsInput
+                                className={cls.SettingsPage__inputs__wrap}
+
+                                label={"Last name"}
+                                placeholder={"Last name"}
+                                type={"text"}
+                                register={{ ...register("lastName", { required: "firstName is required" }) }}
+                                value={watchedFiles?.lastName || ''}
+                                alert={errors.lastName?.message}
+                                onChange={() => clearErrors("lastName")}
+                            />
+                            {data?.role == "decan" && <br />}
+                            {data?.role == "recruitor" && <>
                                 <SettingsInput
-                                    label={"First name"}
-                                    placeholder={"Full name"}
-                                    type={"text"}
-                                    register={{ ...register("firstName", { required: "firstName is required" }) }}
-                                    value={watchedFiles?.firstName || ''}
-                                    alert={errors.firstName?.message}
-                                    onChange={() => clearErrors("firstName")}
-                                />
-                                <SettingsInput
-                                    label={"Last name"}
-                                    placeholder={"Last name"}
-                                    type={"text"}
-                                    register={{ ...register("lastName", { required: "firstName is required" }) }}
-                                    value={watchedFiles?.lastName || ''}
-                                    alert={errors.lastName?.message}
-                                    onChange={() => clearErrors("lastName")}
-                                />
-                            </div>
-                            {data?.role == "recruitor" && <div className={cls.SettingsPage__inputs__div}>
-                                <SettingsInput
+                                    className={cls.SettingsPage__inputs__wrap}
+
                                     label={"Company"}
                                     placeholder={"Company"}
                                     type={"text"}
@@ -194,6 +199,8 @@ export default function SettingsPage({ data }) {
                                     onChange={() => clearErrors("companyName")}
                                 />
                                 <SettingsInput
+                                    className={cls.SettingsPage__inputs__wrap}
+
                                     label={"Phone Number"}
                                     placeholder={"998 "}
                                     type={"text"}
@@ -202,37 +209,43 @@ export default function SettingsPage({ data }) {
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
                                 />
-                            </div>
+                            </>
                             }
-                            <div className={cls.SettingsPage__inputs__div}>
-                                <SettingsInput
-                                    label={"E-mail"}
-                                    placeholder={"E-mail"}
-                                    type={"email"}
-                                    register={{ ...register("email", { required: "firstName is required" }) }}
-                                    value={watchedFiles?.email || ''}
-                                    alert={errors.email?.message}
-                                    onChange={() => clearErrors("email")}
-                                />
-                                {data?.role == "decan" && <SettingsInput
-                                    label={"LoginId"}
-                                    placeholder={"LoginId"}
-                                    type={"text"}
-                                    register={{ ...register("loginId", { required: "firstName is required" }) }}
-                                    value={watchedFiles?.loginId || ''}
-                                    alert={errors.loginId?.message}
-                                    onChange={() => clearErrors("loginId")}
-                                />}
-                                {data?.role == "recruitor" && <SettingsInput
-                                    label={"Specialisation"}
-                                    placeholder={"Specialisation"}
-                                    type={"text"}
-                                    register={{ ...register("specialisation", { required: "firstName is required" }) }}
-                                    value={watchedFiles?.specialisation || ''}
-                                    alert={errors.specialisation?.message}
-                                    onChange={() => clearErrors("specialisation")}
-                                />}
-                            </div>
+
+                            <SettingsInput
+                                className={cls.SettingsPage__inputs__wrap}
+
+                                label={"E-mail"}
+                                placeholder={"E-mail"}
+                                type={"email"}
+                                register={{ ...register("email", { required: "firstName is required" }) }}
+                                value={watchedFiles?.email || ''}
+                                alert={errors.email?.message}
+                                onChange={() => clearErrors("email")}
+                            />
+                            {data?.role == "decan" && <SettingsInput
+                                className={cls.SettingsPage__inputs__wrap}
+
+                                label={"LoginId"}
+                                placeholder={"LoginId"}
+                                type={"text"}
+                                register={{ ...register("loginId", { required: "firstName is required" }) }}
+                                value={watchedFiles?.loginId || ''}
+                                alert={errors.loginId?.message}
+                                onChange={() => clearErrors("loginId")}
+                            />}
+                            {data?.role == "recruitor" && <SettingsInput
+                                className={cls.SettingsPage__inputs__wrap}
+
+                                label={"Specialisation"}
+                                placeholder={"Specialisation"}
+                                type={"text"}
+                                register={{ ...register("specialisation", { required: "firstName is required" }) }}
+                                value={watchedFiles?.specialisation || ''}
+                                alert={errors.specialisation?.message}
+                                onChange={() => clearErrors("specialisation")}
+                            />}
+
 
 
                         </div>

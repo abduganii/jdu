@@ -16,7 +16,7 @@ export const navLinks = [
     {
         id: 2,
         link: '/teachers',
-        label: 'Teachers',
+        label: '先生',
         icon: (e)=>  PersonIcon({fill:e})
     },
     {
@@ -28,7 +28,7 @@ export const navLinks = [
     {
         id: 4,
         link: '/schedule',
-        label: 'Schedule',
+        label: 'スケジュール',
         icon: (e)=>ScheduleIcon({fill:e})
     },
     {
@@ -41,7 +41,7 @@ export const navLinks = [
     {
         id: 6,
         link: '/selected',
-        label: 'Selected',
+        label: '選択済み',
         icon: (e)=> SelectedIcon({fill:e})
     },
     {
@@ -90,6 +90,6 @@ export const settingLinks = [
 ]
 
 
-export const recruitorLink = ['ホーム', '学生', 'Selected']
+export const recruitorLink = ['ホーム', '学生', '選択済み']
 
-export const decanLink = ['ホーム','学生',"リクルーター"]
+export const decanLink = ['ホーム','学生','先生','スケジュール',"リクルーター"]

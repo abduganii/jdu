@@ -68,6 +68,13 @@
                 padding: 12px;
                 padding-top: 13px;
 
+                &:hover {
+                    width: 100%;
+                    background: rgb(86, 39, 220, 0.1);
+                    border-radius: 9px;
+                    color: #5627DC !important;
+                }
+
             }
 
             &__search {
@@ -97,6 +104,7 @@
                     font-weight: 500;
                     line-height: normal;
                 }
+
             }
 
             &__textActive1 {

@@ -124,13 +124,18 @@
 
     &__inputs {
         width: 100%;
-        max-width: 424px;
+        max-width: 800px;
         margin-top: 13px;
 
-        &__div {
-            display: flex;
-            gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        &__wrap {
+            width: calc((100% - 20px) / 3);
         }
+
+
     }
 
     &__aboutMe {
@@ -177,10 +182,12 @@
         color: #121212;
         margin-bottom: 31px;
         margin-top: 60px;
+        margin-left: 111px;
 
         &__wrap {
             margin-left: 69px;
             margin-bottom: 40px;
+            margin-left: 178px;
         }
 
         &__div {
