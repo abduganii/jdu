@@ -14,6 +14,7 @@ export default function StudentsPage({ data, selected, student, count }) {
                     <li className={cls.StudentsPage__top__item}>Students</li>
                     <li className={cls.StudentsPage__top__item}>Skills</li>
                     <li className={cls.StudentsPage__top__item}>Skills</li>
+                    <li className={cls.StudentsPage__top__item}></li>
                 </ul>
                 <ul>
                     {data && data?.map(e => {

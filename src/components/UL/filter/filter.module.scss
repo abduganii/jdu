@@ -48,8 +48,7 @@
         &__dropdown {
             display: none;
             position: absolute;
-            padding: 11px 15px;
-            padding-bottom: 37px;
+            padding: 10px;
             background: #FFFFFF;
             box-shadow: -20px 24px 54px #DCDCDC;
             border-radius: 19px;
@@ -71,12 +70,40 @@
 
             }
 
+            &__search {
+                width: 100%;
+                max-width: 173px;
+                border-radius: 9px;
+                background: rgb(86, 39, 220, .1);
+                color: #5627DC;
+                font-size: 14px;
+                font-family: Inter;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                padding: 13px 6px;
+                padding-left: 34px;
+                outline: none;
+                border: none;
+                background-image: url('/Image/icons/search.svg');
+                background-position: left 10px center;
+                background-repeat: no-repeat;
+
+                &::placeholder {
+                    color: #5627DC;
+                    font-size: 14px;
+                    font-family: Inter;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                }
+            }
+
             &__textActive1 {
                 width: 100%;
-                background: #5627DC;
-                opacity: 0.1;
+                background: rgb(86, 39, 220, 0.1);
                 border-radius: 9px;
-                color: white !important;
+                color: #5627DC !important;
             }
         }
     }

@@ -5,12 +5,14 @@
 
     &__top {
         display: flex;
+        justify-content: space-between;
         width: 100%;
         padding-top: 31px;
         padding-bottom: 15px;
         padding-left: 33px;
         border-bottom: 1px solid rgb(0, 0, 0, 0.1);
         padding-left: 13px;
+
 
         &__item {
             font-family: 'Inter';
@@ -19,27 +21,26 @@
             font-size: 14px;
             line-height: 18px;
             color: #101828;
-
             opacity: 0.6;
 
-
             &:first-child {
-                width: 100%;
-                max-width: 200px;
-                margin-left: 32px;
+                max-width: 220px;
+                padding-left: 32px;
             }
 
             &:nth-child(2) {
-                width: 100%;
                 max-width: 180px;
                 margin-left: 24px;
             }
 
             &:nth-child(3) {
                 margin-left: 77px;
+                min-width: 142px;
             }
 
-
+            &:nth-child(4) {
+                max-width: 38px;
+            }
         }
     }
 }

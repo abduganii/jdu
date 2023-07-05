@@ -13,7 +13,7 @@ export default function LogoutPage() {
     const { register, handleSubmit } = useForm();
 
     const handleAuth = async (data) => {
-        setIt(false)
+        // setIt(false)
         await Forget(data)
             .then((response) => {
                 console.log(response)

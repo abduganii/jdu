@@ -7,9 +7,9 @@ export const StudentsGet = async () => {
      console.log(error.response.data.message);
     }
 }
-export const StudentsGetSearch = async (query) => {
+export const StudentsGetSearch = async (value,query) => {
     try {
-     const res = await api.get(`/students?search=${query}`, {withCredentials: true})
+     const res = await api.get(`/students?${value}=${query}`, {withCredentials: true})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);

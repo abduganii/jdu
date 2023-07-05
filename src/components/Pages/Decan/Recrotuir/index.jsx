@@ -142,7 +142,7 @@ export default function RecruitorPage({ data, onChange }) {
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
-                <Filter />
+                <Filter page={'recruiter'} />
                 <BlueButtun onClick={() => {
                     setOpenMadal(true)
                     router('?updete=false')
