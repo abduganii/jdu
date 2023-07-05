@@ -30,7 +30,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
     const oneStuednt = data.find(e => e.id === personId)
 
-    const { register, handleSubmit, reset, setValue, watch } = useForm();
+    const { register, handleSubmit, reset, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const AddStudentFunc = async (data) => {
         setLoading(true)
@@ -50,7 +50,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
             await StudentsAdd(formData)
                 .then(res => {
                     if (res?.data?.message) {
-                        toast(res?.data?.message)
+                        // toast(res?.data?.message)
                         setLoading(false)
 
                     }
@@ -63,11 +63,25 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     }
                 })
                 .catch(err => {
-                    toast(err.response.data.message)
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                    }
                     setLoading(false)
+
                 })
         } else {
-            toast('specialisation shuold not be empty')
+            setError('specialisation', { type: 'custom', message: "specialisation is required" });
+
         }
 
     }
@@ -153,55 +167,90 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     />
                     <div className={cls.StudentPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName', { required: true }) }}
+                            register={{ ...register('firstName', { required: "firstName is required" }) }}
                             type={"text"}
                             label={"Firstname"}
                             placeholder={"Firstname"}
+                            alert={errors.firstName?.message}
+                            onChange={() => clearErrors("firstName")}
+                            style={{ marginBottom: "20px" }}
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: true }) }}
+                            register={{ ...register('lastName', { required: "lastName is required" }) }}
                             type={"text"}
                             label={"Lastname"}
                             placeholder={"Lastname"}
+                            alert={errors.lastName?.message}
+                            onChange={() => clearErrors("lastName")}
+                            style={{ marginBottom: "20px" }}
+
+
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: true }) }}
+                            register={{ ...register('loginId', { required: "loginId is required" }) }}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
+                            alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
+
+
                         />
                         <AddInput
                             type={"select"}
                             label={"Specialisation"}
                             placeholder={"Specialisation"}
                             Specialisation={Specialisation}
-                            onChange={(e) => setSpecialisation(e)}
+                            onChange={(e) => {
+                                setSpecialisation(e)
+                            }}
+                            alert={errors.specialisation?.message}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('groupNumber', { required: true }) }}
+                            register={{ ...register('groupNumber', { required: "groupNumber is required" }) }}
                             type={"text"}
                             label={"Group"}
                             placeholder={"Group"}
+                            alert={errors.groupNumber?.message}
+                            onChange={() => clearErrors("groupNumber")}
+                            style={{ marginBottom: "20px" }}
+
+
                         />
                         <AddInput
-                            register={{ ...register('courseNumber', { required: true }) }}
+                            register={{ ...register('courseNumber', { required: "courseNumber is required" }) }}
                             type={"text"}
                             label={"Course number"}
                             placeholder={"Course number"}
+                            alert={errors.courseNumber?.message}
+                            onChange={() => clearErrors("courseNumber")}
+                            style={{ marginBottom: "20px" }}
+
+
                         />
                         <AddInput
-                            register={{ ...register('email', { required: true }) }}
+                            register={{ ...register('email', { required: "email is required" }) }}
                             type={"text"}
                             label={"E-mail"}
                             placeholder={"E-mail"}
+                            alert={errors.email?.message}
+                            onChange={() => clearErrors("email")}
+                            style={{ marginBottom: "20px" }}
                         />
                         <AddInput
-                            register={{ ...register('password', { required: true }) }}
+                            register={{ ...register('password', { required: "password is required" }) }}
                             type={"text"}
                             label={"Password"}
                             placeholder={"Password"}
                             geterat={true}
                             passwordGenerate={(e) => setValue("password", e)}
+                            alert={errors.password?.message}
+                            onChange={() => clearErrors("password")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                     </div>
                 </AddMadal>}

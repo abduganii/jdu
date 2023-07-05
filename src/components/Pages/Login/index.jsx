@@ -10,10 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import ButtunLogin from '../../UL/buttun/loginButtun';
 import LoginInput from '../../UL/input/loginInput';
 import { AuthLogin } from '../../../services/auth';
+import { useEffect } from 'react';
 export default function LoginPage() {
 
     const router = useNavigate()
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
 
     const handleAuth = async (data) => {
         await AuthLogin(data)
@@ -21,10 +22,11 @@ export default function LoginPage() {
                 router(`/${response?.data?.user?.role}/home`)
             })
             .catch(error => {
-                console.log(error)
-                toast(error?.response?.data?.message)
+                setError('loginId', { type: 'custom', message: error?.response?.data?.message });
+                setError('password', { type: 'custom', message: error?.response?.data?.message });
             })
     }
+
     return (
         <div className={cls.Login}>
             <div className={cls.Login__content}>
@@ -46,14 +48,18 @@ export default function LoginPage() {
                         <LoginInput
                             type={'text'}
                             placeholder={"Enter your ID"}
-                            style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "30px" }}
-                            register={{ ...register("loginId", { required: true }) }}
+                            style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
+                            register={{ ...register("loginId", { required: "loginId is required" }) }}
+                            alert={errors.loginId?.message}
+
                         />
                         <LoginInput
                             type={'password'}
                             placeholder={"Enter your password"}
-                            register={{ ...register("password", { required: true }) }}
+                            register={{ ...register("password", { required: "password is required" }) }}
                             style={{ backgroundImage: "url('/Image/Iconsinpt.png')" }}
+                            alert={errors.password?.message}
+
                         />
                         <div className={cls.Form__bottom}>
                             <label className={cls.Form__label}>

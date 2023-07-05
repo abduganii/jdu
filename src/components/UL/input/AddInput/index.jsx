@@ -12,6 +12,7 @@ export default function AddInput({
     loginGenerate,
     geterat,
     type,
+    alert,
     ...other
 }) {
     const [click, setClick] = useState(false)
@@ -44,10 +45,10 @@ export default function AddInput({
                     style={{ width: "100%", }}
                     onChange={onChange}
                     options={Specialisation?.map(sp => ({ value: sp.id, label: sp.name }))}
-                /> : <label className={cls.AddInput__labelinut}>
+                /> : <label className={`${cls.AddInput__labelinut}`}>
                     < input autoComplete="none"
                         {...register}
-                        className={cls.AddInput__input}
+                        className={`${cls.AddInput__input} ${alert && cls.AddInput__border}`}
                         type={type}
                         placeholder={placeholder}
                         onChange={onChange}
@@ -65,6 +66,7 @@ export default function AddInput({
                         </div>}
                 </label>
             }
+            {alert && <p className={cls.AddInput__alert}>{alert}!</p>}
         </label>
     )
 }

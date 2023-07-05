@@ -27,7 +27,7 @@ export default function SettingsPage({ data }) {
     const [conPass, setconPass] = useState('password')
     const [avatar, setAvatar] = useState(data?.avatar)
 
-    const { register, handleSubmit, setValue, watch } = useForm();
+    const { register, handleSubmit, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
 
     useEffect(() => {
@@ -58,13 +58,43 @@ export default function SettingsPage({ data }) {
 
         if (data?.role == 'decan') {
             await DecanUpdate(formData)
-                .then((data) => console.log(data))
-                .catch(err => console.log(err))
+                .then((data) => router('/decan/home'))
+                .catch(err => {
+                    if (err.response.data.message.includes('current')) {
+                        setError('currentPassword', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "loginId must be unique") {
+                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                    }
+                    if (err.response.data.message.includes('confirm')) {
+                        setError('confirmPassword', { type: 'custom', message: err.response.data.message })
+                    }
+                })
         }
         if (data?.role == 'recruitor') {
             await RecruitorUpdate(formData, data?.id)
-                .then((data) => console.log(data))
-                .catch(err => console.log(err))
+                .then((data) => router('/recruitor/home'))
+                .catch(err => {
+                    if (err.response.data.message.includes('current')) {
+                        setError('currentPassword', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                    }
+                    if (err.response.data.message.includes('confirm')) {
+                        setError('confirmPassword', { type: 'custom', message: err.response.data.message })
+                    }
+                })
+
         }
     }
 
@@ -138,15 +168,19 @@ export default function SettingsPage({ data }) {
                                     label={"First name"}
                                     placeholder={"Full name"}
                                     type={"text"}
-                                    register={{ ...register("firstName") }}
+                                    register={{ ...register("firstName", { required: "firstName is required" }) }}
                                     value={watchedFiles?.firstName || ''}
+                                    alert={errors.firstName?.message}
+                                    onChange={() => clearErrors("firstName")}
                                 />
                                 <SettingsInput
                                     label={"Last name"}
                                     placeholder={"Last name"}
                                     type={"text"}
-                                    register={{ ...register("lastName") }}
+                                    register={{ ...register("lastName", { required: "firstName is required" }) }}
                                     value={watchedFiles?.lastName || ''}
+                                    alert={errors.lastName?.message}
+                                    onChange={() => clearErrors("lastName")}
                                 />
                             </div>
                             {data?.role == "recruitor" && <div className={cls.SettingsPage__inputs__div}>
@@ -154,15 +188,19 @@ export default function SettingsPage({ data }) {
                                     label={"Company"}
                                     placeholder={"Company"}
                                     type={"text"}
-                                    register={{ ...register("companyName") }}
+                                    register={{ ...register("companyName", { required: "firstName is required" }) }}
                                     value={watchedFiles?.companyName || ''}
+                                    alert={errors.companyName?.message}
+                                    onChange={() => clearErrors("companyName")}
                                 />
                                 <SettingsInput
                                     label={"Phone Number"}
                                     placeholder={"998 "}
                                     type={"text"}
-                                    register={{ ...register("phoneNumber") }}
+                                    register={{ ...register("phoneNumber", { required: "firstName is required" }) }}
                                     value={watchedFiles?.phoneNumber || ''}
+                                    alert={errors.phoneNumber?.message}
+                                    onChange={() => clearErrors("phoneNumber")}
                                 />
                             </div>
                             }
@@ -171,22 +209,28 @@ export default function SettingsPage({ data }) {
                                     label={"E-mail"}
                                     placeholder={"E-mail"}
                                     type={"email"}
-                                    register={{ ...register("email") }}
+                                    register={{ ...register("email", { required: "firstName is required" }) }}
                                     value={watchedFiles?.email || ''}
+                                    alert={errors.email?.message}
+                                    onChange={() => clearErrors("email")}
                                 />
                                 {data?.role == "decan" && <SettingsInput
                                     label={"LoginId"}
                                     placeholder={"LoginId"}
                                     type={"text"}
-                                    register={{ ...register("loginId") }}
+                                    register={{ ...register("loginId", { required: "firstName is required" }) }}
                                     value={watchedFiles?.loginId || ''}
+                                    alert={errors.loginId?.message}
+                                    onChange={() => clearErrors("loginId")}
                                 />}
                                 {data?.role == "recruitor" && <SettingsInput
                                     label={"Specialisation"}
                                     placeholder={"Specialisation"}
                                     type={"text"}
-                                    register={{ ...register("specialisation") }}
+                                    register={{ ...register("specialisation", { required: "firstName is required" }) }}
                                     value={watchedFiles?.specialisation || ''}
+                                    alert={errors.specialisation?.message}
+                                    onChange={() => clearErrors("specialisation")}
                                 />}
                             </div>
 
@@ -213,6 +257,8 @@ export default function SettingsPage({ data }) {
                             }}
 
                             register={{ ...register("currentPassword") }}
+                            alert={errors.currentPassword?.message}
+                            onChange={() => clearErrors("currentPassword")}
                         />
                         <div className={cls.SettingsPage__passsword__div}>
                             <SettingsInput
@@ -228,6 +274,8 @@ export default function SettingsPage({ data }) {
                                     setEyeicons1(!eyeicons1)
                                 }}
                                 register={{ ...register("password") }}
+                                alert={errors.password?.message}
+                                onChange={() => clearErrors("password")}
                             />
                             <SettingsInput
                                 style={{ maxWidth: "205px" }}
@@ -242,6 +290,8 @@ export default function SettingsPage({ data }) {
                                 }}
                                 type={conPass}
                                 register={{ ...register("confirmPassword") }}
+                                alert={errors.confirmPassword?.message}
+                                onChange={() => clearErrors("confirmPassword")}
                             />
 
                         </div>

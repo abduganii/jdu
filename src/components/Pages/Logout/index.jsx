@@ -13,15 +13,16 @@ export default function LogoutPage() {
     const { register, handleSubmit } = useForm();
 
     const handleAuth = async (data) => {
-        setIt(false)
-        await Forget(data)
-            .then((response) => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-                toast(error?.response?.data?.message)
-            })
+        console.log(data)
+        // setIt(false)
+        // await Forget(data)
+        //     .then((response) => {
+        //         console.log(response)
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //         toast(error?.response?.data?.message)
+        //     })
     }
     if (trueFalse) {
         return (
@@ -67,7 +68,6 @@ export default function LogoutPage() {
                                 <p className={cls.Login__content__text}>We have send you an e-mail that contains a link to uptade your password.</p>
                             </div>
                         </div>
-
 
                         <ButtunLogin style={{ marginTop: "82px" }} onChange={() => router('/auth/login')}>Back to login</ButtunLogin>
 

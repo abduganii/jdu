@@ -29,7 +29,7 @@ export default function RecruitorPage({ data, onChange }) {
 
     const [openMadal, setOpenMadal] = useState(false)
 
-    const { register, handleSubmit, reset, setValue, watch } = useForm();
+    const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
@@ -84,8 +84,20 @@ export default function RecruitorPage({ data, onChange }) {
 
                 })
                 .catch(err => {
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                    }
                     setLoading(false)
-                    toast(err.response.data.message)
                 })
         } else {
             await RecruitorAdd(formData)
@@ -101,7 +113,19 @@ export default function RecruitorPage({ data, onChange }) {
 
                 })
                 .catch(err => {
-                    toast(err.response.data.message)
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: err.response.data.message })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                    }
                     setLoading(false)
 
                 })
@@ -195,57 +219,85 @@ export default function RecruitorPage({ data, onChange }) {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName') }}
+                            register={{ ...register('firstName', { required: "firstName is required" }) }}
                             type={"text"}
                             label={"Firstname"}
                             placeholder={"Firstname"}
                             value={watchedFiles?.firstName || ''}
+                            alert={errors.firstName?.message}
+                            onChange={() => clearErrors("firstName")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: true }) }}
+                            register={{ ...register('lastName', { required: "lastName is required" }) }}
                             type={"text"}
                             label={"Lastname"}
                             placeholder={"Lastname"}
                             value={watchedFiles?.lastName || ''}
+                            alert={errors.lastName?.message}
+                            onChange={() => clearErrors("lastName")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('companyName', { required: true }) }}
+                            register={{ ...register('companyName', { required: "companyName is required" }) }}
                             type={"text"}
                             label={"Company name"}
                             placeholder={"Company name"}
                             value={watchedFiles?.companyName || ''}
+                            alert={errors.companyName?.message}
+                            onChange={() => clearErrors("companyName")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('specialisation', { required: true }) }}
+                            register={{ ...register('specialisation', { required: "specialisation is required" }) }}
                             type={"text"}
                             label={"Specialisation"}
                             placeholder={"Specialisation"}
                             value={watchedFiles?.specialisation || ''}
+                            alert={errors.specialisation?.message}
+                            onChange={() => clearErrors("specialisation")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('phoneNumber', { required: true }) }}
+                            register={{ ...register('phoneNumber', { required: "phoneNumber is required" }) }}
                             type={"text"}
                             label={"Phone number"}
                             placeholder={"Phone number"}
                             value={watchedFiles?.phoneNumber || ''}
+                            alert={errors.phoneNumber?.message}
+                            onChange={() => clearErrors("phoneNumber")}
+                            style={{ marginBottom: "20px" }}
+
 
                         />
                         <AddInput
-                            register={{ ...register('email', { required: true }) }}
+                            register={{ ...register('email', { required: "email is required" }) }}
                             type={"text"}
                             label={"E-mail"}
                             placeholder={"E-mail"}
                             value={watchedFiles?.email || ''}
+                            alert={errors.email?.message}
+                            onChange={() => clearErrors("email")}
+                            style={{ marginBottom: "20px" }}
+
 
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: true }) }}
+                            register={{ ...register('loginId', { required: "loginId is required" }) }}
                             type={"text"}
                             label={"Id"}
                             placeholder={"Id"}
                             value={watchedFiles?.loginId || ''}
                             geterat={true}
                             loginGenerate={(e) => setValue("loginId", e)}
+                            alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
                             register={{ ...register('password') }}
@@ -255,6 +307,11 @@ export default function RecruitorPage({ data, onChange }) {
                             value={watchedFiles?.password || ''}
                             geterat={true}
                             passwordGenerate={(e) => setValue("password", e)}
+                            alert={errors.password?.message}
+                            onChange={() => clearErrors("password")}
+
+                            style={{ marginBottom: "20px" }}
+
                         />
                         {/* <AddInput
                             register={{ ...register('bio', { required: true }) }}

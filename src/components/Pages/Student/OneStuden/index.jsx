@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 import cls from "./OneStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
 import BlueButtun from '../../../UL/buttun/blueBtn'
+import NoGaler from '../../../UL/NoGallery'
 
 
 
@@ -51,37 +52,30 @@ export default function OneStudent({ user, role }) {
                 />
 
                 <div className={cls.OneStudent__content}>
+                    <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
                     {
                         user?.bio && <>
-                            <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
                             <p className={cls.OneStudent__text}>{user?.bio}</p>
                         </>
                     }
                     {
                         <>
-                            <p className={cls.OneStudent__title}>Gallery</p>
-                            <div className={cls.OneStudent__imgs}>
-                                <img
-                                    src={'/Image/Rectangle502.png'}
-                                    width={223}
-                                    height={160}
-                                    alt='img'
-                                />
-                                <img
-                                    src={'/Image/Rectangle502.png'}
-                                    width={223}
-                                    height={160}
-                                    alt='img'
-                                />
-                                <img
-                                    src={'/Image/Rectangle502.png'}
-                                    width={223}
-                                    height={160}
-                                    alt='img'
-                                />
-                            </div>
+                            {user?.image ?
+                                <>
+                                    <p className={cls.OneStudent__title}>Gallery</p>
+                                    <div className={cls.OneStudent__imgs}>
+                                        <img
+                                            src={'/Image/Rectangle502.png'}
+                                            width={223}
+                                            height={160}
+                                            alt='img'
+                                        />
+                                    </div>
+                                </> : <NoGaler />
+                            }
                         </>}
-                    <h3 className={cls.OneStudent__title1}>Japan Language tests</h3>
+                    {
+                        user?.japanLanguageTests?.[0].sertificate & user?.japanLanguageTests?.[1].sertificate ? <h3 className={cls.OneStudent__title1}>Japan Language tests</h3> : ""}
                     {
                         user?.japanLanguageTests && user?.japanLanguageTests.map(e => {
                             if (e?.sertificate) {
@@ -98,8 +92,8 @@ export default function OneStudent({ user, role }) {
                         })
 
                     }
-                    <p className={cls.OneStudent__title}>IT qualification</p>
-                    <p className={cls.OneStudent__text2}>Soft Skills Percentage </p>
+                    {user?.itQualification?.skills.length ? <> <p className={cls.OneStudent__title}>IT qualification</p>
+                        <p className={cls.OneStudent__text2}>Soft Skills Percentage </p></> : ""}
                     {
                         user?.itQualification?.skills?.map(e => (
                             <>
