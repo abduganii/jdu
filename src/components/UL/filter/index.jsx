@@ -8,11 +8,12 @@ import { filterRate } from './data.js'
 
 import cls from "./filter.module.scss"
 
-export default function Filter() {
+export default function Filter({ page }) {
     const navigate = useNavigate()
     const x = useRef()
     const w = useRef()
     const y = useRef()
+    console.log(page)
     return (
         <div className={cls.Filter}>
             <button className={cls.Filter__btn}>

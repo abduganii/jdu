@@ -96,7 +96,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
-                <Filter />
+                <Filter page={"student"} />
                 <BlueButtun onClick={() => setOpenMadal(true)}>
                     <PlusIcon />
                     Add Student

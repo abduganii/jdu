@@ -21,11 +21,11 @@ export default function NewPage({ user }) {
     const { data: categories } = useQuery('categories', getNewsCategories)
     const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
         ['news', params.get('categoryId'), params.get('search')],
-        async ({ pageParam = 1 }) => await GetNews({ 
-            limit: 6, 
-            page: pageParam, 
-            categoryId: params.get('categoryId') || '', 
-            search: params.get('search') || '' ,
+        async ({ pageParam = 1 }) => await GetNews({
+            limit: 6,
+            page: pageParam,
+            categoryId: params.get('categoryId') || '',
+            search: params.get('search') || '',
             lang: 'en'
         }) || {},
         {
@@ -34,7 +34,6 @@ export default function NewPage({ user }) {
             }
         }
     )
-console.log(user.role);
     const news = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
     useEffect(() => {
