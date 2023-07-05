@@ -1,44 +1,47 @@
 import api from "./api"
 
-export const GetNewsCategory= async () => {
+export const GetNewsCategory = async () => {
     try {
-     const res = await api.get(`/news_categories`, {withCredentials: true})
-     return res.data
+        const res = await api.get(`/news_categories`, { withCredentials: true })
+        return res.data
     } catch (error) {
-     console.log(error.response.data.message);
+        console.log(error.response.data.message);
     }
 }
 
-export const GetNews = async () => {
+export const GetNews = async (query) => {
     try {
-     const res = await api.get(`/news`, {withCredentials: true})
-     return res.data
+        const searchParams = new URLSearchParams(query)
+        const res = await api.get(`/news/published?${searchParams?.toString()}`, { withCredentials: true })
+        return res.data
     } catch (error) {
-     console.log(error.response.data.message);
+        console.log(error.response?.data?.message);
     }
 }
 export const SearchNews = async (query) => {
     try {
-     const res = await api.get(`/news?search=${query}`, {withCredentials: true})
-     return res.data
+        const searchParams = new URLSearchParams(query)
+        const res = await api.get(`/news?${searchParams?.toString()}`, { withCredentials: true })
+        return res.data
     } catch (error) {
-     console.log(error.response.data.message);
+        console.log(error.response.data.message);
     }
 }
 export const GetNewsById = async (id) => {
     try {
-     const res = await api.get(`/news/${id}`, {withCredentials: true})
-     return res.data
+        const res = await api.get(`/news/${id}`, { withCredentials: true })
+        return res.data
     } catch (error) {
-     console.log(error.response.data.message);
+        console.log(error.response.data.message);
     }
 }
 
-export const NewsAdd = async (data) => { 
+export const NewsAdd = async (data) => {
     const response = await api.post('/news', data, {
         headers: {
-        'Content-Type': "multipart/form-data"
-    }});
+            'Content-Type': "multipart/form-data"
+        }
+    });
     return response;
 }
 

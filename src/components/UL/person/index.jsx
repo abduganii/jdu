@@ -5,7 +5,7 @@ import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
 export default function Person({ avatar, name, id, year, email, Professor, rate }) {
-    console.log(email)
+   
     return (
         <div className={cls.Person}>
             {

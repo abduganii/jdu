@@ -24,6 +24,7 @@ export default function LoginPage() {
             .catch(error => {
                 setError('loginId', { type: 'custom', message: error?.response?.data?.message });
                 setError('password', { type: 'custom', message: error?.response?.data?.message });
+
             })
     }
 

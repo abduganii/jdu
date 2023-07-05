@@ -7,7 +7,6 @@ import DecanTeacher from '../app/Decan/Teacher'
 import DecanRecruitor from '../app/Decan/recruitor'
 import Login from '../app/auth/login'
 import DecanRecruitorBuId from '../app/Decan/recruitor/id'
-import News from '../app/News'
 import OneNews from '../app/News/oneNews'
 import AddNews from '../app/News/AddNews'
 import Settings from '../app/settings'
@@ -24,6 +23,7 @@ import { TopStudentsGet } from '../services/student'
 import { GetMe } from '../services/me'
 import Logout from '../app/auth/logout'
 import LoginNewPage from '../components/Pages/NewPassword'
+import NewPage from '../components/Pages/NewPage'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -40,9 +40,6 @@ export default function AppRouter() {
         }
         if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout' && router?.pathname != '/auth/newPassword') {
             fetchData()
-                .then((err) => {
-                    console.log(err);
-                })
         }
 
     }, [router]);
@@ -55,9 +52,6 @@ export default function AppRouter() {
         }
         if (user) {
             fetchData()
-                .then((err) => {
-                    console.log(err);
-                })
         }
     }, [user])
 
@@ -79,7 +73,7 @@ export default function AppRouter() {
                 <Route path="/recruitor/students/:id" element={<StudentById />} />
                 <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} role={user?.role} count={count} />} />
                 RecStudent
-                <Route path="/news" element={<News user={user} />} />
+                <Route path="/news" element={<NewPage user={user} />} />
                 <Route path="/newsAdd" element={<AddNews />} />
                 <Route path="/news/:id" element={<OneNews />} />
                 <Route path="/settings" element={<Settings />} />

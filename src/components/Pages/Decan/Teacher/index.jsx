@@ -75,7 +75,6 @@ export default function TeacherPage({ data, onChange }) {
         formData.append("bio", data?.bio)
 
         if (query == "true") {
-            console.log(data)
             // await RecruitorUpdate(formData, personId1)
             //     .then(res => {
             //         if (res?.data?.message) {

@@ -301,13 +301,3 @@ export default function SettingsPage({ data }) {
         </>
     )
 }
-
-
-
-
-
-
-
-
-
-

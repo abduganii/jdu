@@ -49,7 +49,6 @@ export default function RecruitorPage({ data, onChange }) {
         }
         fetchData()
             .then((err) => {
-                console.log(err);
             })
     }
 

@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
-import moment from 'moment'
-import 'moment-timezone';
 import cls from "./header.module.scss"
 import Avatar from 'react-avatar';
-import { useLocation, useNavigate } from 'react-router-dom';
-export default function Header({ user }) {
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTime } from '../../../hooks/useTime';
+import paramsToObject from '../../../utils/paramsToObject';
 
+export default function Header({ user }) {
+    const tashkentTime = useTime()
+    const [params, setSearchParams] = useSearchParams()
+    const tokyoTime = useTime('Asia/Tokyo')
     const [roles, setRoles] = useState("")
     const router = useNavigate()
-
 
     useEffect(() => {
         const role = user?.role
@@ -19,15 +21,22 @@ export default function Header({ user }) {
             setRoles("Employer")
         }
     }, [router, user?.role]);
+
     return (
         <header className={cls.Header}>
             <h3 className={cls.Header__logo}>{roles} Panel</h3>
             <div className={cls.Header__left}>
-                <input className={cls.Header__search} type="text" placeholder="Search" onChange={(e) => router(`?search=${e?.target.value}`)} />
+                <input 
+                    className={cls.Header__search} 
+                    value={params.get('search') ?? ''}
+                    onChange={(e) => { setSearchParams({ ...paramsToObject(params.entries()), search: e.target.value || '' }) }} 
+                    type="text" 
+                    placeholder="Search" 
+                />
                 <div className={cls.Header__clock}>
                     <div className={cls.Header__clock__japon}>
                         <p className={cls.Header__clock__title}>Japan</p>
-                        <p className={cls.Header__clock__text}>{moment().tz('Asia/Tokyo').format('HH:mm')}</p>
+                        <p className={cls.Header__clock__text}>{tokyoTime}</p>
                     </div>
                     <div className={cls.Header__clock__center}>
                         <div className={cls.Header__clock__line}></div>
@@ -42,7 +51,7 @@ export default function Header({ user }) {
                     </div>
                     <div className={cls.Header__clock__japon}>
                         <p className={cls.Header__clock__title1}>Uzbekistan</p>
-                        <p className={cls.Header__clock__text1}>{moment().tz('Asia/Tashkent').format('HH:mm')}</p>
+                        <p className={cls.Header__clock__text1}>{tashkentTime}</p>
                     </div>
                 </div>
                 <div className={cls.Header__profil} onClick={() => router('/settings')}>
