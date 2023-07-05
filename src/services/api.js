@@ -1,4 +1,5 @@
 import axios from "axios";
+import { QueryClient } from "react-query";
 
 const api = axios.create({
     baseURL: "https://api.jdu.getter.uz/",
@@ -15,5 +16,14 @@ api.interceptors.request.use(
       return Promise.reject(error)
     }
   )
+
+  export const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+      },
+    },
+  });
 
 export default api;

@@ -21,7 +21,6 @@ export default function LoginPage() {
                 router(`/${response?.data?.user?.role}/home`)
             })
             .catch(error => {
-                console.log(error)
                 toast(error?.response?.data?.message)
             })
     }

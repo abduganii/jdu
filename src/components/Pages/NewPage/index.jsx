@@ -1,56 +1,79 @@
+import { useState, useEffect } from 'react'
+import { useInfiniteQuery, useQuery } from 'react-query'
+import { useInView } from 'react-intersection-observer'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import RightAsideWrapper from '../../UL/Aside/RightAsideWrapper'
 import BlueButtun from '../../UL/buttun/blueBtn'
 import { PlusIcon } from '../../UL/icons'
 import TopNewsList from '../../UL/list/Topnews'
 import NewsList from '../../UL/list/newsList'
 import Container from '../../UL/container'
-
-import { useState, useEffect } from 'react'
-
-import { Category, News } from './data'
+import { GetNews, getNewsCategories } from '../../../services/news'
+import { News } from './data'
 import cls from "./NewPage.module.scss"
-import { useLocation, useNavigate } from 'react-router-dom'
-import { getNewsCategories } from '../../../services/news'
+import paramsToObject from '../../../utils/paramsToObject'
 
-export default function NewPage({ data, user }) {
-    const [categories, setCategories] = useState([])
+export default function NewPage({ user }) {
     const router = useNavigate()
-    const Lacation = useLocation()
-    const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
-    const [endex, setInedex] = useState(query)
+    const { ref, inView } = useInView()
+    const [params, setSearchParams] = useSearchParams()
+    const [endex, setInedex] = useState(0)
+    const { data: categories } = useQuery('categories', getNewsCategories)
+    const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
+        ['news', params.get('categoryId'), params.get('search')],
+        async ({ pageParam = 1 }) => await GetNews({ 
+            limit: 6, 
+            page: pageParam, 
+            categoryId: params.get('categoryId') || '', 
+            search: params.get('search') || '' ,
+            lang: 'en'
+        }) || {},
+        {
+            getNextPageParam: (lastPage, pages) => {
+                return lastPage?.count > pages?.length * 6 ? pages.length + 1 : undefined
+            }
+        }
+    )
+console.log(user.role);
+    const news = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
     useEffect(() => {
-        getNewsCategories()
-            .then(categories => setCategories(categories))
-    }, [])
+        if (inView && hasNextPage) {
+            fetchNextPage()
+        }
+    }, [inView])
 
     return (
         <>
             <Container style={{ marginTop: "112px" }}>
                 <div className={cls.NewPage__top}>
                     <p
-                        className={`${cls.NewPage__top__text} ${"0" === query ? cls.NewPage__top__textActive : ""} `}
+                        className={`${cls.NewPage__top__text} ${!params.get('categoryId') ? cls.NewPage__top__textActive : ""} `}
                         onClick={() => {
-                            router(`/news?categoryNew=0`)
+                            setSearchParams({ categoryId: '' })
                             setInedex(0)
                         }}
-                    >All News</p>
+                    >
+                        All News
+                    </p>
                     {
                         categories?.map((e, i) => (
                             <p
+                                key={e.id}
+                                className={`${cls.NewPage__top__text} ${e.id == params.get('categoryId') ? cls.NewPage__top__textActive : ""} `}
                                 onClick={() => {
-                                    router(`/news?categoryNew=${e?.id}`)
+                                    setSearchParams({ ...paramsToObject(params.entries()), categoryId: e.id })
                                     setInedex(i + 1)
                                 }}
-                                className={`${cls.NewPage__top__text} ${e.id == query ? cls.NewPage__top__textActive : ""} `}
-                            >{e.name}
+                            >
+                                {e.name}
                             </p>
                         ))}
 
                     <div className={cls.NewPage__top__line} style={{ left: 90 * endex }}></div>
                 </div>
                 {
-                    data && data?.slice(0, 10).map(e => (
+                    news?.length > 0 && news.map(e => (
                         <NewsList
                             key={e?.id}
                             img={e?.image}
@@ -60,11 +83,12 @@ export default function NewPage({ data, user }) {
                             onClick={() => router(`/news/${e?.id}`)} />
                     ))
                 }
+                <div ref={ref} style={{ padding: '10px' }}></div>
             </Container>
             <div className={cls.NewPage__left}>
-                {user?.role == "decan" ? <div className={cls.NewPage__left__btn}>
+                {user?.role === "decan" ? <div className={cls.NewPage__left__btn}>
                     <BlueButtun onClick={() => router(`/newsAdd`)} style={{ marginLeft: "auto", marginRight: "20px" }}>
-                        <PlusIcon />Add News
+                        <PlusIcon /> Add News
                     </BlueButtun>
                 </div> : <></>}
                 <RightAsideWrapper style={{ padding: "30px 18px", marginTop: 0, top: 0 }} >

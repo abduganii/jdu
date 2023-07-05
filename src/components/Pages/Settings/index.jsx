@@ -56,12 +56,10 @@ export default function SettingsPage({ data }) {
 
         if (data?.role == 'decan') {
             await DecanUpdate(formData)
-                .then((data) => console.log(data))
                 .catch(err => console.log(err))
         }
         if (data?.role == 'recruitor') {
             await RecruitorUpdate(formData, data?.id)
-                .then((data) => console.log(data))
                 .catch(err => console.log(err))
         }
     }
