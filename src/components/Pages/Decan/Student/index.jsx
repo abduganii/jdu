@@ -20,13 +20,12 @@ import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 
 
-export default function StudentPage({ data, Specialisation, onChange }) {
+export default function StudentPage({ data, onChange }) {
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
-    const [specialisation, setSpecialisation] = useState()
 
     const oneStuednt = data.find(e => e.id === personId)
 
@@ -39,7 +38,6 @@ export default function StudentPage({ data, Specialisation, onChange }) {
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
         formData.append("loginId", data?.loginId)
-        formData.append("specialisationId", specialisation)
         formData.append("groupNumber", data?.groupNumber)
         formData.append("courseNumber", data?.courseNumber)
         formData.append("email", data?.email)
@@ -99,10 +97,10 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                 <Filter page={"student"} />
                 <BlueButtun onClick={() => setOpenMadal(true)}>
                     <PlusIcon />
-                    Add Student
+                    学生を追加
                 </BlueButtun>
             </div>
-            <TopList text={["Student", "Student ID", "Group", "Rate", "Skills", "Actions"]} />
+            <TopList text={["学生", "ID", "グループ", "レート", "スキル", "作用"]} />
 
             {data && data?.map(e => (
                 <PersonList
@@ -154,7 +152,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
             }
             {openMadal &&
                 <AddMadal
-                    role={"Add student"}
+                    role={"学生を追加"}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
@@ -169,8 +167,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         <AddInput
                             register={{ ...register('firstName', { required: "firstName is required" }) }}
                             type={"text"}
-                            label={"Firstname"}
-                            placeholder={"Firstname"}
+                            label={"名前"}
+                            placeholder={"名前"}
                             alert={errors.firstName?.message}
                             onChange={() => clearErrors("firstName")}
                             style={{ marginBottom: "20px" }}
@@ -178,8 +176,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         <AddInput
                             register={{ ...register('lastName', { required: "lastName is required" }) }}
                             type={"text"}
-                            label={"Lastname"}
-                            placeholder={"Lastname"}
+                            label={"苗字"}
+                            placeholder={"苗字"}
                             alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
                             style={{ marginBottom: "20px" }}
@@ -197,23 +195,12 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
 
                         />
-                        <AddInput
-                            type={"select"}
-                            label={"Specialisation"}
-                            placeholder={"Specialisation"}
-                            Specialisation={Specialisation}
-                            onChange={(e) => {
-                                setSpecialisation(e)
-                            }}
-                            alert={errors.specialisation?.message}
-                            style={{ marginBottom: "20px" }}
 
-                        />
                         <AddInput
                             register={{ ...register('groupNumber', { required: "groupNumber is required" }) }}
                             type={"text"}
-                            label={"Group"}
-                            placeholder={"Group"}
+                            label={"グループ"}
+                            placeholder={"グループ"}
                             alert={errors.groupNumber?.message}
                             onChange={() => clearErrors("groupNumber")}
                             style={{ marginBottom: "20px" }}
@@ -223,8 +210,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         <AddInput
                             register={{ ...register('courseNumber', { required: "courseNumber is required" }) }}
                             type={"text"}
-                            label={"Course number"}
-                            placeholder={"Course number"}
+                            label={"コース番号"}
+                            placeholder={"コース番号"}
                             alert={errors.courseNumber?.message}
                             onChange={() => clearErrors("courseNumber")}
                             style={{ marginBottom: "20px" }}
@@ -234,8 +221,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         <AddInput
                             register={{ ...register('email', { required: "email is required" }) }}
                             type={"text"}
-                            label={"E-mail"}
-                            placeholder={"E-mail"}
+                            label={"メール"}
+                            placeholder={"メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
@@ -243,8 +230,8 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         <AddInput
                             register={{ ...register('password', { required: "password is required" }) }}
                             type={"text"}
-                            label={"Password"}
-                            placeholder={"Password"}
+                            label={"パスワード"}
+                            placeholder={"パスワード"}
                             geterat={true}
                             passwordGenerate={(e) => setValue("password", e)}
                             alert={errors.password?.message}

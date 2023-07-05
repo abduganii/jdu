@@ -9,7 +9,8 @@ export default function LessonTable({ children, lassons = [], lessonId, setLesso
     const arr = lassons?.find(e => e.id == lessonId)
     return (
         <>
-            <h3 className={cls.LessonTable__title}>Lessons</h3>
+            <h3 className={cls.LessonTable__title}>
+                レッスン</h3>
             <div className={cls.LessonTable__list}>
                 {lassons && lassons.map(e => (
                     <p
@@ -23,7 +24,7 @@ export default function LessonTable({ children, lassons = [], lessonId, setLesso
             <div className={cls.LessonTable__table} >
                 <div className={cls.LessonTable__table__semester}>
                     <div className={cls.LessonTable__table__semester__div} >
-                        <p className={cls.LessonTable__table__text}>semester:</p>
+                        <p className={cls.LessonTable__table__text}>学期:</p>
                         {arr?.semesters?.map(e => (
                             <button
                                 key={e}
@@ -34,7 +35,7 @@ export default function LessonTable({ children, lassons = [], lessonId, setLesso
                         ))}
                     </div>
                     <div className={cls.LessonTable__table__semester__div} >
-                        <p className={cls.LessonTable__table__text}>whole:</p>
+                        <p className={cls.LessonTable__table__text}>全体:</p>
                         <p className={cls.LessonTable__table__all}>229</p>
                     </div>
                 </div>

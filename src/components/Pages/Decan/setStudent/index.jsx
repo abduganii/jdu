@@ -263,13 +263,14 @@ export default function SetStudent({ data, Specialisation }) {
             }}>
                 <div className={cls.SetStudent__logout2} ref={y}>
                     <p className={cls.SetStudent__logout2__text}>
-                        Do you want to leave without save changes?
+                        変更を保存せずに
+                        終了しますか?
                     </p>
                     <div>
                         <CancelBtn onClick={() => router(-1)}>
-                            Yes
+                            はい
                         </CancelBtn>
-                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >No</BlueButtun>
+                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }} >いいえ</BlueButtun>
                     </div>
                 </div>
             </div>
@@ -279,17 +280,17 @@ export default function SetStudent({ data, Specialisation }) {
                     <div className={cls.SetStudent__top__Info}>
                         <div onClick={() => x.current.classList.add("displayBlock")}>
                             <LeftIcon />
-                            <p className={cls.SetStudent__top__role}>Student</p>
+                            <p className={cls.SetStudent__top__role}>戻る</p>
                         </div>
 
                         <h3 className={cls.SetStudent__top__fName}>{data?.firstName} {data?.lastName}</h3>
                     </div>
                     <div className={cls.SetStudent__top__btns}>
                         <CancelBtn onClick={() => router(-1)}>
-                            Cancel
+                            キャンセル
                         </CancelBtn>
                         <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
-                            Save changes
+                            編集保存
                         </BlueButtun>
                     </div>
                 </div>
@@ -311,16 +312,16 @@ export default function SetStudent({ data, Specialisation }) {
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
-                            label={"Firstname"}
-                            placeholder={"Firstname"}
+                            label={"名前"}
+                            placeholder={"名前"}
                             register={{ ...register2('firstName') }}
                             value={watchedFiles2?.firstName || ''}
                         />
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
-                            label={"Lastname"}
-                            placeholder={"Lastname"}
+                            label={"名字"}
+                            placeholder={"名字"}
                             register={{ ...register2('lastName') }}
                             value={watchedFiles2?.lastName || ''}
                         />
@@ -334,7 +335,7 @@ export default function SetStudent({ data, Specialisation }) {
                         />
                         <AddInput
                             type={"select"}
-                            label={"Specialisation"}
+                            label={"専門分野"}
                             placeholder={specialisationtext}
                             Specialisation={Specialisation}
                             onChange={(e) => {
@@ -344,58 +345,58 @@ export default function SetStudent({ data, Specialisation }) {
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
-                            label={"Group"}
-                            placeholder={"Group"}
+                            label={"グループ"}
+                            placeholder={"グループ"}
                             register={{ ...register2('groupNumber') }}
                             value={watchedFiles2?.groupNumber || ''}
                         />
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
-                            label={"Course number"}
-                            placeholder={"Course number"}
+                            label={"コース番号"}
+                            placeholder={"コース番号"}
                             register={{ ...register2('courseNumber') }}
                             value={watchedFiles2?.courseNumber || ''}
                         />
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
-                            label={"E-mail"}
-                            placeholder={"E-mail"}
+                            label={"eメール"}
+                            placeholder={"eメール"}
                             register={{ ...register2('email') }}
                         />
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"password"}
-                            label={"Password"}
-                            placeholder={"Password"}
+                            label={"パスワード"}
+                            placeholder={"パスワード"}
                             register={{ ...register2('password') }}
                         />
                     </div>
                 </div>
-                <h3 className={cls.SetStudent__lesson}>Japan Language tests</h3>
+                <h3 className={cls.SetStudent__lesson}>日本語試験</h3>
 
                 <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[0]?.name}</p>
                 <div className={cls.SetStudent__lesson__wrap}>
                     <RangeInput
-                        lessonType={"Listening"}
+                        lessonType={"聴解"}
                         defaultRange={listening}
                         onChange={(pr) => SetListing(pr)}
                     />
                     <RangeInput
-                        lessonType={"Reading"}
+                        lessonType={"読解"}
                         defaultRange={reading}
                         onChange={(pr) => SetReading(pr)}
                     />
                     <RangeInput
-                        lessonType={"Writing"}
+                        lessonType={"筆記"}
                         defaultRange={writing}
                         onChange={(pr) => SetWriting(pr)}
                     />
                     <div className={cls.SetStudent__Sertifacet}>
-                        <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
+                        <p className={cls.SetStudent__Sertifacet__text}>資格 </p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={`${file ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file ? " File uploaded" : "File not uploaded"}</p>
+                            <p className={`${file ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file ? " ファイルをアップロード" : "ファイルをアップデート無し"}</p>
                             <div className={`${file && cls.SetStudent__Sertifacet__Download__round}`}>
                                 <div className={cls.SetStudent__Sertifacet__Download__}></div>
                                 <DownloadIcons color={file ? "white" : "#121212"} back={file ? "#5627DC" : "#C8C4D2"} />
@@ -407,24 +408,24 @@ export default function SetStudent({ data, Specialisation }) {
                 <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[1]?.name}</p>
                 <div className={cls.SetStudent__lesson__wrap}>
                     <RangeInput
-                        lessonType={"Listening"}
+                        lessonType={"聴解"}
                         defaultRange={listening1}
                         onChange={(pr) => SetListing1(pr)}
                     />
                     <RangeInput
-                        lessonType={"Reading"}
+                        lessonType={"読解"}
                         defaultRange={reading1}
                         onChange={(pr) => SetReading1(pr)}
                     />
                     <RangeInput
-                        lessonType={"Writing"}
+                        lessonType={"筆記"}
                         defaultRange={writing1}
                         onChange={(pr) => SetWriting1(pr)}
                     />
                     <div className={cls.SetStudent__Sertifacet}>
-                        <p className={cls.SetStudent__Sertifacet__text}>Sertifacet</p>
+                        <p className={cls.SetStudent__Sertifacet__text}>資格</p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={`${file1 ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file1 ? " File uploaded" : "File not uploaded"}</p>
+                            <p className={`${file1 ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file1 ? " ファイルをアップロード" : "ファイルをアップデート無し"}</p>
                             <div className={`${file1 && cls.SetStudent__Sertifacet__Download__round}`}>
                                 <DownloadIcons color={file1 ? "white" : "#121212"} back={file1 ? "#5627DC" : "#C8C4D2"} />
                             </div>
@@ -434,12 +435,12 @@ export default function SetStudent({ data, Specialisation }) {
                 </div>
 
 
-                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT qualification</h3>
+                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT資格</h3>
 
                 <div className={cls.SetStudent__skill}>
                     <SearchSkill
-                        label={"Soft skills"}
-                        placeholder={"write name skills"}
+                        label={"ソフトスキルs"}
+                        placeholder={"スキル名を書く"}
                         skill={skills}
                         style={{ marginBottom: "24px" }}
                         onChange={(e) => {
@@ -467,20 +468,20 @@ export default function SetStudent({ data, Specialisation }) {
                 </div>
                 <AddInput
                     type={"textarea"}
-                    label={"Description"}
-                    placeholder={"Write here description"}
+                    label={"概要"}
+                    placeholder={"ここに概要を書く"}
                     style={{ marginTop: "25px" }}
                     register={{ ...register2('description') }}
                     value={watchedFiles2?.description || ''}
 
                 />
 
-                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> University Percentage</h3>
-                <p className={cls.SetStudent__progress}>Subjects Progress</p>
+                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> 大学のパーセンテージ</h3>
+                <p className={cls.SetStudent__progress}>科目の進捗状況</p>
                 <div className={cls.SetStudent__skill}>
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"Attendee"}
+                        lessonType={"出席者"}
                         defaultRange={Attendee}
                         onChange={(pr) => {
                             setAttendee(pr)
@@ -489,7 +490,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"IT course"}
+                        lessonType={"それコース"}
                         defaultRange={ItCourse}
                         onChange={(pr) => {
                             setItCourse(pr)
@@ -498,7 +499,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"Japan language"}
+                        lessonType={"日本語"}
                         defaultRange={JPlanguage}
                         onChange={(pr) => {
                             setJPlanguage(pr)
@@ -507,7 +508,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"Sanno University"}
+                        lessonType={"産業能率大学"}
                         defaultRange={Sanno}
                         onChange={(pr) => {
                             setSanno(pr)
@@ -516,7 +517,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"UzSWLUniversity"}
+                        lessonType={"ウズ。 SWL大学"}
                         defaultRange={SWL}
                         onChange={(pr) => {
                             setSWL(pr)
@@ -525,7 +526,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"Co-Work"}
+                        lessonType={"共同作業"}
                         defaultRange={CoWork}
                         onChange={(pr) => {
                             setCoWork(pr)
@@ -534,7 +535,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"All marks"}
+                        lessonType={"すべてのマーク"}
                         defaultRange={AllMarks}
                         disabled={true}
                         onChange={(pr) => setAllMarks(AllMarks)}

@@ -1,17 +1,17 @@
 export const filterRate = [
     {
         id: 0,
-        text: 'Low',
+        text: '最低',
         link:'low',
     },
     {
         id: 1,
-        text: 'Medium',
+        text: '最中',
         link:'medium',
     },
     {
         id: 3,
-        text: 'High',
+        text: '最高',
         link:'high',
     }
 ]
@@ -20,22 +20,22 @@ export const filterRate = [
 export const YearsRate = [
     {
         id: 0,
-        text: 'First',
+        text: '第一',
         link:'1',
     },
     {
         id: 1,
-        text: 'Second',
+        text: '第二',
         link:'2',
     },
     {
         id: 3,
-        text: 'Third',
+        text: '第三',
         link:'3',
     },
     {
         id: 4,
-        text: 'Fourth',
+        text: '第四第四',
         link:'4',
     }
 ]

@@ -40,15 +40,15 @@ export default function LoginPage() {
                             alt='img'
                         />
                         <div>
-                            <h3 className={cls.Login__content__title}>Welcome back</h3>
-                            <p className={cls.Login__content__text}>Please enter your details. </p></div>
+                            <h3 className={cls.Login__content__title}>おかえりなさい</h3>
+                            <p className={cls.Login__content__text}>情報を入力してください。</p></div>
                     </div>
 
                     <form className={cls.Form} onSubmit={handleSubmit(handleAuth)}>
-                        <p className={cls.Form__idtext}>Your ID</p>
+                        <p className={cls.Form__idtext}>ログイン</p>
                         <LoginInput
                             type={'text'}
-                            placeholder={"Enter your ID"}
+                            placeholder={"IDを入力してください"}
                             style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
                             register={{ ...register("loginId", { required: "loginId is required" }) }}
                             alert={errors.loginId?.message}
@@ -56,7 +56,7 @@ export default function LoginPage() {
                         />
                         <LoginInput
                             type={'password'}
-                            placeholder={"Enter your password"}
+                            placeholder={"パスワードを入力してください"}
                             register={{ ...register("password", { required: "password is required" }) }}
                             style={{ backgroundImage: "url('/Image/Iconsinpt.png')" }}
                             alert={errors.password?.message}
@@ -65,11 +65,11 @@ export default function LoginPage() {
                         <div className={cls.Form__bottom}>
                             <label className={cls.Form__label}>
                                 <input className={cls.Form__chechbox} type="checkbox" />
-                                Remember
+                                入力情報保存
                             </label>
-                            <p className={cls.Form__forget} onClick={() => router('/auth/logout')}>Forgot password</p>
+                            <p className={cls.Form__forget} onClick={() => router('/auth/logout')}>パスワードをお忘れの方</p>
                         </div>
-                        <ButtunLogin type='submit'>Log in</ButtunLogin>
+                        <ButtunLogin type='submit'>ログイン</ButtunLogin>
                     </form>
                 </div>
             </div>

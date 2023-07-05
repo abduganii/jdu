@@ -51,7 +51,7 @@ export default function OneStudent({ user, role }) {
                 />
 
                 <div className={cls.OneStudent__content}>
-                    <h3 className={cls.OneStudent__title}>Introduce yourself</h3>
+                    <h3 className={cls.OneStudent__title}>自己紹介</h3>
                     {
                         user?.bio && <>
                             <p className={cls.OneStudent__text}>{user?.bio}</p>
@@ -61,7 +61,7 @@ export default function OneStudent({ user, role }) {
                         <>
                             {user?.image ?
                                 <>
-                                    <p className={cls.OneStudent__title}>Gallery</p>
+                                    <p className={cls.OneStudent__title}>ギャラリー</p>
                                     <div className={cls.OneStudent__imgs}>
                                         <img
                                             src={'/Image/Rectangle502.png'}
@@ -74,7 +74,7 @@ export default function OneStudent({ user, role }) {
                             }
                         </>}
                     {
-                        user?.japanLanguageTests?.[0].sertificate & user?.japanLanguageTests?.[1].sertificate ? <h3 className={cls.OneStudent__title1}>Japan Language tests</h3> : ""}
+                        user?.japanLanguageTests?.[0].sertificate & user?.japanLanguageTests?.[1].sertificate ? <h3 className={cls.OneStudent__title1}>日本語試験</h3> : ""}
                     {
                         user?.japanLanguageTests && user?.japanLanguageTests.map(e => {
                             if (e?.sertificate) {
@@ -91,8 +91,8 @@ export default function OneStudent({ user, role }) {
                         })
 
                     }
-                    {user?.itQualification?.skills.length ? <> <p className={cls.OneStudent__title}>IT qualification</p>
-                        <p className={cls.OneStudent__text2}>Soft Skills Percentage </p></> : ""}
+                    {user?.itQualification?.skills.length ? <> <p className={cls.OneStudent__title}>IT資格</p>
+                        <p className={cls.OneStudent__text2}>ソフトスキルのパーセンテージ </p></> : ""}
                     {
                         user?.itQualification?.skills?.map(e => (
                             <>
@@ -105,54 +105,55 @@ export default function OneStudent({ user, role }) {
                     <p className={cls.OneStudent__text3}>{user?.itQualification?.description}.</p>
 
 
-                    <h3 className={cls.OneStudent__Percentage}>University Percentage</h3>
-                    <p className={cls.OneStudent__Percentage__text}>Subjects Progress</p>
+                    <h3 className={cls.OneStudent__Percentage}>単位取得状況</h3>
+                    <p className={cls.OneStudent__Percentage__text}>コースの状況</p>
                     <div className={cls.OneStudent__Percentage__wrap}>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>Attendee</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>出席者</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.Attendee}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.Attendee} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>It course</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>それコース</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.ItCourse}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.ItCourse} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>Japan language</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>日本語</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.JapanLanguage}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.JapanLanguage} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>Sanno university</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>産業能率大学</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.SannoUniversity}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.SannoUniversity} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>Uz. SWL university</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>ウズ。 SWL大学</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.UzSWLUniversity}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.UzSWLUniversity} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>Co work</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>共同作業</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.CoWork}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.CoWork} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>All marks</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}> すべてのマーク
+                                </h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{Number(Math.round(user?.universityPercentage?.AllMarks))}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.AllMarks} max="100"></progress>

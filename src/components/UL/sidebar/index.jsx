@@ -32,12 +32,12 @@ export default function SideBar({ user }) {
     return (
         <div className={cls.SideBar}>
             <div className={cls.SideBar__hello}>
-                <p className={cls.SideBar__text}>General </p>
+                <p className={cls.SideBar__text}>全体的 </p>
                 {navLinks?.map(e => {
 
                     if (links?.includes(e.label)) {
                         return (
-                            <React.Fragment  key={e?.id}>
+                            <React.Fragment key={e?.id}>
                                 <Link
                                     className={`${cls.SideBarBtn} ${pashName.pathname.includes(`/${user?.role}` + e?.link) ? cls.SideBar__active : ""}`}
                                     to={`/${user?.role}${e?.link}`}
@@ -61,7 +61,7 @@ export default function SideBar({ user }) {
                         )
                     }
                 })}
-                <p className={cls.SideBar__text} style={{ marginTop: "50px" }}>Preferances </p>
+                <p className={cls.SideBar__text} style={{ marginTop: "50px" }}>プリファレンス </p>
                 {settingLinks?.map(e => (
                     <Link
                         className={`${cls.SideBarBtn} ${pashName.pathname.includes(e?.link) ? cls.SideBar__active : ""}`}
@@ -74,7 +74,7 @@ export default function SideBar({ user }) {
                 ))}
             </div>
 
-            <button className={cls.SideBar__logout} onClick={() => x.current.classList.add("displayBlock")}><LogOutIcon /> Logout</button>
+            <button className={cls.SideBar__logout} onClick={() => x.current.classList.add("displayBlock")}><LogOutIcon /> ログアウト</button>
             <div className={cls.SideBar__logout2__wrap} ref={x} onClick={(e) => {
                 if (e.target == x.current) {
                     x.current.classList.remove("displayBlock")
@@ -83,16 +83,16 @@ export default function SideBar({ user }) {
             }}>
                 <div className={cls.SideBar__logout2} ref={y}>
                     <p className={cls.SideBar__logout2__text}>
-                        Do you want to Logout?
+                        ログアウトしますか?
                     </p>
                     <div>
                         <CancelBtn onClick={async () => {
                             await Loginout()
                             router('/auth/login')
                         }}>
-                            Yes
+                            はい
                         </CancelBtn>
-                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >No</BlueButtun>
+                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >いいえ</BlueButtun>
                     </div>
                 </div>
             </div>

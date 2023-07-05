@@ -22,25 +22,25 @@ export default function LoginNewPage() {
                 <div>
                     <div className={cls.Login__content__top}>
                         <div>
-                            <h3 className={cls.Login__content__title}>Create new password</h3>
+                            <h3 className={cls.Login__content__title}>新しいパスワードを作成</h3>
                         </div>
                     </div>
 
                     <form className={cls.Form} >
                         <LoginInput
                             type={'text'}
-                            placeholder={"New password"}
+                            placeholder={"新しいパスワード"}
                             style={{ marginBottom: "30px", paddingLeft: 0 }}
                             register={{ ...register("password", { required: true }) }}
                         />
                         <LoginInput
                             type={'password'}
-                            placeholder={"Confirm Password"}
+                            placeholder={"パスワード認証"}
                             style={{ marginBottom: "31px", paddingLeft: 0 }}
                             register={{ ...register("password", { required: true }) }}
                         />
 
-                        <ButtunLogin type='submit'>Change password</ButtunLogin>
+                        <ButtunLogin type='submit'>パスワードを変更</ButtunLogin>
                     </form>
                 </div>
             </div>

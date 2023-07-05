@@ -24,18 +24,18 @@ export default function Header({ user }) {
 
     return (
         <header className={cls.Header}>
-            <h3 className={cls.Header__logo}>{roles} Panel</h3>
+            <h3 className={cls.Header__logo}>デカンパーネル</h3>
             <div className={cls.Header__left}>
-                <input 
-                    className={cls.Header__search} 
+                <input
+                    className={cls.Header__search}
                     value={params.get('search') ?? ''}
-                    onChange={(e) => { setSearchParams({ ...paramsToObject(params.entries()), search: e.target.value || '' }) }} 
-                    type="text" 
-                    placeholder="Search" 
+                    onChange={(e) => { setSearchParams({ ...paramsToObject(params.entries()), search: e.target.value || '' }) }}
+                    type="text"
+                    placeholder="検索"
                 />
                 <div className={cls.Header__clock}>
                     <div className={cls.Header__clock__japon}>
-                        <p className={cls.Header__clock__title}>Japan</p>
+                        <p className={cls.Header__clock__title}>日本</p>
                         <p className={cls.Header__clock__text}>{tokyoTime}</p>
                     </div>
                     <div className={cls.Header__clock__center}>
@@ -50,7 +50,7 @@ export default function Header({ user }) {
                         <div className={cls.Header__clock__line2}></div>
                     </div>
                     <div className={cls.Header__clock__japon}>
-                        <p className={cls.Header__clock__title1}>Uzbekistan</p>
+                        <p className={cls.Header__clock__title1}>ウズベキスタン</p>
                         <p className={cls.Header__clock__text1}>{tashkentTime}</p>
                     </div>
                 </div>

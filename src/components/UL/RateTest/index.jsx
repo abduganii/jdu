@@ -35,18 +35,18 @@ export default function RateTest({ Listening, Reading, writing, title, text, fil
             <div className={cls.RateTest__btn}>
                 <div className={cls.RateTest__btn__wrap}>
                     <div className={cls.RateTest__btn__text} style={{ background: setColor(Listening) }}>{Listening}%</div>
-                    <p className={cls.RateTest__text}>Listening</p>
+                    <p className={cls.RateTest__text}>聴解</p>
                 </div>
                 <div className={cls.RateTest__btn__wrap}>
                     <div className={cls.RateTest__btn__text} style={{ background: setColor(Reading) }}>{Reading}%</div>
-                    <p className={cls.RateTest__text}>Reading</p>
+                    <p className={cls.RateTest__text}>読解</p>
                 </div>
                 <div className={cls.RateTest__btn__wrap}>
                     <div className={cls.RateTest__btn__text} style={{ background: setColor(writing) }}>{writing}%</div>
-                    <p className={cls.RateTest__text}>writing</p>
+                    <p className={cls.RateTest__text}>筆記</p>
                 </div>
                 <div className={cls.RateTest__Download} onClick={saveFile}>
-                    <p className={cls.RateTest__Download__text}>Download Cestificate</p>
+                    <p className={cls.RateTest__Download__text}>資格保存</p>
                     <DownloadIcons color={'white'} back={'#5627DC'} back2={'#5627DC'} />
                 </div>
 

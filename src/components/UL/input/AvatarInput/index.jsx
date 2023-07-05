@@ -20,9 +20,9 @@ export default function AvatarInput({ onChange, url, ...other }) {
                 <div className={cls.AvatarInput__avatar}>
                     {url ? <img className={cls.AvatarInput__avatar__img} src={url} alt="img" /> : <UploadNewIcon color={"#5627DC"} />}
                 </div>
-                <p className={cls.AvatarInput__avatar__text}>avatar</p>
+                <p className={cls.AvatarInput__avatar__text}>アバター</p>
             </label>
-            <p className={cls.AvatarInput__text}>The photo must be 3x4 in size and no larger than 524kb.</p>
+            <p className={cls.AvatarInput__text}>画像のサイズは3x4で、524kb以内。.</p>
         </div>
     )
 }

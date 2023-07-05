@@ -60,6 +60,8 @@
         display: flex;
         align-items: center;
         margin-right: 30px;
+        width: 100%;
+        max-width: 150px;
 
         &__title {
             font-family: 'Inter';

@@ -4,13 +4,13 @@ export const navLinks = [
     {
         id: 0,
         link: '/home',
-        label: 'Home',
+        label: 'ホーム',
         icon: (e) => HomeIcon({fill:e})
     },
     {
         id: 1,
         link: '/students',
-        label: 'Students',
+        label: '学生',
         icon: (e)=>  StudentsIcon({fill:e})
     },
     {
@@ -22,7 +22,7 @@ export const navLinks = [
     {
         id: 3,
         link: '/recruitors',
-        label: 'Recruitors',
+        label: 'リクルーター',
         icon: (e)=>  PersonIcon({fill:e})
     },
     {
@@ -54,7 +54,7 @@ export const navLinks = [
     {
         id: 8,
         link: '/news',
-        label: 'News',
+        label: 'ニュース',
         icon: (e)=>  NewsIcon({fill:e})
     },
     {
@@ -75,14 +75,14 @@ export const settingLinks = [
     {
         id: 0,
         link: '/settings',
-        label: 'Settings',
+        label: '設定',
         icon: (e)=>    SettingIcon({fill:e})
        
     },
     {
         id: 1,
         link: '/help',
-        label: 'Help',
+        label: 'ヘルプ',
         icon:  (e)=>   HelpIcon({fill:e})
      
     }
@@ -90,6 +90,6 @@ export const settingLinks = [
 ]
 
 
-export const recruitorLink = ['Home', 'Students', 'Selected']
+export const recruitorLink = ['ホーム', '学生', 'Selected']
 
-export const decanLink = ['Home','Students',"Teachers","Recruitors","Schedule"]
+export const decanLink = ['ホーム','学生',"リクルーター"]

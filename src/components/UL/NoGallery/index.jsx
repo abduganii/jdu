@@ -6,8 +6,8 @@ export default function NoGaler() {
         <div className={cls.NoGaler}>
             <img src="/Image/2phote.png" alt="img" />
             <div className={cls.NoGaler__wrap}>
-                <h3 className={cls.NoGaler__title}>Galery</h3>
-                <p className={cls.NoGaler__text}>You can find more and clearly data and foto, video galery about this student when it uploaded.</p>
+                <h3 className={cls.NoGaler__title}>ギャラリー</h3>
+                <p className={cls.NoGaler__text}>この生徒に関するより明確なデータと写真、ビデオ ギャラリーをアップロード時に見つけることができます.</p>
             </div>
         </div>
     )

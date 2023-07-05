@@ -21,14 +21,14 @@ export default function NewsInput({ label, type, placeholder, register = {}, url
                             <div className={cls.NewsInput__file__top}>
                                 {url ?
                                     <img className={cls.NewsInput__input__img} src={URL.createObjectURL(url)} alt="img" /> :
-                                    <p className={cls.NewsInput__file__imgtext}>NO IMAGE</p>}
+                                    <p className={cls.NewsInput__file__imgtext}>画像無し</p>}
                             </div>
                             <div className={cls.NewsInput__file__btm}>
                                 <div className={cls.NewsInput__file__blue}>
                                     <UploadNewIcon color={"white"} />
                                 </div>
                                 <div className={cls.NewsInput__file__content}>
-                                    <h4 className={cls.NewsInput__file__title}>Upload Photo</h4>
+                                    <h4 className={cls.NewsInput__file__title}>写真をアップする</h4>
                                     <p className={cls.NewsInput__file__text}>.jpg .png. tif</p>
                                 </div>
                             </div>

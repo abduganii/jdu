@@ -13,15 +13,15 @@ export default function LogoutPage() {
     const { register, handleSubmit } = useForm();
 
     const handleAuth = async (data) => {
-        // setIt(false)
-        await Forget(data)
-            .then((response) => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-                toast(error?.response?.data?.message)
-            })
+        setIt(false)
+        // await Forget(data)
+        //     .then((response) => {
+        //         console.log(response)
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //         toast(error?.response?.data?.message)
+        //     })
     }
     if (trueFalse) {
         return (
@@ -30,21 +30,21 @@ export default function LogoutPage() {
                     <div>
                         <div className={cls.Login__content__top}>
                             <div>
-                                <h3 className={cls.Login__content__title}>Forgot password</h3>
-                                <p className={cls.Login__content__text}>We send new password to your E-mail</p>
+                                <h3 className={cls.Login__content__title}>パスワードをお忘れの方</h3>
+                                <p className={cls.Login__content__text}>パスワード更新リンクを電子メールに送信します</p>
                             </div>
                         </div>
 
                         <form className={cls.Form} onSubmit={handleSubmit(handleAuth)}>
-                            <p className={cls.Form__idtext}>Changing password</p>
+                            <p className={cls.Form__idtext}>パスワードの変更</p>
                             <LoginInput
                                 type={'text'}
-                                placeholder={"Enter your E-mail"}
+                                placeholder={"メールアドレスを入力"}
                                 style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "50px" }}
                                 register={{ ...register("email", { required: true }) }}
                             />
                             {/* <p className={cls.Form__forget} onClick={() => router('/auth/login')}>Back</p> */}
-                            <ButtunLogin type='submit'>Send password</ButtunLogin>
+                            <ButtunLogin type='submit'>送信</ButtunLogin>
                         </form>
                     </div>
                 </div>
@@ -63,13 +63,13 @@ export default function LogoutPage() {
                     <div>
                         <div className={cls.Login__content__top}>
                             <div>
-                                <h3 className={cls.Login__content__title}>An update link has been sent!</h3>
-                                <p className={cls.Login__content__text}>We have send you an e-mail that contains a link to uptade your password.</p>
+                                <h3 className={cls.Login__content__title}>更新リンクが送信されました。</h3>
+                                <p className={cls.Login__content__text}>パスワードを更新するためのリンクを記載した電子メールを送信しました。</p>
                             </div>
                         </div>
 
 
-                        <ButtunLogin style={{ marginTop: "82px" }} onChange={() => router('/auth/login')}>Back to login</ButtunLogin>
+                        <ButtunLogin style={{ marginTop: "82px" }} onChange={() => router('/auth/login')}>ログインへ戻る</ButtunLogin>
 
                     </div>
                 </div>

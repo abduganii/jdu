@@ -23,13 +23,13 @@ import { NewsAdd } from '../../../../services/news'
 const data = [
     {
         id: 3421,
-        text: "Japon",
+        text: "日本",
         lang: "jp"
     },
     {
         id: 2321,
-        text: "Inglish",
-        lang: "en"
+        text: "ウズベク",
+        lang: "uz"
     },
 ]
 
@@ -79,39 +79,39 @@ export default function AddNewsPage({ categoryArr }) {
                 <div className={cls.AddNews__top}>
                     <div className={cls.AddNews__titles}>
                         <NewsInput
-                            label={"News Title"}
-                            placeholder={"News Title"}
+                            label={"ニュースタイトル"}
+                            placeholder={"ニュースタイトル"}
                             type={"text"}
                             style={{ marginBottom: "20px" }}
                             register={{ ...register(`title`) }}
                         />
                         <NewsInput
-                            label={"Short description"}
-                            placeholder={"Short description"}
+                            label={"短い説明"}
+                            placeholder={"短い説明"}
                             type={"textarea"}
                             register={{ ...register(`shortDescription`) }}
                         />
                     </div>
                     <NewsInput
-                        label={"Image for Title"}
+                        label={"画像のタイトル"}
                         type={"file"}
                         url={avatar}
                         onChange={e => hendleimg(e)}
                     />
                 </div>
-                <p className={cls.AddNews__dicr}>Description</p>
+                <p className={cls.AddNews__dicr}>説明</p>
                 <RichText onChange={(e) => setDicr(e)} />
 
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>
-                    <div className={cls.AddNews__show} onClick={() => router('/news/1')}><ShowIcons /> Quick view</div>
+                    <div className={cls.AddNews__show} onClick={() => router('/news/1')}><ShowIcons /> 概要</div>
                     <BlueButtun type='submit'>
-                        Publish News
+                        ニュースの発行
                     </BlueButtun>
                 </div>
                 <div className={cls.AddNews__wrap} style={{ padding: "40px 14px 40px 30px", marginTop: "20px" }}>
-                    <p className={cls.AddNews__category__text}>Choose category</p>
+                    <p className={cls.AddNews__category__text}>カテゴリの選択</p>
                     {categoryArr?.map(e => (
                         <div key={e?.id}>
                             <label className={cls.AddNews__category}>

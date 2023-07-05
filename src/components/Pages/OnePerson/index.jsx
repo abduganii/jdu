@@ -25,7 +25,7 @@ export default function OnePerson({ loginId, firstName, lastName, email, avatar,
         <Container className={cls.OnePerson__container}>
             <BackBtn onClick={() => router(-1)} style={{ marginBottom: "40px" }} />
             <Person id={loginId} name={`${firstName} ${lastName}`} email={email} avatar={avatar} year={work} />
-            <h3 className={cls.OnePerson__title}>Bio</h3>
+            <h3 className={cls.OnePerson__title}>バイオ</h3>
             <p className={cls.OnePerson__text}>{bio}</p>
         </Container>
 

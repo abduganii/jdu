@@ -22,14 +22,14 @@ export default function Filter({ page }) {
         <div className={cls.Filter}>
             <button className={cls.Filter__btn}>
                 <FilterIcon />
-                Filter
+                フィルター
             </button>
             {page == 'recruiter' ? <>
                 <div className={cls.Filter__Select} onClick={() => {
                     y.current.classList.add("displayBlock")
                     o.current.classList.add('displayBlock')
                 }}>
-                    <p className={cls.Filter__Select__p}>Company name</p>
+                    <p className={cls.Filter__Select__p}>会社名</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}
@@ -39,7 +39,7 @@ export default function Filter({ page }) {
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
-                            placeholder='Type group here'
+                            placeholder='入力'
                             onChange={(e) => setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })}
                         />
                     </div>
@@ -49,7 +49,7 @@ export default function Filter({ page }) {
                     y.current.classList.add("displayBlock")
                     w.current.classList.add('displayBlock')
                 }}>
-                    <p className={cls.Filter__Select__p}>Group</p>
+                    <p className={cls.Filter__Select__p}>グループ</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}
@@ -59,7 +59,7 @@ export default function Filter({ page }) {
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
-                            placeholder='Type group here'
+                            placeholder='グループを入力'
                             onChange={(e) => setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })}
                         />
                     </div>
@@ -68,7 +68,7 @@ export default function Filter({ page }) {
                     y.current.classList.add("displayBlock")
                     x.current.classList.toggle('displayBlock')
                 }}>
-                    <p className={cls.Filter__Select__p} >Rate</p>
+                    <p className={cls.Filter__Select__p} >人気</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}
@@ -91,7 +91,7 @@ export default function Filter({ page }) {
                     y.current.classList.add("displayBlock")
                     h.current.classList.toggle("displayBlock")
                 }}>
-                    <p className={cls.Filter__Select__p}>Year</p>
+                    <p className={cls.Filter__Select__p}>年</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}

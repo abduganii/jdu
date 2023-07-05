@@ -103,14 +103,14 @@ export const News = [
 export const Category = [
     {
         id: 1,
-        text:'University'
+        text:'大学'
     },
     {
         id: 2,
-        text:'Japan'
+        text:'日本'
     },
     {
         id: 3,
-        text:'World'
+        text:'世界'
     },
 ]

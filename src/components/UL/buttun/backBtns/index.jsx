@@ -6,7 +6,7 @@ import cls from "./backBtns.module.scss"
 export default function BackBtn2({ onClick }) {
     return (
         <button className={cls.BackBtn2} onClick={onClick}>
-            <LeftIcon />Back
+            <LeftIcon />戻る
         </button>
     )
 }

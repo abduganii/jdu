@@ -53,7 +53,7 @@ export default function NewPage({ user }) {
                             setInedex(0)
                         }}
                     >
-                        All News
+                        全ニュース
                     </p>
                     {
                         categories?.map((e, i) => (
@@ -87,11 +87,11 @@ export default function NewPage({ user }) {
             <div className={cls.NewPage__left}>
                 {user?.role === "decan" ? <div className={cls.NewPage__left__btn}>
                     <BlueButtun onClick={() => router(`/newsAdd`)} style={{ marginLeft: "auto", marginRight: "20px" }}>
-                        <PlusIcon /> Add News
+                        <PlusIcon />ニュース追加
                     </BlueButtun>
                 </div> : <></>}
                 <RightAsideWrapper style={{ padding: "30px 18px", marginTop: 0, top: 0 }} >
-                    <h3 className={cls.NewPage__left__title}> News</h3>
+                    <h3 className={cls.NewPage__left__title}> ニュース</h3>
                     {News.slice(0, 5).map(e => (
                         <TopNewsList key={e.id} text={e?.title} createAt={e?.createAt} />
                     ))}

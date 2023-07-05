@@ -150,10 +150,10 @@ export default function RecruitorPage({ data, onChange }) {
                 }
                 }>
                     <PlusIcon />
-                    Add Recruitor
+                    採用担当者の追加
                 </BlueButtun>
             </div>
-            <TopList text={["Recruitor", "Recruitor ID", "Company", "Number", "E-mail", "Actions"]} />
+            <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "作用"]} />
             {data && data?.map(e => (
                 <PersonList
                     onClick={() => router(`/decan/recruitors/${e?.id}`)}
@@ -204,7 +204,7 @@ export default function RecruitorPage({ data, onChange }) {
             }
             {openMadal &&
                 <AddMadal
-                    role={`${query == 'true' ? "Update" : "Add"} recruitors`}
+                    role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
@@ -220,8 +220,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('firstName', { required: "firstName is required" }) }}
                             type={"text"}
-                            label={"Firstname"}
-                            placeholder={"Firstname"}
+                            label={"名前"}
+                            placeholder={"名前"}
                             value={watchedFiles?.firstName || ''}
                             alert={errors.firstName?.message}
                             onChange={() => clearErrors("firstName")}
@@ -231,8 +231,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('lastName', { required: "lastName is required" }) }}
                             type={"text"}
-                            label={"Lastname"}
-                            placeholder={"Lastname"}
+                            label={"苗字"}
+                            placeholder={"苗字"}
                             value={watchedFiles?.lastName || ''}
                             alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
@@ -242,8 +242,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('companyName', { required: "companyName is required" }) }}
                             type={"text"}
-                            label={"Company name"}
-                            placeholder={"Company name"}
+                            label={"会社名"}
+                            placeholder={"会社名"}
                             value={watchedFiles?.companyName || ''}
                             alert={errors.companyName?.message}
                             onChange={() => clearErrors("companyName")}
@@ -253,8 +253,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('specialisation', { required: "specialisation is required" }) }}
                             type={"text"}
-                            label={"Specialisation"}
-                            placeholder={"Specialisation"}
+                            label={"専門分野"}
+                            placeholder={"専門分野"}
                             value={watchedFiles?.specialisation || ''}
                             alert={errors.specialisation?.message}
                             onChange={() => clearErrors("specialisation")}
@@ -264,8 +264,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "phoneNumber is required" }) }}
                             type={"text"}
-                            label={"Phone number"}
-                            placeholder={"Phone number"}
+                            label={"電話番号"}
+                            placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}
                             alert={errors.phoneNumber?.message}
                             onChange={() => clearErrors("phoneNumber")}
@@ -276,8 +276,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('email', { required: "email is required" }) }}
                             type={"text"}
-                            label={"E-mail"}
-                            placeholder={"E-mail"}
+                            label={"メール"}
+                            placeholder={"メール"}
                             value={watchedFiles?.email || ''}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
@@ -301,8 +301,8 @@ export default function RecruitorPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('password') }}
                             type={"text"}
-                            label={"Password"}
-                            placeholder={"Password"}
+                            label={"パスワード"}
+                            placeholder={"パスワード"}
                             value={watchedFiles?.password || ''}
                             geterat={true}
                             passwordGenerate={(e) => setValue("password", e)}
