@@ -8,6 +8,7 @@ import React from 'react'
 import { useRef, useState } from 'react'
 import Avatar from 'react-avatar';
 import cls from "./personlist.module.scss";
+import { Link } from '@react-email/link'
 
 
 export default function PersonList({ id, img, name, gruop, student, rate, phone, skill = [], email, remove, update, onClick }) {
@@ -49,7 +50,6 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                 {skill.length !== 0 ? <div className={cls.PersonList__skill} style={clickTrue ? { overflowX: "auto" } : { overflow: "hidden" }}>
                     {skill?.slice(0, (number + 3))?.map(e => (
                         <SkillBtn
-
                             name={e?.skill?.name}
                             color={e?.skill?.color}
                             backround={e?.skill?.color} />
@@ -76,7 +76,7 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                     }
 
                 </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
-                {email && <p className={cls.PersonList__email}>{email}</p>}
+                {email && <Link className={cls.PersonList__email}>{email}</Link>}
                 <DoteBtn ref={y} style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
                 <hr className={cls.PersonList__line} />
             </div>

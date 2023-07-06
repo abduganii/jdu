@@ -33,6 +33,8 @@
         outline: none;
     }
 
+
+
     input[type="range"] {
         -webkit-appearance: none;
         margin-right: 15px;
@@ -71,6 +73,83 @@
             cursor: ew-resize;
             transition: background .3s ease-in-out;
             cursor: default;
+        }
+    }
+
+    &__skill {
+        &__html {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #E44D26 !important;
+
+            }
+        }
+
+        &__css {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #006BC0 !important;
+
+
+            }
+        }
+
+        &__JavaScript {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #E4A22A !important;
+
+
+            }
+        }
+
+        &__VueJs {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #41B883 !important;
+
+            }
+        }
+
+        &__PHP {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #777BB3 !important;
+            }
+        }
+
+        &__React {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #00D8FF !important;
+            }
+        }
+
+        &__C {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #9A4993 !important;
+            }
+        }
+
+        &__asp {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #6FC4C5 !important;
+
+            }
+        }
+
+        &__SQL {
+            input[type="range"]::-webkit-slider-thumb {
+                background: #5382A1 !important;
+            }
+        }
+    }
+
+    &__balck {
+
+        background: rgba(255, 255, 255, 0.6);
+        background-image: linear-gradient(#121212, #121212) !important;
+
+
+
+        &::-webkit-slider-thumb {
+
+            background: #121212 !important;
+
         }
     }
 }

@@ -41,6 +41,8 @@
         }
     }
 
+
+
     &__title {
         font-family: 'Inter';
         font-style: normal;
@@ -132,6 +134,87 @@
             margin-bottom: 10px;
 
         }
+
+        &__html {
+            &::-webkit-progress-value {
+                background-color: #E44D26 !important;
+
+                box-shadow: 0px -1px 0px #E44D26 !important;
+                border: 1px solid #E44D26 !important;
+            }
+        }
+
+        &__css {
+            &::-webkit-progress-value {
+                background-color: #006BC0 !important;
+
+                box-shadow: 0px -1px 0px #006BC0 !important;
+                border: 1px solid #006BC0 !important;
+            }
+        }
+
+        &__JavaScript {
+            &::-webkit-progress-value {
+                background-color: #E4A22A !important;
+
+                box-shadow: 0px -1px 0px #E4A22A !important;
+                border: 1px solid #E4A22A !important;
+            }
+        }
+
+        &__VueJs {
+            &::-webkit-progress-value {
+                background-color: #41B883 !important;
+
+                box-shadow: 0px -1px 0px #41B883 !important;
+                border: 1px solid #41B883 !important;
+            }
+        }
+
+        &__PHP {
+            &::-webkit-progress-value {
+                background-color: #777BB3 !important;
+
+                box-shadow: 0px -1px 0px #777BB3 !important;
+                border: 1px solid #777BB3 !important;
+            }
+        }
+
+        &__React {
+            &::-webkit-progress-value {
+                background-color: #00D8FF !important;
+
+                box-shadow: 0px -1px 0px #00D8FF !important;
+                border: 1px solid #00D8FF !important;
+            }
+        }
+
+        &__C {
+            &::-webkit-progress-value {
+                background-color: #9A4993 !important;
+
+                box-shadow: 0px -1px 0px #9A4993 !important;
+                border: 1px solid #9A4993 !important;
+            }
+        }
+
+        &__asp {
+            &::-webkit-progress-value {
+                background-color: #6FC4C5 !important;
+
+                box-shadow: 0px -1px 0px #6FC4C5 !important;
+                border: 1px solid #6FC4C5 !important;
+            }
+        }
+
+        &__SQL {
+            &::-webkit-progress-value {
+                background-color: #5382A1 !important;
+
+                box-shadow: 0px -1px 0px #5382A1 !important;
+                border: 1px solid #5382A1 !important;
+            }
+        }
     }
 
     &__Percentage {
@@ -145,6 +228,15 @@
         color: #000000;
         margin-bottom: 1px;
 
+        &__hr {
+            display: inline-block;
+            width: 100%;
+            height: 1px;
+            background-color: rgb(16, 24, 40);
+            opacity: .1;
+            margin-bottom: 30px;
+        }
+
         &__text {
             font-family: 'Inter';
             font-style: normal;
@@ -153,7 +245,7 @@
             line-height: 16px;
 
             color: #303030;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
 
         }
 
@@ -201,7 +293,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 13px;
         }
 
         &__title {

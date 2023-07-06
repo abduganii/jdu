@@ -97,7 +97,23 @@ export default function OneStudent({ user, role }) {
                         user?.itQualification?.skills?.map(e => (
                             <>
                                 <p className={cls.OneStudent__skills}>{e?.skill?.name}</p>
-                                <progress className={cls.OneStudent__skills__progress} value={e?.procent} max="100"></progress>
+                                <progress
+                                    className={`
+                                    ${cls.OneStudent__skills__progress}
+                                    ${e?.skill?.color == "#E44D26" ? cls.OneStudent__skills__html :
+                                            e?.skill?.color == "#006BC0" ? cls.OneStudent__skills__css :
+                                                e?.skill?.color == "#E4A22A" ? cls.OneStudent__skills__JavaScript :
+                                                    e?.skill?.color == "#41B883" ? cls.OneStudent__skills__VueJs :
+                                                        e?.skill?.color == "#777BB3" ? cls.OneStudent__skills__PHP :
+                                                            e?.skill?.color == "#00D8FF" ? cls.OneStudent__skills__React :
+                                                                e?.skill?.color == "#9A4993" ? cls.OneStudent__skills__C :
+                                                                    e?.skill?.color == "#6FC4C5" ? cls.OneStudent__skills__asp :
+                                                                        e?.skill?.color == "#5382A1" ? cls.OneStudent__skills__SQL : ""
+                                        }
+
+                                    `}
+                                    value={e?.procent} max="100">
+                                </progress>
                                 <p className={cls.OneStudent__skills__text}>{e?.procent}%</p>
                             </>
                         ))
@@ -107,6 +123,7 @@ export default function OneStudent({ user, role }) {
 
                     <h3 className={cls.OneStudent__Percentage}>単位取得状況</h3>
                     <p className={cls.OneStudent__Percentage__text}>コースの状況</p>
+                    <hr className={cls.OneStudent__Percentage__hr} />
                     <div className={cls.OneStudent__Percentage__wrap}>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>

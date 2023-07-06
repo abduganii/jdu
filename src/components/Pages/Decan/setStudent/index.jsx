@@ -254,7 +254,7 @@ export default function SetStudent({ data, Specialisation }) {
     }
 
     return (
-        <Container className={cls.SetStudent__container} style={{ marginTop: "100px" }} >
+        <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
             <div className={cls.SetStudent__logout2__wrap} ref={x} onClick={(e) => {
                 if (e.target == x.current) {
                     x.current.classList.remove("displayBlock")
@@ -461,6 +461,7 @@ export default function SetStudent({ data, Specialisation }) {
                             defaultRange={nS?.procent}
                             color={nS?.skill?.color}
                             lessonType={nS?.skill?.name}
+                            skill={true}
                             onChange={updateFieldChanged(index)}
                         />
                     ))}
@@ -481,6 +482,7 @@ export default function SetStudent({ data, Specialisation }) {
                 <div className={cls.SetStudent__skill}>
                     <RangeInput
                         style={{ marginBottom: "29px" }}
+                        color={"black"}
                         lessonType={"出席者"}
                         defaultRange={Attendee}
                         onChange={(pr) => {
@@ -490,6 +492,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
+                        color={"black"}
                         lessonType={"それコース"}
                         defaultRange={ItCourse}
                         onChange={(pr) => {
@@ -499,6 +502,7 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
+                        color={"black"}
                         lessonType={"日本語"}
                         defaultRange={JPlanguage}
                         onChange={(pr) => {
@@ -509,6 +513,7 @@ export default function SetStudent({ data, Specialisation }) {
                     <RangeInput
                         style={{ marginBottom: "29px" }}
                         lessonType={"産業能率大学"}
+                        color={"black"}
                         defaultRange={Sanno}
                         onChange={(pr) => {
                             setSanno(pr)
@@ -518,6 +523,7 @@ export default function SetStudent({ data, Specialisation }) {
                     <RangeInput
                         style={{ marginBottom: "29px" }}
                         lessonType={"ウズ。 SWL大学"}
+                        color={"black"}
                         defaultRange={SWL}
                         onChange={(pr) => {
                             setSWL(pr)
@@ -527,6 +533,7 @@ export default function SetStudent({ data, Specialisation }) {
                     <RangeInput
                         style={{ marginBottom: "29px" }}
                         lessonType={"共同作業"}
+                        color={"black"}
                         defaultRange={CoWork}
                         onChange={(pr) => {
                             setCoWork(pr)
