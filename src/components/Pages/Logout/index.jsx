@@ -74,10 +74,7 @@ export default function LogoutPage() {
                     </div>
                 </div>
                 <div className={cls.Login__img}>
-                    <img
-                        src='/Image/photo_login.png'
-                        alt='img'
-                    />
+
                 </div>
             </div>
         )
