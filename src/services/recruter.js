@@ -8,9 +8,9 @@ export const RecruitorGet = async () => {
      console.log(error.response.data.message);
     }
 }
-export const RecruitorGetSearch = async (value,query) => {
+export const RecruitorGetSearch = async (value) => {
     try {
-     const res = await api.get(`/recruitors?${value}=${query}`, {withCredentials: true})
+     const res = await api.get(`/recruitors${value}`, {withCredentials: true})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);

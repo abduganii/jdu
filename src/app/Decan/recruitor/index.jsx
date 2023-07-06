@@ -6,40 +6,18 @@ import { RecruitorGet, RecruitorGetSearch } from "../../../services/recruter";
 export default function DecanRecruitor() {
   const [data, setData] = useState([])
   const [cahnge, setChage] = useState(false)
-  const [params, setSearchParams] = useSearchParams()
-
+  const [params] = useSearchParams()
   useEffect(() => {
     const fetchData = async () => {
-      const res = await RecruitorGetSearch("search", params.get('search'))
+      const res = await RecruitorGetSearch(`${params.get('search') ? `?search=${params.get('search')}` : "?search="}${params.get('companyName') ? `&company=${params.get('companyName')}` : ""}`)
       setData(res?.rows)
     }
-    if (params.get('search') === "true" || params.get('search') === "false" || params.get('search') == undefined) {
-      console.log("error")
-    } else {
+    fetchData()
+      .then((err) => {
+        console.log(err);
+      })
+  }, [params])
 
-      fetchData()
-        .catch((err) => {
-          console.log(err);
-        })
-
-    }
-  }, [params.get('search')])
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await RecruitorGetSearch("company", params.get('companyName'))
-      setData(res?.rows)
-    }
-    if (params.get('companyName') == undefined) {
-      console.log("error")
-    } else {
-
-      fetchData()
-        .catch((err) => {
-          console.log(err);
-        })
-
-    }
-  }, [params.get('companyName')])
 
   useEffect(() => {
     const fetchData = async () => {

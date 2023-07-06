@@ -7,66 +7,17 @@ export default function RecSeelctStudent({ data, role, count }) {
     const [datas, setData] = useState([])
     const [Specialisation, setSpecialisation] = useState([])
     const [change, setChage] = useState(false)
-    const [params, setSearchParams] = useSearchParams()
-    const [res, setRes] = useState()
+    const [params] = useSearchParams()
     useEffect(() => {
         const fetchData = async () => {
-            const res = await StudentsGetSearch("search", params.get('search'))
+            const res = await StudentsGetSearch(`${params.get('search') ? `?search=${params.get('search')}` : "?search="}${params.get('Group') ? `&group=${params.get('Group')}` : ""}${params.get('rate') ? `&rate=${params.get('rate')}` : ""}${params.get('year') ? `&year=${params.get('year')}` : ""}`)
             setData(res?.rows)
         }
-        if (params.get('search') == undefined) {
-            console.log("error")
-        } else {
-            fetchData()
-                .then((err) => {
-                    console.log(err);
-                })
-        }
-    }, [params.get('search')])
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await StudentsGetSearch("group", params.get('Group'))
-            setData(res?.rows)
-        }
-        if (params.get('Group') == undefined) {
-            console.log("error")
-        } else {
-            fetchData()
-                .then((err) => {
-                    console.log(err);
-                })
-        }
-    }, [params.get('Group')])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await StudentsGetSearch("rate", params.get('rate'))
-            setData(res?.rows)
-        }
-        if (params.get('rate') == undefined) {
-            console.log("error")
-        } else {
-            fetchData()
-                .then((err) => {
-                    console.log(err);
-                })
-        }
-    }, [params.get('rate')])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await StudentsGetSearch("year", params.get('year'))
-            setData(res?.rows)
-        }
-        if (params.get('year') == undefined) {
-            console.log("error")
-        } else {
-            fetchData()
-                .then((err) => {
-                    console.log(err);
-                })
-        }
-    }, [params.get('year')])
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
+    }, [params])
 
     useEffect(() => {
         const fetchData = async () => {
