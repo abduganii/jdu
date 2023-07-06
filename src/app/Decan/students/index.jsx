@@ -12,7 +12,7 @@ export default function DecanStudent() {
   const [res, setRes] = useState()
   useEffect(() => {
     const fetchData = async () => {
-      const res = await StudentsGetSearch("search", params.get('search'))
+      const res = await StudentsGetSearch(`${params.get('search') ? `?search=${params.get('search')}` : ""}${params.get('Group') ? `?group=${params.get('Group')}` : ""}`)
       setData(res?.rows)
     }
     if (params.get('search') == undefined) {
@@ -23,51 +23,52 @@ export default function DecanStudent() {
           console.log(err);
         })
     }
-  }, [params.get('search')])
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await StudentsGetSearch("group", params.get('Group'))
-      setData(res?.rows)
-    }
-    if (params.get('Group') == undefined) {
-      console.log("error")
-    } else {
-      fetchData()
-        .then((err) => {
-          console.log(err);
-        })
-    }
-  }, [params.get('Group')])
+  }, [params])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await StudentsGetSearch("rate", params.get('rate'))
-      setData(res?.rows)
-    }
-    if (params.get('rate') == undefined) {
-      console.log("error")
-    } else {
-      fetchData()
-        .then((err) => {
-          console.log(err);
-        })
-    }
-  }, [params.get('rate')])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await StudentsGetSearch("group", params.get('Group'))
+  //     setData(res?.rows)
+  //   }
+  //   if (params.get('Group') == undefined) {
+  //     console.log("error")
+  //   } else {
+  //     fetchData()
+  //       .then((err) => {
+  //         console.log(err);
+  //       })
+  //   }
+  // }, [params.get('Group')])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await StudentsGetSearch("year", params.get('year'))
-      setData(res?.rows)
-    }
-    if (params.get('year') == undefined) {
-      console.log("error")
-    } else {
-      fetchData()
-        .then((err) => {
-          console.log(err);
-        })
-    }
-  }, [params.get('year')])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await StudentsGetSearch("rate", params.get('rate'))
+  //     setData(res?.rows)
+  //   }
+  //   if (params.get('rate') == undefined) {
+  //     console.log("error")
+  //   } else {
+  //     fetchData()
+  //       .then((err) => {
+  //         console.log(err);
+  //       })
+  //   }
+  // }, [params.get('rate')])
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await StudentsGetSearch("year", params.get('year'))
+  //     setData(res?.rows)
+  //   }
+  //   if (params.get('year') == undefined) {
+  //     console.log("error")
+  //   } else {
+  //     fetchData()
+  //       .then((err) => {
+  //         console.log(err);
+  //       })
+  //   }
+  // }, [params.get('year')])
 
   useEffect(() => {
     const fetchData = async () => {

@@ -20,7 +20,8 @@ import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 
 
-export default function StudentPage({ data, onChange }) {
+export default function StudentPage({ data, Specialisation, onChange }) {
+
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
@@ -42,43 +43,43 @@ export default function StudentPage({ data, onChange }) {
         formData.append("courseNumber", data?.courseNumber)
         formData.append("email", data?.email)
         formData.append("password", data?.password)
+        formData.append("specialisationId", Specialisation?.[0]?.id)
 
 
-        if (specialisation) {
-            await StudentsAdd(formData)
-                .then(res => {
-                    if (res?.data?.message) {
-                        // toast(res?.data?.message)
-                        setLoading(false)
-
-                    }
-                    if (res.status == 201) {
-                        toast('Student created')
-                        setOpenMadal(false)
-                        onChange()
-                        reset()
-                        setLoading(false)
-                    }
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: err.response.data.message })
-                        setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
-                        setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: err.response.data.message })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
-                    }
+        await StudentsAdd(formData)
+            .then(res => {
+                if (res?.data?.message) {
+                    // toast(res?.data?.message)
                     setLoading(false)
-                })
-        } else {
-            setError('specialisation', { type: 'custom', message: "specialisation is required" });
-        }
+                }
+                if (res.status == 201) {
+                    toast('Student created')
+                    setOpenMadal(false)
+                    onChange()
+                    reset()
+                    setLoading(false)
+                }
+            })
+            .catch(err => {
+                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setLoading(false)
+                }
+                if (err.response.data.message == "Validation isEmail on email failed") {
+                    setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                    setLoading(false)
+                } if (err.response.data.message === "email must be unique") {
+                    setError('email', { type: 'custom', message: err.response.data.message })
+                }
+                if (err.response.data.message === "Validation len on password failed") {
+                    setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                }
+                if (err.response.data.message.includes("type integer")) {
+                    setError('courseNumber', { type: 'custom', message: " courseNumber must be number" })
+                }
+                setLoading(false)
+            })
+
     }
 
     const hendleimg = (e) => {
