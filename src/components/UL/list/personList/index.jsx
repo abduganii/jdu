@@ -18,12 +18,13 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
     const y = useRef()
     const o = useRef()
     const u = useRef()
+    const em = useRef()
     const [number, setNumber] = useState(0)
 
     return (
         <div style={{ position: 'relative' }}>
             <div className={cls.PersonList} onClick={(e) => {
-                if (e.target != y.current && e.target != o.current && e.target != u.current) {
+                if (e.target != y.current && e.target != o.current && e.target != u.current && e.target != em.current) {
                     onClick(e)
                 }
             }} >
@@ -76,7 +77,7 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                     }
 
                 </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
-                {email && <Link className={cls.PersonList__email}>{email}</Link>}
+                {email && <a href={`mailto:${email}`} className={cls.PersonList__email} ref={em}>{email}</a>}
                 <DoteBtn ref={y} style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
                 <hr className={cls.PersonList__line} />
             </div>

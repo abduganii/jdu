@@ -36,17 +36,26 @@ export default function SideBar({ user }) {
                 {navLinks?.map(e => {
 
                     if (links?.includes(e.label)) {
-                        return (
-                            <React.Fragment key={e?.id}>
-                                <Link
-                                    className={`${cls.SideBarBtn} ${pashName.pathname.includes(`/${user?.role}` + e?.link) ? cls.SideBar__active : ""}`}
-                                    to={`/${user?.role}${e?.link}`}
-                                >
+                        if (e.label == "先生" || e.label == 'スケジュール') {
+                            return (
+                                <p key={e?.id} className={cls.SideBarBtn__opsite}>
                                     {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
                                     {e?.label}
-                                </Link>
-                            </React.Fragment>
-                        )
+                                </p>
+                            )
+                        } else {
+                            return (
+                                <React.Fragment key={e?.id}>
+                                    <Link
+                                        className={`${cls.SideBarBtn} ${pashName.pathname.includes(`/${user?.role}` + e?.link) ? cls.SideBar__active : ""}`}
+                                        to={`/${user?.role}${e?.link}`}
+                                    >
+                                        {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
+                                        {e?.label}
+                                    </Link>
+                                </React.Fragment>
+                            )
+                        }
                     }
                     if (e.link == '/news') {
                         return (

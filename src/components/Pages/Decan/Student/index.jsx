@@ -75,13 +75,10 @@ export default function StudentPage({ data, onChange }) {
                         setError('password', { type: 'custom', message: " Password's min length must be 8" })
                     }
                     setLoading(false)
-
                 })
         } else {
             setError('specialisation', { type: 'custom', message: "specialisation is required" });
-
         }
-
     }
 
     const hendleimg = (e) => {

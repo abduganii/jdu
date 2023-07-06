@@ -1,9 +1,9 @@
 'use client'
 
-import { useRef } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useRef, useState } from 'react'
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import paramsToObject from '../../../utils/paramsToObject.js'
-import { FilterIcon } from '../icons.jsx'
+import { CloseIcon, FilterIcon } from '../icons.jsx'
 
 import { filterRate, YearsRate } from './data.js'
 
@@ -11,6 +11,7 @@ import cls from "./filter.module.scss"
 
 export default function Filter({ page }) {
     const navigate = useNavigate()
+    const [cahneSet, SetCahnegSet] = useState(true)
     const x = useRef()
     const w = useRef()
     const y = useRef()
@@ -20,14 +21,20 @@ export default function Filter({ page }) {
 
     return (
         <div className={cls.Filter}>
-            <button className={cls.Filter__btn}>
-                <FilterIcon />
+            <button className={cls.Filter__btn} onClick={() => {
+                SetCahnegSet(true)
+                setSearchParams({ ...paramsToObject(params.entries()), companyName: "", Group: "", rate: "", year: "" })
+
+
+            }}>
+                {cahneSet ? <FilterIcon /> : <CloseIcon />}
                 フィルター
             </button>
             {page == 'recruiter' ? <>
                 <div className={cls.Filter__Select} onClick={() => {
                     y.current.classList.add("displayBlock")
                     o.current.classList.add('displayBlock')
+                    SetCahnegSet(false)
                 }}>
                     <p className={cls.Filter__Select__p}>会社名</p>
                     <img
@@ -40,7 +47,10 @@ export default function Filter({ page }) {
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
                             placeholder='入力'
-                            onChange={(e) => setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })}
+                            onChange={(e) => {
+                                setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })
+                                SetCahnegSet(false)
+                            }}
                         />
                     </div>
                 </div>
@@ -60,13 +70,17 @@ export default function Filter({ page }) {
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
                             placeholder='グループを入力'
-                            onChange={(e) => setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })}
+                            onChange={(e) => {
+                                setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })
+                                SetCahnegSet(false)
+                            }}
                         />
                     </div>
                 </div>
                 <div className={cls.Filter__Select} onClick={() => {
                     y.current.classList.add("displayBlock")
                     x.current.classList.toggle('displayBlock')
+                    SetCahnegSet(false)
                 }}>
                     <p className={cls.Filter__Select__p} >人気</p>
                     <img
@@ -79,7 +93,10 @@ export default function Filter({ page }) {
                             <p
                                 key={e?.id}
                                 className={`${cls.Filter__Select__dropdown__text}  ${params.get('rate') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
-                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), rate: e?.link })}
+                                onClick={() => {
+                                    setSearchParams({ ...paramsToObject(params.entries()), rate: e?.link })
+                                    SetCahnegSet(false)
+                                }}
                             >
                                 {e.text}
                             </p>
@@ -90,6 +107,7 @@ export default function Filter({ page }) {
                 <div className={cls.Filter__Select} onClick={() => {
                     y.current.classList.add("displayBlock")
                     h.current.classList.toggle("displayBlock")
+                    SetCahnegSet(false)
                 }}>
                     <p className={cls.Filter__Select__p}>年</p>
                     <img
@@ -103,7 +121,10 @@ export default function Filter({ page }) {
                             <p
                                 key={e?.id}
                                 className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
-                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })}
+                                onClick={() => {
+                                    setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
+                                    SetCahnegSet(false)
+                                }}
 
                             >
                                 {e.text}
