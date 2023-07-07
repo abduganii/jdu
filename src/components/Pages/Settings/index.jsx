@@ -113,14 +113,14 @@ export default function SettingsPage({ data }) {
 
             }}>
                 <div className={cls.SettingsPage__logout2} ref={y}>
-                    <p className={cls.SettingsPage__logout2__text}>
-                        Do you want to leave without save changes?
+                    <p className={cls.SettingsPage__logout2__text}>変更を保存せずに終了しますか?
                     </p>
                     <div>
                         <CancelBtn onClick={() => router(-1)}>
-                            Yes
+                            はい
                         </CancelBtn>
-                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >No</BlueButtun>
+                        <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >
+                            いいえ</BlueButtun>
                     </div>
                 </div>
             </div>
@@ -131,16 +131,16 @@ export default function SettingsPage({ data }) {
                         <div className={cls.SettingsPage__top__Info}>
                             <div onClick={() => x.current.classList.add("displayBlock")}>
                                 <LeftIcon />
-                                <p className={cls.SettingsPage__top__role}>Student</p>
+                                <p className={cls.SettingsPage__top__role}>戻る</p>
                             </div>
 
                             <h3 className={cls.SettingsPage__top__fName}>{watchedFiles?.firstName} {watchedFiles?.lastName}</h3>
                         </div>
                         <div className={cls.SettingsPage__top__div}>
                             <CancelBtn onClick={() => router(-1)}>
-                                Cancel
+                                キャンセル
                             </CancelBtn>
-                            <BlueButtun type='submit'>Save changes</BlueButtun>
+                            <BlueButtun type='submit'>変更内容を保存</BlueButtun>
                         </div>
                     </div>
                     <div className={cls.SettingsPage__form}>
@@ -166,8 +166,8 @@ export default function SettingsPage({ data }) {
 
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
-                                label={"First name"}
-                                placeholder={"Full name"}
+                                label={"ファーストネーム"}
+                                placeholder={"ファーストネーム"}
                                 type={"text"}
                                 register={{ ...register("firstName", { required: "firstName is required" }) }}
                                 value={watchedFiles?.firstName || ''}
@@ -177,8 +177,8 @@ export default function SettingsPage({ data }) {
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"Last name"}
-                                placeholder={"Last name"}
+                                label={"苗字"}
+                                placeholder={"苗字"}
                                 type={"text"}
                                 register={{ ...register("lastName", { required: "firstName is required" }) }}
                                 value={watchedFiles?.lastName || ''}
@@ -190,8 +190,8 @@ export default function SettingsPage({ data }) {
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
 
-                                    label={"Company"}
-                                    placeholder={"Company"}
+                                    label={"会社"}
+                                    placeholder={"会社"}
                                     type={"text"}
                                     register={{ ...register("companyName", { required: "firstName is required" }) }}
                                     value={watchedFiles?.companyName || ''}
@@ -201,8 +201,8 @@ export default function SettingsPage({ data }) {
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
 
-                                    label={"Phone Number"}
-                                    placeholder={"998 "}
+                                    label={"電話番号"}
+                                    placeholder={"998"}
                                     type={"text"}
                                     register={{ ...register("phoneNumber", { required: "firstName is required" }) }}
                                     value={watchedFiles?.phoneNumber || ''}
@@ -215,8 +215,8 @@ export default function SettingsPage({ data }) {
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"E-mail"}
-                                placeholder={"E-mail"}
+                                label={"Eメール"}
+                                placeholder={"Eメール"}
                                 type={"email"}
                                 register={{ ...register("email", { required: "firstName is required" }) }}
                                 value={watchedFiles?.email || ''}
@@ -226,8 +226,8 @@ export default function SettingsPage({ data }) {
                             {data?.role == "decan" && <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"LoginId"}
-                                placeholder={"LoginId"}
+                                label={"ログインID"}
+                                placeholder={"ログインID"}
                                 type={"text"}
                                 register={{ ...register("loginId", { required: "firstName is required" }) }}
                                 value={watchedFiles?.loginId || ''}
@@ -237,8 +237,8 @@ export default function SettingsPage({ data }) {
                             {data?.role == "recruitor" && <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"Specialisation"}
-                                placeholder={"Specialisation"}
+                                label={"専門分野"}
+                                placeholder={"専門分野"}
                                 type={"text"}
                                 register={{ ...register("specialisation", { required: "firstName is required" }) }}
                                 value={watchedFiles?.specialisation || ''}
@@ -257,8 +257,8 @@ export default function SettingsPage({ data }) {
                     <div className={cls.SettingsPage__passsword__wrap}>
                         <SettingsInput
                             style={{ maxWidth: "205px" }}
-                            label={"Current Password"}
-                            placeholder={"Current Password"}
+                            label={"現在のパスワード"}
+                            placeholder={"現在のパスワード"}
                             type={curPass}
                             icon={eyeOpenIcons()}
                             icon2={eyeCloseIcons()}
@@ -276,8 +276,8 @@ export default function SettingsPage({ data }) {
                         <div className={cls.SettingsPage__passsword__div}>
                             <SettingsInput
                                 style={{ maxWidth: "205px" }}
-                                label={"New password"}
-                                placeholder={"New password"}
+                                label={"新しいパスワード"}
+                                placeholder={"新しいパスワード"}
                                 type={newPass}
                                 icon={eyeOpenIcons()}
                                 icon2={eyeCloseIcons()}
@@ -292,8 +292,8 @@ export default function SettingsPage({ data }) {
                             />
                             <SettingsInput
                                 style={{ maxWidth: "205px" }}
-                                label={"Confirm Password"}
-                                placeholder={"Confirm Password"}
+                                label={"パスワードを認証する"}
+                                placeholder={"パスワードを認証する"}
                                 icon={eyeOpenIcons()}
                                 icon2={eyeCloseIcons()}
                                 eyeOpen={eyeicons2}

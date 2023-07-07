@@ -12,6 +12,8 @@ import cls from "./filter.module.scss"
 export default function Filter({ page }) {
     const navigate = useNavigate()
     const [cahneSet, SetCahnegSet] = useState(true)
+    const [inoutVal, SetInoutVal] = useState()
+    const [inoutVal1, SetInoutVal1] = useState()
     const x = useRef()
     const w = useRef()
     const y = useRef()
@@ -22,9 +24,11 @@ export default function Filter({ page }) {
     return (
         <div className={cls.Filter}>
             <button className={cls.Filter__btn} onClick={() => {
+                SetInoutVal('')
+                SetInoutVal1('')
                 SetCahnegSet(true)
                 setSearchParams({ ...paramsToObject(params.entries()), companyName: "", Group: "", rate: "", year: "" })
-
+                o.current.classList.remove('displayBlock')
 
             }}>
                 {cahneSet ? <FilterIcon /> : <CloseIcon />}
@@ -34,7 +38,7 @@ export default function Filter({ page }) {
                 <div className={cls.Filter__Select} onClick={() => {
                     y.current.classList.add("displayBlock")
                     o.current.classList.add('displayBlock')
-                    SetCahnegSet(false)
+
                 }}>
                     <p className={cls.Filter__Select__p}>会社名</p>
                     <img
@@ -47,13 +51,24 @@ export default function Filter({ page }) {
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
                             placeholder='入力'
+                            value={inoutVal}
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })
                                 SetCahnegSet(false)
+                                SetInoutVal1(e.target.value)
                             }}
                         />
                     </div>
                 </div>
+                <div ref={y} onClick={(e) => {
+                    if (e.target == y.current) {
+                        y.current.classList.remove("displayBlock")
+                        x.current.classList.remove("displayBlock")
+                        w.current.classList.remove("displayBlock")
+                        h.current.classList.remove("displayBlock")
+                        o.current.classList.remove("displayBlock")
+                    }
+                }} className={cls.Filter__backround}></div>
             </> : <>
                 <div className={cls.Filter__Select} onClick={() => {
                     y.current.classList.add("displayBlock")
@@ -69,10 +84,13 @@ export default function Filter({ page }) {
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
+                            value={inoutVal1}
                             placeholder='グループを入力'
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })
                                 SetCahnegSet(false)
+                                SetInoutVal(e.target.value)
+
                             }}
                         />
                     </div>
@@ -133,16 +151,18 @@ export default function Filter({ page }) {
 
                     </div>
                 </div>
+                <div ref={y} onClick={(e) => {
+                    if (e.target == y.current) {
+                        y.current.classList.remove("displayBlock")
+                        x.current.classList.remove("displayBlock")
+                        w.current.classList.remove("displayBlock")
+                        h.current.classList.remove("displayBlock")
+                        o.current.classList.remove("displayBlock")
+                    }
+                }} className={cls.Filter__backround}></div>
             </>}
-            <div ref={y} onClick={(e) => {
-                if (e.target == y.current) {
-                    y.current.classList.remove("displayBlock")
-                    x.current.classList.remove("displayBlock")
-                    w.current.classList.remove("displayBlock")
-                    h.current.classList.remove("displayBlock")
-                    o.current.classList.remove("displayBlock")
-                }
-            }} className={cls.Filter__backround}></div>
+
+
         </div>
     )
 }

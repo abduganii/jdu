@@ -8,8 +8,8 @@ export default function TopStudents({ students = [], role, count }) {
     const router = useNavigate()
     return (
         <RightAsideWrapper style={{ padding: "24px 20px 10px 24px" }}>
-            <h3 className={cls.TopStudents__title}>University top students</h3>
-            <p className={cls.TopStudents__text}> 10 students from {count} </p>
+            <h3 className={cls.TopStudents__title}>大学トップの学生</h3>
+            <p className={cls.TopStudents__text}> {count} 人中10人の生徒 </p>
 
             {students?.map(e => (
                 <TopStudentList

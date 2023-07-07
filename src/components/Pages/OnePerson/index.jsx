@@ -26,7 +26,7 @@ export default function OnePerson({ loginId, firstName, lastName, email, avatar,
             <BackBtn onClick={() => router(-1)} style={{ marginBottom: "40px" }} />
             <Person id={loginId} name={`${firstName} ${lastName}`} email={email} avatar={avatar} year={work} />
             <h3 className={cls.OnePerson__title}>バイオ</h3>
-            <p className={cls.OnePerson__text}>{bio}</p>
+            <p className={cls.OnePerson__text}>{bio !== "undefined" ? bio : "バイオなし"}</p>
         </Container>
 
     )
