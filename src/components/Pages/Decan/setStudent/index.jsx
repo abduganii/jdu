@@ -573,7 +573,8 @@ export default function SetStudent({ data, Specialisation }) {
                         defaultValue={0}
                         {...register('credit')}
                     />
-                    <button className={cls.SetStudent__lesson__btn}>add</button>
+                    <button className={cls.SetStudent__lesson__btn}>
+                        追加</button>
                 </form>
                 <div className={cls.SetStudent__list}>
                     <div className={cls.SetStudent__list__top}>

@@ -206,7 +206,7 @@ export default function OneStudent({ user, role }) {
                         onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
                         style={{ padding: "14px 30px" }}
                     >
-                        Edit profile
+                        プロファイル編集
                     </BlueButtun> : ""
             }
         </div >
