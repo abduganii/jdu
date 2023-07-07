@@ -17,7 +17,7 @@ export default function AvatarInput({ onChange, url, ...other }) {
                     onChange(e)
                 }
                 } />
-                <div className={cls.AvatarInput__avatar}>
+                <div className={`${cls.AvatarInput__avatar} ${url ? "" : cls.AvatarInput__marginTop}`}>
                     {url ? <img className={cls.AvatarInput__avatar__img} src={url} alt="img" /> : <>
                         <div>
                             <UploadNewIcon color={"#5627DC"} />
