@@ -93,7 +93,7 @@
         height: 150px;
         position: relative;
         border-radius: 50%;
-        border: 1px solid rgb(0, 0, 0, 0.1);
+
 
         &__file {
             display: none;
@@ -119,6 +119,7 @@
         img {
             border-radius: 50%;
             object-fit: cover;
+            border: 1px solid rgb(0, 0, 0, 0.1);
         }
     }
 
