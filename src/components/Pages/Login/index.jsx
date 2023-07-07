@@ -16,7 +16,7 @@ export default function LoginPage() {
     const watchedFiles = watch()
     const [check, setCheck] = useState(false)
     useEffect(() => {
-        if (localStorage.getItem("myapp-loginId") & localStorage.getItem("myapp-password")) {
+        if (localStorage.getItem("myapp-loginId") && localStorage.getItem("myapp-password")) {
             setValue("password", localStorage.getItem("myapp-password"))
             setValue("loginId", localStorage.getItem("myapp-loginId"))
         }
