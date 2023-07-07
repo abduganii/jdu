@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
 
 import cls from './Login.module.scss'
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import ButtunLogin from '../../UL/buttun/loginButtun';
 import LoginInput from '../../UL/input/loginInput';
 import { AuthLogin } from '../../../services/auth';
@@ -16,7 +16,7 @@ export default function LoginPage() {
     const watchedFiles = watch()
     const [check, setCheck] = useState(false)
     useEffect(() => {
-        if (localStorage.getItem("myapp-email")) {
+        if (localStorage.getItem("myapp-loginId") & localStorage.getItem("myapp-password")) {
             setValue("password", localStorage.getItem("myapp-password"))
             setValue("loginId", localStorage.getItem("myapp-loginId"))
         }
@@ -28,7 +28,7 @@ export default function LoginPage() {
         await AuthLogin(data)
             .then((response) => {
                 if (check) {
-                    localStorage.setItem("myapp-loginId", watchedFiles?.loginId); localStorage.setItem("myapp-password", watchedFiles?.loginId)
+                    localStorage.setItem("myapp-loginId", watchedFiles?.loginId); localStorage.setItem("myapp-password", watchedFiles?.password)
                 }
                 router(`/${response?.data?.user?.role}/home`)
             })
