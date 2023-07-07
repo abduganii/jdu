@@ -33,8 +33,8 @@ export default function LoginPage() {
                 router(`/${response?.data?.user?.role}/home`)
             })
             .catch(error => {
-                setError('loginId', { type: 'custom', message: error?.response?.data?.message });
-                setError('password', { type: 'custom', message: error?.response?.data?.message });
+                setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" });
+                setError('password', { type: 'custom', message: "IDまたはパスワードが間違っています" });
 
             })
     }
@@ -61,7 +61,7 @@ export default function LoginPage() {
                             type={'text'}
                             placeholder={"IDを入力してください"}
                             style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
-                            register={{ ...register("loginId", { required: "loginId is required" }) }}
+                            register={{ ...register("loginId", { required: "ログインIDは必須です" }) }}
                             alert={errors.loginId?.message}
                             value={watchedFiles?.loginId || ''}
 
@@ -69,7 +69,7 @@ export default function LoginPage() {
                         <LoginInput
                             type={'password'}
                             placeholder={"パスワードを入力してください"}
-                            register={{ ...register("password", { required: "password is required" }) }}
+                            register={{ ...register("password", { required: "パスワードが必要" }) }}
                             style={{ backgroundImage: "url('/Image/Iconsinpt.png')" }}
                             alert={errors.password?.message}
                             value={watchedFiles?.password || ''}

@@ -51,7 +51,6 @@ export default function Filter({ page }) {
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
                             placeholder='入力'
-                            value={inoutVal}
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })
                                 SetCahnegSet(false)
@@ -84,13 +83,10 @@ export default function Filter({ page }) {
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
-                            value={inoutVal1}
                             placeholder='グループを入力'
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })
                                 SetCahnegSet(false)
-                                SetInoutVal(e.target.value)
-
                             }}
                         />
                     </div>
@@ -108,18 +104,13 @@ export default function Filter({ page }) {
                     />
                     <div ref={x} className={cls.Filter__Select__dropdown}>
                         {filterRate?.map(e => (
-                            <p
-                                key={e?.id}
+                            <p key={e?.id}
                                 className={`${cls.Filter__Select__dropdown__text}  ${params.get('rate') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
                                 onClick={() => {
                                     setSearchParams({ ...paramsToObject(params.entries()), rate: e?.link })
                                     SetCahnegSet(false)
-                                }}
-                            >
-                                {e.text}
-                            </p>
+                                }}>{e.text}</p>
                         ))}
-
                     </div>
                 </div>
                 <div className={cls.Filter__Select} onClick={() => {
@@ -163,6 +154,6 @@ export default function Filter({ page }) {
             </>}
 
 
-        </div>
+        </div >
     )
 }

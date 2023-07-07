@@ -64,13 +64,13 @@ export default function SettingsPage({ data }) {
                         setError('currentPassword', { type: 'custom', message: err.response.data.message })
                     }
                     if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: err.response.data.message })
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
                     }
                     if (err.response.data.message === "loginId must be unique") {
-                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setError('loginId', { type: 'custom', message: "ログイン ID は一意である必要があります" })
                     }
                     if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     if (err.response.data.message.includes('confirm')) {
                         setError('confirmPassword', { type: 'custom', message: err.response.data.message })
@@ -84,11 +84,11 @@ export default function SettingsPage({ data }) {
                     if (err.response.data.message.includes('current')) {
                         setError('currentPassword', { type: 'custom', message: err.response.data.message })
                     }
-                    if (err.response.data.message === "email must be unique") {
+                    if (err.response.data.message === "電子メールは一意である必要があります") {
                         setError('email', { type: 'custom', message: err.response.data.message })
                     }
                     if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     if (err.response.data.message.includes('confirm')) {
                         setError('confirmPassword', { type: 'custom', message: err.response.data.message })
@@ -169,7 +169,7 @@ export default function SettingsPage({ data }) {
                                 label={"ファーストネーム"}
                                 placeholder={"ファーストネーム"}
                                 type={"text"}
-                                register={{ ...register("firstName", { required: "firstName is required" }) }}
+                                register={{ ...register("firstName", { required: "名は必須です" }) }}
                                 value={watchedFiles?.firstName || ''}
                                 alert={errors.firstName?.message}
                                 onChange={() => clearErrors("firstName")}
@@ -180,7 +180,7 @@ export default function SettingsPage({ data }) {
                                 label={"苗字"}
                                 placeholder={"苗字"}
                                 type={"text"}
-                                register={{ ...register("lastName", { required: "firstName is required" }) }}
+                                register={{ ...register("lastName", { required: " 姓は必須です" }) }}
                                 value={watchedFiles?.lastName || ''}
                                 alert={errors.lastName?.message}
                                 onChange={() => clearErrors("lastName")}
@@ -193,7 +193,7 @@ export default function SettingsPage({ data }) {
                                     label={"会社"}
                                     placeholder={"会社"}
                                     type={"text"}
-                                    register={{ ...register("companyName", { required: "firstName is required" }) }}
+                                    register={{ ...register("companyName", { required: "会社名は必須です" }) }}
                                     value={watchedFiles?.companyName || ''}
                                     alert={errors.companyName?.message}
                                     onChange={() => clearErrors("companyName")}
@@ -204,7 +204,7 @@ export default function SettingsPage({ data }) {
                                     label={"電話番号"}
                                     placeholder={"998"}
                                     type={"text"}
-                                    register={{ ...register("phoneNumber", { required: "firstName is required" }) }}
+                                    register={{ ...register("phoneNumber", { required: "電話番号は必須です" }) }}
                                     value={watchedFiles?.phoneNumber || ''}
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
@@ -218,7 +218,7 @@ export default function SettingsPage({ data }) {
                                 label={"Eメール"}
                                 placeholder={"Eメール"}
                                 type={"email"}
-                                register={{ ...register("email", { required: "firstName is required" }) }}
+                                register={{ ...register("email", { required: "メールアドレスは必須です" }) }}
                                 value={watchedFiles?.email || ''}
                                 alert={errors.email?.message}
                                 onChange={() => clearErrors("email")}
@@ -229,7 +229,7 @@ export default function SettingsPage({ data }) {
                                 label={"ログインID"}
                                 placeholder={"ログインID"}
                                 type={"text"}
-                                register={{ ...register("loginId", { required: "firstName is required" }) }}
+                                register={{ ...register("loginId", { required: "ログインIDは必須です" }) }}
                                 value={watchedFiles?.loginId || ''}
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}
@@ -240,7 +240,7 @@ export default function SettingsPage({ data }) {
                                 label={"専門分野"}
                                 placeholder={"専門分野"}
                                 type={"text"}
-                                register={{ ...register("specialisation", { required: "firstName is required" }) }}
+                                register={{ ...register("specialisation", { required: " 専門性が必要です" }) }}
                                 value={watchedFiles?.specialisation || ''}
                                 alert={errors.specialisation?.message}
                                 onChange={() => clearErrors("specialisation")}

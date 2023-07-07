@@ -88,13 +88,13 @@ export default function RecruitorPage({ data, onChange }) {
                         setLoading(false)
                     }
                     if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
                         setLoading(false)
                     } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: err.response.data.message })
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
                     }
                     if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     setLoading(false)
                 })
@@ -117,13 +117,13 @@ export default function RecruitorPage({ data, onChange }) {
                         setLoading(false)
                     }
                     if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
                         setLoading(false)
                     } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: err.response.data.message })
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
                     }
                     if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     setLoading(false)
 
@@ -218,7 +218,7 @@ export default function RecruitorPage({ data, onChange }) {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName', { required: "firstName is required" }) }}
+                            register={{ ...register('firstName', { required: "名は必須です" }) }}
                             type={"text"}
                             label={"名前"}
                             placeholder={"名前"}
@@ -229,7 +229,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: "lastName is required" }) }}
+                            register={{ ...register('lastName', { required: "姓は必須です" }) }}
                             type={"text"}
                             label={"苗字"}
                             placeholder={"苗字"}
@@ -240,7 +240,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('companyName', { required: "companyName is required" }) }}
+                            register={{ ...register('companyName', { required: "会社名は必須です" }) }}
                             type={"text"}
                             label={"会社名"}
                             placeholder={"会社名"}
@@ -251,7 +251,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('specialisation', { required: "specialisation is required" }) }}
+                            register={{ ...register('specialisation', { required: "専門性が必要です" }) }}
                             type={"text"}
                             label={"専門分野"}
                             placeholder={"専門分野"}
@@ -262,7 +262,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('phoneNumber', { required: "phoneNumber is required" }) }}
+                            register={{ ...register('phoneNumber', { required: "電話番号は必須です" }) }}
                             type={"text"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
@@ -274,7 +274,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('email', { required: "email is required" }) }}
+                            register={{ ...register('email', { required: "電子メールは必須です" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
@@ -286,7 +286,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: "loginId is required" }) }}
+                            register={{ ...register('loginId', { required: "ログインIDは必須です" }) }}
                             type={"text"}
                             label={"Id"}
                             placeholder={"Id"}

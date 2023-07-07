@@ -66,16 +66,16 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "email does not exist or was misspelled" })
+                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
                     setLoading(false)
                 } if (err.response.data.message === "email must be unique") {
                     setError('email', { type: 'custom', message: err.response.data.message })
                 }
                 if (err.response.data.message === "Validation len on password failed") {
-                    setError('password', { type: 'custom', message: " Password's min length must be 8" })
+                    setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
                 }
                 if (err.response.data.message.includes("type integer")) {
-                    setError('courseNumber', { type: 'custom', message: " courseNumber must be number" })
+                    setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
                 }
                 setLoading(false)
             })
@@ -163,7 +163,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     />
                     <div className={cls.StudentPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName', { required: "firstName is required" }) }}
+                            register={{ ...register('firstName', { required: "名は必須です" }) }}
                             type={"text"}
                             label={"名前"}
                             placeholder={"名前"}
@@ -172,7 +172,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: "lastName is required" }) }}
+                            register={{ ...register('lastName', { required: "姓は必須です" }) }}
                             type={"text"}
                             label={"苗字"}
                             placeholder={"苗字"}
@@ -183,7 +183,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: "loginId is required" }) }}
+                            register={{ ...register('loginId', { required: "ログインIDは必須です" }) }}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
@@ -195,7 +195,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         />
 
                         <AddInput
-                            register={{ ...register('groupNumber', { required: "groupNumber is required" }) }}
+                            register={{ ...register('groupNumber', { required: "グループ番号は必須です" }) }}
                             type={"text"}
                             label={"グループ"}
                             placeholder={"グループ"}
@@ -206,7 +206,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('courseNumber', { required: "courseNumber is required" }) }}
+                            register={{ ...register('courseNumber', { required: "コース番号は必須です" }) }}
                             type={"text"}
                             label={"コース番号"}
                             placeholder={"コース番号"}
@@ -217,7 +217,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('email', { required: "email is required" }) }}
+                            register={{ ...register('email', { required: "電子メールは必須です" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
@@ -226,7 +226,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
-                            register={{ ...register('password', { required: "password is required" }) }}
+                            register={{ ...register('password', { required: "パスワードが必要" }) }}
                             type={"text"}
                             label={"パスワード"}
                             placeholder={"パスワード"}
