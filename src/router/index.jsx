@@ -38,7 +38,7 @@ export default function AppRouter() {
                 .then(res => setUser(res?.data))
                 .catch(err => navigate('auth/login'))
         }
-        if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout' && router?.pathname != '/auth/newPassword') {
+        if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout' && router?.pathname != '/password-reset') {
             fetchData()
         }
 
@@ -81,7 +81,7 @@ export default function AppRouter() {
             </Route>
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/logout" element={<Logout />} />
-            <Route path="/auth/newPassword" element={<LoginNewPage />} />
+            <Route path="/password-reset" element={<LoginNewPage user={user} />} />
 
         </Routes>
     )

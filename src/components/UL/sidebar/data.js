@@ -41,7 +41,7 @@ export const navLinks = [
     {
         id: 6,
         link: '/selected',
-        label: '選択済み',
+        label: 'お気に入り',
         icon: (e)=> SelectedIcon({fill:e})
     },
     {
@@ -90,6 +90,6 @@ export const settingLinks = [
 ]
 
 
-export const recruitorLink = ['ホーム', '学生', '選択済み']
+export const recruitorLink = ['ホーム', '学生', 'お気に入り']
 
 export const decanLink = ['ホーム','学生','先生','スケジュール',"リクルーター"]

@@ -10,12 +10,21 @@ import { useNavigate } from 'react-router-dom';
 import ButtunLogin from '../../UL/buttun/loginButtun';
 import LoginInput from '../../UL/input/loginInput';
 import { AuthLogin } from '../../../services/auth';
-export default function LoginNewPage() {
+export default function LoginNewPage({ user }) {
 
     const router = useNavigate()
+
     const { register, handleSubmit } = useForm();
-
-
+    const handleNewAuth = async (data) => {
+        await NewPassword({ userId: user?.id, ...data })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+                toast(error?.response?.data?.message)
+            })
+    }
     return (
         <div className={cls.Login}>
             <div className={cls.Login__content}>
@@ -26,20 +35,13 @@ export default function LoginNewPage() {
                         </div>
                     </div>
 
-                    <form className={cls.Form} >
-                        <LoginInput
-                            type={'text'}
-                            placeholder={"新しいパスワード"}
-                            style={{ marginBottom: "30px", paddingLeft: 0 }}
-                            register={{ ...register("password", { required: true }) }}
-                        />
+                    <form className={cls.Form} onChange={handleSubmit(handleNewAuth)}>
                         <LoginInput
                             type={'password'}
                             placeholder={"パスワード認証"}
                             style={{ marginBottom: "31px", paddingLeft: 0 }}
                             register={{ ...register("password", { required: true }) }}
                         />
-
                         <ButtunLogin type='submit'>パスワードを変更</ButtunLogin>
                     </form>
                 </div>

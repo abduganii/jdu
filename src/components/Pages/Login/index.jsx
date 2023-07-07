@@ -23,7 +23,6 @@ export default function LoginPage() {
     }, [])
     const router = useNavigate()
 
-
     const handleAuth = async (data) => {
         await AuthLogin(data)
             .then((response) => {
@@ -38,7 +37,6 @@ export default function LoginPage() {
 
             })
     }
-    console.log(check)
     return (
         <div className={cls.Login}>
             <div className={cls.Login__content}>
@@ -61,7 +59,7 @@ export default function LoginPage() {
                             type={'text'}
                             placeholder={"IDを入力してください"}
                             style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
-                            register={{ ...register("loginId", { required: "ログインIDは必須です" }) }}
+                            register={{ ...register("loginId", { required: "ログインIDが必要です" }) }}
                             alert={errors.loginId?.message}
                             value={watchedFiles?.loginId || ''}
 
@@ -69,7 +67,7 @@ export default function LoginPage() {
                         <LoginInput
                             type={'password'}
                             placeholder={"パスワードを入力してください"}
-                            register={{ ...register("password", { required: "パスワードが必要" }) }}
+                            register={{ ...register("password", { required: "パスワードが必要です" }) }}
                             style={{ backgroundImage: "url('/Image/Iconsinpt.png')" }}
                             alert={errors.password?.message}
                             value={watchedFiles?.password || ''}
