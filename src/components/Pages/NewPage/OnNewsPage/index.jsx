@@ -1,6 +1,3 @@
-'use client'
-
-
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import BackBtn from '../../../UL/buttun/backBtn'
@@ -9,21 +6,13 @@ import { ClockIcon } from '../../../UL/icons'
 
 import cls from "./OnNewsPage.module.scss"
 
-// const data = {
-//     id: 0,
-//     createAt: '09:41 Monday',
-//     title: "Digital product design news, articles, and resources delivered straight to your inbox.",
-//     categore: "Japan",
-//     image: '/Image/Rectangle502.png',
-//     text: "Digital product design news, articles, and resources delivered straight to your inbox."
-// }
-
 export default function OnNewsPage({ data }) {
     const router = useNavigate()
     let date = new Date(data?.publishDate);
     let Hours = date.getHours();
     let Minutes = date.getMinutes();
-    const weeksDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const weeksDay = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
+
 
     return (
         <Container className={cls.OnNewsPage__container}>

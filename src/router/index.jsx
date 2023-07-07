@@ -24,6 +24,7 @@ import { GetMe } from '../services/me'
 import Logout from '../app/auth/logout'
 import LoginNewPage from '../components/Pages/NewPassword'
 import NewPage from '../components/Pages/NewPage'
+import PriewNew from '../components/Pages/NewPage/PreiwNew'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -76,12 +77,14 @@ export default function AppRouter() {
                 <Route path="/news" element={<NewPage user={user} />} />
                 <Route path="/newsAdd" element={<AddNews />} />
                 <Route path="/news/:id" element={<OneNews />} />
+                <Route path="/previewnews" element={<PriewNew />} />
+
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/help" element={<Help />} />
             </Route>
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/logout" element={<Logout />} />
-            <Route path="/password-reset" element={<LoginNewPage user={user} />} />
+            <Route path="/password-reset" element={<LoginNewPage />} />
 
         </Routes>
     )

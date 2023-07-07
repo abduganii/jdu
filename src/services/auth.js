@@ -14,5 +14,5 @@ export const Forget = async (body) => {
 }
 export const NewPassword = async (body) => {
     const response = await api.post('/auth/change_password',body );
-    return response;
+    return response?.data;
 }

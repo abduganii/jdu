@@ -6,19 +6,19 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
 
 import cls from './Login.module.scss'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import ButtunLogin from '../../UL/buttun/loginButtun';
 import LoginInput from '../../UL/input/loginInput';
-import { AuthLogin } from '../../../services/auth';
-export default function LoginNewPage({ user }) {
-
+import { NewPassword } from '../../../services/auth';
+export default function LoginNewPage() {
+    const [params] = useSearchParams()
     const router = useNavigate()
 
     const { register, handleSubmit } = useForm();
     const handleNewAuth = async (data) => {
-        await NewPassword({ userId: user?.id, ...data })
+        await NewPassword({ userId: params.get("id"), token: params.get("token"), ...data })
             .then((response) => {
-                console.log(response)
+                router('/auth/login')
             })
             .catch(error => {
                 console.log(error)
@@ -35,7 +35,7 @@ export default function LoginNewPage({ user }) {
                         </div>
                     </div>
 
-                    <form className={cls.Form} onChange={handleSubmit(handleNewAuth)}>
+                    <form className={cls.Form} onSubmit={handleSubmit(handleNewAuth)}>
                         <LoginInput
                             type={'password'}
                             placeholder={"パスワード認証"}

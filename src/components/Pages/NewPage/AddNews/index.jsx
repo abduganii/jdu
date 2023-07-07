@@ -13,12 +13,14 @@ import Datapicker from '../../../UL/input/Datapicker'
 
 
 import toast, { Toaster } from 'react-hot-toast';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cls from "./AddNews.module.scss"
 // import { Category } from "../data"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { NewsAdd } from '../../../../services/news'
+import { useDispatch, useSelector } from 'react-redux'
+import { newsPreviewActions } from "../../../../store/newsPreview/newsPreview.slice"
 
 const data = [
     {
@@ -39,8 +41,16 @@ export default function AddNewsPage({ categoryArr }) {
     const [dicr, setDicr] = useState()
     const [avatar, setAvatar] = useState()
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, watch } = useForm()
+    const WatchFile = watch()
+    const dispatch = useDispatch()
     const router = useNavigate()
+
+    useEffect(() => {
+        dispatch(newsPreviewActions.setNews({ dicr, avatar, category, ...WatchFile }))
+    }, [WatchFile])
+
+    // const NewData = useSelector(state => state.newsPreview)
 
     const AddNew = async (data) => {
         const formData = new FormData()
@@ -105,7 +115,7 @@ export default function AddNewsPage({ categoryArr }) {
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>
-                    <div className={cls.AddNews__show} onClick={() => router('/news/1')}><ShowIcons /> 概要</div>
+                    <div className={cls.AddNews__show} onClick={() => router('/previewnews')}><ShowIcons /> 概要</div>
                     <BlueButtun type='submit'>
                         ニュースの発行
                     </BlueButtun>
