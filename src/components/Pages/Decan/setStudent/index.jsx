@@ -249,7 +249,7 @@ export default function SetStudent({ data, Specialisation }) {
     }
 
     const caltAlMark = () => {
-        setAllMarks((Number(Attendee) + Number(CoWork) + Number(ItCourse) + Number(JPlanguage) + Number(Sanno) + Number(SWL)) / 6)
+        setAllMarks(Math.round((Number(Attendee) + Number(CoWork) + Number(ItCourse) + Number(JPlanguage) + Number(Sanno) + Number(SWL)) / 6))
 
     }
 
@@ -558,8 +558,8 @@ export default function SetStudent({ data, Specialisation }) {
                     />
                     <Select
                         className={"seclectLesson"}
-                        defaultValue={"Incompleted"}
-                        options={[{ value: "Incompleted", label: "Incompleted" }, { value: "Completed", label: "Completed" }]}
+                        defaultValue={"未完成"}
+                        options={[{ value: "Incompleted", label: "未完成" }, { value: "Completed", label: "完成した" }]}
                         onChange={(e) => setValue('status', e)}
                     />
                     <input

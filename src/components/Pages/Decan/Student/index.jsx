@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 
 
-export default function StudentPage({ data, Specialisation, onChange }) {
+export default function StudentPage({ data, onChange }) {
 
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
@@ -28,7 +28,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
 
-    const oneStuednt = data.find(e => e.id === personId)
+    const oneStuednt = data.find(e => e.id === personId) || ""
 
     const { register, handleSubmit, reset, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
@@ -42,9 +42,6 @@ export default function StudentPage({ data, Specialisation, onChange }) {
         formData.append("groupNumber", data?.groupNumber)
         formData.append("courseNumber", data?.courseNumber)
         formData.append("email", data?.email)
-        formData.append("password", data?.password)
-        formData.append("specialisationId", Specialisation?.[0]?.id)
-
 
         await StudentsAdd(formData)
             .then(res => {
@@ -62,14 +59,14 @@ export default function StudentPage({ data, Specialisation, onChange }) {
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
                     setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
                     setLoading(false)
                 } if (err.response.data.message === "email must be unique") {
-                    setError('email', { type: 'custom', message: err.response.data.message })
+                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
                 }
                 if (err.response.data.message === "Validation len on password failed") {
                     setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
@@ -114,10 +111,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     remove={() => setPersonId(e?.id)}
                     student={true}
                 />
-            ))}
-
-
-            {
+            ))}{
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}
                     name={`${oneStuednt?.firstName} ${oneStuednt?.lastName}`}
@@ -163,7 +157,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                     />
                     <div className={cls.StudentPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName', { required: "名は必須です" }) }}
+                            register={{ ...register('firstName', { required: "名前は必要です！" }) }}
                             type={"text"}
                             label={"名前"}
                             placeholder={"名前"}
@@ -172,10 +166,10 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: "姓は必須です" }) }}
+                            register={{ ...register('lastName', { required: "名字は必要です！" }) }}
                             type={"text"}
-                            label={"苗字"}
-                            placeholder={"苗字"}
+                            label={"名字"}
+                            placeholder={"名字"}
                             alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
                             style={{ marginBottom: "20px" }}
@@ -183,7 +177,7 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: "ログインIDは必須です" }) }}
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
@@ -195,10 +189,10 @@ export default function StudentPage({ data, Specialisation, onChange }) {
                         />
 
                         <AddInput
-                            register={{ ...register('groupNumber', { required: "グループ番号は必須です" }) }}
+                            register={{ ...register('groupNumber', { required: "グループ番号は必要です！" }) }}
                             type={"text"}
-                            label={"グループ"}
-                            placeholder={"グループ"}
+                            label={"グループ番号"}
+                            placeholder={"グループ番号"}
                             alert={errors.groupNumber?.message}
                             onChange={() => clearErrors("groupNumber")}
                             style={{ marginBottom: "20px" }}
@@ -206,10 +200,10 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('courseNumber', { required: "コース番号は必須です" }) }}
+                            register={{ ...register('courseNumber', { required: "グループ番号は必要です！" }) }}
                             type={"text"}
-                            label={"コース番号"}
-                            placeholder={"コース番号"}
+                            label={"グループ番号"}
+                            placeholder={"グループ番号"}
                             alert={errors.courseNumber?.message}
                             onChange={() => clearErrors("courseNumber")}
                             style={{ marginBottom: "20px" }}
@@ -217,25 +211,13 @@ export default function StudentPage({ data, Specialisation, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('email', { required: "電子メールは必須です" }) }}
+                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
-                        />
-                        <AddInput
-                            register={{ ...register('password', { required: "パスワードが必要" }) }}
-                            type={"text"}
-                            label={"パスワード"}
-                            placeholder={"パスワード"}
-                            geterat={true}
-                            passwordGenerate={(e) => setValue("password", e)}
-                            alert={errors.password?.message}
-                            onChange={() => clearErrors("password")}
-                            style={{ marginBottom: "20px" }}
-
                         />
                     </div>
                 </AddMadal>}

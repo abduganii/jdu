@@ -44,7 +44,6 @@ export default function RecruitorPage({ data, onChange }) {
             setValue("phoneNumber", res?.phoneNumber)
             setValue("email", res?.email)
             setValue("loginId", res?.loginId)
-            setValue("password", res?.password)
             setValue("bio", res?.bio)
         }
         fetchData()
@@ -64,7 +63,7 @@ export default function RecruitorPage({ data, onChange }) {
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("email", data?.email)
         formData.append("loginId", data?.loginId)
-        if (data?.password) formData.append("password", data?.password)
+
         formData.append("bio", data?.bio)
 
         if (query == "true") {
@@ -113,7 +112,7 @@ export default function RecruitorPage({ data, onChange }) {
                 })
                 .catch(err => {
                     if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
                         setLoading(false)
                     }
                     if (err.response.data.message == "Validation isEmail on email failed") {
@@ -218,7 +217,7 @@ export default function RecruitorPage({ data, onChange }) {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName', { required: "名は必須です" }) }}
+                            register={{ ...register('firstName', { required: "名前は必要です！" }) }}
                             type={"text"}
                             label={"名前"}
                             placeholder={"名前"}
@@ -229,10 +228,10 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: "姓は必須です" }) }}
+                            register={{ ...register('lastName', { required: "名字は必要です！" }) }}
                             type={"text"}
-                            label={"苗字"}
-                            placeholder={"苗字"}
+                            label={"名字"}
+                            placeholder={"名字"}
                             value={watchedFiles?.lastName || ''}
                             alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
@@ -240,7 +239,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('companyName', { required: "会社名は必須です" }) }}
+                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
                             type={"text"}
                             label={"会社名"}
                             placeholder={"会社名"}
@@ -251,10 +250,10 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('specialisation', { required: "専門性が必要です" }) }}
+                            register={{ ...register('specialisation', { required: "専門は必要です！" }) }}
                             type={"text"}
-                            label={"専門分野"}
-                            placeholder={"専門分野"}
+                            label={"専門"}
+                            placeholder={"専門"}
                             value={watchedFiles?.specialisation || ''}
                             alert={errors.specialisation?.message}
                             onChange={() => clearErrors("specialisation")}
@@ -262,7 +261,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('phoneNumber', { required: "電話番号は必須です" }) }}
+                            register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
                             type={"text"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
@@ -274,7 +273,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('email', { required: "電子メールは必須です" }) }}
+                            register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
@@ -286,7 +285,7 @@ export default function RecruitorPage({ data, onChange }) {
 
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: "ログインIDは必須です" }) }}
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"Id"}
                             placeholder={"Id"}
@@ -295,20 +294,6 @@ export default function RecruitorPage({ data, onChange }) {
                             loginGenerate={(e) => setValue("loginId", e)}
                             alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
-                            style={{ marginBottom: "20px" }}
-
-                        />
-                        <AddInput
-                            register={{ ...register('password') }}
-                            type={"text"}
-                            label={"パスワード"}
-                            placeholder={"パスワード"}
-                            value={watchedFiles?.password || ''}
-                            geterat={true}
-                            passwordGenerate={(e) => setValue("password", e)}
-                            alert={errors.password?.message}
-                            onChange={() => clearErrors("password")}
-
                             style={{ marginBottom: "20px" }}
 
                         />

@@ -61,7 +61,7 @@ export default function SettingsPage({ data }) {
                 .then((data) => router('/decan/home'))
                 .catch(err => {
                     if (err.response.data.message.includes('current')) {
-                        setError('currentPassword', { type: 'custom', message: err.response.data.message })
+                        setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
                     }
                     if (err.response.data.message === "email must be unique") {
                         setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
@@ -73,7 +73,7 @@ export default function SettingsPage({ data }) {
                         setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     if (err.response.data.message.includes('confirm')) {
-                        setError('confirmPassword', { type: 'custom', message: err.response.data.message })
+                        setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
                     }
                 })
         }
@@ -82,16 +82,16 @@ export default function SettingsPage({ data }) {
                 .then((data) => router('/recruitor/home'))
                 .catch(err => {
                     if (err.response.data.message.includes('current')) {
-                        setError('currentPassword', { type: 'custom', message: err.response.data.message })
+                        setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
                     }
-                    if (err.response.data.message === "電子メールは一意である必要があります") {
-                        setError('email', { type: 'custom', message: err.response.data.message })
+                    if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
                     }
                     if (err.response.data.message === "Validation len on password failed") {
                         setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     if (err.response.data.message.includes('confirm')) {
-                        setError('confirmPassword', { type: 'custom', message: err.response.data.message })
+                        setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
                     }
                 })
 
@@ -166,10 +166,10 @@ export default function SettingsPage({ data }) {
 
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
-                                label={"ファーストネーム"}
-                                placeholder={"ファーストネーム"}
+                                label={"名前"}
+                                placeholder={"名前"}
                                 type={"text"}
-                                register={{ ...register("firstName", { required: "名は必須です" }) }}
+                                register={{ ...register("firstName", { required: "名前は必要です！" }) }}
                                 value={watchedFiles?.firstName || ''}
                                 alert={errors.firstName?.message}
                                 onChange={() => clearErrors("firstName")}
@@ -177,10 +177,10 @@ export default function SettingsPage({ data }) {
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"苗字"}
-                                placeholder={"苗字"}
+                                label={"名字"}
+                                placeholder={"名字"}
                                 type={"text"}
-                                register={{ ...register("lastName", { required: " 姓は必須です" }) }}
+                                register={{ ...register("lastName", { required: " 名字は必要です！" }) }}
                                 value={watchedFiles?.lastName || ''}
                                 alert={errors.lastName?.message}
                                 onChange={() => clearErrors("lastName")}
@@ -190,10 +190,10 @@ export default function SettingsPage({ data }) {
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
 
-                                    label={"会社"}
-                                    placeholder={"会社"}
+                                    label={"会社名"}
+                                    placeholder={"会社名"}
                                     type={"text"}
-                                    register={{ ...register("companyName", { required: "会社名は必須です" }) }}
+                                    register={{ ...register("companyName", { required: "会社名は必要です！" }) }}
                                     value={watchedFiles?.companyName || ''}
                                     alert={errors.companyName?.message}
                                     onChange={() => clearErrors("companyName")}
@@ -204,7 +204,7 @@ export default function SettingsPage({ data }) {
                                     label={"電話番号"}
                                     placeholder={"998"}
                                     type={"text"}
-                                    register={{ ...register("phoneNumber", { required: "電話番号は必須です" }) }}
+                                    register={{ ...register("phoneNumber", { required: "電話番号は必要です！" }) }}
                                     value={watchedFiles?.phoneNumber || ''}
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
@@ -215,10 +215,10 @@ export default function SettingsPage({ data }) {
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"Eメール"}
-                                placeholder={"Eメール"}
+                                label={"メール"}
+                                placeholder={"メール"}
                                 type={"email"}
-                                register={{ ...register("email", { required: "メールアドレスは必須です" }) }}
+                                register={{ ...register("email", { required: "メールは必要です！" }) }}
                                 value={watchedFiles?.email || ''}
                                 alert={errors.email?.message}
                                 onChange={() => clearErrors("email")}
@@ -229,7 +229,7 @@ export default function SettingsPage({ data }) {
                                 label={"ログインID"}
                                 placeholder={"ログインID"}
                                 type={"text"}
-                                register={{ ...register("loginId", { required: "ログインIDは必須です" }) }}
+                                register={{ ...register("loginId", { required: "ログインIDは必要です!" }) }}
                                 value={watchedFiles?.loginId || ''}
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}
@@ -237,10 +237,10 @@ export default function SettingsPage({ data }) {
                             {data?.role == "recruitor" && <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 
-                                label={"専門分野"}
-                                placeholder={"専門分野"}
+                                label={"専門"}
+                                placeholder={"専門"}
                                 type={"text"}
-                                register={{ ...register("specialisation", { required: " 専門性が必要です" }) }}
+                                register={{ ...register("specialisation", { required: " 専門は必要です！" }) }}
                                 value={watchedFiles?.specialisation || ''}
                                 alert={errors.specialisation?.message}
                                 onChange={() => clearErrors("specialisation")}
