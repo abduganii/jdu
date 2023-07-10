@@ -25,6 +25,8 @@ import Logout from '../app/auth/logout'
 import LoginNewPage from '../components/Pages/NewPassword'
 import NewPage from '../components/Pages/NewPage'
 import PriewNew from '../components/Pages/NewPage/PreiwNew'
+import Loader from '../components/UL/loader'
+import toast from 'react-hot-toast'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -37,7 +39,12 @@ export default function AppRouter() {
         const fetchData = async () => {
             await GetMe()
                 .then(res => setUser(res?.data))
-                .catch(err => navigate('auth/login'))
+                .catch(err => {
+                    if (err?.response?.status == 401) {
+                        navigate("/auth/login")
+                    }
+                    console(err?.response?.message)
+                })
         }
         if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout' && router?.pathname != '/password-reset') {
             fetchData()

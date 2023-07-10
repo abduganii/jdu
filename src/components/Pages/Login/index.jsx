@@ -15,16 +15,16 @@ export default function LoginPage() {
     const { register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const [check, setCheck] = useState(false)
-    useEffect(() => {
-        if (localStorage.getItem("myapp-loginId") && localStorage.getItem("myapp-password")) {
-            setValue("password", localStorage.getItem("myapp-password"))
-            setValue("loginId", localStorage.getItem("myapp-loginId"))
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (localStorage.getItem("myapp-loginId") && localStorage.getItem("myapp-password")) {
+    //         setValue("password", localStorage.getItem("myapp-password"))
+    //         setValue("loginId", localStorage.getItem("myapp-loginId"))
+    //     }
+    // }, [])
     const router = useNavigate()
 
     const handleAuth = async (data) => {
-        await AuthLogin(data)
+        await AuthLogin({ remember: check, ...data })
             .then((response) => {
                 if (check) {
                     localStorage.setItem("myapp-loginId", watchedFiles?.loginId); localStorage.setItem("myapp-password", watchedFiles?.password)

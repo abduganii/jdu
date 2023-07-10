@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form'
 import Avatar from 'react-avatar'
 import { DecanUpdate } from '../../../services/decan'
 import { RecruitorUpdate } from '../../../services/recruter'
-
+import Loader from '../../UL/loader'
 export default function SettingsPage({ data }) {
     const x = useRef()
     const y = useRef()
@@ -26,6 +26,7 @@ export default function SettingsPage({ data }) {
     const [newPass, setnewPass] = useState('password')
     const [conPass, setconPass] = useState('password')
     const [avatar, setAvatar] = useState(data?.avatar)
+    const [loader, setLoager] = useState(false)
 
     const { register, handleSubmit, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
@@ -43,6 +44,7 @@ export default function SettingsPage({ data }) {
     }, [data])
 
     const addData = async (body) => {
+        setLoager(true)
         const formData = new FormData()
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body?.firstName)
@@ -58,7 +60,10 @@ export default function SettingsPage({ data }) {
 
         if (data?.role == 'decan') {
             await DecanUpdate(formData)
-                .then((data) => router('/decan/home'))
+                .then((data) => {
+                    router('/decan/home')
+                    setLoager(false)
+                })
                 .catch(err => {
                     if (err.response.data.message.includes('current')) {
                         setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
@@ -75,11 +80,15 @@ export default function SettingsPage({ data }) {
                     if (err.response.data.message.includes('confirm')) {
                         setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
                     }
+                    setLoager(false)
                 })
         }
         if (data?.role == 'recruitor') {
             await RecruitorUpdate(formData, data?.id)
-                .then((data) => router('/recruitor/home'))
+                .then((data) => {
+                    router('/recruitor/home')
+                    setLoager(false)
+                })
                 .catch(err => {
                     if (err.response.data.message.includes('current')) {
                         setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
@@ -93,6 +102,7 @@ export default function SettingsPage({ data }) {
                     if (err.response.data.message.includes('confirm')) {
                         setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
                     }
+                    setLoager(false)
                 })
 
         }
@@ -104,8 +114,10 @@ export default function SettingsPage({ data }) {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
+
     return (
         <>
+
             <div className={cls.SettingsPage__logout2__wrap} ref={x} onClick={(e) => {
                 if (e.target == x.current) {
                     x.current.classList.remove("displayBlock")
@@ -311,6 +323,9 @@ export default function SettingsPage({ data }) {
                     </div>
                 </Container>
             </form>
+            {
+                loader ? <Loader /> : ""
+            }
         </>
     )
 }
