@@ -156,7 +156,7 @@ export default function SettingsPage({ data }) {
                         </div>
                     </div>
                     <div className={cls.SettingsPage__form}>
-                        <label className={cls.SettingsPage__upload} >
+                        <div className={cls.SettingsPage__upload} >
                             {
                                 avatar ? <img
                                     src={avatar || watchedFiles?.avatar}
@@ -167,13 +167,17 @@ export default function SettingsPage({ data }) {
                                 /> : <Avatar name={data?.firstName} size="150" round={true} />
                             }
 
-                            <input
-                                className={cls.SettingsPage__upload__file}
-                                type="file"
-                                onChange={(e) => hendleimg(e)}
-                            />
-                            <div className={cls.SettingsPage__upload__icon}>  <UploadIcons /> </div>
-                        </label>
+
+                            <label className={cls.SettingsPage__upload__icon}>
+                                <input
+                                    className={cls.SettingsPage__upload__file}
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    onChange={(e) => hendleimg(e)}
+                                />
+                                <UploadIcons />
+                            </label>
+                        </div>
                         <div className={cls.SettingsPage__inputs}>
 
                             <SettingsInput

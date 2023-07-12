@@ -27,6 +27,7 @@ export default function RangeInput({ lessonType, color, skill, defaultRange, dis
                     type="range"
                     value={rangeValue}
                     disabled={disabled}
+
                     className={`${cls.RangeInput__input} ${disabled && cls.RangeInput__disabled} ${color == "black" ? cls.RangeInput__balck : ""} `}
                     style={{ background: color, WebkitSliderThumb: color }}
                     onChange={(e) => {

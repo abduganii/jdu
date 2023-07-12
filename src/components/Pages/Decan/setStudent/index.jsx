@@ -401,7 +401,7 @@ export default function SetStudent({ data, Specialisation }) {
                                 <div className={cls.SetStudent__Sertifacet__Download__}></div>
                                 <DownloadIcons color={file ? "white" : "#121212"} back={file ? "#5627DC" : "#C8C4D2"} />
                             </div>
-                            <input type="file" onChange={(e) => hendleFile(e)} />
+                            <input type="file" accept="image/png, image/jpeg ,application/pdf" onChange={(e) => hendleFile(e)} />
                         </label>
                     </div>
                 </div>
@@ -429,7 +429,7 @@ export default function SetStudent({ data, Specialisation }) {
                             <div className={`${file1 && cls.SetStudent__Sertifacet__Download__round}`}>
                                 <DownloadIcons color={file1 ? "white" : "#121212"} back={file1 ? "#5627DC" : "#C8C4D2"} />
                             </div>
-                            <input type="file" onChange={(e) => hendleFile1(e)} />
+                            <input type="file" accept="image/png, image/jpeg ,application/pdf" onChange={(e) => hendleFile1(e)} />
                         </label>
                     </div>
                 </div>

@@ -10,8 +10,8 @@ export default function HelpPage() {
     const [id, setId] = useState(Question[0].id)
     return (
         <Container className={cls.HelpPage__container}>
-            <h3 className={cls.HelpPage__title}>Creative Solutions</h3>
-            <p className={cls.HelpPage__text}>So, instead of dealing with the diversity of offerings that often drives design decisions in e-commerce, this time the team had to tackle the interesting challenge of presenting a fairly innovative and highly specialized product in an emotional, compelling, and comprehensive way. It was necessary to create a design that would make the brand stand out from the crowd in an extremely competitive food market.</p>
+            <h3 className={cls.HelpPage__title}>このサイトについて</h3>
+            <p className={cls.HelpPage__text}>才能のある学生を特定するのに役立ち、学生の出席状況を監視することができます。 学生に関するすべての情報を 1 か所に収集し、1 か所で確認できるようにします。 学生の教育ローンを表示および管理するのに便利です。 学生にとって、お知らせやニュースを 1 か所から配信できるのは便利です。</p>
 
             <h2 className={cls.HelpPage__faq}>FAQ</h2>
             <div>
@@ -30,7 +30,7 @@ export default function HelpPage() {
                     </div>
                 ))}
             </div>
-            <h3 className={cls.HelpPage__condition}>Accommodation conditions</h3>
+            <h3 className={cls.HelpPage__condition}>私たちが使用するテクノロジーとツール。</h3>
             <div className={cls.HelpPage__condition__wrap}>
                 {
                     Condition?.map(e => (
