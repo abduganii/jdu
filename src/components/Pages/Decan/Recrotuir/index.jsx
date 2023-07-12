@@ -182,10 +182,12 @@ export default function RecruitorPage({ data, onChange }) {
                     progress={oneStuednt?.progress}
                     years={"2years"}
                     remove={async () => {
+                        setLoading(true)
                         await Recruitordelete(oneStuednt?.id)
                             .then(data => {
                                 if (data) {
                                     toast("Recruitor deleted")
+                                    setLoading(false)
                                 }
                                 setPersonId(false)
                                 onChange()
@@ -310,7 +312,7 @@ export default function RecruitorPage({ data, onChange }) {
             }
             <Toaster />
 
-            {loading && <Loader />}
+            {loading && <Loader onClick={() => setLoading(false)} />}
         </div >
     )
 }

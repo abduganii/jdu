@@ -15,7 +15,39 @@
         width: 150px;
         height: 150px;
     }
+
+    &__wrap {
+        width: 400px;
+        height: 450px;
+        border-radius: 12px;
+        background: #FFF;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: calc(100% - 70px);
+        border-bottom: 1px solid rgb(0, 0, 0, .1);
+    }
+
+    &__btn {
+        border-radius: 8px;
+        background: #EFEFF4;
+        color: #101828;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        padding: 14px 30px;
+        border: "none";
+        margin-top: 10px;
+        margin-left: 10px;
+    }
 }
+
 
 .ldsring {
     display: inline-block;

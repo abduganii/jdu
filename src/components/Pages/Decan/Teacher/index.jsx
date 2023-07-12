@@ -260,7 +260,7 @@ export default function TeacherPage({ data, onChange }) {
                 </AddMadal>
             }
             <Toaster />
-            {loading && <Loader />}
+            {loading && <Loader onClick={() => setLoading(false)} />}
         </div>
     )
 }

@@ -77,3 +77,13 @@ export const FileUploadStudent = async (data) => {
        }
 }
 
+
+export const StudentsDounlowGet = async (id) => {
+    try {
+     const res = await api.get(`/student/cv/${id}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
+

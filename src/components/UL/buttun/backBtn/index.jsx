@@ -1,14 +1,18 @@
+import { StudentsDounlowGet } from '../../../../services/student'
 import { DownLoadIcon, LeftIcon } from '../../icons'
 import cls from "./BackBtn.module.scss"
 
-export default function BackBtn({ onClick, role, file, ...other }) {
+export default function BackBtn({ onClick, UserId, role, ...other }) {
+
     return (
         <div className={cls.BackBtn} {...other}>
             <div onClick={onClick}> <LeftIcon />戻る</div>
 
-            {role & file ? <label >
-                Download resume
-                <DownLoadIcon />
+            {role ? <label >
+                <a href={`https://api.jdu.getter.uz/student/cv/${UserId}`} target="_blank" >
+                    Download resume
+                    <DownLoadIcon />
+                </a>
             </label> : ""}
         </div>
     )

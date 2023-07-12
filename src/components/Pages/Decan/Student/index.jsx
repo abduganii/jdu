@@ -126,6 +126,7 @@ export default function StudentPage({ data, onChange }) {
                             .then(data => {
                                 if (data) {
                                     toast("Student deleted")
+                                    setLoading(false)
                                 }
                                 setPersonId(false)
                                 onChange()
@@ -223,7 +224,7 @@ export default function StudentPage({ data, onChange }) {
                 </AddMadal>}
             <Toaster />
 
-            {loading && <Loader />}
+            {loading && <Loader onClick={() => setLoading(false)} />}
         </div>
     )
 }

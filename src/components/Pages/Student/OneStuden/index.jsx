@@ -41,7 +41,7 @@ export default function OneStudent({ user, role }) {
         <div className={cls.OneStudent}>
 
             <Container className={cls.OneStudent__container} >
-                <BackBtn onClick={(e) => router(-1)} role={true} style={{ marginBottom: "40px" }} />
+                <BackBtn onClick={(e) => router(-1)} role={true} UserId={user?.id} style={{ marginBottom: "40px" }} />
                 <Person
                     id={user?.loginId}
                     name={`${user?.firstName} ${user?.lastName}`}

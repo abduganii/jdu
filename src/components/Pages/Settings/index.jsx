@@ -328,7 +328,7 @@ export default function SettingsPage({ data }) {
                 </Container>
             </form>
             {
-                loader ? <Loader /> : ""
+                loader ? <Loader onClick={() => setLoading(false)} /> : ""
             }
         </>
     )

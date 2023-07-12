@@ -33,9 +33,12 @@
     }
 
     label {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         border-radius: 5px;
         border: 1px solid #E9E8EE;
         background: #F5F5F5;

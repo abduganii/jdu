@@ -1,12 +1,16 @@
 import React from 'react'
 import cls from "./loader.module.scss"
-export default function Loader() {
+export default function Loader({ onClick }) {
     return (
         <div className={cls.Loader}>
-            {/* <img src="/loader.gif" alt="" /> */}
-            <div>
-                <div class={cls.ldsring}><div></div><div></div><div></div><div></div></div>
-                <p>読み込み中...</p>
+            <div className={cls.Loader__wrap}>
+                <div className={cls.Loader__top}>
+                    <div>
+                        <div class={cls.ldsring}><div></div><div></div><div></div><div></div></div>
+                        <p>読み込み中...</p>
+                    </div>
+                </div>
+                <button onClick={onClick} className={cls.Loader__btn}>Cancel</button>
             </div>
         </div>
     )

@@ -583,7 +583,7 @@ export default function SetStudent({ data }) {
                 </div>
             </LessonTable >
             <Toaster />
-            {loading && <Loader />}
+            {loading && <Loader onClick={() => setLoading(false)} />}
 
         </Container >
     )
