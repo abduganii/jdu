@@ -106,9 +106,8 @@ export default function SetStudent({ data }) {
         setCoWork(data?.universityPercentage?.CoWork)
         setAllMarks(data?.universityPercentage?.AllMarks)
         const fetchData = async () => {
-
             const res = await GetSkills();
-            setSkills(res.filter(re => !newSkill.find(e => e?.skill?.name == re?.name)))
+            setSkills(res.filter(re => !newSkill.find(e => e?.skill?.name === re?.name)))
         }
         fetchData()
             .then((err) => {
