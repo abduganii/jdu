@@ -576,7 +576,7 @@ export default function SetStudent({ data, Specialisation }) {
                             < div className={cls.SetStudent__list__bottom} key={el?.id} >
                                 <p className={cls.SetStudent__list__bottom__text}>{el?.lessonName}</p>
                                 <p className={cls.SetStudent__list__bottom__text}>
-                                    {el?.status}</p>
+                                    {el?.status == "Incompleted" ? "未完成" : "完成した"}</p>
                                 <p className={cls.SetStudent__list__bottom__text}>{el?.university}</p>
                                 <p className={cls.SetStudent__list__bottom__text}>{el?.credit}</p>
                             </div>
