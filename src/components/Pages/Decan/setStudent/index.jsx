@@ -21,7 +21,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 import Loader from '../../../UL/loader'
 
-export default function SetStudent({ data, Specialisation }) {
+export default function SetStudent({ data }) {
     const x = useRef()
     const y = useRef()
     const router = useNavigate()
@@ -76,7 +76,6 @@ export default function SetStudent({ data, Specialisation }) {
     }, [lessonId])
 
     useEffect(() => {
-        console.log(data)
 
         setNewArr(data?.itQualification?.skills?.map(sp =>
             ({ skillId: sp?.skill?.id, procent: sp?.procent, skill: { color: sp?.skill?.color, name: sp?.skill?.name } })))
@@ -109,7 +108,7 @@ export default function SetStudent({ data, Specialisation }) {
         const fetchData = async () => {
 
             const res = await GetSkills();
-            setSkills(res.filter(re => !newSkill.find(e => e?.skill?.name == re.name)))
+            setSkills(res.filter(re => !newSkill.find(e => e?.skill?.name == re?.name)))
         }
         fetchData()
             .then((err) => {
