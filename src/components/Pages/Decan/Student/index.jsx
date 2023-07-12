@@ -202,8 +202,8 @@ export default function StudentPage({ data, onChange }) {
                         <AddInput
                             register={{ ...register('courseNumber', { required: "グループ番号は必要です！" }) }}
                             type={"text"}
-                            label={"グループ番号"}
-                            placeholder={"グループ番号"}
+                            label={"コース番号"}
+                            placeholder={"コース番号"}
                             alert={errors.courseNumber?.message}
                             onChange={() => clearErrors("courseNumber")}
                             style={{ marginBottom: "20px" }}
