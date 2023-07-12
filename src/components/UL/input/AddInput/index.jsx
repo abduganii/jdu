@@ -1,7 +1,7 @@
 import cls from "./AddInput.module.scss"
 import { Select } from "antd";
 import { ReflashIcon } from "../../icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 export default function AddInput({
     onChange,
     label,
@@ -15,17 +15,11 @@ export default function AddInput({
     alert,
     ...other
 }) {
-    const [click, setClick] = useState(false)
+    const [number, setNumber] = useState(360)
+    const [focus, setFocus] = useState(false)
+    const [loginValue, setLoginValue] = useState()
+    const x = useRef()
 
-    function generatePassword() {
-        var length = 8,
-            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-            retVal = "";
-        for (var i = 0, n = charset.length; i < length; ++i) {
-            retVal += charset.charAt(Math.floor(Math.random() * n));
-        }
-        return retVal;
-    }
     function generateLoginId() {
         var length = 6,
             charset = "0123456789",
@@ -45,26 +39,32 @@ export default function AddInput({
                     style={{ width: "100%", }}
                     onChange={onChange}
                     options={Specialisation?.map(sp => ({ value: sp.id, label: sp.name }))}
-                /> : <label className={`${cls.AddInput__labelinut}`}>
+                /> : <div className={`${cls.AddInput__labelinut}`}>
                     < input autoComplete="none"
                         {...register}
                         className={`${cls.AddInput__input} ${alert && cls.AddInput__border}`}
                         type={type}
                         placeholder={placeholder}
                         onChange={onChange}
+                        onFocus={() => {
+                            if (geterat) {
+                                setLoginValue(generateLoginId())
+                                setFocus(true)
+                            }
+                        }}
                     />
-                    {geterat &&
-                        <div className={` ${cls.AddInputRoundno} ${click && cls.AddInputRound}`} onClick={() => setClick(!click)}>
-                            <div onClick={() => {
-                                if (loginGenerate) {
-                                    loginGenerate(generateLoginId())
-                                }
-                                if (passwordGenerate) {
-                                    passwordGenerate(generatePassword())
-                                }
-                            }} >  <ReflashIcon /></div>
+                    {geterat && focus &&
+                        <div onClick={() => {
+                            x.current.style.transform = `rotate(-${number}deg)`
+                            setNumber(state => state + 360)
+                            loginGenerate(loginValue)
+                        }}
+                            className={` ${cls.AddInputRoundno}`}
+                        >
+                            <p>{loginValue}</p>
+                            <div ref={x} >  <ReflashIcon /></div>
                         </div>}
-                </label>
+                </div>
             }
             {alert && <p className={cls.AddInput__alert}>{alert}!</p>}
         </label>

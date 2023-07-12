@@ -64,12 +64,12 @@
 
     &__alert {
         color: #DA4848;
-   font-size: 10px;
-   font-family: Inter;
-   font-style: normal;
-   font-weight: 400;
-   line-height: normal;
-   position: absolute;
+        font-size: 10px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        position: absolute;
         bottom: -15px;
         left: 6px;
 
@@ -83,22 +83,36 @@
 
 .AddInputRoundno {
     position: absolute;
-    top: 0px;
-    right: 10px;
-    cursor: pointer;
-    transition: 1s all ease;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
+    bottom: -20px;
+    right: 0px;
+    border-radius: 20px;
+    background: #EEE9FB !important;
+    padding: 5px 10px;
+    width: 120px;
+    padding-left: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    cursor: pointer;
 
+    p {
+        cursor: pointer;
+        color: #101828;
+        font-family: Inter;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: underline;
+    }
+
+    ;
 
     div {
         width: 18px;
         height: 18px;
         transition: 1s all ease;
+        cursor: pointer;
     }
 
     &:hover {
@@ -107,12 +121,7 @@
     }
 }
 
-.AddInputRound {
-    div {
-        transform: rotate(-720deg);
-    }
 
-}
 
 .widthFull {
     width: 100% !important;
