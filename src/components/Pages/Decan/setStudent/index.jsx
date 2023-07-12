@@ -44,7 +44,6 @@ export default function SetStudent({ data, Specialisation }) {
     const [listening1, SetListing1] = useState()
     const [reading1, SetReading1] = useState()
     const [writing1, SetWriting1] = useState()
-    const [specialisationtext, setSpecialisationtext] = useState("Specialisation")
 
     const [Attendee, setAttendee] = useState()
     const [ItCourse, setItCourse] = useState()
@@ -87,10 +86,8 @@ export default function SetStudent({ data, Specialisation }) {
         setValue2("loginId", data?.loginId)
         setValue2("groupNumber", data?.groupNumber)
         setValue2("courseNumber", data?.courseNumber)
-        setValue2('specialisationId', data?.specialisation?.id)
         setValue2('email', data?.email)
         setValue2('description', data?.itQualification?.description)
-        setSpecialisationtext(data?.specialisation?.name)
         setAvatar(data?.avatar)
         setFile(data?.japanLanguageTests?.[0]?.sertificate)
         SetListing(data?.japanLanguageTests?.[0]?.listening)
@@ -169,7 +166,6 @@ export default function SetStudent({ data, Specialisation }) {
         if (body.loginId) formData.append("loginId", body.loginId)
         if (body.groupNumber) formData.append("groupNumber", body.groupNumber)
         if (body.courseNumber) formData.append("courseNumber", body.courseNumber)
-        if (body.specialisationId) formData.append("specialisationId", body.specialisationId)
         if (body.email) formData.append("email", body.email)
         formData.append("itQualification", content)
         formData.append("japanLanguageTests", japanLanguageTests)
@@ -333,15 +329,7 @@ export default function SetStudent({ data, Specialisation }) {
                             register={{ ...register2('loginId') }}
                             value={watchedFiles2?.loginId || ''}
                         />
-                        <AddInput
-                            type={"select"}
-                            label={"専門分野"}
-                            placeholder={specialisationtext}
-                            Specialisation={Specialisation}
-                            onChange={(e) => {
-                                setValue2('specialisationId', e)
-                            }}
-                        />
+
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
@@ -439,7 +427,7 @@ export default function SetStudent({ data, Specialisation }) {
 
                 <div className={cls.SetStudent__skill}>
                     <SearchSkill
-                        label={"ソフトスキルs"}
+                        label={"スキル"}
                         placeholder={"スキル名を書く"}
                         skill={skills}
                         style={{ marginBottom: "24px" }}

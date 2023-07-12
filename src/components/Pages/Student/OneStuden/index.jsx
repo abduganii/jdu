@@ -189,7 +189,7 @@ export default function OneStudent({ user, role }) {
                                 lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
                                     <div className={cls.OneStudent__list__bottom} key={el?.id}>
                                         <p className={cls.OneStudent__list__bottom__text}>{el?.lessonName}</p>
-                                        <p className={cls.OneStudent__list__bottom__text}>{el?.status}</p>
+                                        <p className={cls.OneStudent__list__bottom__text}>{el?.status == "Incompleted" ? "未完成" : "完成した"}</p>
                                         <p className={cls.OneStudent__list__bottom__text}>{el?.university}</p>
                                         <p className={cls.OneStudent__list__bottom__text}>{el?.credit}</p>
                                     </div>
