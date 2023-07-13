@@ -1,7 +1,7 @@
 import cls from "./AddInput.module.scss"
 import { Select } from "antd";
-import { ReflashIcon } from "../../icons";
 import { useRef, useState } from "react";
+import { KeyIcon } from "../../icons";
 export default function AddInput({
     onChange,
     label,
@@ -15,10 +15,10 @@ export default function AddInput({
     alert,
     ...other
 }) {
-    const [number, setNumber] = useState(360)
     const [focus, setFocus] = useState(false)
     const [loginValue, setLoginValue] = useState()
-    const x = useRef()
+
+
 
     function generateLoginId() {
         var length = 6,
@@ -45,24 +45,34 @@ export default function AddInput({
                         className={`${cls.AddInput__input} ${alert && cls.AddInput__border}`}
                         type={type}
                         placeholder={placeholder}
-                        onChange={onChange}
-                        onFocus={() => {
+                        onChange={(e) => {
+                            onChange(e)
                             if (geterat) {
+                                setFocus(false)
+                            }
+                            if (e.target.value == 0 && geterat) {
+                                setFocus(true)
+                            }
+                        }}
+
+                        onFocus={(e) => {
+                            if (geterat, e.target.value < 1) {
                                 setLoginValue(generateLoginId())
                                 setFocus(true)
                             }
                         }}
+
+
                     />
                     {geterat && focus &&
                         <div onClick={() => {
-                            x.current.style.transform = `rotate(-${number}deg)`
-                            setNumber(state => state + 360)
+                            setFocus(false)
                             loginGenerate(loginValue)
                         }}
-                            className={` ${cls.AddInputRoundno}`}
+                            className={`${cls.AddInputRoundno}`}
                         >
                             <p>{loginValue}</p>
-                            <div ref={x} >  <ReflashIcon /></div>
+                            <KeyIcon />
                         </div>}
                 </div>
             }
