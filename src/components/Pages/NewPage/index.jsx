@@ -92,8 +92,8 @@ export default function NewPage({ user }) {
                 </div> : <></>}
                 <RightAsideWrapper style={{ padding: "30px 18px", marginTop: 0, top: 0 }} >
                     <h3 className={cls.NewPage__left__title}> ニュース</h3>
-                    {News.slice(0, 5).map(e => (
-                        <TopNewsList key={e.id} text={e?.title} createAt={e?.createAt} />
+                    {news?.length > 0 && news.slice(0, 5).map(e => (
+                        <TopNewsList key={e.id} text={e?.languages[0]?.title} createAt={e?.publishDate} />
                     ))}
                 </RightAsideWrapper>
             </div>
