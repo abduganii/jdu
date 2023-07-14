@@ -35,9 +35,11 @@ const data = [
     },
 ]
 
+
 export default function AddNewsPage({ categoryArr }) {
     const [category, setCategory] = useState(false)
     const [lang, setLang] = useState(data[0].lang)
+
     const [dicr, setDicr] = useState()
     const [avatar, setAvatar] = useState()
 
@@ -46,11 +48,13 @@ export default function AddNewsPage({ categoryArr }) {
     const dispatch = useDispatch()
     const router = useNavigate()
 
+
     useEffect(() => {
         dispatch(newsPreviewActions.setNews({ dicr, avatar, category, ...WatchFile }))
+
     }, [WatchFile])
 
-    // const NewData = useSelector(state => state.newsPreview)
+
 
     const AddNew = async (data) => {
         const formData = new FormData()
@@ -84,7 +88,6 @@ export default function AddNewsPage({ categoryArr }) {
         <form onSubmit={handleSubmit(AddNew)} className={cls.AddNews} >
 
             <Container style={{ marginTop: "112px", marginRight: "51px" }}>
-                <Language language={data} onClick={(e) => setLang(e?.lang)} />
                 <div className={cls.AddNews__top}>
                     <div className={cls.AddNews__titles}>
                         <NewsInput

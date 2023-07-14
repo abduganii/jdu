@@ -30,7 +30,7 @@ export default function HelpPage() {
                     </div>
                 ))}
             </div>
-            <h3 className={cls.HelpPage__condition}>私たちが使用するテクノロジーとツール。</h3>
+            {/* <h3 className={cls.HelpPage__condition}>私たちが使用するテクノロジーとツール。</h3>
             <div className={cls.HelpPage__condition__wrap}>
                 {
                     Condition?.map(e => (
@@ -43,7 +43,7 @@ export default function HelpPage() {
                         </div>
                     ))
                 }
-            </div>
+            </div> */}
         </Container>
     )
 }

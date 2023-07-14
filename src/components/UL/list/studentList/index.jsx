@@ -80,7 +80,7 @@ export default function StudentList({ isSelcted, avatar, name, id, loginId, sele
                 </div> : student ? <div className={cls.StudentList__skill}></div> : ""}
                 <div className={cls.StudentList__progres}>
                     <progress className={cls.StudentList__progres__progress} value={rate} max="100">70 %</progress>
-                    <p className={cls.StudentList__progres__text}>{rate}%</p>
+                    <p className={cls.StudentList__progres__text}>{Math.round(rate)}%</p>
                 </div>
                 <DoteBtn onClick={(e) => setIseId(true)} />
 
@@ -100,7 +100,7 @@ export default function StudentList({ isSelcted, avatar, name, id, loginId, sele
             ></div>
             <ListModal
                 role={"student"}
-                lebel={color ? "unselect" : "select"}
+                lebel={color ? "未選択" : " お気に入り"}
                 select={(e) => {
                     if (color) {
                         StudentSelectDel(id)
@@ -113,5 +113,7 @@ export default function StudentList({ isSelcted, avatar, name, id, loginId, sele
                 style={useId ? { display: "block" } : { display: "none" }}
             />
         </div>
+
+
     )
 }

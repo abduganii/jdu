@@ -117,3 +117,9 @@ input[type="number"] {
 p {
   cursor: default;
 }
+
+
+
+p[data-f-id="pbf"] {
+  display: none;
+}

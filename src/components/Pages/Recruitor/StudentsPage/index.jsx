@@ -11,9 +11,9 @@ export default function StudentsPage({ data, selected, student, count }) {
             <Container style={{ paddingTop: "100px" }}>
                 <Filter />
                 <ul className={cls.StudentsPage__top}>
-                    <li className={cls.StudentsPage__top__item}>Students</li>
-                    <li className={cls.StudentsPage__top__item}>Skills</li>
-                    <li className={cls.StudentsPage__top__item}>Rate</li>
+                    <li className={cls.StudentsPage__top__item}>学生</li>
+                    <li className={cls.StudentsPage__top__item}>スキル</li>
+                    <li className={cls.StudentsPage__top__item}>レート</li>
                     <li className={cls.StudentsPage__top__item}></li>
                 </ul>
                 <ul>
