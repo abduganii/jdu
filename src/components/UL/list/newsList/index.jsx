@@ -1,6 +1,8 @@
 
 
 import React, { useRef } from 'react'
+import { useQueryClient } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import { NewstDelelet } from '../../../../services/news';
 import { ClockIcon } from '../../icons'
 
@@ -12,6 +14,8 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
     let Minutes = date.getMinutes();
     const weeksDay = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
     const d = useRef()
+    const queryClient = useQueryClient()
+    const [params] = useSearchParams()
     return (
         <div className={cls.NewsList} onClick={(e) => {
             if (e.target != d.current) {
@@ -37,6 +41,7 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
 
                 <button ref={d} className={cls.NewsList__delete} onClick={() => {
                     NewstDelelet(id)
+                    queryClient.invalidateQueries(['news', params.get('categoryId'), params.get('search')],)
                 }}>delete</button>
             </div>
         </div>
