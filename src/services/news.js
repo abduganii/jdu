@@ -53,3 +53,10 @@ export const getNewsCategories = async () => {
         console.log(error);
     }
 }
+export const NewstDelelet = async (  id ) => { 
+    const response = await api.delete(`/news/${id}`, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}

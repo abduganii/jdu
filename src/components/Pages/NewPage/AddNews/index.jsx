@@ -37,13 +37,14 @@ const data = [
 
 
 export default function AddNewsPage({ categoryArr }) {
-    const [category, setCategory] = useState(false)
+    const [category, setCategory] = useState(categoryArr[0]?.id)
     const [lang, setLang] = useState(data[0].lang)
 
     const [dicr, setDicr] = useState()
-    const [avatar, setAvatar] = useState()
+    const [avatar, setAvatar] = useState(false)
+    const [avatarAlert, setAvatarAlert] = useState(false)
 
-    const { register, handleSubmit, watch } = useForm()
+    const { register, handleSubmit, watch, formState: { errors } } = useForm()
     const WatchFile = watch()
     const dispatch = useDispatch()
     const router = useNavigate()
@@ -51,7 +52,7 @@ export default function AddNewsPage({ categoryArr }) {
 
     useEffect(() => {
         dispatch(newsPreviewActions.setNews({ dicr, avatar, category, ...WatchFile }))
-
+        setCategory(categoryArr[0]?.id)
     }, [WatchFile])
 
 
@@ -67,6 +68,12 @@ export default function AddNewsPage({ categoryArr }) {
         formData.append("image", avatar)
         formData.append(lang, content)
         formData.append("categoryId", category)
+
+        if (!category) {
+            setError('categoryId', { type: 'custom', message: "画像が必須です" })
+        }
+
+
         if (avatar && category && content) {
             await NewsAdd(formData)
                 .then(res => {
@@ -75,7 +82,7 @@ export default function AddNewsPage({ categoryArr }) {
                 })
                 .catch(err => toast(err.messege))
         } else {
-            toast("complate all inputs")
+            setAvatarAlert(true)
         }
     }
     const hendleimg = (e) => {
@@ -84,30 +91,35 @@ export default function AddNewsPage({ categoryArr }) {
         }
     }
 
+
     return (
         <form onSubmit={handleSubmit(AddNew)} className={cls.AddNews} >
 
-            <Container style={{ marginTop: "112px", marginRight: "51px" }}>
+            <Container style={{ marginTop: "142px", marginRight: "51px" }}>
                 <div className={cls.AddNews__top}>
                     <div className={cls.AddNews__titles}>
                         <NewsInput
                             label={"ニュースタイトル"}
                             placeholder={"ニュースタイトル"}
                             type={"text"}
-                            style={{ marginBottom: "20px" }}
-                            register={{ ...register(`title`) }}
+                            style={{ marginBottom: "30px" }}
+                            alert={errors.title?.message}
+                            register={{ ...register(`title`, { required: " タイトルの入力が必要" },) }}
                         />
                         <NewsInput
                             label={"短い説明"}
                             placeholder={"短い説明"}
                             type={"textarea"}
-                            register={{ ...register(`shortDescription`) }}
+                            alert={errors.shortDescription?.message}
+                            register={{ ...register(`shortDescription`, { required: "説明の入力が必要" }) }}
                         />
                     </div>
                     <NewsInput
                         label={"画像のタイトル"}
                         type={"file"}
                         url={avatar}
+                        alert={avatarAlert ? "画像は必須" : false}
+
                         onChange={e => hendleimg(e)}
                     />
                 </div>
@@ -117,7 +129,7 @@ export default function AddNewsPage({ categoryArr }) {
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>
-                    <div className={cls.AddNews__show} onClick={() => router('/previewnews')}><ShowIcons /> 概要</div>
+                    {/* <div className={cls.AddNews__show} onClick={() => router('/previewnews')}><ShowIcons /> 概要</div> */}
                     <BlueButtun type='submit'>
                         ニュースの発行
                     </BlueButtun>

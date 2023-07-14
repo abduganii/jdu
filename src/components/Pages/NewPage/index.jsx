@@ -77,12 +77,15 @@ export default function NewPage({ user }) {
                 {
                     news?.length > 0 && news.map(e => (
                         <NewsList
+                            id={e?.id}
                             key={e?.id}
                             img={e?.image}
                             category={e?.category?.name}
                             createAt={e?.publishDate}
                             text={e?.languages[0]?.title}
-                            onClick={() => router(`/news/${e?.id}`)} />
+                            role={user?.role}
+                            onClick={() => router(`/news/${e?.id}`)}
+                        />
                     ))
                 }
                 <div ref={ref} style={{ padding: '20px' }}></div>

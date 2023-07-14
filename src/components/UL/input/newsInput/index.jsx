@@ -6,21 +6,21 @@ import { UploadNewIcon } from '../../icons'
 
 import cls from "./newsInput.module.scss"
 
-export default function NewsInput({ label, type, placeholder, register = {}, url, onChange, ...other }) {
+export default function NewsInput({ label, type, placeholder, alert, register = {}, url, onChange, ...other }) {
 
     return (
         <label className={`${cls.NewsInput} ${type == "file" ? cls.NewsInputFile : ""}`} {...other}>
             <p className={cls.NewsInput__label}>{label}</p>
             {
                 type == "textarea" ?
-                    <textarea className={`${cls.NewsInput__input} ${cls.NewsInput__textarae}`} placeholder={placeholder}  {...register}></textarea>
+                    <textarea className={`${cls.NewsInput__input} ${cls.NewsInput__textarae} ${alert && cls.alertBorder}`} placeholder={placeholder}  {...register}></textarea>
                     :
                     type == "file" ?
-                        <div className={cls.NewsInput__file}>
+                        <div className={`${cls.NewsInput__file} ${alert && cls.alertBorder}`}>
                             <input type="file" onChange={onChange} />
                             <div className={cls.NewsInput__file__top}>
                                 {url ?
-                                    <img className={cls.NewsInput__input__img} src={URL.createObjectURL(url)} alt="img" /> :
+                                    <img className={cls.NewsInput__input__img} src={URL.createObjectURL(url)} accept=" image/jpg, image/png" alt="img" /> :
                                     <p className={cls.NewsInput__file__imgtext}>画像無し</p>}
                             </div>
                             <div className={cls.NewsInput__file__btm}>
@@ -34,12 +34,13 @@ export default function NewsInput({ label, type, placeholder, register = {}, url
                             </div>
                         </div> :
                         <input
-                            className={cls.NewsInput__input}
+                            className={`${cls.NewsInput__input} ${alert && cls.alertBorder}`}
                             type={type} placeholder={placeholder}
                             onChange={onChange}
                             {...register}
                         />
             }
+            {alert ? <p className={cls.NewsInput__alert}>{alert}</p> : ""}
         </label >
     )
 }

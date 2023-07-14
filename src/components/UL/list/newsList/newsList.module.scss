@@ -8,6 +8,10 @@
         .NewsList__text {
             color: #5627DC;
         }
+
+        .NewsList__delete {
+            display: inline-block;
+        }
     }
 
 
@@ -56,7 +60,12 @@
     }
 
     &__content {
+        width: 100%;
+        max-width: 800px;
         cursor: pointer;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
     }
 
     &__text {
@@ -69,6 +78,19 @@
         margin-top: 16px;
 
 
+    }
+
+    &__delete {
+        display: none;
+        color: red;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        padding: 10px 12px;
+        border-radius: 9px;
+        background-color: rgb(255, 0, 0, .1);
     }
 
 }

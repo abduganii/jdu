@@ -43,7 +43,7 @@ const config = (setValue, getValues) => ({
             'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
         },
         'moreRich': {
-            'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertHR']
+            'buttons': ['insertLink', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertHR']
         },
         'moreMisc': {
             'buttons': ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help'],
@@ -51,6 +51,8 @@ const config = (setValue, getValues) => ({
             'buttonsVisible': 2
         }
     },
+
+    // 'insertImage', 'insertVideo',
     events: {
         initialized: function () {
             replyEditor = this;
