@@ -3,28 +3,14 @@ import { EtentionIcon, HumenIcon, PetsIcon } from "../../UL/icons"
 export const Question = [
     {
         id: 1,
-        title: 'How much does it cost to stay at Golden Hotel?',
-        text:"The cost of staying at the hotel depends on the number of guests and the date. The average cost of living per night is 130,000 uzs"
+        title: '勉強期間はどれくらいですか？',
+        text:`答え：
+        合計の学習期間は以下の通りです。・4年半コース（日本語教育6ヶ月＋日本の大学授業4年間）大学卒業までに修得できなかった場合は1年または半年間留年する必要があります。`
     },
     {
         id: 2,
-        title: 'What are the check-in and check-out times?',
-        text:"The cost of staying at the hotel depends on the number of guests and the date. The average cost of living per night is 130,000 uzs"
-    },
-    {
-        id: 3,
-        title: 'What are the check-in and check-out times?',
-        text:"The cost of staying at the hotel depends on the number of guests and the date. The average cost of living per night is 130,000 uzs"
-    },
-    {
-        id: 4,
-        title: 'What are the check-in and check-out times?',
-        text:"The cost of staying at the hotel depends on the number of guests and the date. The average cost of living per night is 130,000 uzs"
-    },
-    {
-        id: 5,
-        title: 'What are the check-in and check-out times?',
-        text:"The cost of staying at the hotel depends on the number of guests and the date. The average cost of living per night is 130,000 uzs"
+        title: '学生にはどのような IT テクノロジーが教えられますか?',
+        text:"最新のソフトウェア開発スタックについて候補者に教えるメンターが数名います。 彼らは、ある程度の経験を持つ、熟練したソフトウェア エンジニアおよび開発者です。 これらの教師の助けを借りて、学生は独自のソフトウェア製品を作成できます。 もちろん、このようなものは HTML、CSS、Figma、JavaScript、SQL、MySQL、PHP などから開発できます。"
     }
 ]
 export const Condition = [
