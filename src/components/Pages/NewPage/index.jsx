@@ -26,10 +26,11 @@ export default function NewPage({ user }) {
             page: pageParam,
             categoryId: params.get('categoryId') || '',
             search: params.get('search') || '',
-            lang: 'en'
+            // lang: 'en'
         }) || {},
         {
             getNextPageParam: (lastPage, pages) => {
+                console.log(lastPage);
                 return lastPage?.count > pages?.length * 6 ? pages.length + 1 : undefined
             }
         }
@@ -37,7 +38,9 @@ export default function NewPage({ user }) {
     const news = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
     useEffect(() => {
+        console.log(hasNextPage);
         if (inView && hasNextPage) {
+            console.log(2);
             fetchNextPage()
         }
     }, [inView])
@@ -82,7 +85,7 @@ export default function NewPage({ user }) {
                             onClick={() => router(`/news/${e?.id}`)} />
                     ))
                 }
-                <div ref={ref} style={{ padding: '10px' }}></div>
+                <div ref={ref} style={{ padding: '20px' }}></div>
             </Container>
             <div className={cls.NewPage__left}>
                 {user?.role === "decan" ? <div className={cls.NewPage__left__btn}>

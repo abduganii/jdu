@@ -64,7 +64,6 @@ export default function AddNewsPage({ categoryArr }) {
         formData.append(lang, content)
         formData.append("categoryId", category)
         if (avatar && category && content) {
-
             await NewsAdd(formData)
                 .then(res => {
                     router('/news')
