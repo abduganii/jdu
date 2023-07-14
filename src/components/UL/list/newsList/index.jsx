@@ -1,5 +1,3 @@
-
-
 import React, { useRef } from 'react'
 import { useQueryClient } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
@@ -39,10 +37,10 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
                     <p className={cls.NewsList__text}>{text}</p>
                 </div>
 
-                <button ref={d} className={cls.NewsList__delete} onClick={() => {
+                {role == "decan" ? <button ref={d} className={cls.NewsList__delete} onClick={() => {
                     NewstDelelet(id)
                     queryClient.invalidateQueries(['news', params.get('categoryId'), params.get('search')],)
-                }}>delete</button>
+                }}>消去</button> : ""}
             </div>
         </div>
     )

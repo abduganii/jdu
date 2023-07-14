@@ -129,7 +129,7 @@ export default function AddNewsPage({ categoryArr }) {
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>
-                    {/* <div className={cls.AddNews__show} onClick={() => router('/previewnews')}><ShowIcons /> 概要</div> */}
+                    <div className={cls.AddNews__show} onClick={() => router('/previewnews')}><ShowIcons /> 概要</div>
                     <BlueButtun type='submit'>
                         ニュースの発行
                     </BlueButtun>

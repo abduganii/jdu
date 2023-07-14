@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AddNewsPage from "../../../components/Pages/NewPage/AddNews";
 import { GetNewsCategory } from "../../../services/news";
 
@@ -15,6 +16,9 @@ export default function AddNews() {
             })
 
     }, [])
+    // const NewData = useSelector(state => state?.newsPreview)
+    // console.log(NewData)
+
     return (
         <>
             <AddNewsPage categoryArr={category} />
