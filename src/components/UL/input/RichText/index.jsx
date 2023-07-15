@@ -11,6 +11,7 @@ import { useEffect } from "react";
 // import toast, { Toaster } from "react-hot-toast";
 
 const config = (setValue, getValues) => ({
+
     enter: Froalaeditor.ENTER_BR,
     tableStyles: {
         "no-border": "No border"
@@ -154,6 +155,7 @@ const RichText = ({
 
                 onModelChange={(model) => onChange(model)}
                 config={config(setValue, getValues)}
+
                 {...register}
             />
         </>

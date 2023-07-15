@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
-import { useQueryClient } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query'
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { NewstDelelet } from '../../../../services/news';
-import { ClockIcon } from '../../icons'
+import { ClockIcon, DeleteNewIcon, EdetNewIcon } from '../../icons'
 
 import cls from "./newsList.module.scss"
 
@@ -11,16 +11,14 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
     let Hours = date.getHours();
     let Minutes = date.getMinutes();
     const weeksDay = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
-    const d = useRef()
+
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
+    const router = useNavigate()
+
     return (
-        <div className={cls.NewsList} onClick={(e) => {
-            if (e.target != d.current) {
-                onClick(e)
-            }
-        }} >
-            <div className={cls.NewsList__img}>
+        <div className={cls.NewsList} >
+            <div className={cls.NewsList__img} onClick={onClick}>
                 <img
                     src={img}
                     width={324}
@@ -29,7 +27,7 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
                 />
             </div>
             <div className={cls.NewsList__content} >
-                <div>
+                <div onClick={onClick}>
                     <div className={cls.NewsList__top}>
                         <p className={cls.NewsList__category} style={{ border: "1px solid #932F46", color: "#932F46" }}>{category}</p>
                         <p className={cls.NewsList__date}><ClockIcon />{Hours}:{Minutes} {weeksDay[date.getDay()]}</p>
@@ -37,10 +35,15 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
                     <p className={cls.NewsList__text}>{text}</p>
                 </div>
 
-                {role == "decan" ? <button ref={d} className={cls.NewsList__delete} onClick={() => {
-                    NewstDelelet(id)
-                    queryClient.invalidateQueries(['news', params.get('categoryId'), params.get('search')],)
-                }}>消去</button> : ""}
+                {role == "decan" ? <div className={cls.NewsList__decan}>
+                    <button className={cls.NewsList__edit} onClick={() => router(`/newsAdd?id=${id}`)}><EdetNewIcon /></button>
+                    <button className={cls.NewsList__delete}
+                        onClick={() => {
+
+                            NewstDelelet(id)
+                            queryClient.invalidateQueries(['news', params.get('categoryId'), params.get('search')],)
+                        }}><DeleteNewIcon /></button>
+                </div> : ""}
             </div>
         </div>
     )

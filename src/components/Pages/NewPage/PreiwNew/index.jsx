@@ -9,7 +9,7 @@ import cls from "./OnNewsPage.module.scss"
 
 export default function PriewNew() {
     const router = useNavigate()
-    const NewData = useSelector(state => state.newsPreview)
+    const NewData = JSON.parse(localStorage.getItem("object"))
 
     return (
         <Container className={cls.OnNewsPage__container}>

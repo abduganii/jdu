@@ -269,7 +269,7 @@ export default function SettingsPage({ data }) {
 
 
 
-                    <p className={cls.SettingsPage__passsword}>password</p>
+                    <p className={cls.SettingsPage__passsword}>パスワード</p>
                     <div className={cls.SettingsPage__passsword__wrap}>
                         <SettingsInput
                             style={{ maxWidth: "205px" }}

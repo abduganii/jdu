@@ -45,6 +45,14 @@ export const NewsAdd = async (data) => {
     return response;
 }
 
+export const NewsUpdete = async (data,id) => {
+    const response = await api.put(`/news/${id}`, data, {
+        headers: {
+            'Content-Type': "multipart/form-data"
+        }
+    });
+    return response;
+}
 export const getNewsCategories = async () => {
     try {
         const res = await api.get('/news_categories')

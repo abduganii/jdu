@@ -7,19 +7,22 @@ import LoginInput from '../../UL/input/loginInput';
 import { Forget } from '../../../services/auth';
 import { useState } from 'react';
 import BlueButtun from '../../UL/buttun/blueBtn';
+import Loader from '../../UL/loader';
 export default function LogoutPage() {
     const [trueFalse, setIt] = useState(true)
     const router = useNavigate()
-    const { register, handleSubmit } = useForm();
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loader, setLoader] = useState(false)
     const handleAuth = async (data) => {
+        setLoader(true)
         await Forget(data)
             .then((response) => {
                 setIt(false)
+                setLoader(false)
             })
             .catch(error => {
-                console.log(error)
                 toast(error?.response?.data?.message)
+                setLoader(false)
             })
     }
     if (trueFalse) {
@@ -40,7 +43,8 @@ export default function LogoutPage() {
                                 type={'text'}
                                 placeholder={"メールアドレスを入力"}
                                 style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "50px" }}
-                                register={{ ...register("email", { required: true }) }}
+                                alert={errors.email?.message}
+                                register={{ ...register("email", { required: "メールは必要です！" }) }}
                             />
                             {/* <p className={cls.Form__forget} onClick={() => router('/auth/login')}>Back</p> */}
                             <ButtunLogin type='submit'>送信</ButtunLogin>
@@ -53,6 +57,7 @@ export default function LogoutPage() {
                         alt='img'
                     />
                 </div>
+                {loader && <Loader onClick={() => setLoader(false)} />}
             </div>
         )
     } else {

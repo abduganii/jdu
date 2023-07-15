@@ -1,6 +1,6 @@
 import cls from "./inputLogin.module.scss"
 
-export default function LoginInput({ onChange, register = {}, alert, setError, type, placeholder, ...other }) {
+export default function LoginInput({ onChange, register = {}, alert, eyeOpen, setError, eyeClick, icon, icon2, type, placeholder, ...other }) {
     return (
         <div className={cls.LoginInput__label}>
             <input
@@ -12,6 +12,9 @@ export default function LoginInput({ onChange, register = {}, alert, setError, t
                 {...other}
             />
             {alert && <p>{alert}</p>}
+            {
+                icon && <div className={cls.LoginInput__eye} onClick={eyeClick}> {eyeOpen ? icon : icon2}</div>
+            }
         </div>
     )
 }

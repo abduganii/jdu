@@ -16,11 +16,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import React, { useEffect, useState } from 'react'
 import cls from "./AddNews.module.scss"
 // import { Category } from "../data"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { NewsAdd } from '../../../../services/news'
+import { GetNewsById, NewsAdd, NewsUpdete } from '../../../../services/news'
 import { useDispatch, useSelector } from 'react-redux'
-import { newsPreviewActions } from "../../../../store/newsPreview/newsPreview.slice"
+import Loader from '../../../UL/loader'
+// import { newsPreviewActions } from "../../../../store/newsPreview/newsPreview.slice"
 
 const data = [
     {
@@ -37,50 +38,92 @@ const data = [
 
 
 export default function AddNewsPage({ categoryArr }) {
+    const NewData = JSON.parse(localStorage.getItem("object"))
     const [category, setCategory] = useState(categoryArr[0]?.id)
-    const [lang, setLang] = useState(data[0].lang)
 
+
+    const [loader, setLoader] = useState(false)
+    const [params] = useSearchParams()
     const [dicr, setDicr] = useState()
-    const [avatar, setAvatar] = useState(false)
+    const [avatar, setAvatar] = useState()
+    const [imga, setImga] = useState()
     const [avatarAlert, setAvatarAlert] = useState(false)
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
-    const WatchFile = watch()
-    const dispatch = useDispatch()
+    const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm()
+    const watchedFiles = watch()
+
     const router = useNavigate()
 
+    useEffect(() => {
+        localStorage.setItem("object", JSON.stringify({ dicr, avatar, category, ...watchedFiles }))
+    }, [watchedFiles])
 
     useEffect(() => {
-        dispatch(newsPreviewActions.setNews({ dicr, avatar, category, ...WatchFile }))
-        setCategory(categoryArr[0]?.id)
-    }, [WatchFile])
+        if (!params.get('id')) {
+            setCategory(categoryArr[0]?.id)
+        }
+    }, [categoryArr])
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            const res = await GetNewsById(params.get("id"));
+            setValue("title", res?.languages?.[0]?.title)
+            setValue("shortDescription", res?.languages?.[0]?.shortDescription)
+            setDicr(res?.languages?.[0]?.description)
+            setImga(res?.image)
+            setCategory(res?.categoryId)
+        }
+        if (params.get("id")) {
+            fetchData()
+                .then((err) => {
+                    console.log(err);
+                })
+        }
+
+    }, [params.get("id")])
+
 
 
 
     const AddNew = async (data) => {
+        setLoader(true)
         const formData = new FormData()
-
         const content = JSON.stringify({
             title: data?.title,
             shortDescription: data?.shortDescription,
             description: dicr
         })
-        formData.append("image", avatar)
-        formData.append(lang, content)
+        formData.append("image", avatar || imga)
+        formData.append("jp", content)
         formData.append("categoryId", category)
 
-        if (!category) {
-            setError('categoryId', { type: 'custom', message: "画像が必須です" })
-        }
 
+        if (avatar || imga && category && content) {
 
-        if (avatar && category && content) {
-            await NewsAdd(formData)
-                .then(res => {
-                    router('/news')
-                    toast("news Created")
-                })
-                .catch(err => toast(err.messege))
+            if (params.get("id")) {
+                await NewsUpdete(formData, params.get("id"))
+                    .then(res => {
+                        setLoader(false)
+                        router('/news')
+                        toast("news updete")
+                    })
+                    .catch(err => {
+                        setLoader(false)
+                        toast(err.messege)
+                    })
+            } else {
+                await NewsAdd(formData)
+                    .then(res => {
+                        setLoader(false)
+                        router('/news')
+                        toast("news Created")
+                    })
+                    .catch(err => {
+                        setLoader(false)
+                        toast(err.messege)
+                    })
+            }
         } else {
             setAvatarAlert(true)
         }
@@ -90,42 +133,40 @@ export default function AddNewsPage({ categoryArr }) {
             setAvatar(e.target.files[0])
         }
     }
-
-
     return (
         <form onSubmit={handleSubmit(AddNew)} className={cls.AddNews} >
-
             <Container style={{ marginTop: "142px", marginRight: "51px" }}>
                 <div className={cls.AddNews__top}>
                     <div className={cls.AddNews__titles}>
                         <NewsInput
+                            register={{ ...register(`title`, { required: " タイトルの入力が必要" },) }}
                             label={"ニュースタイトル"}
                             placeholder={"ニュースタイトル"}
                             type={"text"}
                             style={{ marginBottom: "30px" }}
                             alert={errors.title?.message}
-                            register={{ ...register(`title`, { required: " タイトルの入力が必要" },) }}
+                            value={watchedFiles?.title || ''}
                         />
                         <NewsInput
+                            register={{ ...register(`shortDescription`, { required: "説明の入力が必要" }) }}
                             label={"短い説明"}
                             placeholder={"短い説明"}
                             type={"textarea"}
                             alert={errors.shortDescription?.message}
-                            register={{ ...register(`shortDescription`, { required: "説明の入力が必要" }) }}
+                            value={watchedFiles?.title || ''}
                         />
                     </div>
                     <NewsInput
                         label={"画像のタイトル"}
                         type={"file"}
                         url={avatar}
+                        img={imga}
                         alert={avatarAlert ? "画像は必須" : false}
-
                         onChange={e => hendleimg(e)}
                     />
                 </div>
                 <p className={cls.AddNews__dicr}>説明</p>
-                <RichText onChange={(e) => setDicr(e)} />
-
+                <RichText getValues={dicr} onChange={(e) => setDicr(e)} />
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>
@@ -152,14 +193,10 @@ export default function AddNewsPage({ categoryArr }) {
                             </label>
                         </div>
                     ))}
-                    {/* <p className={cls.AddNews__Putlishtext}>Putlish Date</p>
-                    <div className={cls.AddNews__data}>
-                        <Timepicker label='Time' />
-                        <Datapicker label={"Date"} />
-                    </div> */}
                 </div>
             </div>
             <Toaster />
+            {loader && <Loader onClick={() => setLoader(false)} />}
         </form>
     )
 }

@@ -11,10 +11,15 @@ import ButtunLogin from '../../UL/buttun/loginButtun';
 import LoginInput from '../../UL/input/loginInput';
 import { AuthLogin } from '../../../services/auth';
 import { useEffect, useState } from 'react';
+import { eyeCloseIcons, eyeOpenIcons } from '../../UL/icons';
+import Loader from '../../UL/loader';
 export default function LoginPage() {
     const { register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const [check, setCheck] = useState(false)
+    const [curPass, setcurPass] = useState('password')
+    const [eyeicons, setEyeicons] = useState(true)
+    const [loader, setLoader] = useState(false)
     // useEffect(() => {
     //     if (localStorage.getItem("myapp-loginId") && localStorage.getItem("myapp-password")) {
     //         setValue("password", localStorage.getItem("myapp-password"))
@@ -24,8 +29,10 @@ export default function LoginPage() {
     const router = useNavigate()
 
     const handleAuth = async (data) => {
+        setLoader(true)
         await AuthLogin({ remember: check, ...data })
             .then((response) => {
+                setLoader(false)
                 if (check) {
                     localStorage.setItem("myapp-loginId", watchedFiles?.loginId); localStorage.setItem("myapp-password", watchedFiles?.password)
                 }
@@ -34,7 +41,7 @@ export default function LoginPage() {
             .catch(error => {
                 setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" });
                 setError('password', { type: 'custom', message: "IDまたはパスワードが間違っています" });
-
+                setLoader(false)
             })
     }
     return (
@@ -65,12 +72,20 @@ export default function LoginPage() {
 
                         />
                         <LoginInput
-                            type={'password'}
+                            type={curPass}
                             placeholder={"パスワードを入力してください"}
                             register={{ ...register("password", { required: "パスワードが必要です" }) }}
                             style={{ backgroundImage: "url('/Image/Iconsinpt.png')" }}
                             alert={errors.password?.message}
                             value={watchedFiles?.password || ''}
+                            icon={eyeOpenIcons()}
+                            icon2={eyeCloseIcons()}
+                            eyeOpen={eyeicons}
+                            eyeClick={(e) => {
+                                setcurPass(state => state == "password" ? "text" : "password")
+                                setEyeicons(!eyeicons)
+
+                            }}
 
                         />
                         <div className={cls.Form__bottom}>
@@ -88,6 +103,7 @@ export default function LoginPage() {
 
             </div>
             <Toaster />
+            {loader && <Loader onClick={() => setLoader(false)} />}
         </div>
     )
 }

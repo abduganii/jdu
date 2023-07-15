@@ -9,10 +9,12 @@
             color: #5627DC;
         }
 
-        .NewsList__delete {
+        .NewsList__delete,
+        .NewsList__edit {
             display: inline-block;
         }
     }
+
 
 
     &__top {
@@ -80,17 +82,28 @@
 
     }
 
+
+
+    &__edit {
+        width: 32px;
+        height: 32px;
+        display: none;
+        color: #5627DC;
+        border-radius: 50%;
+        background-color: rgb(86, 39, 220, .1);
+    }
+
     &__delete {
+        width: 32px;
+        height: 32px;
         display: none;
         color: red;
-        font-family: Inter;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 18px;
-        padding: 10px 12px;
-        border-radius: 9px;
+        margin-left: 8px;
+        border-radius: 50%;
         background-color: rgb(255, 0, 0, .1);
     }
 
+    &__decan {
+    width: 80px;
+}
 }

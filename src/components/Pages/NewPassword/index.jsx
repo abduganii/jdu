@@ -10,18 +10,22 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import ButtunLogin from '../../UL/buttun/loginButtun';
 import LoginInput from '../../UL/input/loginInput';
 import { NewPassword } from '../../../services/auth';
+import Loader from '../../UL/loader';
+import { useState } from 'react';
 export default function LoginNewPage() {
     const [params] = useSearchParams()
     const router = useNavigate()
-
-    const { register, handleSubmit } = useForm();
+    const [loader, setLoader] = useState(false)
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const handleNewAuth = async (data) => {
+        setLoader(true)
         await NewPassword({ userId: params.get("id"), token: params.get("token"), ...data })
             .then((response) => {
+                setLoader(false)
                 router('/auth/login')
             })
             .catch(error => {
-                console.log(error)
+                setLoader(false)
                 toast(error?.response?.data?.message)
             })
     }
@@ -40,7 +44,8 @@ export default function LoginNewPage() {
                             type={'password'}
                             placeholder={"パスワード認証"}
                             style={{ marginBottom: "31px", paddingLeft: 0 }}
-                            register={{ ...register("password", { required: true }) }}
+                            register={{ ...register("password", { required: "パスワードが必要です" }) }}
+                            alert={errors.email?.message}
                         />
                         <ButtunLogin type='submit'>パスワードを変更</ButtunLogin>
                     </form>
@@ -50,6 +55,7 @@ export default function LoginNewPage() {
 
             </div>
             <Toaster />
+            {loader && <Loader onClick={() => setLoader(false)} />}
         </div>
     )
 }
