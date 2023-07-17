@@ -7,6 +7,6 @@ export const LessonsAdd = async (data,id) => {
     return response;
 }
 export const LessonsUpdate = async ( data, id ) => { 
-    const response = await api.put(`/lesson/${id}`, data);
+    const response = await api.put(`/lesson/result/${id}`, data);
     return response;
 }

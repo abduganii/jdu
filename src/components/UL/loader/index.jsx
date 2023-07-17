@@ -10,7 +10,7 @@ export default function Loader({ onClick }) {
                         <p>読み込み中...</p>
                     </div>
                 </div>
-                <button onClick={onClick} className={cls.Loader__btn}>Cancel</button>
+                <button onClick={onClick} className={cls.Loader__btn}>キャンセル</button>
             </div>
         </div>
     )

@@ -15,7 +15,7 @@ import LessonTable from '../../../UL/LassonTable'
 import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
-import { LessonsAdd } from '../../../../services/Lesson'
+import { LessonsAdd, LessonsUpdate } from '../../../../services/Lesson'
 import { FileUploadStudent, GetSkills, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
@@ -26,6 +26,7 @@ export default function SetStudent({ data }) {
     const y = useRef()
     const router = useNavigate()
     const [loading, setLoading] = useState(false)
+    const [LessonAddId, setLessonAddId] = useState(false)
 
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
@@ -57,8 +58,9 @@ export default function SetStudent({ data }) {
 
     const { register, handleSubmit, setValue, watch, reset } = useForm({ defaultValues: { status: "Incompleted" } });
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
+    const { register: register3, handleSubmit: handleSubmit3, setValue: setValue3, watch: watch3 } = useForm();
 
-    const watchedFiles = watch()
+    const watchedFiles3 = watch3()
     const watchedFiles2 = watch2()
 
 
@@ -206,6 +208,32 @@ export default function SetStudent({ data }) {
                             }
                         })
                     })
+                    reset()
+                }
+                setLoading(false)
+
+            })
+            .catch(err => setLoading(false))
+    }
+    const UpdateLessonFunc = async (body) => {
+        setLoading(true)
+
+        await LessonsUpdate(body, LessonAddId)
+
+            .then(res => {
+                if (res.status === 203) {
+                    // setLessonArr(status => {
+                    //     return status.map(el => {
+                    //         if (el.id === semestorId) {
+                    //             return {
+                    //                 ...el,
+                    //                 results: [res.data, ...el.results]
+                    //             }
+                    //         } else {
+                    //             return el
+                    //         }
+                    //     })
+                    // })
                     reset()
                 }
                 setLoading(false)
@@ -539,7 +567,7 @@ export default function SetStudent({ data }) {
                 <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit(AddLessonFunc)} >
                     <input
                         className={cls.SetStudent__lesson__input}
-                        type="text" placeholder='Lesson name'
+                        type="text" placeholder='レッスン名'
                         {...register('lessonName', { required: true })}
                     />
                     <Select
@@ -550,7 +578,7 @@ export default function SetStudent({ data }) {
                     />
                     <input
                         className={cls.SetStudent__lesson__input}
-                        type="text" placeholder='University name'
+                        type="text" placeholder='大学名'
                         {...register('university', { required: true })}
                     />
                     <input
@@ -571,12 +599,53 @@ export default function SetStudent({ data }) {
                     </div>
                     {
                         lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
-                            < div className={cls.SetStudent__list__bottom} key={el?.id} >
-                                <p className={cls.SetStudent__list__bottom__text}>{el?.lessonName}</p>
-                                <p className={cls.SetStudent__list__bottom__text}>
-                                    {el?.status == "Incompleted" ? "未完成" : "完成した"}</p>
-                                <p className={cls.SetStudent__list__bottom__text}>{el?.university}</p>
-                                <p className={cls.SetStudent__list__bottom__text}>{el?.credit}</p>
+                            <div>
+                                < div className={cls.SetStudent__list__bottom} key={el?.id} onClick={() => {
+                                    setLessonAddId(state => el?.id == state ? false : el?.id)
+                                    setValue3("lessonName", el?.lessonName)
+                                    setValue3("university", el?.university)
+                                    setValue3("credit", el?.credit)
+                                    setValue3("status", el?.status)
+                                }} >
+                                    <p className={cls.SetStudent__list__bottom__text}>{el?.lessonName}</p>
+                                    <p className={cls.SetStudent__list__bottom__text}>
+                                        {el?.status == "Incompleted" ? "未完成" : "完成した"}</p>
+                                    <p className={cls.SetStudent__list__bottom__text}>{el?.university}</p>
+                                    <p className={cls.SetStudent__list__bottom__text}>{el?.credit}</p>
+                                </div>
+                                {
+                                    el?.id == LessonAddId ?
+                                        <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit3(UpdateLessonFunc)} >
+                                            <input
+                                                className={cls.SetStudent__lesson__input}
+                                                type="text" placeholder='レッスン名'
+                                                value={watchedFiles3?.lessonName}
+                                                {...register3('lessonName', { required: true })}
+                                            />
+                                            <Select
+                                                className={"seclectLesson"}
+                                                defaultValue={watchedFiles3?.status}
+                                                options={[{ value: "Incompleted", label: "未完成" }, { value: "Completed", label: "完成した" }]}
+                                                onChange={(e) => setValue3('status', e)}
+                                            />
+                                            <input
+                                                value={watchedFiles3?.university}
+                                                className={cls.SetStudent__lesson__input}
+                                                type="text" placeholder='大学名'
+                                                {...register3('university', { required: true })}
+                                            />
+                                            <input
+                                                className={cls.SetStudent__lesson__inputNumber}
+                                                type="number" placeholder='0'
+                                                defaultValue={0}
+                                                value={watchedFiles3?.credit}
+                                                {...register3('credit')}
+                                            />
+                                            <button className={cls.SetStudent__lesson__btn}>
+                                                保存</button>
+                                        </form> : ""
+                                }
+
                             </div>
                         ))
                     }

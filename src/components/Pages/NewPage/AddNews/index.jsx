@@ -40,23 +40,16 @@ const data = [
 export default function AddNewsPage({ categoryArr }) {
     const NewData = JSON.parse(localStorage.getItem("object"))
     const [category, setCategory] = useState(categoryArr[0]?.id)
-
-
     const [loader, setLoader] = useState(false)
     const [params] = useSearchParams()
-    const [dicr, setDicr] = useState()
     const [avatar, setAvatar] = useState()
     const [imga, setImga] = useState()
     const [avatarAlert, setAvatarAlert] = useState(false)
 
-    const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm()
+    const { register, handleSubmit, watch, setValue, getValues, formState: { errors }, reset } = useForm()
     const watchedFiles = watch()
 
     const router = useNavigate()
-
-    useEffect(() => {
-        localStorage.setItem("object", JSON.stringify({ dicr, avatar, category, ...watchedFiles }))
-    }, [watchedFiles])
 
     useEffect(() => {
         if (!params.get('id')) {
@@ -65,12 +58,17 @@ export default function AddNewsPage({ categoryArr }) {
     }, [categoryArr])
 
     useEffect(() => {
+        reset(NewData)
+        setCategory(NewData?.category)
+    }, [])
+
+    useEffect(() => {
 
         const fetchData = async () => {
             const res = await GetNewsById(params.get("id"));
             setValue("title", res?.languages?.[0]?.title)
             setValue("shortDescription", res?.languages?.[0]?.shortDescription)
-            setDicr(res?.languages?.[0]?.description)
+            setValue("description", res?.languages?.[0]?.description)
             setImga(res?.image)
             setCategory(res?.categoryId)
         }
@@ -84,15 +82,13 @@ export default function AddNewsPage({ categoryArr }) {
     }, [params.get("id")])
 
 
-
-
     const AddNew = async (data) => {
-        setLoader(true)
+
         const formData = new FormData()
         const content = JSON.stringify({
             title: data?.title,
             shortDescription: data?.shortDescription,
-            description: dicr
+            description: data?.description
         })
         formData.append("image", avatar || imga)
         formData.append("jp", content)
@@ -100,13 +96,14 @@ export default function AddNewsPage({ categoryArr }) {
 
 
         if (avatar || imga && category && content) {
-
+            setLoader(true)
             if (params.get("id")) {
                 await NewsUpdete(formData, params.get("id"))
                     .then(res => {
                         setLoader(false)
                         router('/news')
                         toast("news updete")
+                        localStorage.clear("object")
                     })
                     .catch(err => {
                         setLoader(false)
@@ -118,6 +115,7 @@ export default function AddNewsPage({ categoryArr }) {
                         setLoader(false)
                         router('/news')
                         toast("news Created")
+                        localStorage.clear("object")
                     })
                     .catch(err => {
                         setLoader(false)
@@ -166,7 +164,13 @@ export default function AddNewsPage({ categoryArr }) {
                     />
                 </div>
                 <p className={cls.AddNews__dicr}>説明</p>
-                <RichText getValues={dicr} onChange={(e) => setDicr(e)} />
+                <RichText
+                    register={{ ...register(`description`) }}
+                    setValue={setValue}
+                    getValues={getValues}
+                    name={`description`}
+                    value={watchedFiles?.description || ''}
+                />
             </Container>
             <div className={cls.AddNews__right}>
                 <div className={cls.AddNews__btns}>

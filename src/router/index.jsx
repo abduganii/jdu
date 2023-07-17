@@ -40,10 +40,8 @@ export default function AppRouter() {
             await GetMe()
                 .then(res => setUser(res?.data))
                 .catch(err => {
-                    if (err?.response?.status == 401) {
-                        navigate("/auth/login")
-                    }
-                    console(err?.response?.message)
+                    navigate("/auth/login")
+
                 })
         }
         if (router?.pathname != '/auth/login' && router?.pathname != '/auth/logout' && router?.pathname != '/password-reset') {

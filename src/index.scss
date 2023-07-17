@@ -53,6 +53,10 @@ button {
 }
 
 
+.displayNone {
+  display: none !important;
+}
+
 @keyframes transparentIn {
   from {
     opacity: 0;

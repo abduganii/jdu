@@ -14,11 +14,12 @@ export default function Filter({ page }) {
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
     const [inoutVal1, SetInoutVal1] = useState()
-    const x = useRef()
-    const w = useRef()
+    const [ys, setY] = useState(false)
+    const [w, setW] = useState(false)
+    const [x, setX] = useState(false)
+    const [h, setH] = useState(false)
     const y = useRef()
-    const h = useRef()
-    const o = useRef()
+
     const [params, setSearchParams] = useSearchParams()
 
     return (
@@ -28,17 +29,18 @@ export default function Filter({ page }) {
                 SetInoutVal1('')
                 SetCahnegSet(true)
                 setSearchParams({ ...paramsToObject(params.entries()), companyName: "", Group: "", rate: "", year: "" })
-                o.current.classList.remove('displayBlock')
-
+                setY(false)
+                setW(false)
+                setH(false)
+                setX(false)
             }}>
                 {cahneSet ? <FilterIcon /> : <CloseIcon />}
                 フィルター
             </button>
             {page == 'recruiter' ? <>
                 <div className={cls.Filter__Select} onClick={() => {
-                    y.current.classList.add("displayBlock")
-                    o.current.classList.add('displayBlock')
-
+                    setY(true)
+                    setW(true)
                 }}>
                     <p className={cls.Filter__Select__p}>会社名</p>
                     <img
@@ -46,10 +48,11 @@ export default function Filter({ page }) {
                         width={16}
                         height={16}
                     />
-                    <div ref={o} className={cls.Filter__Select__dropdown}>
+                    <div className={`${cls.Filter__Select__dropdown} ${w ? "displayBlock" : "displayNone"}`}>
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
+                            value={inoutVal}
                             placeholder='入力'
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })
@@ -59,19 +62,11 @@ export default function Filter({ page }) {
                         />
                     </div>
                 </div>
-                <div ref={y} onClick={(e) => {
-                    if (e.target == y.current) {
-                        y.current.classList.remove("displayBlock")
-                        x.current.classList.remove("displayBlock")
-                        w.current.classList.remove("displayBlock")
-                        h.current.classList.remove("displayBlock")
-                        o.current.classList.remove("displayBlock")
-                    }
-                }} className={cls.Filter__backround}></div>
+
             </> : <>
                 <div className={cls.Filter__Select} onClick={() => {
-                    y.current.classList.add("displayBlock")
-                    w.current.classList.add('displayBlock')
+                    setY(true)
+                    setW(true)
                 }}>
                     <p className={cls.Filter__Select__p}>グループ</p>
                     <img
@@ -79,21 +74,23 @@ export default function Filter({ page }) {
                         width={16}
                         height={16}
                     />
-                    <div ref={w} className={cls.Filter__Select__dropdown}>
+                    <div className={`${cls.Filter__Select__dropdown} ${w ? "displayBlock" : "displayNone"}`}>
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
+                            value={inoutVal1}
                             placeholder='グループを入力'
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })
                                 SetCahnegSet(false)
+                                SetInoutVal1(e.target.value)
                             }}
                         />
                     </div>
                 </div>
                 <div className={cls.Filter__Select} onClick={() => {
-                    y.current.classList.add("displayBlock")
-                    x.current.classList.toggle('displayBlock')
+                    setY(true)
+                    setX(true)
                     SetCahnegSet(false)
                 }}>
                     <p className={cls.Filter__Select__p} >人気</p>
@@ -102,20 +99,22 @@ export default function Filter({ page }) {
                         width={16}
                         height={16}
                     />
-                    <div ref={x} className={cls.Filter__Select__dropdown}>
+                    <div className={`${cls.Filter__Select__dropdown} ${x ? "displayBlock" : "displayNone"}`}>
                         {filterRate?.map(e => (
                             <p key={e?.id}
-                                className={`${cls.Filter__Select__dropdown__text}  ${params.get('rate') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                className={`${cls.Filter__Select__dropdown__text} ${params.get('rate') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
                                 onClick={() => {
                                     setSearchParams({ ...paramsToObject(params.entries()), rate: e?.link })
                                     SetCahnegSet(false)
+                                    setY(false)
+                                    setX(false)
                                 }}>{e.text}</p>
                         ))}
                     </div>
                 </div>
                 <div className={cls.Filter__Select} onClick={() => {
-                    y.current.classList.add("displayBlock")
-                    h.current.classList.toggle("displayBlock")
+                    setH(true)
+                    setY(true)
                     SetCahnegSet(false)
                 }}>
                     <p className={cls.Filter__Select__p}>年</p>
@@ -125,12 +124,14 @@ export default function Filter({ page }) {
                         height={16}
                         objectFit="contain"
                     />
-                    <div ref={h} className={cls.Filter__Select__dropdown}>
+                    <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
                         {YearsRate?.map(e => (
                             <p
                                 key={e?.id}
                                 className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
                                 onClick={() => {
+                                    setY(false)
+                                    setH(false)
                                     setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
                                     SetCahnegSet(false)
                                 }}
@@ -142,18 +143,18 @@ export default function Filter({ page }) {
 
                     </div>
                 </div>
-                <div ref={y} onClick={(e) => {
-                    if (e.target == y.current) {
-                        y.current.classList.remove("displayBlock")
-                        x.current.classList.remove("displayBlock")
-                        w.current.classList.remove("displayBlock")
-                        h.current.classList.remove("displayBlock")
-                        o.current.classList.remove("displayBlock")
-                    }
-                }} className={cls.Filter__backround}></div>
+
             </>}
 
+            <div ref={y} onClick={(e) => {
+                if (e.target == y.current) {
+                    setY(false)
+                    setW(false)
+                    setH(false)
+                    setX(false)
 
+                }
+            }} className={`${cls.Filter__backround} ${ys ? "displayBlock" : "displayNone"}`}></div>
         </div >
     )
 }

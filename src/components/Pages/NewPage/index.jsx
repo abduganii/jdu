@@ -91,7 +91,10 @@ export default function NewPage({ user }) {
             </Container>
             <div className={cls.NewPage__left}>
                 {user?.role === "decan" ? <div className={cls.NewPage__left__btn}>
-                    <BlueButtun onClick={() => router(`/newsAdd`)} style={{ marginLeft: "auto", marginRight: "20px" }}>
+                    <BlueButtun onClick={() => {
+                        router(`/newsAdd`)
+                        localStorage.clear("object")
+                    }} style={{ marginLeft: "auto", marginRight: "20px" }}>
                         <PlusIcon />ニュース追加
                     </BlueButtun>
                 </div> : <></>}

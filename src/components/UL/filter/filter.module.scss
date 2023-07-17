@@ -21,6 +21,7 @@
         line-height: 20px;
         color: #121212;
         margin-right: 10px;
+        z-index: 16;
     }
 
     &__Select {
@@ -125,6 +126,5 @@
         top: 0;
         left: 0;
         z-index: 15;
-
     }
 }

@@ -36,7 +36,10 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
                 </div>
 
                 {role == "decan" ? <div className={cls.NewsList__decan}>
-                    <button className={cls.NewsList__edit} onClick={() => router(`/newsAdd?id=${id}`)}><EdetNewIcon /></button>
+                    <button className={cls.NewsList__edit} onClick={() => {
+                        router(`/newsAdd?id=${id}`)
+                        localStorage.clear("object")
+                    }}><EdetNewIcon /></button>
                     <button className={cls.NewsList__delete}
                         onClick={() => {
 
