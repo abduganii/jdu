@@ -58,7 +58,7 @@ export default function SetStudent({ data }) {
 
     const { register, handleSubmit, setValue, watch, reset } = useForm({ defaultValues: { status: "Incompleted" } });
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
-    const { register: register3, handleSubmit: handleSubmit3, setValue: setValue3, watch: watch3 } = useForm();
+    const { register: register3, handleSubmit: handleSubmit3, setValue: setValue3, watch: watch3, } = useForm();
 
     const watchedFiles3 = watch3()
     const watchedFiles2 = watch2()
@@ -222,19 +222,20 @@ export default function SetStudent({ data }) {
 
             .then(res => {
                 if (res.status === 203) {
-                    // setLessonArr(status => {
-                    //     return status.map(el => {
-                    //         if (el.id === semestorId) {
-                    //             return {
-                    //                 ...el,
-                    //                 results: [res.data, ...el.results]
-                    //             }
-                    //         } else {
-                    //             return el
-                    //         }
-                    //     })
-                    // })
-                    reset()
+                    console.log(lassonsArr)
+                    setLessonArr(status => {
+                        return status.map(el => {
+                            if (el.id === semestorId) {
+                                return {
+                                    ...el,
+                                    results: [res.data, ...el.results?.filter(r => r?.id !== res?.data?.id)]
+                                }
+                            } else {
+                                return el
+                            }
+                        })
+                    })
+
                 }
                 setLoading(false)
 
@@ -657,5 +658,3 @@ export default function SetStudent({ data }) {
         </Container >
     )
 }
-
-
