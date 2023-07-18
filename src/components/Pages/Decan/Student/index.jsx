@@ -118,7 +118,7 @@ export default function StudentPage({ data, onChange }) {
                     avater={oneStuednt?.avatar}
                     role={'student'}
                     progress={oneStuednt?.universityPercentage?.AllMarks}
-                    years={`${oneStuednt?.courseNumber} years`}
+                    years={`${oneStuednt?.courseNumber}年生 `}
                     remove={async () => {
                         setLoading(true)
 
@@ -202,7 +202,7 @@ export default function StudentPage({ data, onChange }) {
                         />
                         <AddInput
                             register={{ ...register('courseNumber', { required: "グループ番号は必要です！" }) }}
-                            type={"text"}
+                            type={"number"}
                             label={"コース番号"}
                             placeholder={"コース番号"}
                             alert={errors.courseNumber?.message}

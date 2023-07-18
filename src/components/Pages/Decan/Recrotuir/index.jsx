@@ -180,7 +180,7 @@ export default function RecruitorPage({ data, onChange }) {
                     avater={oneStuednt?.avatar}
                     role={'recruitor'}
                     progress={oneStuednt?.progress}
-                    years={"2years"}
+                    years={oneStuednt?.companyName}
                     remove={async () => {
                         setLoading(true)
                         await Recruitordelete(oneStuednt?.id)
@@ -264,7 +264,7 @@ export default function RecruitorPage({ data, onChange }) {
                         />
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"text"}
+                            type={"number"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}

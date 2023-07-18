@@ -46,7 +46,7 @@ export default function OneStudent({ user, role }) {
                     id={user?.loginId}
                     name={`${user?.firstName} ${user?.lastName}`}
                     avatar={user?.avatar}
-                    year={user?.courseNumber + " yaer"}
+                    year={user?.courseNumber + "年生"}
                     email={user?.email}
                 />
 

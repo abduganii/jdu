@@ -367,7 +367,7 @@ export default function SetStudent({ data }) {
                         />
                         <AddInput
                             style={{ marginTop: "10px" }}
-                            type={"text"}
+                            type={"number"}
                             label={"コース番号"}
                             placeholder={"コース番号"}
                             register={{ ...register2('courseNumber') }}

@@ -10,7 +10,7 @@ export default function BackBtn({ onClick, UserId, role, ...other }) {
 
             {role ? <label >
                 <a href={`https://api.jdu.getter.uz/student/cv/${UserId}`} target="_blank" >
-                    Download resume
+                    履歴書をダウンロード
                     <DownLoadIcon />
                 </a>
             </label> : ""}
