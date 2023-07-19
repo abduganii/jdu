@@ -109,8 +109,7 @@ export default function SetStudent({ data }) {
         setAllMarks(data?.universityPercentage?.AllMarks)
         const fetchData = async () => {
             const res = await GetSkills();
-            setSkills(res.filter(re => !(data?.itQualification?.skills?.map(sp =>
-                ({ skillId: sp?.skill?.id, procent: sp?.procent, skill: { color: sp?.skill?.color, name: sp?.skill?.name } }))).find(e => e?.skill?.name === re?.name)))
+            setSkills(res.filter(re => !data?.itQualification?.skills?.find(e => e?.skill?.name === re?.name)))
         }
         fetchData()
             .then((err) => {
