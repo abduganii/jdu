@@ -13,7 +13,6 @@ export default function Settings() {
             .then((err) => {
                 console.log(err);
             })
-
     }, [])
     return (
         <>
