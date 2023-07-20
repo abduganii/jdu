@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import paramsToObject from '../../../utils/paramsToObject.js'
 import { CloseIcon, FilterIcon } from '../icons.jsx'

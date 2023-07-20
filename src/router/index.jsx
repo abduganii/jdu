@@ -35,6 +35,7 @@ export default function AppRouter() {
     const router = useLocation()
     const navigate = useNavigate()
 
+
     useEffect(() => {
         const fetchData = async () => {
             await GetMe()
@@ -60,7 +61,9 @@ export default function AppRouter() {
             fetchData()
         }
     }, [user])
-
+    // useEffect(() => {
+    //     navigate(`/${user?.role}/home`)
+    // }, [])
     return (
         <Routes>
             <Route path="/" element={<MainLayout user={user} />}  >
