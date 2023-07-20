@@ -48,14 +48,6 @@ button {
 
 }
 
-.displayBlock {
-  display: block !important;
-}
-
-
-.displayNone {
-  display: none !important;
-}
 
 @keyframes transparentIn {
   from {
@@ -123,11 +115,20 @@ p {
 }
 
 
-
 p[data-f-id="pbf"] {
   display: none;
 }
 
 .fr-element {
   padding-top: 40px;
+}
+
+
+.displayBlock {
+  display: block !important;
+}
+
+
+.displayNone {
+  display: none !important;
 }

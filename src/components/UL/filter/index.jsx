@@ -14,7 +14,8 @@ export default function Filter({ page }) {
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
     const [inoutVal1, SetInoutVal1] = useState()
-    const [filterRateText, setRateFilter] = useState("人気")
+    const [yearRateText, setRateYears] = useState("年")
+    const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
     const [x, setX] = useState(false)
@@ -24,7 +25,16 @@ export default function Filter({ page }) {
     const [params, setSearchParams] = useSearchParams()
 
     useEffect(() => {
-        filterRate.forEach(e => console.log(e))
+        YearsRate.forEach(e => {
+            if (e?.link == params.get('year')) {
+                setRateYears(e?.text)
+            }
+        })
+        filterRate.forEach(e => {
+            if (e?.link == params.get('rate')) {
+                setRateRate(e?.text)
+            }
+        })
     }, [params])
 
     return (
@@ -38,6 +48,8 @@ export default function Filter({ page }) {
                 setW(false)
                 setH(false)
                 setX(false)
+                setRateYears("年")
+                setRateRate("人気")
             }}>
                 {cahneSet ? <FilterIcon /> : <CloseIcon />}
                 フィルター
@@ -98,7 +110,7 @@ export default function Filter({ page }) {
                     setX(true)
                     SetCahnegSet(false)
                 }}>
-                    <p className={cls.Filter__Select__p} > rate</p>
+                    <p className={cls.Filter__Select__p} > {RateRateText}</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}
@@ -109,10 +121,10 @@ export default function Filter({ page }) {
                             <p key={e?.id}
                                 className={`${cls.Filter__Select__dropdown__text} ${params.get('rate') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
                                 onClick={() => {
+                                    setX(false)
+                                    setY(false)
                                     setSearchParams({ ...paramsToObject(params.entries()), rate: e?.link })
                                     SetCahnegSet(false)
-                                    setY(false)
-                                    setX(false)
                                 }}>{e.text}</p>
                         ))}
                     </div>
@@ -122,7 +134,7 @@ export default function Filter({ page }) {
                     setY(true)
                     SetCahnegSet(false)
                 }}>
-                    <p className={cls.Filter__Select__p}>{filterRateText}</p>
+                    <p className={cls.Filter__Select__p}>{yearRateText}</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}
@@ -135,8 +147,8 @@ export default function Filter({ page }) {
                                 key={e?.id}
                                 className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
                                 onClick={() => {
-                                    setY(false)
                                     setH(false)
+                                    setY(false)
                                     setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
                                     SetCahnegSet(false)
                                 }}

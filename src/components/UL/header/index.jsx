@@ -9,22 +9,11 @@ export default function Header({ user }) {
     const tashkentTime = useTime()
     const [params, setSearchParams] = useSearchParams()
     const tokyoTime = useTime('Asia/Tokyo')
-    const [roles, setRoles] = useState("")
     const router = useNavigate()
-
-    useEffect(() => {
-        const role = user?.role
-        if (role == "decan") {
-            setRoles("Decan")
-        }
-        if (role == "recruitor") {
-            setRoles("Employer")
-        }
-    }, [router, user?.role]);
 
     return (
         <header className={cls.Header}>
-            <h3 className={cls.Header__logo}>デカンパーネル</h3>
+            <h3 className={cls.Header__logo} onClick={() => router(`/${user?.role}/home`)}>デカンパーネル</h3>
             <div className={cls.Header__left}>
                 <input
                     className={cls.Header__search}

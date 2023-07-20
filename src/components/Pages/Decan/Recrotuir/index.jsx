@@ -149,7 +149,7 @@ export default function RecruitorPage({ data, onChange }) {
                 }
                 }>
                     <PlusIcon />
-                    採用担当者の追加
+                    リクルーター追加
                 </BlueButtun>
             </div>
             <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "作用"]} />

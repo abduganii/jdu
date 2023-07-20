@@ -39,7 +39,12 @@ export default function AppRouter() {
     useEffect(() => {
         const fetchData = async () => {
             await GetMe()
-                .then(res => setUser(res?.data))
+                .then(res => {
+                    setUser(res?.data)
+                    if (router?.pathname == '/') {
+                        navigate(`/${res?.data?.role}/home`)
+                    }
+                })
                 .catch(err => {
                     navigate("/auth/login")
 
@@ -61,9 +66,7 @@ export default function AppRouter() {
             fetchData()
         }
     }, [user])
-    // useEffect(() => {
-    //     navigate(`/${user?.role}/home`)
-    // }, [])
+
     return (
         <Routes>
             <Route path="/" element={<MainLayout user={user} />}  >
