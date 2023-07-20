@@ -14,6 +14,7 @@ export default function Filter({ page }) {
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
     const [inoutVal1, SetInoutVal1] = useState()
+    const [filterRateText, setRateFilter] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
     const [x, setX] = useState(false)
@@ -21,6 +22,10 @@ export default function Filter({ page }) {
     const y = useRef()
 
     const [params, setSearchParams] = useSearchParams()
+
+    useEffect(() => {
+        filterRate.forEach(e => console.log(e))
+    }, [params])
 
     return (
         <div className={cls.Filter}>
@@ -93,7 +98,7 @@ export default function Filter({ page }) {
                     setX(true)
                     SetCahnegSet(false)
                 }}>
-                    <p className={cls.Filter__Select__p} >人気</p>
+                    <p className={cls.Filter__Select__p} > rate</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}
@@ -117,7 +122,7 @@ export default function Filter({ page }) {
                     setY(true)
                     SetCahnegSet(false)
                 }}>
-                    <p className={cls.Filter__Select__p}>年</p>
+                    <p className={cls.Filter__Select__p}>{filterRateText}</p>
                     <img
                         src={'/Image/Icons.svg'}
                         width={16}

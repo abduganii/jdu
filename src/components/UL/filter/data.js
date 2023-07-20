@@ -35,7 +35,7 @@ export const YearsRate = [
     },
     {
         id: 4,
-        text: '第四第四',
+        text: '第四',
         link:'4',
     }
 ]

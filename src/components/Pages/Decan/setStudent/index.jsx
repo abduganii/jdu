@@ -595,7 +595,7 @@ export default function SetStudent({ data }) {
                         <p className={cls.SetStudent__list__top__text}>科目</p>
                         <p className={cls.SetStudent__list__top__text}>状態</p>
                         <p className={cls.SetStudent__list__top__text}>科目</p>
-                        <p className={cls.SetStudent__list__top__text}>クレジット</p>
+                        <p className={cls.SetStudent__list__top__text}>単位</p>
                     </div>
                     {
                         lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
