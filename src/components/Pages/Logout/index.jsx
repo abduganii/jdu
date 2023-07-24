@@ -52,10 +52,7 @@ export default function LogoutPage() {
                     </div>
                 </div>
                 <div className={cls.Login__img}>
-                    <img
-                        src='/Image/photo_login.png'
-                        alt='img'
-                    />
+
                 </div>
                 {loader && <Loader onClick={() => setLoader(false)} />}
             </div>

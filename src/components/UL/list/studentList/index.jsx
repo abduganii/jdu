@@ -11,7 +11,7 @@ import Avatar from 'react-avatar'
 import { StudentSelect, StudentSelectDel } from '../../../../services/recruter'
 import ListModal from '../../madals/listMadal'
 
-export default function StudentList({ isSelcted, avatar, name, id, loginId, select, skills = [], rate }) {
+export default function StudentList({ isSelcted, avatar, name, student, id, loginId, select, skills = [], rate }) {
     const router = useNavigate()
     const [useId, setIseId] = useState()
     const [clickTrue, setClick] = useState(false)

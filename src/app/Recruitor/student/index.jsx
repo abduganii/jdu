@@ -21,6 +21,7 @@ export default function RecStudent({ data, role, count }) {
         const fetchData = async () => {
             const res = await StudentsGet();
             setData(res?.rows)
+            console.log(res?.rows)
         }
         fetchData()
             .then((err) => {

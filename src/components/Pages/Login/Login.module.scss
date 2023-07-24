@@ -12,6 +12,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 10;
+
+        @media only screen and (max-width:800px) {
+            width: 100% !important;
+        }
+
+
 
         &__top {
             display: flex;
@@ -50,11 +57,18 @@
         width: 50%;
         height: 100vh !important;
         position: relative;
-
-        background-image: url('/Image/photo_login.png');
+        background-image: url('/Image/icons/loginMin.jpg');
         background-size: cover;
         background-repeat: no-repeat;
 
+        @media only screen and (max-width:800px) {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+            opacity: .2;
+        }
 
 
     }

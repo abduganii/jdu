@@ -30,6 +30,7 @@ export default function StudentsPage({ data, selected, student, count }) {
                                         skills={e?.itQualification?.skills}
                                         rate={e?.universityPercentage?.AllMarks}
                                         isSelcted={e?.isSelected}
+                                        student={true}
                                     />
                                 )
                             }
@@ -44,6 +45,7 @@ export default function StudentsPage({ data, selected, student, count }) {
                                     skills={e?.itQualification?.skills}
                                     rate={e?.universityPercentage?.AllMarks}
                                     isSelcted={e?.isSelected}
+                                    student={true}
                                 />
                             )
                         }

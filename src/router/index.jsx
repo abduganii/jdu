@@ -35,7 +35,6 @@ export default function AppRouter() {
     const router = useLocation()
     const navigate = useNavigate()
 
-
     useEffect(() => {
         const fetchData = async () => {
             await GetMe()
