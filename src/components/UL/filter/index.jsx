@@ -69,7 +69,7 @@ export default function Filter({ page }) {
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
-                            value={inoutVal}
+                            value={inoutVal1}
                             placeholder='入力'
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), companyName: e.target.value })
@@ -95,12 +95,12 @@ export default function Filter({ page }) {
                         <input
                             className={cls.Filter__Select__dropdown__search}
                             type="text"
-                            value={inoutVal1}
+                            value={inoutVal}
                             placeholder='グループを入力'
                             onChange={(e) => {
                                 setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })
                                 SetCahnegSet(false)
-                                SetInoutVal1(e.target.value)
+                                SetInoutVal(e.target.value)
                             }}
                         />
                     </div>

@@ -1,8 +1,9 @@
 import api from "./api"
 
-export const RecruitorGet = async () => {
+export const RecruitorGet = async (query) => {
     try {
-     const res = await api.get('/recruitors', {withCredentials: true})
+        const params = new URLSearchParams(query)
+        const res = await api.get(`/recruitors?${params.toString()}`, {withCredentials: true})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);

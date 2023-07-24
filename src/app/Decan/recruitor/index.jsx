@@ -1,39 +1,44 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useInfiniteQuery, useQuery } from "react-query";
+import { useInView } from 'react-intersection-observer'
+
 import RecruitorPage from "../../../components/Pages/Decan/Recrotuir";
-import { RecruitorGet, RecruitorGetSearch } from "../../../services/recruter";
+import { RecruitorGet } from "../../../services/recruter";
 
 export default function DecanRecruitor() {
-  const [data, setData] = useState([])
-  const [cahnge, setChage] = useState(false)
-  const [params] = useSearchParams()
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await RecruitorGetSearch(`${params.get('search') ? `?search=${params.get('search')}` : "?search="}${params.get('companyName') ? `&company=${params.get('companyName')}` : ""}`)
-      setData(res?.rows)
+
+  const { ref, inView } = useInView()
+  const [params, setSearchParams] = useSearchParams()
+  const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
+    ['recruiters', params.get('companyName'), params.get('search')],
+    async ({ pageParam = 1 }) => await RecruitorGet({
+      limit: 15,
+      page: pageParam,
+      company: params.get('categoryId') || '',
+      search: params.get('search') || '',
+      // lang: 'en'
+    }) || {},
+
+    {
+      getNextPageParam: (lastPage, pages) => {
+        console.log(lastPage);
+        return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
+      }
     }
-    fetchData()
-      .then((err) => {
-        console.log(err);
-      })
-  }, [params])
-
+  )
+  const recruiters = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await RecruitorGet();
-      setData(res?.rows)
+    console.log(hasNextPage);
+    if (inView && hasNextPage) {
+      fetchNextPage()
     }
-    fetchData()
-      .then((err) => {
-        console.log(err);
-      })
-
-  }, [cahnge])
+  }, [inView])
 
   return (
     <>
-      <RecruitorPage data={data} onChange={() => setChage(!cahnge)} />
+      <RecruitorPage data={recruiters} ref={ref} />
     </>
   )
 }

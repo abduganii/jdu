@@ -1,52 +1,46 @@
 import { useEffect, useState } from "react";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
-import StudentPage from "../../../components/Pages/Decan/Student";
+import { useInView } from 'react-intersection-observer'
+
 import { SpecialisationsGet } from "../../../services/specialisations";
-import { StudentsGet, StudentsGetSearch } from "../../../services/student";
+import { StudentsGet } from "../../../services/student";
+import StudentPage from "../../../components/Pages/Decan/Student";
 
 export default function DecanStudent() {
-  const [data, setData] = useState([])
-  const [Specialisation, setSpecialisation] = useState([])
-  const [cahnge, setChage] = useState(false)
-  const [params] = useSearchParams()
+  const { ref, inView } = useInView()
+  const [params, setSearchParams] = useSearchParams()
+  const { data: specialisation } = useQuery('specialisation', SpecialisationsGet)
+
+  const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
+    ['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')],
+    async ({ pageParam = 1 }) => await StudentsGet({
+      limit: 15,
+      page: pageParam,
+      group: params.get('Group') || '',
+      search: params.get('search') || '',
+      rate: params.get('rate') || '',
+      year: params.get('year') || ''
+    }) || {},
+    {
+      getNextPageParam: (lastPage, pages) => {
+        console.log(lastPage);
+        return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
+      }
+    }
+  )
+
+  const students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
   useEffect(() => {
-
-    const fetchData = async () => {
-      const res = await StudentsGetSearch(`${params.get('search') ? `?search=${params.get('search')}` : "?search="}${params.get('Group') ? `&group=${params.get('Group')}` : ""}${params.get('rate') ? `&rate=${params.get('rate')}` : ""}${params.get('year') ? `&year=${params.get('year')}` : ""}`)
-      setData(res?.rows)
+    console.log(hasNextPage);
+    if (inView && hasNextPage) {
+      fetchNextPage()
     }
-    fetchData()
-      .then((err) => {
-        console.log(err);
-      })
-  }, [params])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await StudentsGet();
-      setData(res?.rows)
-    }
-    const fetchSpecialisations = async () => {
-      const res = await SpecialisationsGet();
-      setSpecialisation(res)
-    }
-
-    fetchData()
-      .then((err) => {
-        console.log(err);
-      })
-
-    fetchSpecialisations()
-      .then((err) => {
-        console.log(err);
-      })
-
-  }, [cahnge])
-
+  }, [inView])
   return (
     <>
-      <StudentPage data={data} Specialisation={Specialisation} onChange={() => setChage(!cahnge)} />
+      <StudentPage data={students} Specialisation={specialisation} ref={ref} />
     </>
   )
 }

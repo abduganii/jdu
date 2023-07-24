@@ -14,14 +14,16 @@ import cls from "./StudentPage.module.scss"
 import { Student } from "./data"
 
 import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { StudentsAdd, Studentsdelete } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
+import { useQueryClient } from 'react-query'
 
 
-export default function StudentPage({ data, onChange }) {
-
+const StudentPage = React.forwardRef(({ data }, ref) => {
+    const queryClient = useQueryClient()
+    const [params] = useSearchParams()
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
@@ -46,16 +48,18 @@ export default function StudentPage({ data, onChange }) {
         await StudentsAdd(formData)
             .then(res => {
                 if (res?.data?.message) {
-                    // toast(res?.data?.message)
+
                     setLoading(false)
                 }
                 if (res.status == 201) {
                     toast('Student created')
                     setOpenMadal(false)
-                    onChange()
+
                     reset()
                     setLoading(false)
                 }
+
+                queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -111,7 +115,9 @@ export default function StudentPage({ data, onChange }) {
                     remove={() => setPersonId(e?.id)}
                     student={true}
                 />
-            ))}{
+            ))}
+            <div ref={ref} style={{ padding: "10px" }}></div>
+            {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}
                     name={`${oneStuednt?.firstName} ${oneStuednt?.lastName}`}
@@ -129,8 +135,8 @@ export default function StudentPage({ data, onChange }) {
                                     setLoading(false)
                                 }
                                 setPersonId(false)
-                                onChange()
                                 setLoading(false)
+                                queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
 
                             })
                             .catch(err => {
@@ -174,8 +180,6 @@ export default function StudentPage({ data, onChange }) {
                             alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
@@ -185,8 +189,6 @@ export default function StudentPage({ data, onChange }) {
                             alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
 
                         <AddInput
@@ -197,8 +199,6 @@ export default function StudentPage({ data, onChange }) {
                             alert={errors.groupNumber?.message}
                             onChange={() => clearErrors("groupNumber")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
                         <AddInput
                             register={{ ...register('courseNumber', { required: "グループ番号は必要です！" }) }}
@@ -208,8 +208,6 @@ export default function StudentPage({ data, onChange }) {
                             alert={errors.courseNumber?.message}
                             onChange={() => clearErrors("courseNumber")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
                         <AddInput
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
@@ -227,4 +225,5 @@ export default function StudentPage({ data, onChange }) {
             {loading && <Loader onClick={() => setLoading(false)} />}
         </div>
     )
-}
+})
+export default StudentPage;

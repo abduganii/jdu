@@ -42,7 +42,6 @@ export default function NewsList({ id, img, category, role, text, createAt, onCl
                     }}><EdetNewIcon /></button>
                     <button className={cls.NewsList__delete}
                         onClick={() => {
-
                             NewstDelelet(id)
                             queryClient.invalidateQueries(['news', params.get('categoryId'), params.get('search')],)
                         }}><DeleteNewIcon /></button>

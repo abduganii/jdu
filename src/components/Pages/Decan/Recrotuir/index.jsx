@@ -12,11 +12,15 @@ import React, { useState } from 'react'
 import cls from "./Recruitor.module.scss"
 import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { RecruitorAdd, Recruitordelete, RecruitorGetById, RecruitorUpdate } from '../../../../services/recruter'
 import Loader from '../../../UL/loader'
+import { useQueryClient } from 'react-query'
 
-export default function RecruitorPage({ data, onChange }) {
+const RecruitorPage = React.forwardRef(({ data }, ref) => {
+    const queryClient = useQueryClient()
+    const [params] = useSearchParams()
+
     const [personId, setPersonId] = useState(false)
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
@@ -29,13 +33,12 @@ export default function RecruitorPage({ data, onChange }) {
 
     const [openMadal, setOpenMadal] = useState(false)
 
+
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
-
             const res = await RecruitorGetById(id);
-
             setValue("avatar", res?.avatar)
             setValue("firstName", res?.firstName)
             setValue("lastName", res?.lastName)
@@ -71,14 +74,14 @@ export default function RecruitorPage({ data, onChange }) {
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
-
                     } else if (res.status == 203) {
                         toast('recrutiar updated')
                         setOpenMadal(false)
-                        onChange()
+
                         setAvatar(null)
                     }
                     setLoading(false)
+                    queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
 
                 })
                 .catch(err => {
@@ -102,12 +105,15 @@ export default function RecruitorPage({ data, onChange }) {
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
+
                     } else if (res.status == 201) {
                         toast('recrutiar created')
                         setOpenMadal(false)
-                        onChange()
+
                     }
+
                     setLoading(false)
+                    queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
 
                 })
                 .catch(err => {
@@ -173,6 +179,7 @@ export default function RecruitorPage({ data, onChange }) {
                     }}
                 />
             ))}
+            <div ref={ref} style={{ padding: "10px" }}></div>
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}
@@ -190,13 +197,16 @@ export default function RecruitorPage({ data, onChange }) {
                                     setLoading(false)
                                 }
                                 setPersonId(false)
-                                onChange()
+
                                 setLoading(false)
+                                queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
+
                             }).catch(err => {
                                 toast(err)
                                 setLoading(false)
 
                             })
+
 
                     }}
                     className={personId ? cls.openMadal : ''}
@@ -315,4 +325,6 @@ export default function RecruitorPage({ data, onChange }) {
             {loading && <Loader onClick={() => setLoading(false)} />}
         </div >
     )
-}
+})
+
+export default RecruitorPage;
