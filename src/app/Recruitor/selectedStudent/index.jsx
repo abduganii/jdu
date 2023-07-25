@@ -1,40 +1,44 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "react-query";
 import { useLocation, useSearchParams } from "react-router-dom";
 import StudentsPage from "../../../components/Pages/Recruitor/StudentsPage";
 import { StudentsGet, StudentsGetSearch } from "../../../services/student";
 
-export default function RecSeelctStudent({ data, role, count }) {
-    const [datas, setData] = useState([])
-    const [Specialisation, setSpecialisation] = useState([])
-    const [change, setChage] = useState(false)
-    const [params] = useSearchParams()
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await StudentsGetSearch(`${params.get('search') ? `?search=${params.get('search')}` : "?search="}${params.get('Group') ? `&group=${params.get('Group')}` : ""}${params.get('rate') ? `&rate=${params.get('rate')}` : ""}${params.get('year') ? `&year=${params.get('year')}` : ""}`)
-            setData(res?.rows)
+export default function RecSeelctStudent({ data:topStudent, role, count }) {
+    const { ref, inView } = useInView()
+    const [params, setSearchParams] = useSearchParams()
+  
+  
+    const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
+      ['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')],
+      async ({ pageParam = 1 }) => await StudentsGet({
+        limit: 15,
+        page: pageParam,
+        group: params.get('Group') || '',
+        search: params.get('search') || '',
+        rate: params.get('rate') || '',
+        year: params.get('year') || ''
+      }) || {},
+      {
+        getNextPageParam: (lastPage, pages) => {
+          console.log(lastPage);
+          return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
         }
-        fetchData()
-            .then((err) => {
-                console.log(err);
-            })
-    }, [params])
-
+      }
+    )
+  
+    const students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
+  
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await StudentsGet();
-            setData(res?.rows)
-        }
-        fetchData()
-            .then((err) => {
-                console.log(err);
-            })
-
-
-    }, [change])
+      if (inView && hasNextPage) {
+        fetchNextPage()
+      }
+    }, [inView])
 
     return (
         <>
-            <StudentsPage selected={true} data={datas} student={data} role={role} count={count} />
+            <StudentsPage selected={true} data={students} student={topStudent} role={role} count={count} />
         </>
     )
 }

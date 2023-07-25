@@ -6,12 +6,15 @@ import DoteBtn from '../../buttun/doteBtn'
 import React, { useRef, useState } from 'react'
 import { SelectIcon } from '../../icons'
 import cls from "./StudentList.module.scss"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Avatar from 'react-avatar'
 import { StudentSelect, StudentSelectDel } from '../../../../services/recruter'
 import ListModal from '../../madals/listMadal'
+import { useQueryClient } from 'react-query'
 
 export default function StudentList({ isSelcted, avatar, name, student, id, loginId, select, skills = [], rate }) {
+    const queryClient = useQueryClient()
+    const [params] = useSearchParams()
     const router = useNavigate()
     const [useId, setIseId] = useState()
     const [clickTrue, setClick] = useState(false)
@@ -28,8 +31,10 @@ export default function StudentList({ isSelcted, avatar, name, student, id, logi
                     <div className={cls.StudentList__select} onClick={(e) => {
                         if (color) {
                             StudentSelectDel(id)
+                            queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
                         } else {
                             StudentSelect(id)
+                            queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
                         }
                         setColor(!color)
                     }}>

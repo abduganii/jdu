@@ -10,7 +10,7 @@ export default function HomePage({ data, role, count }) {
             <div className={cls.HomePage} >
                 <Container className={cls.HomePage__container} >
                     <h2 className={cls.HomePage__title}>雇用主ワークブック</h2>
-                    <p className={cls.HomePage__text}>会社のマニュアルを作成します。会社に関するすべてを追加します。会社マニュアルを作成します。会社に関するすべてを追加します</p>
+                    <p className={cls.HomePage__text}>会社のマニュアルを作成します。会社に関するすべてを追加しま。</p>
                     <div className={cls.HomePage__img}>
                         <img
                             src={'/Image/image1.png'}
