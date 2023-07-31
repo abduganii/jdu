@@ -98,7 +98,7 @@ export default function NewPage({ user }) {
                         <PlusIcon />ニュース追加
                     </BlueButtun>
                 </div> : <></>}
-                <RightAsideWrapper style={{ padding: "30px 18px", marginTop: 0, top: 0 }} >
+                <RightAsideWrapper style={{ padding: "30px 18px", marginTop: 0, top: 0, height: 'calc(100vh - 214px)' }} >
                     <h3 className={cls.NewPage__left__title}> ニュース</h3>
                     {news?.length > 0 && news.slice(0, 5).map(e => (
                         <TopNewsList key={e.id} text={e?.languages[0]?.title} onClick={() => router(`/news/${e?.id}`)} createAt={e?.publishDate} />

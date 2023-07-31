@@ -15,6 +15,7 @@ import Avatar from 'react-avatar'
 import { DecanUpdate } from '../../../services/decan'
 import { RecruitorUpdate } from '../../../services/recruter'
 import Loader from '../../UL/loader'
+import { StudentsUpdate } from '../../../services/student'
 export default function SettingsPage({ data }) {
     const x = useRef()
     const y = useRef()
@@ -87,6 +88,29 @@ export default function SettingsPage({ data }) {
             await RecruitorUpdate(formData, data?.id)
                 .then((data) => {
                     router('/recruitor/home')
+                    setLoager(false)
+                })
+                .catch(err => {
+                    if (err.response.data.message.includes('current')) {
+                        setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
+                    }
+                    if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                    }
+                    if (err.response.data.message.includes('confirm')) {
+                        setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
+                    }
+                    setLoager(false)
+                })
+
+        }
+        if (data?.role == 'student') {
+            await StudentsUpdate(formData, data?.id)
+                .then((data) => {
+                    router('/student/home')
                     setLoager(false)
                 })
                 .catch(err => {

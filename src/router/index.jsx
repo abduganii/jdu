@@ -27,6 +27,9 @@ import NewPage from '../components/Pages/NewPage'
 import PriewNew from '../components/Pages/NewPage/PreiwNew'
 import Loader from '../components/UL/loader'
 import toast from 'react-hot-toast'
+import StudentHome from '../app/Student/home'
+import StudentMe from '../app/Student/Me'
+import StuDStudentById from '../app/Student/id'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -83,7 +86,11 @@ export default function AppRouter() {
                 <Route path="/recruitor/students" element={<RecStudent data={topStudent} role={user?.role} count={count} />} />
                 <Route path="/recruitor/students/:id" element={<StudentById />} />
                 <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} role={user?.role} count={count} />} />
-                RecStudent
+    
+                <Route path="/student/home" element={<StudentHome data={topStudent} role={user?.role} count={count} />} />
+                <Route path="/student/me" element={<StudentMe user={user}/>} />
+                <Route path="/student/students/:id" element={<StuDStudentById />} />
+
                 <Route path="/news" element={<NewPage user={user} />} />
                 <Route path="/newsAdd" element={<AddNews />} />
                 <Route path="/news/:id" element={<OneNews />} />

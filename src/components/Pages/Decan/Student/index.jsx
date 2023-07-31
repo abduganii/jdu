@@ -99,7 +99,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     学生を追加
                 </BlueButtun>
             </div>
-            <TopList text={["学生", "ID", "グループ", "レート", "スキル", "作用"]} />
+            <TopList text={["学生", "ID", "グループ", "レート", "スキル", "アクション"]} />
 
             {data && data?.map(e => (
                 <PersonList

@@ -160,6 +160,7 @@ const RichText = ({
             <Toaster />
             <FroalaEditor
                 model={value}
+
                 onModelChange={(model) => { onChange(model); setValue(name, model) }}
                 config={config(setValue, getValues)}
                 {...register}

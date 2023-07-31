@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import cls from "./sidebar.module.scss"
-import { navLinks, recruitorLink, decanLink, settingLinks } from './data'
+import { navLinks, recruitorLink, decanLink, settingLinks, studentLink } from './data'
 import { LogOutIcon } from '../icons'
 import CancelBtn from '../buttun/cancel'
 import BlueButtun from '../buttun/blueBtn'
@@ -26,6 +26,9 @@ export default function SideBar({ user }) {
         }
         if (user?.role === "decan") {
             setLink(decanLink)
+        }
+        if (user?.role === "student") {
+            setLink(studentLink)
         }
     }, [user?.role]);
 

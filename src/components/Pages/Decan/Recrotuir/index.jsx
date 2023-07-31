@@ -155,10 +155,10 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                 }
                 }>
                     <PlusIcon />
-                    リクルーター追加
+                    リクレーターを追加
                 </BlueButtun>
             </div>
-            <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "作用"]} />
+            <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "アクション"]} />
             {data && data?.map(e => (
                 <PersonList
                     onClick={() => router(`/decan/recruitors/${e?.id}`)}

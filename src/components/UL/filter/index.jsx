@@ -14,7 +14,7 @@ export default function Filter({ page }) {
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
     const [inoutVal1, SetInoutVal1] = useState()
-    const [yearRateText, setRateYears] = useState("年")
+    const [yearRateText, setRateYears] = useState("コース")
     const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
@@ -48,7 +48,7 @@ export default function Filter({ page }) {
                 setW(false)
                 setH(false)
                 setX(false)
-                setRateYears("年")
+                setRateYears("コース")
                 setRateRate("人気")
             }}>
                 {cahneSet ? <FilterIcon /> : <CloseIcon />}

@@ -167,6 +167,7 @@ export default function SetStudent({ data }) {
         if (body.groupNumber) formData.append("groupNumber", body.groupNumber)
         if (body.courseNumber) formData.append("courseNumber", body.courseNumber)
         if (body.email) formData.append("email", body.email)
+        if (body.password) formData.append("password", body.password)
         formData.append("itQualification", content)
         formData.append("japanLanguageTests", japanLanguageTests)
         formData.append("universityPercentage", universityPercentage)
@@ -312,7 +313,7 @@ export default function SetStudent({ data }) {
                             キャンセル
                         </CancelBtn>
                         <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
-                            編集保存
+                        更新を保存
                         </BlueButtun>
                     </div>
                 </div>
@@ -375,8 +376,8 @@ export default function SetStudent({ data }) {
                         <AddInput
                             style={{ marginTop: "10px" }}
                             type={"text"}
-                            label={"eメール"}
-                            placeholder={"eメール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             register={{ ...register2('email') }}
                         />
                         <AddInput
@@ -388,7 +389,7 @@ export default function SetStudent({ data }) {
                         />
                     </div>
                 </div>
-                <h3 className={cls.SetStudent__lesson}>日本語試験</h3>
+                <h3 className={cls.SetStudent__lesson}>日本語能力試験</h3>
 
                 <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[0]?.name}</p>
                 <div className={cls.SetStudent__lesson__wrap}>
@@ -410,7 +411,7 @@ export default function SetStudent({ data }) {
                     <div className={cls.SetStudent__Sertifacet}>
                         <p className={cls.SetStudent__Sertifacet__text}>資格 </p>
                         <label className={cls.SetStudent__Sertifacet__Download} >
-                            <p className={`${file ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file ? " ファイルをアップロード" : "ファイルをアップデート無し"}</p>
+                            <p className={`${file ? cls.SetStudent__Sertifacet__Download__text : cls.SetStudent__Sertifacet__Download__text1}`}>{file ? " ファイルをアップロード" : "ファイルをアップデートなし"}</p>
                             <div className={`${file && cls.SetStudent__Sertifacet__Download__round}`}>
                                 <div className={cls.SetStudent__Sertifacet__Download__}></div>
                                 <DownloadIcons color={file ? "white" : "#121212"} back={file ? "#5627DC" : "#C8C4D2"} />
@@ -497,7 +498,7 @@ export default function SetStudent({ data }) {
                     <RangeInput
                         style={{ marginBottom: "29px" }}
                         color={"black"}
-                        lessonType={"出席者"}
+                        lessonType={"出席率"}
                         defaultRange={Attendee}
                         onChange={(pr) => {
                             setAttendee(pr)
@@ -507,7 +508,7 @@ export default function SetStudent({ data }) {
                     <RangeInput
                         style={{ marginBottom: "29px" }}
                         color={"black"}
-                        lessonType={"それコース"}
+                        lessonType={"ITコース"}
                         defaultRange={ItCourse}
                         onChange={(pr) => {
                             setItCourse(pr)
@@ -536,7 +537,7 @@ export default function SetStudent({ data }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"ウズ。 SWL大学"}
+                        lessonType={"世界言語大学"}
                         color={"black"}
                         defaultRange={SWL}
                         onChange={(pr) => {
@@ -546,7 +547,7 @@ export default function SetStudent({ data }) {
                     />
                     <RangeInput
                         style={{ marginBottom: "29px" }}
-                        lessonType={"共同作業"}
+                        lessonType={"コワーキング"}
                         color={"black"}
                         defaultRange={CoWork}
                         onChange={(pr) => {
@@ -594,7 +595,7 @@ export default function SetStudent({ data }) {
                     <div className={cls.SetStudent__list__top}>
                         <p className={cls.SetStudent__list__top__text}>科目</p>
                         <p className={cls.SetStudent__list__top__text}>状態</p>
-                        <p className={cls.SetStudent__list__top__text}>科目</p>
+                        <p className={cls.SetStudent__list__top__text}>大学名 </p>
                         <p className={cls.SetStudent__list__top__text}>単位</p>
                     </div>
                     {
@@ -609,7 +610,7 @@ export default function SetStudent({ data }) {
                                 }} >
                                     <p className={cls.SetStudent__list__bottom__text}>{el?.lessonName}</p>
                                     <p className={cls.SetStudent__list__bottom__text}>
-                                        {el?.status == "Incompleted" ? "未完成" : "完成した"}</p>
+                                        {el?.status == "Incompleted" ? "未完了" : "完了済"}</p>
                                     <p className={cls.SetStudent__list__bottom__text}>{el?.university}</p>
                                     <p className={cls.SetStudent__list__bottom__text}>{el?.credit}</p>
                                 </div>
