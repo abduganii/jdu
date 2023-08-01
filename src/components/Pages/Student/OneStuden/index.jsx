@@ -127,14 +127,14 @@ export default function OneStudent({ user, role }) {
                     <div className={cls.OneStudent__Percentage__wrap}>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>出席者</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>出席率</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.Attendee}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.Attendee} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>それコース</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>ITコース</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.ItCourse}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.ItCourse} max="100"></progress>
@@ -155,14 +155,14 @@ export default function OneStudent({ user, role }) {
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>ウズ。 SWL大学</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>世界言語大学</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.UzSWLUniversity}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.UzSWLUniversity} max="100"></progress>
                         </div>
                         <div className={cls.OneStudent__Percentage__div}>
                             <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>共同作業</h3>
+                                <h3 className={cls.OneStudent__Percentage__title}>コワーキング</h3>
                                 <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.CoWork}%</p>
                             </div>
                             <progress value={user?.universityPercentage?.CoWork} max="100"></progress>

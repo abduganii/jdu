@@ -19,22 +19,22 @@ export const filterRate = [
 export const YearsRate = [
   {
     id: 0,
-    text: "年生",
+    text: "1年生",
     link: "1",
   },
   {
     id: 1,
-    text: "年生",
+    text: "2年生",
     link: "2",
   },
   {
     id: 3,
-    text: "年生",
+    text: "3年生",
     link: "3",
   },
   {
     id: 4,
-    text: "年生",
+    text: "4年生",
     link: "4",
   },
 ];

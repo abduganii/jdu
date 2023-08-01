@@ -15,7 +15,7 @@ export default function DecanRecruitor() {
     async ({ pageParam = 1 }) => await RecruitorGet({
       limit: 15,
       page: pageParam,
-      company: params.get('categoryId') || '',
+      company: params.get('companyName') || '',
       search: params.get('search') || '',
       // lang: 'en'
     }) || {},
