@@ -10,8 +10,8 @@ export default function HelpPage() {
     const [id, setId] = useState(Question[0].id)
     return (
         <Container className={cls.HelpPage__container}>
-            <h3 className={cls.HelpPage__title}>このサイトについて</h3>
-            <p className={cls.HelpPage__text}>才能のある学生を特定するのに役立ち、学生の出席状況を監視することができます。 学生に関するすべての情報を 1 か所に収集し、1 か所で確認できるようにします。 学生の教育ローンを表示および管理するのに便利です。 学生にとって、お知らせやニュースを 1 か所から配信できるのは便利です。</p>
+            <h3 className={cls.HelpPage__title}>システムについて</h3>
+            <p className={cls.HelpPage__text}>このシステムは、才能のある学生を特定し、学生の出席状況を監視するのに役立ちます。また、学生に関するすべての情報を1か所に収集し、1か所で確認できるようになります。さらに、学生の教育ローンを表示および管理するのに便利です。学生にとっては、お知らせやニュースを1か所から配信できるのは便利な点です。</p>
 
             <h2 className={cls.HelpPage__faq}>FAQ</h2>
             <div>

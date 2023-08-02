@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 import cls from "./LessonTable.module.scss"
 
-export default function LessonTable({ children, lassons = [], lessonId, setLessonId, semestorId, setsemestorId, onClick, ...other }) {
+export default function LessonTable({ children, lassons = [], lessonId, setLessonId, semestorId,allcridet, setsemestorId, onClick, ...other }) {
 
 
     const arr = lassons?.find(e => e.id == lessonId)
@@ -24,7 +24,7 @@ export default function LessonTable({ children, lassons = [], lessonId, setLesso
             <div className={cls.LessonTable__table} >
                 <div className={cls.LessonTable__table__semester}>
                     <div className={cls.LessonTable__table__semester__div} >
-                        <p className={cls.LessonTable__table__text}>学期:</p>
+                        <p className={cls.LessonTable__table__text}>セメスター:</p>
                         {arr?.semesters?.map(e => (
                             <button
                                 key={e}
@@ -36,7 +36,7 @@ export default function LessonTable({ children, lassons = [], lessonId, setLesso
                     </div>
                     <div className={cls.LessonTable__table__semester__div} >
                         <p className={cls.LessonTable__table__text}>全体:</p>
-                        <p className={cls.LessonTable__table__all}>229</p>
+                        <p className={cls.LessonTable__table__all}>{ allcridet}</p>
                     </div>
                 </div>
                 {children}

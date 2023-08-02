@@ -404,7 +404,7 @@ export default function SetStudent({ data }) {
                         onChange={(pr) => SetReading(pr)}
                     />
                     <RangeInput
-                        lessonType={"筆記"}
+                        lessonType={"文字・語彙"}
                         defaultRange={writing}
                         onChange={(pr) => SetWriting(pr)}
                     />
@@ -433,7 +433,7 @@ export default function SetStudent({ data }) {
                         onChange={(pr) => SetReading1(pr)}
                     />
                     <RangeInput
-                        lessonType={"筆記"}
+                        lessonType={"文字・語彙"}
                         defaultRange={writing1}
                         onChange={(pr) => SetWriting1(pr)}
                     />
@@ -450,11 +450,10 @@ export default function SetStudent({ data }) {
                 </div>
 
 
-                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>IT資格</h3>
+                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}>ITスキル</h3>
 
                 <div className={cls.SetStudent__skill}>
                     <SearchSkill
-                        label={"スキル"}
                         placeholder={"スキル名を書く"}
                         skill={skills}
                         style={{ marginBottom: "24px" }}
@@ -492,8 +491,7 @@ export default function SetStudent({ data }) {
 
                 />
 
-                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> 大学のパーセンテージ</h3>
-                <p className={cls.SetStudent__progress}>科目の進捗状況</p>
+                <h3 className={cls.SetStudent__lesson} style={{ marginTop: "60px" }}> 科目の進捗状況</h3>
                 <div className={cls.SetStudent__skill}>
                     <RangeInput
                         style={{ marginBottom: "29px" }}
