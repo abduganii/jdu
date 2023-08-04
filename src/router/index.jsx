@@ -30,6 +30,7 @@ import toast from 'react-hot-toast'
 import StudentHome from '../app/Student/home'
 import StudentMe from '../app/Student/Me'
 import StuDStudentById from '../app/Student/id'
+import DecanSchema from '../app/Decan/schema'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -80,7 +81,7 @@ export default function AppRouter() {
                 <Route path="/decan/teachers/:id" element={< OnePerson />} />
                 <Route path="/decan/recruitors" element={< DecanRecruitor />} />
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
-                <Route path="/decan/schedule" element={<></>} />
+                <Route path="/decan/schedule" element={<DecanSchema/>} />
                 <Route path="/decan/courses" element={<></>} />
                 <Route path="/recruitor/home" element={<RecHome data={topStudent} role={user?.role} count={count} />} />
                 <Route path="/recruitor/students" element={<RecStudent data={topStudent} role={user?.role} count={count} />} />

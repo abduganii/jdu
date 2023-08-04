@@ -14,9 +14,6 @@ import BlueButtun from '../../../UL/buttun/blueBtn'
 import NoGaler from '../../../UL/NoGallery'
 
 
-
-
-
 export default function OneStudent({ user, role }) {
     const router = useNavigate()
 
@@ -36,7 +33,6 @@ export default function OneStudent({ user, role }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
-    console.log("hello", user)
 
     return (
         <div className={cls.OneStudent}>

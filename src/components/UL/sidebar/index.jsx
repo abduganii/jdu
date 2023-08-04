@@ -39,7 +39,7 @@ export default function SideBar({ user }) {
                 {navLinks?.map(e => {
 
                     if (links?.includes(e.label)) {
-                        if (e.label == "先生" || e.label == 'スケジュール') {
+                        if (e.label == "先生") {
                             return (
                                 <p key={e?.id} className={cls.SideBarBtn__opsite}>
                                     {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
