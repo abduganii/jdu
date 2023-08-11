@@ -193,7 +193,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         await Recruitordelete(oneStuednt?.id)
                             .then(data => {
                                 if (data) {
-                                    toast("Recruitor deleted")
+                                    toast("リクレーターが削除されました")
                                     setLoading(false)
                                 }
                                 setPersonId(false)

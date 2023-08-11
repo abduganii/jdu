@@ -13,7 +13,7 @@ export default function Header({ user }) {
 
     return (
         <header className={cls.Header}>
-            <h3 className={cls.Header__logo} onClick={() => router(`/${user?.role}/home`)}>デカンパーネル</h3>
+            <h3 className={cls.Header__logo} onClick={() => router(`/${user?.role}/home`)}>JDUポートフォリオシステム</h3>
             <div className={cls.Header__left}>
                 <input
                     className={cls.Header__search}

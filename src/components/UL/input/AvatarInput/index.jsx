@@ -28,7 +28,7 @@ export default function AvatarInput({ onChange, url, ...other }) {
 
                 </div>
             </label>
-            <p className={cls.AvatarInput__text}>画像のサイズは3x4で、524kb以内。.</p>
+            <p className={cls.AvatarInput__text}>画像のサイズは3x4で、524kb以内</p>
         </div>
     )
 }

@@ -131,7 +131,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         await Studentsdelete(oneStuednt?.id)
                             .then(data => {
                                 if (data) {
-                                    toast("Student deleted")
+                                    toast("学生が削除されました")
                                     setLoading(false)
                                 }
                                 setPersonId(false)

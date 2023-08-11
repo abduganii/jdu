@@ -58,79 +58,88 @@ export default function SettingsPage({ data }) {
         if (body.password) formData.append("password", body?.password)
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
         if (body.confirmPassword) formData.append("confirmPassword", body?.confirmPassword)
-
-        if (data?.role == 'decan') {
-            await DecanUpdate(formData)
-                .then((data) => {
-                    router('/decan/home')
-                    setLoager(false)
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('current')) {
-                        setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
-                    }
-                    if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "loginId must be unique") {
-                        setError('loginId', { type: 'custom', message: "ログイン ID は一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    if (err.response.data.message.includes('confirm')) {
-                        setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
-                    }
-                    setLoager(false)
-                })
+        
+        if ((!body.password.length && !body.currentPassword.length && !body.confirmPassword.length) || (body.password.length && body.currentPassword.length &&body.confirmPassword.length)) {
+            if (data?.role == 'decan') {
+                await DecanUpdate(formData)
+                    .then((data) => {
+                        router('/decan/home')
+                        setLoager(false)
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('current')) {
+                            setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
+                        }
+                        if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "loginId must be unique") {
+                            setError('loginId', { type: 'custom', message: "ログイン ID は一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes('confirm')) {
+                            setError('confirmPassword', { type: 'custom', message: "パスワードをもう一度確認してください" })
+                        }
+                        setLoager(false)
+                    })
+            }
+            if (data?.role == 'recruitor') {
+                await RecruitorUpdate(formData, data?.id)
+                    .then((data) => {
+                        router('/recruitor/home')
+                        setLoager(false)
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('current')) {
+                            setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
+                        }
+                        if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes('confirm')) {
+                            setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
+                        }
+                        setLoager(false)
+                    })
+    
+            }
+            if (data?.role == 'student') {
+                await StudentsUpdate(formData, data?.id)
+                    .then((data) => {
+                        router('/student/home')
+                        setLoager(false)
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('current')) {
+                            setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
+                        }
+                        if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes('confirm')) {
+                            setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
+                        }
+                        setLoager(false)
+                    })
+    
+            }
+        } else {
+            setLoager(false)
+            if(!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+            if(!body.password.length) setError('password', { type: 'custom', message: "パスワードを入力してください" })
+            if (!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+            
+            
         }
-        if (data?.role == 'recruitor') {
-            await RecruitorUpdate(formData, data?.id)
-                .then((data) => {
-                    router('/recruitor/home')
-                    setLoager(false)
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('current')) {
-                        setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
-                    }
-                    if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    if (err.response.data.message.includes('confirm')) {
-                        setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
-                    }
-                    setLoager(false)
-                })
-
-        }
-        if (data?.role == 'student') {
-            await StudentsUpdate(formData, data?.id)
-                .then((data) => {
-                    router('/student/home')
-                    setLoager(false)
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('current')) {
-                        setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
-                    }
-                    if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    if (err.response.data.message.includes('confirm')) {
-                        setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
-                    }
-                    setLoager(false)
-                })
-
-        }
-    }
+    } 
 
     const hendleimg = (e) => {
         if (e.target.files[0]) {
@@ -286,8 +295,6 @@ export default function SettingsPage({ data }) {
                                 onChange={() => clearErrors("specialisation")}
                             />}
 
-
-
                         </div>
                     </div>
 
@@ -352,7 +359,7 @@ export default function SettingsPage({ data }) {
                 </Container>
             </form>
             {
-                loader ? <Loader onClick={() => setLoading(false)} /> : ""
+                loader ? <Loader onClick={() => setLoager(false)} /> : ""
             }
         </>
     )

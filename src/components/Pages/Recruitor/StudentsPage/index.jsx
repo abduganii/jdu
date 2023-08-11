@@ -14,7 +14,7 @@ export default function StudentsPage({ data, selected, student, count }) {
                     <li className={cls.StudentsPage__top__item}>学生</li>
                     <li className={cls.StudentsPage__top__item}>スキル</li>
                     <li className={cls.StudentsPage__top__item}>レート</li>
-                    <li className={cls.StudentsPage__top__item}></li>
+                    <li className={cls.StudentsPage__top__item}>アクション</li>
                 </ul>
                 <ul>
                     {data && data?.map(e => {
