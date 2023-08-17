@@ -274,7 +274,7 @@ export default function SettingsPage({ data }) {
                             />
                             {data?.role == "decan" && <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
-
+                                disabled={true}
                                 label={"ログインID"}
                                 placeholder={"ログインID"}
                                 type={"text"}

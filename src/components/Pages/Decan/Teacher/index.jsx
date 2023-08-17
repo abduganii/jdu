@@ -221,7 +221,6 @@ export default function TeacherPage({ data, onChange }) {
                             label={"Phone number"}
                             placeholder={"Phone number"}
                             value={watchedFiles?.phoneNumber || ''}
-
                         />
                         <AddInput
                             register={{ ...register('email', { required: true }) }}
@@ -229,7 +228,6 @@ export default function TeacherPage({ data, onChange }) {
                             label={"E-mail"}
                             placeholder={"E-mail"}
                             value={watchedFiles?.email || ''}
-
                         />
                         <AddInput
                             register={{ ...register('loginId', { required: true }) }}
