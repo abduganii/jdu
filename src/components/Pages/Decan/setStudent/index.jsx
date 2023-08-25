@@ -20,6 +20,9 @@ import { FileUploadStudent, GetSkills, StudentsUpdate } from '../../../../servic
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 import Loader from '../../../UL/loader'
+import CreditInput from '../../../UL/input/creditinput'
+import { GetCridents } from '../../../../services/statistic'
+import SertificanSkill from '../../../UL/input/sertifican/index.jsx'
 
 export default function SetStudent({ data }) {
     const x = useRef()
@@ -34,6 +37,7 @@ export default function SetStudent({ data }) {
     const [lassonsArr, setLessonArr] = useState([])
     const [skills, setSkills] = useState([])
     const [newSkill, setNewArr] = useState([])
+    const [credit, setCredit] = useState([])
 
     const [file, setFile] = useState()
     const [file1, setFile1] = useState()
@@ -45,6 +49,8 @@ export default function SetStudent({ data }) {
     const [listening1, SetListing1] = useState()
     const [reading1, SetReading1] = useState()
     const [writing1, SetWriting1] = useState()
+    const [N0, SetN0] = useState()
+    const [Q0, SetQ0] = useState()
 
     const [Attendee, setAttendee] = useState()
     const [ItCourse, setItCourse] = useState()
@@ -63,7 +69,16 @@ export default function SetStudent({ data }) {
     const watchedFiles3 = watch3()
     const watchedFiles2 = watch2()
 
-
+    useEffect(() => { 
+        const fetchData = async () => {
+            const res = await GetCridents();
+            setCredit(res)
+          }
+          fetchData()
+            .then((err) => {
+              console.log(err);
+            })
+    }, [])
     useEffect(() => {
         if (!lessonId) {
             setLessonId(data.lessons?.[0]?.id)
@@ -74,6 +89,7 @@ export default function SetStudent({ data }) {
     useEffect(() => {
         const arr = data.lessons?.find(e => e.id == lessonId)
         setLessonArr(arr?.semesters)
+       
         setsemestorId(arr?.semesters?.[0]?.id)
     }, [lessonId])
 
@@ -95,11 +111,14 @@ export default function SetStudent({ data }) {
         SetReading(data?.japanLanguageTests?.[0]?.reading)
         SetWriting(data?.japanLanguageTests?.[0]?.writing)
         SetJaponId(data?.japanLanguageTests?.[0]?.id)
+        SetN0(data?.japanLanguageTests?.[0]?.level)
         setFile1(data?.japanLanguageTests?.[1]?.sertificate)
         SetListing1(data?.japanLanguageTests?.[1]?.listening)
         SetReading1(data?.japanLanguageTests?.[1]?.reading)
         SetWriting1(data?.japanLanguageTests?.[1]?.writing)
         SetJaponId1(data?.japanLanguageTests?.[1]?.id)
+        SetQ0(data?.japanLanguageTests?.[1]?.level)
+        
         setAttendee(data?.universityPercentage?.Attendee)
         setItCourse(data?.universityPercentage?.ItCourse)
         setJPlanguage(data?.universityPercentage?.JapanLanguage)
@@ -138,12 +157,16 @@ export default function SetStudent({ data }) {
             {
                 id: japonId,
                 listening: listening,
+                level: Q0 || 0,
+                name:"NAT",
                 reading: reading,
                 writing: writing,
                 sertificate: file
             },
             {
                 id: japonId1,
+                level: N0 || 0,
+                name:"JLPT",
                 listening: listening1,
                 reading: reading1,
                 writing: writing1,
@@ -216,6 +239,7 @@ export default function SetStudent({ data }) {
             })
             .catch(err => setLoading(false))
     }
+    
     const UpdateLessonFunc = async (body) => {
         setLoading(true)
 
@@ -275,6 +299,8 @@ export default function SetStudent({ data }) {
         setAllMarks(Math.round((Number(Attendee) + Number(CoWork) + Number(ItCourse) + Number(JPlanguage) + Number(Sanno) + Number(SWL)) / 6))
 
     }
+
+    console.log(data)
 
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
@@ -354,6 +380,7 @@ export default function SetStudent({ data }) {
                             label={"ID"}
                             placeholder={"LoginID"}
                             register={{ ...register2('loginId') }}
+                            disabled={true}
                             value={watchedFiles2?.loginId || ''}
                         />
 
@@ -390,8 +417,14 @@ export default function SetStudent({ data }) {
                     </div>
                 </div>
                 <h3 className={cls.SetStudent__lesson}>日本語能力試験</h3>
-
+                <div className={cls.SetStudent__lesson__sert}>
                 <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[0]?.name}</p>
+                    <SertificanSkill
+                        placeholder={N0? N0: "0"}
+                        onChange={e=>SetN0(e)}
+                        arr={['N1',"N2","N3","N4"]}
+                    />
+                </div>
                 <div className={cls.SetStudent__lesson__wrap}>
                     <RangeInput
                         lessonType={"聴解"}
@@ -420,7 +453,16 @@ export default function SetStudent({ data }) {
                         </label>
                     </div>
                 </div>
+             
+
+                <div className={cls.SetStudent__lesson__sert}>
                 <p className={cls.SetStudent__lesson__number}>{data?.japanLanguageTests?.[1]?.name}</p>
+                    <SertificanSkill
+                        placeholder={Q0?Q0 : "0"}
+                        onChange={e=>SetQ0(e)}
+                        arr={['Q1',"Q2","Q3","Q4"]}
+                    />
+                </div>
                 <div className={cls.SetStudent__lesson__wrap}>
                     <RangeInput
                         lessonType={"聴解"}
@@ -564,10 +606,9 @@ export default function SetStudent({ data }) {
             </form>
             <LessonTable lassons={data?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
                 <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit(AddLessonFunc)} >
-                    <input
-                        className={cls.SetStudent__lesson__input}
-                        type="text" placeholder='レッスン名'
-                        {...register('lessonName', { required: true })}
+                    <CreditInput
+                        arr={credit}
+                        onChange={(e) => setValue('creditId', e)}
                     />
                     <Select
                         className={"seclectLesson"}
@@ -575,17 +616,7 @@ export default function SetStudent({ data }) {
                         options={[{ value: "Incompleted", label: "未完成" }, { value: "Completed", label: "完成した" }]}
                         onChange={(e) => setValue('status', e)}
                     />
-                    <input
-                        className={cls.SetStudent__lesson__input}
-                        type="text" placeholder='大学名'
-                        {...register('university', { required: true })}
-                    />
-                    <input
-                        className={cls.SetStudent__lesson__inputNumber}
-                        type="number" placeholder='0'
-                        defaultValue={0}
-                        {...register('credit')}
-                    />
+
                     <button className={cls.SetStudent__lesson__btn}>
                         追加</button>
                 </form>
@@ -606,13 +637,13 @@ export default function SetStudent({ data }) {
                                     setValue3("credit", el?.credit)
                                     setValue3("status", el?.status)
                                 }} >
-                                    <p className={cls.SetStudent__list__bottom__text}>{el?.lessonName}</p>
+                                    <p className={cls.SetStudent__list__bottom__text}>{el?.credits?.lessonName}</p>
                                     <p className={cls.SetStudent__list__bottom__text}>
                                         {el?.status == "Incompleted" ? "未完了" : "完了済"}</p>
-                                    <p className={cls.SetStudent__list__bottom__text}>{el?.university}</p>
-                                    <p className={cls.SetStudent__list__bottom__text}>{el?.credit}</p>
+                                    <p className={cls.SetStudent__list__bottom__text}>{el?.credits?.university}</p>
+                                    <p className={cls.SetStudent__list__bottom__text}>{el?.credits?.credit}</p>
                                 </div>
-                                {
+                                {/* {
                                     el?.id == LessonAddId ?
                                         <form className={cls.SetStudent__lesson__add} onSubmit={handleSubmit3(UpdateLessonFunc)} >
                                             <input
@@ -643,7 +674,7 @@ export default function SetStudent({ data }) {
                                             <button className={cls.SetStudent__lesson__btn}>
                                                 保存</button>
                                         </form> : ""
-                                }
+                                } */}
 
                             </div>
                         ))

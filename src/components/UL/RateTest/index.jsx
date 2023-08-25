@@ -3,7 +3,7 @@ import { DownloadIcons } from '../icons'
 import cls from "./rateTest.module.scss"
 
 import { saveAs } from "file-saver";
-export default function RateTest({ Listening, Reading, writing, title, text, file }) {
+export default function RateTest({ Listening, Reading, writing, title,level, text, file }) {
 
 
     const setColor = (e) => {
@@ -28,7 +28,7 @@ export default function RateTest({ Listening, Reading, writing, title, text, fil
     return (
         <div className={cls.RateTest}>
             <div className={cls.RateTest__top}>
-                <p className={cls.RateTest__title}>{title}</p>
+                <p className={cls.RateTest__title}>{title} { level}</p>
                 <div className={cls.RateTest__top__line}></div>
                 <p className={cls.RateTest__title}>{text}</p>
             </div>

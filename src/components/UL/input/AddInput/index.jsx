@@ -13,6 +13,7 @@ export default function AddInput({
     geterat,
     type,
     alert,
+    disabled,
     ...other
 }) {
     const [focus, setFocus] = useState(false)
@@ -44,7 +45,8 @@ export default function AddInput({
                         {...register}
                         className={`${cls.AddInput__input} ${alert && cls.AddInput__border}`}
                         type={type}
-                        placeholder={placeholder}
+                                placeholder={placeholder}
+                                disabled={disabled}
                         onChange={(e) => {
                             onChange(e)
                             if (geterat) {

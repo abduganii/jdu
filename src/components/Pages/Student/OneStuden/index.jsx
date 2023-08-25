@@ -78,6 +78,7 @@ export default function OneStudent({ user, role }) {
                                 return (
                                     < RateTest
                                         title={e?.name}
+                                        level={e?.level}
                                         Listening={e?.listening}
                                         writing={e?.reading}
                                         Reading={e?.writing}

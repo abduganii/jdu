@@ -1,10 +1,36 @@
+import { useEffect, useState } from 'react'
+import { GetCertificates } from '../../../../services/statistic'
+import { TeacherGet } from '../../../../services/teacher'
 import Container from '../../../UL/container'
 import TopStudents from '../../../UL/topStudents'
 
 
 import cls from "./homePage.module.scss"
 
-export default function HomePage({ data, role, count }) {
+export default function HomePage() {
+    const [data, setData] = useState([])
+    const [data2, setData2] = useState(0)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await GetCertificates();
+            setData(res)
+          }
+          fetchData()
+            .then((err) => {
+              console.log(err);
+            })
+            const fetchData2 = async () => {
+                const res = await TeacherGet();
+                setData2(res?.count)
+              }
+              fetchData2()
+                .then((err) => {
+                  console.log(err);
+                })
+        
+    }, [])
+    console.log(data)
     return (
         <>
             <div className={cls.HomePage} >
@@ -25,12 +51,12 @@ export default function HomePage({ data, role, count }) {
                 
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 78%</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data?.students}</h2>
+                        <p className={cls.HomePage__card__card__text}>Attendence: 100%</p>
                         <p className={cls.HomePage__card__card_role}>Students</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>12639</h2>
+                        <h2 className={cls.HomePage__card__card__title}>{ data2}</h2>
                         <p className={cls.HomePage__card__card__text}>Attendence: 78%</p>
                         <p className={cls.HomePage__card__card_role}>Teacher</p>
                     </div>
@@ -53,31 +79,31 @@ export default function HomePage({ data, role, count }) {
                         <div className={cls.HomePage__test__wrap}>
                             <div>
                                 <div className={cls.HomePage__test}>
-                                109
+                                {data?.JLPT?.N1}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N1</p>
                             </div>
                             <div>
                                 <div className={cls.HomePage__test}>
-                                109
+                                {data?.JLPT?.N2}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N2</p>
                             </div>
                             <div>
                                 <div className={cls.HomePage__test}>
-                                109
+                                {data?.JLPT?.N3}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N3</p>
                             </div>
                             <div>
                                 <div className={cls.HomePage__test}>
-                                109
+                                {data?.JLPT?.N4}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N4</p>
                             </div>
                             <div>
                                 <div className={cls.HomePage__test}>
-                                109
+                                {data?.JLPT?.N5}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N5</p>
                             </div>
@@ -89,34 +115,29 @@ export default function HomePage({ data, role, count }) {
                          <div className={cls.HomePage__test__wrap}>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}` }>
-                                109
+                                {data?.NAT?.Q1}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>N1</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}` }>
-                                109
+                                {data?.NAT?.Q2}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>N2</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}` }>
-                                109
+                                {data?.NAT?.Q3}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>N3</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}` }>
-                                109
+                                {data?.NAT?.Q4}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>N4</p>
                             </div>
-                            <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}` }>
-                                109
-                                </div>
-                                <p className={cls.HomePage__test2_test}>N5</p>
-                            </div>
+                           
                        </div>
                     </div>
                 </div>
