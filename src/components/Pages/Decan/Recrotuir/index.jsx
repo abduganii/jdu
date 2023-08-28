@@ -307,7 +307,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}
-
+                        disabled={query == "true" ? true: false}
                         />
                         {/* <AddInput
                             register={{ ...register('bio', { required: true }) }}
