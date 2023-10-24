@@ -1,6 +1,6 @@
 
 import Container from '../../UL/container'
-import { MinusIcons, PlussIcons } from '../../UL/icons'
+import { AdressIcons, ClockIcons, EmailIcons, MinusIcons, PlussIcons, TelIcons } from '../../UL/icons'
 import { useState } from 'react'
 
 import { Condition, Question } from "./data"
@@ -30,20 +30,36 @@ export default function HelpPage() {
                     </div>
                 ))}
             </div>
-            {/* <h3 className={cls.HelpPage__condition}>私たちが使用するテクノロジーとツール。</h3>
-            <div className={cls.HelpPage__condition__wrap}>
-                {
-                    Condition?.map(e => (
-                        <div className={cls.HelpPage__condition__div}>
-                            <div className={cls.HelpPage__condition__left}>
-                                {e?.icon}
-                                <p className={cls.HelpPage__condition__title}>{e.title}</p>
-                            </div>
-                            <p className={cls.HelpPage__condition__text}>{e?.text}</p>
-                        </div>
-                    ))
-                }
-            </div> */}
+
+            <div className={cls.HelpPage__contact}>
+                <div className={cls.HelpPage__contact__div}>
+                    <div className={cls.HelpPage__contact__icon}>
+                        <EmailIcons />
+                    </div>
+                    <p className={cls.HelpPage__contact__text}>test@jdu.uz</p>
+                </div>
+                <div className={cls.HelpPage__contact__div}>
+                    <div className={cls.HelpPage__contact__icon}>
+                        <TelIcons />
+                    </div>
+                    <p className={cls.HelpPage__contact__text}>+998 90 123 45 67</p>
+                </div>
+                <div className={cls.HelpPage__contact__div}>
+                    <div className={cls.HelpPage__contact__icon}>
+                        <ClockIcons />
+                    </div>
+                    <p className={cls.HelpPage__contact__text}>09:00 ⁓ 18:00</p>
+                </div>
+                <div className={cls.HelpPage__contact__div}>
+                    <div className={cls.HelpPage__contact__icon}>
+                        <AdressIcons />
+                    </div>
+                    <p className={cls.HelpPage__contact__text}>Tashkent, Shayhontohur district, Sebzor, 21</p>
+                </div>
+            </div>
+
+
+
         </Container>
     )
 }

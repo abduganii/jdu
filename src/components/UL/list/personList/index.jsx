@@ -78,7 +78,7 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
 
                 </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
                 {email && <a href={`mailto:${email}`} className={cls.PersonList__email} ref={em}>{email}</a>}
-                <DoteBtn ref={y} style={{ marginLeft: "40px" }} onClick={() => setIseId(true)} />
+                <DoteBtn ref={y} style={{ marginLeft: "80px" }} onClick={() => setIseId(true)} />
                 <hr className={cls.PersonList__line} />
             </div>
             <div

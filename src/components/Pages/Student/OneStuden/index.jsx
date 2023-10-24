@@ -38,7 +38,7 @@ export default function OneStudent({ user, role }) {
         <div className={cls.OneStudent}>
 
             <Container className={cls.OneStudent__container} >
-                {role != 'student' ? <BackBtn onClick={(e) => router(-1)} role={true} UserId={user?.id} style={{ marginBottom: "40px" }} />:"" }
+                {role != 'student' ? <BackBtn onClick={(e) => router(-1)} role={true} UserId={user?.id} style={{ marginBottom: "40px" }} /> : ""}
                 <Person
                     id={user?.loginId}
                     name={`${user?.firstName} ${user?.lastName}`}
@@ -200,18 +200,20 @@ export default function OneStudent({ user, role }) {
             {
                 role && role === "decan" ?
                     <BlueButtun
+                        light={true}
                         className={cls.OneStudent__btn}
                         onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
                         style={{ padding: "14px 30px" }}
                     >
                         プロファイル編集
                     </BlueButtun> : role === "student" ?
-                     <BlueButtun
-                     className={cls.OneStudent__btn}
-                     onClick={() => router(`/settings`)}
-                     style={{ padding: "14px 30px" }}
-                 >
-                     プロファイル編集
+                        <BlueButtun
+                            light={true}
+                            className={cls.OneStudent__btn}
+                            onClick={() => router(`/settings`)}
+                            style={{ padding: "14px 30px" }}
+                        >
+                            プロファイル編集
                         </BlueButtun>
                         : ""
             }

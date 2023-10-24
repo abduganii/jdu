@@ -45,10 +45,12 @@ export default function AddInput({
                         {...register}
                         className={`${cls.AddInput__input} ${alert && cls.AddInput__border}`}
                         type={type}
-                                placeholder={placeholder}
-                                disabled={disabled}
+                        placeholder={placeholder}
+                        disabled={disabled}
                         onChange={(e) => {
                             onChange(e)
+                            setLoginValue(generateLoginId())
+
                             if (geterat) {
                                 setFocus(false)
                             }

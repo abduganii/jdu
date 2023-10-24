@@ -11,10 +11,22 @@ import {
 
 export const navLinks = [
   {
-    id: 0,
+    id: 11,
     link: "/home",
     label: "ホーム",
     icon: (e) => HomeIcon({ fill: e }),
+  },
+  {
+    id: 7,
+    link: "/groups",
+    label: "Groups",
+    icon: (e) => StudentsIcon({ fill: e }),
+  },
+  {
+    id: 76,
+    link: "/employees",
+    label: "Employees",
+    icon: (e) => PersonIcon({ fill: e }),
   },
   {
     id: 1,
@@ -23,22 +35,16 @@ export const navLinks = [
     icon: (e) => StudentsIcon({ fill: e }),
   },
   {
-    id: 2,
-    link: "/teachers",
-    label: "先生",
-    icon: (e) => PersonIcon({ fill: e }),
-  },
-  {
     id: 3,
     link: "/recruitors",
     label: "リクルーター",
     icon: (e) => PersonIcon({ fill: e }),
   },
   {
-    id: 4,
-    link: "/schedule",
-    label: "スケジュール",
-    icon: (e) => ScheduleIcon({ fill: e }),
+    id: 2,
+    link: "/parents",
+    label: "Parents",
+    icon: (e) => PersonIcon({ fill: e }),
   },
   {
     id: 5,
@@ -53,12 +59,7 @@ export const navLinks = [
     label: "お気に入り",
     icon: (e) => SelectedIcon({ fill: e }),
   },
-  {
-    id: 7,
-    link: "/groups",
-    label: "Groups",
-    icon: (e) => StudentsIcon({ fill: e }),
-  },
+
   {
     id: 9,
     link: "/me",
@@ -70,12 +71,6 @@ export const navLinks = [
     link: "/myChild",
     label: "My Child",
     icon: (e) => PersonIcon({ fill: e }),
-  },
-  {
-    id: 8,
-    link: "/news",
-    label: "ニュース",
-    icon: (e) => NewsIcon({ fill: e }),
   },
 ];
 
@@ -98,9 +93,10 @@ export const recruitorLink = ["ホーム", "学生", "お気に入り"];
 
 export const decanLink = [
   "ホーム",
-  "学生",
-  "先生",
+  "Groups",
+  "Employees",
   "スケジュール",
   "リクルーター",
+  "Parents",
 ];
 export const studentLink = ["ホーム", "スケジュール", "私については"];

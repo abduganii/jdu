@@ -18,6 +18,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { TeacherAdd } from '../../../../services/teacher'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
+import ExalInput from '../../../UL/input/exal'
 
 
 export default function TeacherPage({ data, onChange }) {
@@ -30,6 +31,7 @@ export default function TeacherPage({ data, onChange }) {
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
 
+    const [exal, setexal] = useState()
 
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
@@ -59,55 +61,62 @@ export default function TeacherPage({ data, onChange }) {
     //         })
     // }
 
+    // const AddStudentFunc = async (data) => {
+    //     setLoading(true)
+    //     const formData = new FormData()
+    //     if (data.avatar) formData.append("avatar", data.avatar)
+    //     formData.append("firstName", data?.firstName)
+    //     formData.append("lastName", data?.lastName)
+    //     formData.append("fatherName", data?.fatherName)
+    //     formData.append("specialisation", data?.specialisation)
+    //     formData.append("university", data?.university)
+    //     formData.append("phoneNumber", data?.phoneNumber)
+    //     formData.append("email", data?.email)
+    //     formData.append("loginId", data?.loginId)
+    //     if (data?.password) formData.append("password", data?.password)
+    //     formData.append("bio", data?.bio)
+
+    //     if (query == "true") {
+    //         await RecruitorUpdate(formData, personId1)
+    //             .then(res => {
+    //                 if (res?.data?.message) {
+    //                     toast(res?.data?.message)
+    //                 } else if (res.status == 203) {
+    //                     toast('recrutiar updated')
+    //                     setOpenMadal(false)
+    //                     onChange()
+    //                     setAvatar(null)
+    //                 }
+    //             })
+    //             .catch(err => toast(err.response.data.message))
+    //     } else {
+    //         await TeacherAdd(formData)
+    //             .then(res => {
+    //                 if (res?.data?.message) {
+    //                     toast(res?.data?.message)
+    //                 } else if (res.status == 201) {
+    //                     toast('teacher created')
+    //                     setOpenMadal(false)
+    //                     onChange()
+    //                 }
+    //                 setLoading(false)
+
+    //             })
+    //             .catch(err => {
+    //                 toast(err.response.data.message)
+    //                 setLoading(false)
+    //             })
+    //     }
+    // }
+
+
     const AddStudentFunc = async (data) => {
-        setLoading(true)
-        const formData = new FormData()
-        if (data.avatar) formData.append("avatar", data.avatar)
-        formData.append("firstName", data?.firstName)
-        formData.append("lastName", data?.lastName)
-        formData.append("fatherName", data?.fatherName)
-        formData.append("specialisation", data?.specialisation)
-        formData.append("university", data?.university)
-        formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("email", data?.email)
-        formData.append("loginId", data?.loginId)
-        if (data?.password) formData.append("password", data?.password)
-        formData.append("bio", data?.bio)
-
-        if (query == "true") {
-            // await RecruitorUpdate(formData, personId1)
-            //     .then(res => {
-            //         if (res?.data?.message) {
-            //             toast(res?.data?.message)
-            //         } else if (res.status == 203) {
-            //             toast('recrutiar updated')
-            //             setOpenMadal(false)
-            //             onChange()
-            //             setAvatar(null)
-            //         }
-            //     })
-            //     .catch(err => toast(err.response.data.message))
-        } else {
-            await TeacherAdd(formData)
-                .then(res => {
-                    if (res?.data?.message) {
-                        toast(res?.data?.message)
-                    } else if (res.status == 201) {
-                        toast('teacher created')
-                        setOpenMadal(false)
-                        onChange()
-                    }
-                    setLoading(false)
-
-                })
-                .catch(err => {
-                    toast(err.response.data.message)
-                    setLoading(false)
-                })
-        }
+        console.log("update")
     }
 
-
+    const UpdatetudentFunc = async (data) => {
+        console.log("update")
+    }
     const hendleimg = (e) => {
         if (e.target.files[0]) {
             setValue('avatar', e.target.files[0])
@@ -120,15 +129,17 @@ export default function TeacherPage({ data, onChange }) {
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
                 <Filter />
-                <BlueButtun onClick={() => {
+                <BlueButtun light={true} onClick={() => {
                     setOpenMadal(true)
+                    router('?updete=false')
                     reset()
+
                 }}>
                     <PlusIcon />
-                    Add Teacher
+                    Add  Employee
                 </BlueButtun>
             </div>
-            <TopList text={["Teacher", "Teacher ID", "Father Name", "Number", "E-mail", "Actions"]} />
+            <TopList text={["Employee", "Employee ID", "Specialisation", "Phone", "E-mail", "Actions"]} />
             {data &&
                 data?.map(e => (
                     <PersonList
@@ -142,7 +153,7 @@ export default function TeacherPage({ data, onChange }) {
                         email={e?.email}
                         remove={() => setPersonId(e?.id)}
                         update={() => {
-                            // router('?updete=true')
+                            router('?updete=true')
                             setOpenMadal(true)
                             setPersonId(false)
                         }}
@@ -160,7 +171,7 @@ export default function TeacherPage({ data, onChange }) {
                     years={"2years"}
                     remove={() => {
 
-                        toast("Teacher deleted")
+                        toast("employees deleted")
                         setPersonId(false)
 
                     }}
@@ -169,9 +180,10 @@ export default function TeacherPage({ data, onChange }) {
                 />
             }
             {
-                openMadal &&
+                openMadal && query == "true" &&
                 <AddMadal
-                    role={"teacher"}
+                    role={"Update employees"}
+                    style={{ maxWidth: "775px" }}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => setOpenMadal(false)}>
                     <AvatarInput
@@ -195,41 +207,6 @@ export default function TeacherPage({ data, onChange }) {
                             value={watchedFiles?.lastName || ''}
                         />
                         <AddInput
-                            register={{ ...register('fatherName', { required: true }) }}
-                            type={"text"}
-                            label={"Father name"}
-                            placeholder={"Father name"}
-                            value={watchedFiles?.fatherName || ''}
-                        />
-                        <AddInput
-                            register={{ ...register('specialisation', { required: true }) }}
-                            type={"text"}
-                            label={"Specialisation"}
-                            placeholder={"Specialisation"}
-                            value={watchedFiles?.specialisation || ''}
-                        />
-                        <AddInput
-                            register={{ ...register('university', { required: true }) }}
-                            type={"text"}
-                            label={"University"}
-                            placeholder={"University"}
-                            value={watchedFiles?.university || ''}
-                        />
-                        <AddInput
-                            register={{ ...register('phoneNumber', { required: true }) }}
-                            type={"text"}
-                            label={"Phone number"}
-                            placeholder={"Phone number"}
-                            value={watchedFiles?.phoneNumber || ''}
-                        />
-                        <AddInput
-                            register={{ ...register('email', { required: true }) }}
-                            type={"text"}
-                            label={"E-mail"}
-                            placeholder={"E-mail"}
-                            value={watchedFiles?.email || ''}
-                        />
-                        <AddInput
                             register={{ ...register('loginId', { required: true }) }}
                             type={"text"}
                             label={"Id"}
@@ -239,6 +216,36 @@ export default function TeacherPage({ data, onChange }) {
                             loginGenerate={(e) => setValue("loginId", e)}
                         />
                         <AddInput
+                            register={{ ...register('Bolim', { required: true }) }}
+                            type={"text"}
+                            label={"Bo’lim"}
+                            placeholder={"Bo’lim"}
+                            value={watchedFiles?.Bolim || ''}
+                        />
+
+                        <AddInput
+                            register={{ ...register('specialisation', { required: true }) }}
+                            type={"text"}
+                            label={"Specialisation"}
+                            placeholder={"Specialisation"}
+                            value={watchedFiles?.specialisation || ''}
+                        />
+                        <AddInput
+                            register={{ ...register('Lavozimi', { required: true }) }}
+                            type={"text"}
+                            label={"Lavozimi"}
+                            placeholder={"Lavozimir"}
+                            value={watchedFiles?.Lavozimi || ''}
+                        />
+                        <AddInput
+                            register={{ ...register('email', { required: true }) }}
+                            type={"text"}
+                            label={"E-mail"}
+                            placeholder={"E-mail"}
+                            value={watchedFiles?.email || ''}
+                        />
+
+                        <AddInput
                             register={{ ...register('password') }}
                             type={"text"}
                             label={"Password"}
@@ -247,14 +254,47 @@ export default function TeacherPage({ data, onChange }) {
                             geterat={true}
                             passwordGenerate={(e) => setValue("password", e)}
                         />
-                        {/* <AddInput
-                            register={{ ...register('bio', { required: true }) }}
-                            type={"textarea"}
-                            label={"Bio"}
-                            placeholder={"Bio"}
-                            value={watchedFiles?.bio || ''}
-                        /> */}
                     </div>
+                </AddMadal>
+            }
+
+            {
+                openMadal && query == "false" &&
+                <AddMadal
+                    role={"Add employees"}
+                    OnSubmit={handleSubmit(UpdatetudentFunc)}
+                    closeMadal={() => setOpenMadal(false)}>
+
+                    <div className={cls.TeacherPage__checkBox}>
+                        <label>
+                            <input name='role' type={"radio"} />
+                            <p>  Teacher</p>
+                        </label>
+                        <label>
+                            <input name='role' type={"radio"} />
+                            <p>Employee</p>
+                        </label>
+                    </div>
+                    <div className={cls.TeacherPage__addInputs}>
+
+                        <AddInput
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            type={"text"}
+                            label={"ID"}
+                            placeholder={"ID"}
+                            style={{ marginBottom: "20px" }}
+                        />
+
+                        <AddInput
+                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
+                            type={"text"}
+                            label={"メール"}
+                            placeholder={"メール"}
+                            style={{ marginBottom: "20px" }}
+                        />
+                    </div>
+
+                    <ExalInput setResolv={setexal} resolv={exal} />
                 </AddMadal>
             }
             <Toaster />

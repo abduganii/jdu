@@ -56,6 +56,46 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
+        console.log(data)
+
+
+        // await RecruitorAdd(data)
+        //     .then(res => {
+        //         if (res?.data?.message) {
+        //             toast(res?.data?.message)
+
+        //         } else if (res.status == 201) {
+        //             toast('recrutiar created')
+        //             setOpenMadal(false)
+
+        //         }
+
+        //         setLoading(false)
+        //         queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
+
+        //     })
+        //     .catch(err => {
+        //         if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+        //             setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+        //             setLoading(false)
+        //         }
+        //         if (err.response.data.message == "Validation isEmail on email failed") {
+        //             setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+        //             setLoading(false)
+        //         } if (err.response.data.message === "email must be unique") {
+        //             setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+        //         }
+        //         if (err.response.data.message === "Validation len on password failed") {
+        //             setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
+        //         }
+        //         setLoading(false)
+
+        //     })
+
+    }
+
+    const UpdateStudentFunc = async (data) => {
+        setLoading(true)
 
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
@@ -69,71 +109,37 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
         formData.append("bio", data?.bio)
 
-        if (query == "true") {
-            await RecruitorUpdate(formData, personId1)
-                .then(res => {
-                    if (res?.data?.message) {
-                        toast(res?.data?.message)
-                    } else if (res.status == 203) {
-                        toast('recrutiar updated')
-                        setOpenMadal(false)
 
-                        setAvatar(null)
-                    }
+        await RecruitorUpdate(formData, personId1)
+            .then(res => {
+                if (res?.data?.message) {
+                    toast(res?.data?.message)
+                } else if (res.status == 203) {
+                    toast('recrutiar updated')
+                    setOpenMadal(false)
+
+                    setAvatar(null)
+                }
+                setLoading(false)
+                queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
+
+            })
+            .catch(err => {
+                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                    setError('loginId', { type: 'custom', message: err.response.data.message })
                     setLoading(false)
-                    queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
-
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: err.response.data.message })
-                        setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
-                        setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                    }
+                }
+                if (err.response.data.message == "Validation isEmail on email failed") {
+                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
                     setLoading(false)
-                })
-        } else {
-            await RecruitorAdd(formData)
-                .then(res => {
-                    if (res?.data?.message) {
-                        toast(res?.data?.message)
-
-                    } else if (res.status == 201) {
-                        toast('recrutiar created')
-                        setOpenMadal(false)
-
-                    }
-
-                    setLoading(false)
-                    queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
-
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
-                        setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
-                        setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    setLoading(false)
-
-                })
-        }
+                } if (err.response.data.message === "email must be unique") {
+                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                }
+                if (err.response.data.message === "Validation len on password failed") {
+                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                }
+                setLoading(false)
+            })
     }
 
 
@@ -148,10 +154,11 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
                 <Filter page={'recruiter'} />
-                <BlueButtun onClick={() => {
+                <BlueButtun light={true} onClick={() => {
                     setOpenMadal(true)
                     router('?updete=false')
                     reset()
+
                 }
                 }>
                     <PlusIcon />
@@ -213,10 +220,11 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                     close={() => setPersonId(false)}
                 />
             }
-            {openMadal &&
+            {openMadal && query == 'true' &&
                 <AddMadal
                     role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
-                    OnSubmit={handleSubmit(AddStudentFunc)}
+                    OnSubmit={handleSubmit(UpdateStudentFunc)}
+                    style={{ maxWidth: "775px" }}
                     closeMadal={() => {
                         setOpenMadal(false)
                         setAvatar(null)
@@ -307,17 +315,47 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}
-                        disabled={query == "true" ? true: false}
+                            disabled={query == "true" ? true : false}
                         />
-                        {/* <AddInput
-                            register={{ ...register('bio', { required: true }) }}
-                            type={"textarea"}
-                            label={"Bio"}
-                            placeholder={"Bio"}
-                            value={watchedFiles?.bio || ''}
-                        /> */}
+
 
                     </div>
+                </AddMadal>
+            }
+            {openMadal && query == 'false' &&
+                <AddMadal
+                    role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
+                    OnSubmit={handleSubmit(AddStudentFunc)}
+
+                    closeMadal={() => {
+                        setOpenMadal(false)
+                        setAvatar(null)
+                        reset()
+                    }}> <div className={cls.TeacherPage__addInputs}>
+
+                        <AddInput
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            type={"text"}
+                            label={"ID"}
+                            placeholder={"ID"}
+                            geterat={true}
+                            loginGenerate={(e) => setValue("loginId", e)}
+                            alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
+                        />
+
+                        <AddInput
+                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
+                            type={"text"}
+                            label={"メール"}
+                            placeholder={"メール"}
+                            alert={errors.email?.message}
+                            onChange={() => clearErrors("email")}
+                            style={{ marginBottom: "20px" }}
+                        />
+                    </div>
+                    <p className={cls.TeacherPage__inputtext}>By creating a recruitor, you will immediately add this recruitor to the recruitor page.</p>
                 </AddMadal>
             }
             <Toaster />

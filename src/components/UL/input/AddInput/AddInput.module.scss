@@ -1,5 +1,6 @@
 .AddInput {
-    width: calc((100% - 20px) /3);
+    width: 100%;
+    max-width: 220px;
     display: inline-block;
     position: relative;
 

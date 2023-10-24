@@ -58,8 +58,8 @@ export default function SettingsPage({ data }) {
         if (body.password) formData.append("password", body?.password)
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
         if (body.confirmPassword) formData.append("confirmPassword", body?.confirmPassword)
-        
-        if ((!body.password.length && !body.currentPassword.length && !body.confirmPassword.length) || (body.password.length && body.currentPassword.length &&body.confirmPassword.length)) {
+
+        if ((!body.password.length && !body.currentPassword.length && !body.confirmPassword.length) || (body.password.length && body.currentPassword.length && body.confirmPassword.length)) {
             if (data?.role == 'decan') {
                 await DecanUpdate(formData)
                     .then((data) => {
@@ -106,7 +106,7 @@ export default function SettingsPage({ data }) {
                         }
                         setLoager(false)
                     })
-    
+
             }
             if (data?.role == 'student') {
                 await StudentsUpdate(formData, data?.id)
@@ -129,17 +129,17 @@ export default function SettingsPage({ data }) {
                         }
                         setLoager(false)
                     })
-    
+
             }
         } else {
             setLoager(false)
-            if(!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-            if(!body.password.length) setError('password', { type: 'custom', message: "パスワードを入力してください" })
             if (!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-            
-            
+            if (!body.password.length) setError('password', { type: 'custom', message: "パスワードを入力してください" })
+            if (!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+
+
         }
-    } 
+    }
 
     const hendleimg = (e) => {
         if (e.target.files[0]) {
@@ -356,6 +356,48 @@ export default function SettingsPage({ data }) {
 
                         </div>
                     </div>
+
+                    {data?.role == 'decan' &&
+                        <>
+                            <p className={cls.SettingsPage__passsword}>JDU CONTACTS</p>
+                            <div className={cls.SettingsPage__passsword__wrap}>
+
+                                <div className={cls.SettingsPage__passsword__div}>
+                                    <SettingsInput
+                                        style={{ maxWidth: "205px" }}
+                                        label={"email"}
+                                        placeholder={"email"}
+                                        type={"email"}
+                                    />
+                                    <SettingsInput
+                                        style={{ maxWidth: "205px" }}
+                                        label={"Phone number"}
+                                        placeholder={"number"}
+                                        type={"number"}
+                                    />
+                                    <SettingsInput
+                                        style={{ maxWidth: "105px" }}
+                                        label={"start time"}
+                                        placeholder={"email"}
+                                        type={"time"}
+                                    />
+                                    <SettingsInput
+                                        style={{ maxWidth: "105px" }}
+                                        label={"time to finish"}
+                                        placeholder={"email"}
+                                        type={"time"}
+                                    />
+                                </div>
+                                <SettingsInput
+                                    style={{ maxWidth: "442px" }}
+                                    label={"Location"}
+                                    placeholder={"Location"}
+                                    type={"Location"}
+                                />
+                            </div>
+
+                        </>
+                    }
                 </Container>
             </form>
             {

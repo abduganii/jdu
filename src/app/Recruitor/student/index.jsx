@@ -39,7 +39,7 @@ export default function RecStudent({ data:topStudent, role, count }) {
     
     return (
         <>
-            <StudentsPage data={students} student={topStudent} role={role} count={count} />
+            <StudentsPage data={students} student={topStudent} role={role} count={count}ref={ref} />
         </>
     )
 }

@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
-export default function Person({ avatar, name, id, year, email, Professor, rate }) {
+export default function Person({ avatar, role, name, id, year, email, Professor, rate }) {
 
     return (
         <div className={cls.Person}>
             {
-                avatar ? <img
+                role == 'gruop' ? <div className={cls.Person__gruop}>{name}
+                </div> : avatar ? <img
                     src={avatar}
                     width={130}
                     height={130}

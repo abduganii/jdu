@@ -1,9 +1,9 @@
 import cls from "./BlueButtun.module.scss"
 
-export default function BlueButtun({ children, type = "button", className, onClick, OnSubmit, ...other }) {
+export default function BlueButtun({ children, type = "button", light, className, onClick, OnSubmit, ...other }) {
     return (
         <button
-            className={`${cls.BlueButtun}  ${className && className}`} type={type} onClick={onClick} onSubmit={OnSubmit} {...other} >
+            className={`${cls.BlueButtun} ${light && cls.BlueButtun__light} ${className && className}`} type={type} onClick={onClick} onSubmit={OnSubmit} {...other} >
             {children}
         </button >
     )

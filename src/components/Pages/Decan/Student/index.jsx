@@ -19,6 +19,7 @@ import { StudentsAdd, Studentsdelete } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
+import ExalInput from '../../../UL/input/exal'
 
 
 const StudentPage = React.forwardRef(({ data }, ref) => {
@@ -26,23 +27,19 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
     const [params] = useSearchParams()
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
+    const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [avatar, setAvatar] = useState()
 
     const oneStuednt = data.find(e => e.id === personId) || ""
 
-    const { register, handleSubmit, reset, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
-    const watchedFiles = watch()
+    const { register, handleSubmit, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
+
     const AddStudentFunc = async (data) => {
         setLoading(true)
         const formData = new FormData()
-        if (data.avatar) formData.append("avatar", data.avatar)
-        formData.append("firstName", data?.firstName)
-        formData.append("lastName", data?.lastName)
         formData.append("loginId", data?.loginId)
-        formData.append("groupNumber", data?.groupNumber)
-        formData.append("courseNumber", data?.courseNumber)
+
         formData.append("email", data?.email)
 
         await StudentsAdd(formData)
@@ -83,18 +80,13 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
 
     }
 
-    const hendleimg = (e) => {
-        if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
-            setAvatar(URL.createObjectURL(e.target.files[0]))
-        }
-    }
+
 
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
                 <Filter page={"student"} />
-                <BlueButtun onClick={() => setOpenMadal(true)}>
+                <BlueButtun light={true} onClick={() => setOpenMadal(true)}>
                     <PlusIcon />
                     学生を追加
                 </BlueButtun>
@@ -157,30 +149,9 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         setOpenMadal(false)
                         reset()
                     }}>
-                    <AvatarInput
-                        onChange={(e) => hendleimg(e)}
-                        url={avatar || watchedFiles?.avatar}
-                        style={{ marginBottom: '43px' }}
-                    />
-                    <div className={cls.StudentPage__addInputs}>
-                        <AddInput
-                            register={{ ...register('firstName', { required: "名前は必要です！" }) }}
-                            type={"text"}
-                            label={"名前"}
-                            placeholder={"名前"}
-                            alert={errors.firstName?.message}
-                            onChange={() => clearErrors("firstName")}
-                            style={{ marginBottom: "20px" }}
-                        />
-                        <AddInput
-                            register={{ ...register('lastName', { required: "名字は必要です！" }) }}
-                            type={"text"}
-                            label={"名字"}
-                            placeholder={"名字"}
-                            alert={errors.lastName?.message}
-                            onChange={() => clearErrors("lastName")}
-                            style={{ marginBottom: "20px" }}
-                        />
+
+                    <div className={cls.TeacherPage__addInputs}>
+
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
@@ -192,24 +163,6 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
-                            register={{ ...register('groupNumber', { required: "グループ番号は必要です！" }) }}
-                            type={"text"}
-                            label={"グループ番号"}
-                            placeholder={"グループ番号"}
-                            alert={errors.groupNumber?.message}
-                            onChange={() => clearErrors("groupNumber")}
-                            style={{ marginBottom: "20px" }}
-                        />
-                        <AddInput
-                            register={{ ...register('courseNumber', { required: "グループ番号は必要です！" }) }}
-                            type={"number"}
-                            label={"コース番号"}
-                            placeholder={"コース番号"}
-                            alert={errors.courseNumber?.message}
-                            onChange={() => clearErrors("courseNumber")}
-                            style={{ marginBottom: "20px" }}
-                        />
-                        <AddInput
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"text"}
                             label={"メール"}
@@ -219,6 +172,8 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                             style={{ marginBottom: "20px" }}
                         />
                     </div>
+
+                    <ExalInput setResolv={setexal} resolv={exal} />
                 </AddMadal>}
             <Toaster />
 

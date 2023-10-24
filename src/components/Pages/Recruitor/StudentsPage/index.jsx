@@ -1,3 +1,4 @@
+import React from 'react'
 import Container from '../../../UL/container'
 import Filter from '../../../UL/filter'
 import StudentList from '../../../UL/list/studentList'
@@ -5,7 +6,7 @@ import TopStudents from '../../../UL/topStudents'
 
 import cls from "./StudentsPage.module.scss"
 
-export default function StudentsPage({ data, selected, student, count }) {
+const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref)=> {
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -50,9 +51,12 @@ export default function StudentsPage({ data, selected, student, count }) {
                             )
                         }
                     })}
+                     <div ref={ref} style={{ padding: "10px" }}></div>
                 </ul>
             </Container>
             <TopStudents students={student} count={count} />
         </>
     )
-}
+})
+
+export default StudentsPage;

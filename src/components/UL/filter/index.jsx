@@ -39,7 +39,7 @@ export default function Filter({ page }) {
 
     return (
         <div className={cls.Filter}>
-            <button className={cls.Filter__btn} onClick={() => {
+            <button className={`${cls.Filter__btn} ${!cahneSet ? cls.Filter__btn__active : ""}`} onClick={() => {
                 SetInoutVal('')
                 SetInoutVal1('')
                 SetCahnegSet(true)

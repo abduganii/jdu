@@ -5,11 +5,11 @@ import BlueButtun from '../../buttun/blueBtn'
 import React, { useRef } from 'react'
 import cls from "./AddMadal.module.scss"
 
-export default function AddMadal({ role, children, closeMadal, OnSubmit }) {
+export default function AddMadal({ role, children, closeMadal, OnSubmit, ...other }) {
     const x = useRef()
     return (
         <div ref={x} className={cls.AddMadal}>
-            <form className={cls.AddMadal__content} onSubmit={OnSubmit}>
+            <form className={cls.AddMadal__content} {...other} onSubmit={OnSubmit}>
                 <h3 className={cls.AddMadal__top}> {role}</h3>
                 <div className={cls.AddMadal__inputs}>{children}</div>
                 <div className={cls.AddMadal__btm}>

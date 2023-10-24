@@ -1,7 +1,7 @@
 .Filter {
     background: #FFFFFF;
     border: 1px solid rgba(168, 171, 179, 0.3);
-    border-radius: 8px;
+    border-radius: 4px;
     display: flex;
     padding: 6px;
     width: 100%;
@@ -10,7 +10,7 @@
     &__btn {
         padding: 8px 12px;
         background: #EEE9FB;
-        border-radius: 8px;
+        border-radius: 4px;
         display: flex;
         align-items: flex-end;
         gap: 10px;
@@ -22,6 +22,11 @@
         color: #121212;
         margin-right: 10px;
         z-index: 16;
+
+        &__active {
+            background: #5627DC;
+            color: #FFFFFF;
+        }
     }
 
     &__Select {
@@ -72,7 +77,7 @@
                 &:hover {
                     width: 100%;
                     background: rgb(86, 39, 220, 0.1);
-                    border-radius: 9px;
+                    border-radius: 4px;
                     color: #5627DC !important;
                 }
 
@@ -81,7 +86,7 @@
             &__search {
                 width: 100%;
                 max-width: 173px;
-                border-radius: 9px;
+                border-radius: 4px;
                 background: rgb(86, 39, 220, .1);
                 color: #5627DC;
                 font-size: 14px;
@@ -111,7 +116,7 @@
             &__textActive1 {
                 width: 100%;
                 background: rgb(86, 39, 220, 0.1);
-                border-radius: 9px;
+                border-radius: 4px;
                 color: #5627DC !important;
             }
         }

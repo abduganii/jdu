@@ -160,4 +160,39 @@
             max-width: 459px;
         }
     }
+
+    &__contact {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 646px;
+        flex-wrap: wrap;
+        margin-top: 63px;
+        margin-bottom: 40px;
+        gap: 20px;
+
+        &__div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+        }
+
+        &__icon {
+            border-radius: 10px;
+            background: #F5F5F5;
+            padding: 12px;
+        }
+
+        &__text {
+            color: #000;
+
+            font-family: Inter;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
 }

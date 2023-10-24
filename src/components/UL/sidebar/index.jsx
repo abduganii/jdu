@@ -39,14 +39,7 @@ export default function SideBar({ user }) {
                 {navLinks?.map(e => {
 
                     if (links?.includes(e.label)) {
-                        if (e.label == "先生") {
-                            return (
-                                <p key={e?.id} className={cls.SideBarBtn__opsite}>
-                                    {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
-                                    {e?.label}
-                                </p>
-                            )
-                        } else {
+                    
                             return (
                                 <React.Fragment key={e?.id}>
                                     <Link
@@ -58,19 +51,7 @@ export default function SideBar({ user }) {
                                     </Link>
                                 </React.Fragment>
                             )
-                        }
-                    }
-                    if (e.link == '/news') {
-                        return (
-                            <Link
-                                className={`${cls.SideBarBtn} ${pashName.pathname.includes(e?.link) ? cls.SideBar__active : ""}`}
-                                key={e?.id}
-                                to={e?.link}
-                            >
-                                {e?.icon(`${pashName.pathname.includes(e?.link) ? "white" : "black"}`)}
-                                {e?.label}
-                            </Link>
-                        )
+                        
                     }
                 })}
                 <p className={cls.SideBar__text} style={{ marginTop: "50px" }}>プリファレンス </p>

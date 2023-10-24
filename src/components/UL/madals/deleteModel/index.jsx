@@ -18,7 +18,7 @@ export default function DeleteMadel({ id, name, avater, years, progress, remove,
                     {role == "student" ? "学生を削除" : role == "decan" ? "" : "リクルーターを削除"}
                 </h3>
                 <div className={cls.DeleteMadel__content}>
-                    <Person name={name} year={years} avatar={avater} id={id} />
+                    <Person name={name} year={years} role={role} avatar={avater} id={id} />
                     <h3 className={cls.DeleteMadel__agree}>
                         {role == "student" ? "この学生を削除しますか？" : role == "decan" ? "" : "このリクルーターを削除しますか？"}
                     </h3>

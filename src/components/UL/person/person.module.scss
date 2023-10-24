@@ -12,6 +12,16 @@
         object-fit: cover;
     }
 
+    &__gruop {
+        width: 95px !important;
+        height: 85px !important;
+        border-radius: 100px;
+        background: #F5F5F5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &__name {
 
         font-family: 'Inter';
