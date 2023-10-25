@@ -4,6 +4,7 @@ export default function LoginInput({ onChange, register = {}, alert, eyeOpen, se
     return (
         <div className={cls.LoginInput__label}>
             <input
+                autocomplete="off"
                 className={`${cls.LoginInput} ${alert && cls.LoginInput__border}`}
                 type={type}
                 placeholder={placeholder}

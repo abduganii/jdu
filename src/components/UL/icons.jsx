@@ -353,3 +353,36 @@ export function AdressIcons() {
 
     )
 }
+export function EmailIcons2() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M15.75 5.25C15.75 4.42157 15.0784 3.75 14.25 3.75H3.75C2.92157 3.75 2.25 4.42157 2.25 5.25M15.75 5.25V12.75C15.75 13.5784 15.0784 14.25 14.25 14.25H3.75C2.92157 14.25 2.25 13.5784 2.25 12.75V5.25M15.75 5.25L9 9.75L2.25 5.25" stroke="#0094FF" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+    )
+}
+
+export function TelIcons2() {
+    return (
+
+        < svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" >
+            <path d="M3.75 3H6.75L8.25 6.75L6.375 7.875C7.17822 9.50365 8.49635 10.8218 10.125 11.625L11.25 9.75L15 11.25V14.25C15 14.6478 14.842 15.0294 14.5607 15.3107C14.2794 15.592 13.8978 15.75 13.5 15.75C10.5744 15.5722 7.81512 14.3299 5.74262 12.2574C3.67013 10.1849 2.42779 7.42555 2.25 4.5C2.25 4.10218 2.40804 3.72064 2.68934 3.43934C2.97064 3.15804 3.35218 3 3.75 3Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+        </ svg>
+
+    )
+}
+export function ReflashIcons() {
+    return (
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+            <g clip-path="url(#clip0_2281_17477)">
+                <path d="M8.86853 10.0476C7.88072 11.3335 7.39539 12.9352 7.5034 14.5531C7.61142 16.171 8.30536 17.694 9.45533 18.8371C10.6053 19.9802 12.1325 20.6651 13.751 20.7634C15.3694 20.8617 16.9683 20.3668 18.2482 19.3714C19.5281 18.3759 20.4013 16.948 20.7044 15.3552C21.0075 13.7623 20.7197 12.1135 19.8948 10.7175C19.0699 9.32156 17.7646 8.27407 16.2231 7.77114C14.6816 7.2682 13.0096 7.34431 11.5202 7.98522M14.1718 4.74431L11.2256 7.69059L14.1718 10.6369" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_2281_17477">
+                    <rect width="20" height="20" fill="white" transform="translate(14.1426 28.2852) rotate(-135)" />
+                </clipPath>
+            </defs>
+        </svg>
+    )
+}

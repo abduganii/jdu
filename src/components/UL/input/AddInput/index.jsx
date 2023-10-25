@@ -1,7 +1,7 @@
 import cls from "./AddInput.module.scss"
 import { Select } from "antd";
 import { useRef, useState } from "react";
-import { KeyIcon } from "../../icons";
+import { KeyIcon, ReflashIcons } from "../../icons";
 export default function AddInput({
     onChange,
     label,
@@ -16,8 +16,6 @@ export default function AddInput({
     disabled,
     ...other
 }) {
-    const [focus, setFocus] = useState(false)
-    const [loginValue, setLoginValue] = useState()
 
 
 
@@ -47,36 +45,15 @@ export default function AddInput({
                         type={type}
                         placeholder={placeholder}
                         disabled={disabled}
-                        onChange={(e) => {
-                            onChange(e)
-                            setLoginValue(generateLoginId())
-
-                            if (geterat) {
-                                setFocus(false)
-                            }
-                            if (e.target.value == 0 && geterat) {
-                                setFocus(true)
-                            }
-                        }}
-
-                        onFocus={(e) => {
-                            if (geterat, e.target.value < 1) {
-                                setLoginValue(generateLoginId())
-                                setFocus(true)
-                            }
-                        }}
-
 
                     />
-                    {geterat && focus &&
+                    {geterat &&
                         <div onClick={() => {
-                            setFocus(false)
-                            loginGenerate(loginValue)
+                            loginGenerate(generateLoginId())
                         }}
                             className={`${cls.AddInputRoundno}`}
                         >
-                            <p>{loginValue}</p>
-                            <KeyIcon />
+                            <ReflashIcons />
                         </div>}
                 </div>
             }

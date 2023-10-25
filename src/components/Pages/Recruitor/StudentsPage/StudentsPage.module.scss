@@ -45,4 +45,27 @@
             }
         }
     }
+
+    &__search {
+        margin-left: 34px;
+        margin-top: 49px;
+
+        p {
+            width: 100%;
+            max-width: 382px;
+            margin-top: 10px;
+            color: #101828;
+
+            font-family: Inter;
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        img {
+            width: 100%;
+            max-width: 364px;
+        }
+    }
 }

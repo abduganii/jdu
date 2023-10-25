@@ -37,9 +37,11 @@ export default function GroupList({ onClick, update, remove }) {
         className={cls.backround}
       >
       </div>
-      {/* <ListModal
+      <ListModal
         onClick={onClick}
-        style={useId ? { display: "block" } : { display: "none" }} /> */}
+        update={update}
+        remove={remove}
+        style={useId ? { display: "block" } : { display: "none" }} />
     </div>
 
   )

@@ -84,40 +84,19 @@
 
 .AddInputRoundno {
     position: absolute;
-    bottom: -20px;
-    right: 0px;
-    border-radius: 20px;
-    background: #EEE9FB !important;
-    padding: 9px 14px;
-    width: 120px;
-    padding-left: 12px;
+    bottom: 3px;
+    right: 3px;
+    border-radius: 2px;
+    background: #5627DC;
+
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     cursor: pointer;
 
-    p {
-        cursor: pointer;
-        color: #101828;
-        font-family: Inter;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        text-decoration-line: underline;
-    }
 
-    div {
-        width: 18px;
-        height: 18px;
-        transition: 1s all ease;
-        cursor: pointer;
-    }
-
-    &:hover {
-        background: rgb(86, 39, 220, .1);
-
-    }
 }
 
 

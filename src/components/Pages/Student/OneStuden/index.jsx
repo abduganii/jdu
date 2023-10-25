@@ -12,6 +12,8 @@ import cls from "./OneStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
 import BlueButtun from '../../../UL/buttun/blueBtn'
 import NoGaler from '../../../UL/NoGallery'
+import Avatar from 'react-avatar'
+import { EmailIcons2, TelIcons2 } from '../../../UL/icons'
 
 
 export default function OneStudent({ user, role }) {
@@ -37,15 +39,63 @@ export default function OneStudent({ user, role }) {
     return (
         <div className={cls.OneStudent}>
 
-            <Container className={cls.OneStudent__container} >
-                {role != 'student' ? <BackBtn onClick={(e) => router(-1)} role={true} UserId={user?.id} style={{ marginBottom: "40px" }} /> : ""}
-                <Person
-                    id={user?.loginId}
-                    name={`${user?.firstName} ${user?.lastName}`}
-                    avatar={user?.avatar}
-                    year={user?.courseNumber + "年生"}
-                    email={user?.email}
-                />
+            <Container  >
+
+                <div className={cls.OneStudent__Wrap1}>
+                    {role != 'student' ? <BackBtn onClick={(e) => router(-1)} role={true} UserId={user?.id} style={{ maxWidth: "100%" }} /> : ""}
+                    {
+                        role && role === "decan" ?
+                            <BlueButtun
+                                light={true}
+                                className={cls.OneStudent__btn}
+                                onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
+                                style={{ padding: "14px 30px" }}
+                            >
+                                プロファイル編集
+                            </BlueButtun> : role === "student" ?
+                                <BlueButtun
+                                    light={true}
+                                    className={cls.OneStudent__btn}
+                                    onClick={() => router(`/settings`)}
+                                    style={{ padding: "14px 30px" }}
+                                >
+                                    プロファイル編集
+                                </BlueButtun>
+                                : ""
+                    }
+
+                </div>
+
+                <div className={cls.OneStudent__Wrap}>
+                    <Person
+                        id={user?.loginId}
+                        name={`${user?.firstName} ${user?.lastName}`}
+                        avatar={user?.avatar}
+                        year={user?.courseNumber + "年生"}
+                        email={user?.email}
+                    />
+                    <div className={cls.OneStudent__person}>
+                        <div className={cls.OneStudent__person__box}>
+
+                            {false ? <img
+                                src={null}
+                                width={130}
+                                height={130}
+                                alt={"img"}
+                            /> : <Avatar name={"Name"} size="64" round={64} />
+                            }
+
+                            <div className={cls.OneStudent__person__dv}>
+                                <p className={cls.OneStudent__person__text}>Name Name</p>
+                                <p className={cls.OneStudent__person__id}>ID: 0928179</p>
+                            </div>
+
+                        </div>
+
+                        <a href="#"> <EmailIcons2 /> barotovj@gmail.com</a>
+                        <a href="#"> <TelIcons2 /> +998 99 345 42 43</a>
+                    </div>
+                </div>
 
                 <div className={cls.OneStudent__content}>
                     <h3 className={cls.OneStudent__title}>自己紹介</h3>
@@ -89,6 +139,22 @@ export default function OneStudent({ user, role }) {
                         })
 
                     }
+                    <h3 className={cls.OneStudent__Percentage}>Japan Language tests</h3>
+                    <div className={cls.OneStudent__Test__wrap}>
+                        <div className={cls.OneStudent__Test}>
+                            <h3 className={cls.OneStudent__Test__text}> JLPT</h3>
+                            <div className={cls.OneStudent__Test__box}>N4</div>
+                            <p className={cls.OneStudent__Test__p}>Japanese Language Proficiency Test</p>
+                        </div>
+
+                        <div className={cls.OneStudent__Test}>
+                            <h3 className={cls.OneStudent__Test__text}> JDU</h3>
+                            <div className={cls.OneStudent__Test__box}>Q2</div>
+                            <p className={cls.OneStudent__Test__p}>Japanese Language Achievement Test</p>
+                        </div>
+                    </div>
+
+
                     {user?.itQualification?.skills.length ? <> <p className={cls.OneStudent__title}>IT資格</p>
                         <p className={cls.OneStudent__text2}>ソフトスキルのパーセンテージ </p></> : ""}
                     {
@@ -196,27 +262,9 @@ export default function OneStudent({ user, role }) {
                         </div>
                     </LessonTable>
                 </div>
+
             </Container >
-            {
-                role && role === "decan" ?
-                    <BlueButtun
-                        light={true}
-                        className={cls.OneStudent__btn}
-                        onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
-                        style={{ padding: "14px 30px" }}
-                    >
-                        プロファイル編集
-                    </BlueButtun> : role === "student" ?
-                        <BlueButtun
-                            light={true}
-                            className={cls.OneStudent__btn}
-                            onClick={() => router(`/settings`)}
-                            style={{ padding: "14px 30px" }}
-                        >
-                            プロファイル編集
-                        </BlueButtun>
-                        : ""
-            }
+
         </div >
     )
 }

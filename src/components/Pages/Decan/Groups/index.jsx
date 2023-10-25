@@ -23,7 +23,7 @@ export default function GroupsPage() {
   return (
     <div className={cls.GroupsPage}>
       <div className={cls.GroupsPage__filter}>
-        <Filter page={'recruiter'} />
+        <Filter page={'group'} />
         <BlueButtun light={true} onClick={() => {
           setOpenMadal(true)
           router('?updete=false')
@@ -69,7 +69,7 @@ export default function GroupsPage() {
               style={{ marginBottom: "10px" }}
             />
             <AddInput
-              type={"number"}
+              type={"select"}
               label={"Course year"}
               placeholder={"Course year"}
               style={{ marginBottom: "10px" }}

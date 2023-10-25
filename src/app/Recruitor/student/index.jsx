@@ -5,8 +5,8 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import StudentsPage from "../../../components/Pages/Recruitor/StudentsPage";
 import { StudentsGet, StudentsGetSearch } from "../../../services/student";
 
-export default function RecStudent({ data:topStudent, role, count }) {
-    const { ref, inView } = useInView()
+export default function RecStudent({ data: topStudent, role, count }) {
+  const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
 
 
@@ -28,7 +28,10 @@ export default function RecStudent({ data:topStudent, role, count }) {
     }
   )
 
-  const students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
+  let students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
+  if (!params.get('Group') && !params.get('rate') && !params.get('year') && !params.get('search')) {
+    students = null
+  }
 
   useEffect(() => {
     console.log(hasNextPage);
@@ -36,10 +39,10 @@ export default function RecStudent({ data:topStudent, role, count }) {
       fetchNextPage()
     }
   }, [inView])
-    
-    return (
-        <>
-            <StudentsPage data={students} student={topStudent} role={role} count={count}ref={ref} />
-        </>
-    )
+
+  return (
+    <>
+      <StudentsPage data={students} student={topStudent} role={role} count={count} ref={ref} />
+    </>
+  )
 }

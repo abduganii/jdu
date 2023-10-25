@@ -236,8 +236,7 @@ export default function HomePage({ role }) {
                             label={"Id"}
                             placeholder={"Id"}
                             // value={watchedFiles?.loginId || ''}
-                            geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
+
                             // alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}

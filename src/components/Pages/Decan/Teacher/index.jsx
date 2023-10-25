@@ -217,7 +217,7 @@ export default function TeacherPage({ data, onChange }) {
                         />
                         <AddInput
                             register={{ ...register('Bolim', { required: true }) }}
-                            type={"text"}
+                            type={"select"}
                             label={"Bo’lim"}
                             placeholder={"Bo’lim"}
                             value={watchedFiles?.Bolim || ''}
@@ -225,14 +225,14 @@ export default function TeacherPage({ data, onChange }) {
 
                         <AddInput
                             register={{ ...register('specialisation', { required: true }) }}
-                            type={"text"}
+                            type={"select"}
                             label={"Specialisation"}
                             placeholder={"Specialisation"}
                             value={watchedFiles?.specialisation || ''}
                         />
                         <AddInput
                             register={{ ...register('Lavozimi', { required: true }) }}
-                            type={"text"}
+                            type={"select"}
                             label={"Lavozimi"}
                             placeholder={"Lavozimir"}
                             value={watchedFiles?.Lavozimi || ''}

@@ -6,7 +6,7 @@ import TopStudents from '../../../UL/topStudents'
 
 import cls from "./StudentsPage.module.scss"
 
-const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref)=> {
+const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref) => {
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -18,7 +18,7 @@ const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref)=
                     <li className={cls.StudentsPage__top__item}>アクション</li>
                 </ul>
                 <ul>
-                    {data && data?.map(e => {
+                    {data ? data?.map(e => {
                         if (selected) {
                             if (e.isSelected === true) {
                                 return (
@@ -50,8 +50,19 @@ const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref)=
                                 />
                             )
                         }
-                    })}
-                     <div ref={ref} style={{ padding: "10px" }}></div>
+                    }) :
+                        <div className={cls.StudentsPage__search}>
+                            <p className={cls.StudentsPage__search__text}>
+                                Search student by category you want
+                            </p>
+
+                            <img
+                                src={'/Image/search1.png'}
+                                alt='img'
+                            />
+                        </div>
+                    }
+                    <div ref={ref} style={{ padding: "10px" }}></div>
                 </ul>
             </Container>
             <TopStudents students={student} count={count} />
