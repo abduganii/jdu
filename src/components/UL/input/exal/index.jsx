@@ -3,6 +3,7 @@ import { CloseIcon1, FileIcons } from "../../icons"
 import cls from "./exal.module.scss"
 
 export default function ExalInput({ onChange, setResolv, resolv }) {
+    console.log(resolv)
 
     return (
         <div className={cls.ExalInput}>
@@ -10,7 +11,10 @@ export default function ExalInput({ onChange, setResolv, resolv }) {
             <div className={cls.ExalInput__wrap}>
                 <label className={cls.ExalInput__label} >
                     <FileIcons />
-                    <input type="file" onChange={(e) => setResolv(e?.target.value)} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                    <input type="file" onChange={(e) => {
+                        setResolv(e?.target.value)
+                        onChange(e)
+                    }} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                 </label>
                 <div className={`${cls.ExalInput__resolv} ${resolv ? cls.ExalInput__resolvactive : ""} `}>
                     <p>{resolv ? resolv : "Placeholder"}</p>

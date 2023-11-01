@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import HomePage from "../../../components/Pages/Recruitor/homePage";
 
 
-export default function RecHome({ data, role, count }) {
+export default function RecHome({ data, user, count }) {
 
   return (
     <>
-      <HomePage data={data} role={role} count={count} />
+      <HomePage data={data} user={user} count={count} />
     </>
   )
 }

@@ -21,11 +21,12 @@ import Loader from '../../../UL/loader'
 import ExalInput from '../../../UL/input/exal'
 
 
-export default function TeacherPage({ data, onChange }) {
+export default function TeacherPage({ data }) {
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
     const oneStuednt = Student.find(e => e.id === personId)
     const [loading, setLoading] = useState(false)
+    const [role, setRole] = useState("teacher")
     const router = useNavigate()
 
     const [personId1, setPersonId1] = useState()
@@ -61,57 +62,27 @@ export default function TeacherPage({ data, onChange }) {
     //         })
     // }
 
-    // const AddStudentFunc = async (data) => {
-    //     setLoading(true)
-    //     const formData = new FormData()
-    //     if (data.avatar) formData.append("avatar", data.avatar)
-    //     formData.append("firstName", data?.firstName)
-    //     formData.append("lastName", data?.lastName)
-    //     formData.append("fatherName", data?.fatherName)
-    //     formData.append("specialisation", data?.specialisation)
-    //     formData.append("university", data?.university)
-    //     formData.append("phoneNumber", data?.phoneNumber)
-    //     formData.append("email", data?.email)
-    //     formData.append("loginId", data?.loginId)
-    //     if (data?.password) formData.append("password", data?.password)
-    //     formData.append("bio", data?.bio)
-
-    //     if (query == "true") {
-    //         await RecruitorUpdate(formData, personId1)
-    //             .then(res => {
-    //                 if (res?.data?.message) {
-    //                     toast(res?.data?.message)
-    //                 } else if (res.status == 203) {
-    //                     toast('recrutiar updated')
-    //                     setOpenMadal(false)
-    //                     onChange()
-    //                     setAvatar(null)
-    //                 }
-    //             })
-    //             .catch(err => toast(err.response.data.message))
-    //     } else {
-    //         await TeacherAdd(formData)
-    //             .then(res => {
-    //                 if (res?.data?.message) {
-    //                     toast(res?.data?.message)
-    //                 } else if (res.status == 201) {
-    //                     toast('teacher created')
-    //                     setOpenMadal(false)
-    //                     onChange()
-    //                 }
-    //                 setLoading(false)
-
-    //             })
-    //             .catch(err => {
-    //                 toast(err.response.data.message)
-    //                 setLoading(false)
-    //             })
-    //     }
-    // }
 
 
     const AddStudentFunc = async (data) => {
-        console.log("update")
+        await TeacherAdd({ role: role, ...data })
+            .then(res => {
+                if (res?.data?.message) {
+                    toast(res?.data?.message)
+
+                } else if (res.status == 201) {
+                    toast('recrutiar created')
+                    setOpenMadal(false)
+
+                }
+
+                setLoading(false)
+                queryClient.invalidateQueries(['recruiters', params.get('search')])
+
+            })
+            .catch(err => {
+                setLoading(false)
+            })
     }
 
     const UpdatetudentFunc = async (data) => {
@@ -245,15 +216,7 @@ export default function TeacherPage({ data, onChange }) {
                             value={watchedFiles?.email || ''}
                         />
 
-                        <AddInput
-                            register={{ ...register('password') }}
-                            type={"text"}
-                            label={"Password"}
-                            placeholder={"Password"}
-                            value={watchedFiles?.password || ''}
-                            geterat={true}
-                            passwordGenerate={(e) => setValue("password", e)}
-                        />
+
                     </div>
                 </AddMadal>
             }
@@ -262,16 +225,27 @@ export default function TeacherPage({ data, onChange }) {
                 openMadal && query == "false" &&
                 <AddMadal
                     role={"Add employees"}
-                    OnSubmit={handleSubmit(UpdatetudentFunc)}
+                    OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => setOpenMadal(false)}>
 
                     <div className={cls.TeacherPage__checkBox}>
                         <label>
-                            <input name='role' type={"radio"} />
+                            <input name='role'
+                                type={"radio"}
+                                value={"teacher"}
+                                checked={role == "teacher" ? true : false}
+                                onChange={(e) => setRole(e.target.value)}
+                            />
                             <p>  Teacher</p>
                         </label>
                         <label>
-                            <input name='role' type={"radio"} />
+                            <input
+                                name='role'
+                                type={"radio"}
+                                value={"employee"}
+                                checked={role == "employee" ? true : false}
+                                onChange={(e) => setRole(e.target.value)}
+                            />
                             <p>Employee</p>
                         </label>
                     </div>
@@ -283,6 +257,7 @@ export default function TeacherPage({ data, onChange }) {
                             label={"ID"}
                             placeholder={"ID"}
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
 
                         <AddInput
@@ -291,10 +266,11 @@ export default function TeacherPage({ data, onChange }) {
                             label={"メール"}
                             placeholder={"メール"}
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} />
+                    <ExalInput setResolv={setexal} resolv={exal} onChange={() => reset()} />
                 </AddMadal>
             }
             <Toaster />

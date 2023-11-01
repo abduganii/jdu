@@ -87,7 +87,7 @@ export default function StudentList({ isSelcted, avatar, name, student, id, logi
                     <progress className={cls.StudentList__progres__progress} value={rate} max="100">70 %</progress>
                     <p className={cls.StudentList__progres__text}>{Math.round(rate)}%</p>
                 </div>
-                <DoteBtn onClick={(e) => setIseId(true)} style={{marginLeft:"100px"}} />
+                <DoteBtn onClick={(e) => setIseId(true)} style={{ marginLeft: "100px" }} />
 
 
                 <hr className={cls.StudentList__line} />

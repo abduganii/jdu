@@ -30,6 +30,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
     const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [Sunject, setSunject] = useState("JLPT & JDU")
 
     const oneStuednt = data.find(e => e.id === personId) || ""
 
@@ -70,21 +71,59 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                     // OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
-                        reset()
                     }}>
 
                     <div className={cls.StudentPage__checkBox}>
                         <label>
-                            <input name='role' type={"radio"} />
+                            <input
+                                name='role'
+                                type={"radio"}
+                                value={"JLPT & JDU"}
+                                checked={Sunject == "JLPT & JDU" ? true : false}
+                                onChange={(e) => setSunject(e.target.value)}
+                            />
                             <p>  JLPT & JDU</p>
                         </label>
                         <label>
-                            <input name='role' type={"radio"} />
+                            <input
+                                name='role'
+                                type={"radio"}
+                                value={"Credits"}
+                                checked={Sunject == "Credits" ? true : false}
+                                onChange={(e) => setSunject(e.target.value)}
+                            />
                             <p>Credits</p>
                         </label>
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} />
+                    {
+                        Sunject == "Credits" ? <div className={cls.StudentPage__addInputs}>
+                            <AddInput
+                                // register={{ ...register('specialisation', { required: true }) }}
+                                type={"select"}
+                                label={"Semester"}
+                                placeholder={"Semester"}
+                                style={{ marginBottom: "20px" }}
+                                disabled={exal ? true : false}
+
+                            />
+                            <AddInput
+                                // register={{ ...register('specialisation', { required: true }) }}
+                                type={"select"}
+                                label={"Science"}
+                                placeholder={"Science"}
+                                style={{ marginBottom: "20px" }}
+
+                                disabled={exal ? true : false}
+                            />
+                        </div> : ""
+                    }
+
+                    <ExalInput
+                        setResolv={setexal}
+                        resolv={exal}
+                    // onChange={() => reset()} 
+                    />
                 </AddMadal>}
             <Toaster />
 

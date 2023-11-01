@@ -10,7 +10,7 @@ import AddMadal from '../../../UL/madals/AddMadal'
 
 import cls from "./homePage.module.scss"
 
-export default function HomeTechPage() {
+export default function HomeTechPage({ role }) {
     const [data, setData] = useState([])
     const [data2, setData2] = useState(0)
     const [openMadal, setOpenMadal] = useState(true)
@@ -146,7 +146,6 @@ export default function HomeTechPage() {
                     </div>
                 </div>
             </div>
-            {/* <TopStudents students={data} role={role} count={count} /> */}
 
             {openMadal &&
 
@@ -184,39 +183,45 @@ export default function HomeTechPage() {
 
                         />
                         <AddInput
-                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
-                            label={"会社名"}
-                            placeholder={"会社名"}
-                            // value={watchedFiles?.companyName || ''}
-                            // alert={errors.companyName?.message}
-                            onChange={() => clearErrors("companyName")}
-                            style={{ marginBottom: "20px" }}
+                            label={"Id"}
+                            placeholder={"Id"}
+                            value={"873827"}
 
+                            // alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
+                            disabled={true}
                         />
                         <AddInput
-                            register={{ ...register('specialisation', { required: "専門は必要です！" }) }}
-                            type={"text"}
-                            label={"専門"}
-                            placeholder={"専門"}
-                            // value={watchedFiles?.specialisation || ''}
-                            // alert={errors.specialisation?.message}
-                            onChange={() => clearErrors("specialisation")}
+                            register={{ ...register('Bolim', { required: true }) }}
+                            type={"select"}
+                            label={"Bo’lim"}
+                            placeholder={"Bo’lim"}
                             style={{ marginBottom: "20px" }}
 
                         />
+
+                        {
+                            role == "teacher" ? <AddInput
+                                register={{ ...register('specialisation', { required: true }) }}
+                                type={"select"}
+                                label={"Specialisation"}
+                                placeholder={"Specialisation"}
+                                style={{ marginBottom: "20px" }}
+
+                            /> : ""
+                        }
                         <AddInput
-                            register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"number"}
-                            label={"電話番号"}
-                            placeholder={"電話番号"}
-                            // value={watchedFiles?.phoneNumber || ''}
-                            // alert={errors.phoneNumber?.message}
-                            onChange={() => clearErrors("phoneNumber")}
+                            register={{ ...register('Lavozimi', { required: true }) }}
+                            type={"select"}
+                            label={"Lavozimi"}
+                            placeholder={"Lavozimir"}
                             style={{ marginBottom: "20px" }}
 
-
                         />
+
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"text"}
@@ -229,21 +234,6 @@ export default function HomeTechPage() {
 
 
                         />
-                        <AddInput
-                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
-                            // value={watchedFiles?.loginId || ''}
-                            geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
-                            // alert={errors.loginId?.message}
-                            onChange={() => clearErrors("loginId")}
-                            style={{ marginBottom: "20px" }}
-                        // disabled={query == "true" ? true : false}
-                        />
-
-
                     </div>
                 </AddMadal>
             }

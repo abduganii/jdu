@@ -79,16 +79,14 @@ export default function AppRouter() {
                 <Route path="/decan/students" element={< DecanStudent />} />
                 <Route path="/decan/students/:id" element={< StudentById role={user?.role} />} />
                 <Route path="/decan/studentsSet/:id" element={< SetStudentpage />} />
-
                 <Route path="/decan/groups" element={< DecanGroups />} />
-
                 <Route path="/decan/recruitors" element={< DecanRecruitor />} />
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/employees" element={< DecEmployees />} />
                 <Route path="/decan/parents" element={< DecParents />} />
                 <Route path="/decan/parents/:id" element={< DecanPerantBuId />} />
 
-                <Route path="/recruitor/home" element={<RecHome data={topStudent} role={user?.role} count={count} />} />
+                <Route path="/recruitor/home" element={<RecHome data={topStudent} user={user} count={count} />} />
                 <Route path="/recruitor/students" element={<RecStudent data={topStudent} role={user?.role} count={count} />} />
                 <Route path="/recruitor/students/:id" element={<StudentById />} />
                 <Route path="/recruitor/selected" element={<RecSeelctStudent data={topStudent} role={user?.role} count={count} />} />

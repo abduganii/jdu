@@ -13,6 +13,7 @@ export default function AddInput({
     geterat,
     type,
     alert,
+    value,
     disabled,
     ...other
 }) {
@@ -36,12 +37,15 @@ export default function AddInput({
                 </textarea> : type === "select" ? <Select
                     defaultValue={placeholder}
                     style={{ width: "100%", }}
+                    value={value}
                     onChange={onChange}
+                    disabled={disabled}
                     options={Specialisation?.map(sp => ({ value: sp.id, label: sp.name }))}
                 /> : <div className={`${cls.AddInput__labelinut}`}>
                     < input autoComplete="none"
+                        value={value}
                         {...register}
-                        className={`${cls.AddInput__input} ${alert && cls.AddInput__border}`}
+                        className={`${cls.AddInput__input} ${alert && cls.AddInput__border} ${disabled && cls.AddInput__disabled}`}
                         type={type}
                         placeholder={placeholder}
                         disabled={disabled}

@@ -11,11 +11,9 @@ import TopStudents from '../../../UL/topStudents'
 
 import cls from "./homePage.module.scss"
 
-export default function HomePage({ user }) {
-
+export default function HomePage() {
     const [data, setData] = useState([])
     const [data2, setData2] = useState(0)
-
     const [openMadal, setOpenMadal] = useState(true)
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     useEffect(() => {
@@ -150,85 +148,7 @@ export default function HomePage({ user }) {
                 </div>
             </div>
 
-            {openMadal &&
 
-                <AddMadal
-                    role={"Registeration"}
-                    style={{ maxWidth: "775px" }}
-                    closeMadal={() => setOpenMadal(false)}
-                >
-                    <AvatarInput
-                        // onChange={(e) => hendleimg(e)}
-                        // url={avatar || watchedFiles?.avatar}
-                        style={{ marginBottom: '43px' }}
-                    />
-                    <div className={cls.HomePage__addInputs}>
-                        <AddInput
-                            register={{ ...register('Firstname', { required: "名前は必要です！" }) }}
-                            type={"text"}
-                            label={"名前"}
-                            placeholder={"名前"}
-                            // value={watchedFiles?.firstName || ''}
-                            // alert={errors.firstName?.message}
-                            onChange={() => clearErrors("firstName")}
-                            style={{ marginBottom: "20px" }}
-
-                        />
-                        <AddInput
-                            register={{ ...register('lastName', { required: "名字は必要です！" }) }}
-                            type={"text"}
-                            label={"名字"}
-                            placeholder={"名字"}
-                            // value={watchedFiles?.lastName || ''}
-                            // alert={errors.lastName?.message}
-                            onChange={() => clearErrors("lastName")}
-                            style={{ marginBottom: "20px" }}
-
-                        />
-                        <AddInput
-                            type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
-                            value={user?.loginId}
-                            style={{ marginBottom: "20px" }}
-                            disabled={true}
-                        />
-                        <AddInput
-                            register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"number"}
-                            label={"電話番号"}
-                            placeholder={"電話番号"}
-                            // value={watchedFiles?.phoneNumber || ''}
-                            // alert={errors.phoneNumber?.message}
-                            // onChange={() => clearErrors("phoneNumber")}
-                            style={{ marginBottom: "20px" }}
-                        />
-                        <AddInput
-                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
-                            type={"text"}
-                            label={"会社名"}
-                            placeholder={"会社名"}
-                            // value={watchedFiles?.companyName || ''}
-                            // alert={errors.companyName?.message}
-                            // onChange={() => clearErrors("companyName")}
-                            style={{ marginBottom: "20px" }}
-
-                        />
-
-                        <AddInput
-                            register={{ ...register('email', { required: "メールは必要です！" }) }}
-                            type={"text"}
-                            label={"メール"}
-                            placeholder={"メール"}
-                            value={user?.email}
-                            // alert={errors.email?.message}
-                            // onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px" }}
-                            disabled={true}
-                        />
-                    </div>
-                </AddMadal>
-            }
         </>
     )
 }

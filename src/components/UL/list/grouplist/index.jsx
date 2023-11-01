@@ -3,7 +3,7 @@ import DoteBtn from "../../buttun/doteBtn"
 import ListModal from "../../madals/listMadal"
 import cls from "./grouplist.module.scss"
 
-export default function GroupList({ onClick, update, remove }) {
+export default function GroupList({ onClick, name, years, collection, students, update, remove }) {
   const [useId, setIseId] = useState()
   const x = useRef()
   const y = useRef()
@@ -18,11 +18,11 @@ export default function GroupList({ onClick, update, remove }) {
           }
         }}>
         <li >
-          <div>21C</div>
+          <div>{name}</div>
         </li>
-        <li >Management</li>
-        <li >18</li>
-        <li >First</li>
+        <li >{collection}</li>
+        <li >{students}</li>
+        <li >{years}</li>
         <DoteBtn ref={y} style={{ marginLeft: "auto" }} onClick={() => setIseId(true)} />
         <hr className={cls.GroupList__hr} />
       </ul>
@@ -39,8 +39,15 @@ export default function GroupList({ onClick, update, remove }) {
       </div>
       <ListModal
         onClick={onClick}
-        update={update}
-        remove={remove}
+        remove={() => {
+          setIseId(false)
+          remove()
+        }
+        }
+        update={() => {
+          setIseId(false)
+          update()
+        }}
         style={useId ? { display: "block" } : { display: "none" }} />
     </div>
 

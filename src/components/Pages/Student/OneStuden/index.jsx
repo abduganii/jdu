@@ -52,21 +52,15 @@ export default function OneStudent({ user, role }) {
                                 style={{ padding: "14px 30px" }}
                             >
                                 プロファイル編集
-                            </BlueButtun> : role === "student" ?
-                                <BlueButtun
-                                    light={true}
-                                    className={cls.OneStudent__btn}
-                                    onClick={() => router(`/settings`)}
-                                    style={{ padding: "14px 30px" }}
-                                >
-                                    プロファイル編集
-                                </BlueButtun>
-                                : ""
+                            </BlueButtun> :
+                            ""
                     }
 
                 </div>
 
                 <div className={cls.OneStudent__Wrap}>
+
+
                     <Person
                         id={user?.loginId}
                         name={`${user?.firstName} ${user?.lastName}`}
@@ -74,26 +68,38 @@ export default function OneStudent({ user, role }) {
                         year={user?.courseNumber + "年生"}
                         email={user?.email}
                     />
-                    <div className={cls.OneStudent__person}>
-                        <div className={cls.OneStudent__person__box}>
+                    <div>
+                        {role === "student" ?
+                            <BlueButtun
+                                light={true}
+                                className={cls.OneStudent__btn}
+                                onClick={() => router(`/settings`)}
+                                style={{ padding: "14px 30px", marginLeft: "auto", marginBottom: "10px" }}
+                            >
+                                プロファイル編集
+                            </BlueButtun> : ""}
+                        <div className={cls.OneStudent__person}>
 
-                            {false ? <img
-                                src={null}
-                                width={130}
-                                height={130}
-                                alt={"img"}
-                            /> : <Avatar name={"Name"} size="64" round={64} />
-                            }
+                            <div className={cls.OneStudent__person__box}>
 
-                            <div className={cls.OneStudent__person__dv}>
-                                <p className={cls.OneStudent__person__text}>Name Name</p>
-                                <p className={cls.OneStudent__person__id}>ID: 0928179</p>
+                                {false ? <img
+                                    src={null}
+                                    width={130}
+                                    height={130}
+                                    alt={"img"}
+                                /> : <Avatar name={"Name"} size="64" round={64} />
+                                }
+
+                                <div className={cls.OneStudent__person__dv}>
+                                    <p className={cls.OneStudent__person__text}>Name Name</p>
+                                    <p className={cls.OneStudent__person__id}>ID: 0928179</p>
+                                </div>
+
                             </div>
 
+                            <a href="#"> <EmailIcons2 /> barotovj@gmail.com</a>
+                            <a href="#"> <TelIcons2 /> +998 99 345 42 43</a>
                         </div>
-
-                        <a href="#"> <EmailIcons2 /> barotovj@gmail.com</a>
-                        <a href="#"> <TelIcons2 /> +998 99 345 42 43</a>
                     </div>
                 </div>
 
@@ -120,69 +126,6 @@ export default function OneStudent({ user, role }) {
                                 </> : <NoGaler />
                             }
                         </>}
-                    {
-                        user?.japanLanguageTests?.[0].sertificate & user?.japanLanguageTests?.[1].sertificate ? <h3 className={cls.OneStudent__title1}>日本語試験</h3> : ""}
-                    {
-                        user?.japanLanguageTests && user?.japanLanguageTests.map(e => {
-                            if (e?.sertificate) {
-                                return (
-                                    < RateTest
-                                        title={e?.name}
-                                        level={e?.level}
-                                        Listening={e?.listening}
-                                        writing={e?.reading}
-                                        Reading={e?.writing}
-                                        file={e?.sertificate}
-                                    />
-                                )
-                            }
-                        })
-
-                    }
-                    <h3 className={cls.OneStudent__Percentage}>Japan Language tests</h3>
-                    <div className={cls.OneStudent__Test__wrap}>
-                        <div className={cls.OneStudent__Test}>
-                            <h3 className={cls.OneStudent__Test__text}> JLPT</h3>
-                            <div className={cls.OneStudent__Test__box}>N4</div>
-                            <p className={cls.OneStudent__Test__p}>Japanese Language Proficiency Test</p>
-                        </div>
-
-                        <div className={cls.OneStudent__Test}>
-                            <h3 className={cls.OneStudent__Test__text}> JDU</h3>
-                            <div className={cls.OneStudent__Test__box}>Q2</div>
-                            <p className={cls.OneStudent__Test__p}>Japanese Language Achievement Test</p>
-                        </div>
-                    </div>
-
-
-                    {user?.itQualification?.skills.length ? <> <p className={cls.OneStudent__title}>IT資格</p>
-                        <p className={cls.OneStudent__text2}>ソフトスキルのパーセンテージ </p></> : ""}
-                    {
-                        user?.itQualification?.skills?.map(e => (
-                            <>
-                                <p className={cls.OneStudent__skills}>{e?.skill?.name}</p>
-                                <progress
-                                    className={`
-                                    ${cls.OneStudent__skills__progress}
-                                    ${e?.skill?.color == "#E44D26" ? cls.OneStudent__skills__html :
-                                            e?.skill?.color == "#006BC0" ? cls.OneStudent__skills__css :
-                                                e?.skill?.color == "#E4A22A" ? cls.OneStudent__skills__JavaScript :
-                                                    e?.skill?.color == "#41B883" ? cls.OneStudent__skills__VueJs :
-                                                        e?.skill?.color == "#777BB3" ? cls.OneStudent__skills__PHP :
-                                                            e?.skill?.color == "#00D8FF" ? cls.OneStudent__skills__React :
-                                                                e?.skill?.color == "#9A4993" ? cls.OneStudent__skills__C :
-                                                                    e?.skill?.color == "#6FC4C5" ? cls.OneStudent__skills__asp :
-                                                                        e?.skill?.color == "#5382A1" ? cls.OneStudent__skills__SQL : ""
-                                        }
-
-                                    `}
-                                    value={e?.procent} max="100">
-                                </progress>
-                                <p className={cls.OneStudent__skills__text}>{e?.procent}%</p>
-                            </>
-                        ))
-                    }
-                    <p className={cls.OneStudent__text3}>{user?.itQualification?.description}.</p>
 
 
                     <h3 className={cls.OneStudent__Percentage}>単位取得状況</h3>

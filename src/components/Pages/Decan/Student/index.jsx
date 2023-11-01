@@ -91,7 +91,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     学生を追加
                 </BlueButtun>
             </div>
-            <TopList text={["学生", "ID", "グループ", "レート", "スキル", "アクション"]} />
+            <TopList text={["学生", "ID", "グループ", "レート", "", "アクション"]} />
 
             {data && data?.map(e => (
                 <PersonList
@@ -101,7 +101,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     name={`${e?.firstName} ${e?.lastName}`}
                     img={e?.avatar}
                     gruop={e?.groupNumber}
-                    skill={e?.itQualification?.skills}
+                    // skill={e?.itQualification?.skills}
                     rate={e?.universityPercentage?.AllMarks}
                     update={() => router(`/decan/studentsSet/${e?.id}`)}
                     remove={() => setPersonId(e?.id)}
@@ -150,7 +150,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         reset()
                     }}>
 
-                    <div className={cls.TeacherPage__addInputs}>
+                    <div className={cls.StudentPage__addInputs}>
 
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
@@ -160,6 +160,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
 
                         <AddInput
@@ -170,10 +171,11 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} />
+                    <ExalInput setResolv={setexal} resolv={exal} onChange={() => reset()} />
                 </AddMadal>}
             <Toaster />
 

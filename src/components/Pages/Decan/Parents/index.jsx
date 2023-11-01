@@ -165,28 +165,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
-                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
-                            type={"text"}
-                            label={"会社名"}
-                            placeholder={"会社名"}
-                            value={watchedFiles?.companyName || ''}
-                            alert={errors.companyName?.message}
-                            onChange={() => clearErrors("companyName")}
-                            style={{ marginBottom: "20px" }}
-
-                        />
-                        <AddInput
-                            register={{ ...register('specialisation', { required: "専門は必要です！" }) }}
-                            type={"text"}
-                            label={"専門"}
-                            placeholder={"専門"}
-                            value={watchedFiles?.specialisation || ''}
-                            alert={errors.specialisation?.message}
-                            onChange={() => clearErrors("specialisation")}
-                            style={{ marginBottom: "20px" }}
-
-                        />
-                        <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
                             type={"number"}
                             label={"電話番号"}
@@ -196,6 +174,33 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                             onChange={() => clearErrors("phoneNumber")}
                             style={{ marginBottom: "20px" }}
 
+
+                        />
+
+                        <AddInput
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            type={"text"}
+                            label={"Id"}
+                            placeholder={"Id"}
+                            value={watchedFiles?.loginId || ''}
+                            geterat={true}
+                            loginGenerate={(e) => setValue("loginId", e)}
+                            alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
+
+                        />
+                        <AddInput
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            type={"text"}
+                            label={"Student ID"}
+                            placeholder={"Id"}
+                            value={watchedFiles?.loginId || ''}
+                            geterat={true}
+                            loginGenerate={(e) => setValue("loginId", e)}
+                            alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
 
                         />
                         <AddInput
@@ -210,19 +215,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
 
                         />
-                        <AddInput
-                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
-                            value={watchedFiles?.loginId || ''}
-                            geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
-                            alert={errors.loginId?.message}
-                            onChange={() => clearErrors("loginId")}
-                            style={{ marginBottom: "20px" }}
-                            disabled={query == "true" ? true : false}
-                        />
+
 
 
                     </div>
@@ -249,6 +242,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.loginId?.message}
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
 
                         <AddInput
@@ -259,6 +253,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
                     </div>
                     <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
@@ -267,15 +262,14 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Student ID"}
-
-
                             style={{ marginBottom: "20px" }}
+                            disabled={exal ? true : false}
                         />
 
                         <p> name</p>
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} />
+                    <ExalInput setResolv={setexal} resolv={exal} onChange={() => reset()} />
                 </AddMadal>
             }
             <Toaster />

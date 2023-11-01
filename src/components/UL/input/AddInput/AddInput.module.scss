@@ -80,6 +80,13 @@
         border: 1px solid #DA4848 !important;
         animation: mymove .3s ease,
     }
+
+    &__disabled {
+        background: #F4F4F4;
+
+
+
+    }
 }
 
 .AddInputRoundno {

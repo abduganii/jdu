@@ -148,6 +148,7 @@ export default function SettingsPage({ data }) {
         }
     }
 
+
     return (
         <>
 
@@ -234,7 +235,7 @@ export default function SettingsPage({ data }) {
                                 alert={errors.lastName?.message}
                                 onChange={() => clearErrors("lastName")}
                             />
-                            {data?.role == "decan" && <br />}
+                            {data?.role == "decan" || data?.role == "recruitor" && <br />}
                             {data?.role == "recruitor" && <>
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
@@ -257,7 +258,7 @@ export default function SettingsPage({ data }) {
                                     value={watchedFiles?.phoneNumber || ''}
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
-                                />
+                                /> <br />
                             </>
                             }
 
@@ -267,6 +268,7 @@ export default function SettingsPage({ data }) {
                                 label={"メール"}
                                 placeholder={"メール"}
                                 type={"email"}
+
                                 register={{ ...register("email", { required: "メールは必要です！" }) }}
                                 value={watchedFiles?.email || ''}
                                 alert={errors.email?.message}
@@ -283,17 +285,7 @@ export default function SettingsPage({ data }) {
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}
                             />}
-                            {data?.role == "recruitor" && <SettingsInput
-                                className={cls.SettingsPage__inputs__wrap}
 
-                                label={"専門"}
-                                placeholder={"専門"}
-                                type={"text"}
-                                register={{ ...register("specialisation", { required: " 専門は必要です！" }) }}
-                                value={watchedFiles?.specialisation || ''}
-                                alert={errors.specialisation?.message}
-                                onChange={() => clearErrors("specialisation")}
-                            />}
 
                         </div>
                     </div>
