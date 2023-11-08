@@ -28,7 +28,6 @@ export default function DecanGroups() {
 
 
   useEffect(() => {
-    console.log(hasNextPage);
     if (inView && hasNextPage) {
       fetchNextPage()
     }

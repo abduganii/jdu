@@ -15,12 +15,11 @@ import { Student } from "./data"
 
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { StudentsAdd, Studentsdelete } from '../../../../services/student'
+import { StudentsAdd, StudentsAllAdd, Studentsdelete } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
-
 
 const StudentPage = React.forwardRef(({ data }, ref) => {
     const queryClient = useQueryClient()
@@ -30,56 +29,74 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
     const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
     const [loading, setLoading] = useState(false)
-
-    const oneStuednt = data.find(e => e.id === personId) || ""
+    const [exalError, setExalError] = useState(false)
+    const oneStuednt = data?.students?.find(e => e.id === personId) || ""
 
     const { register, handleSubmit, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
 
-    const AddStudentFunc = async (data) => {
+    const AddStudentFunc = async (e) => {
         setLoading(true)
-        const formData = new FormData()
-        formData.append("loginId", data?.loginId)
-
-        formData.append("email", data?.email)
-
-        await StudentsAdd(formData)
-            .then(res => {
-                if (res?.data?.message) {
-
+        if (exal) {
+            const formData = new FormData()
+            formData.append("groupId", data?.id)
+            formData.append("excel", exal)
+            await StudentsAllAdd(formData)
+                .then(res => {
+                    if (res?.data?.message) {
+                        setLoading(false)
+                    }
+                    if (res.status == 201) {
+                        toast('Students created')
+                        setOpenMadal(false)
+                        reset()
+                        setLoading(false)
+                    }
+                    setexal(null)
+                })
+                .catch(err => {
+                    setExalError(true)
                     setLoading(false)
-                }
-                if (res.status == 201) {
-                    toast('Student created')
-                    setOpenMadal(false)
+                })
+        } else {
+            const formData = new FormData()
+            formData.append("loginId", e?.loginId)
+            formData.append("email", e?.email)
+            formData.append("groupId", data?.id)
 
-                    reset()
+            await StudentsAdd(formData)
+                .then(res => {
+                    if (res?.data?.message) {
+                        setLoading(false)
+                    }
+                    if (res.status == 201) {
+                        toast('Student created')
+                        setOpenMadal(false)
+                        reset()
+                        setLoading(false)
+                    }
+                    queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
+                })
+                .catch(err => {
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
+                    }
+                    if (err.response.data.message.includes("type integer")) {
+                        setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
+                    }
                     setLoading(false)
-                }
-
-                queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
-            })
-            .catch(err => {
-                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                    setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
-                    setLoading(false)
-                }
-                if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
-                    setLoading(false)
-                } if (err.response.data.message === "email must be unique") {
-                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                }
-                if (err.response.data.message === "Validation len on password failed") {
-                    setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
-                }
-                if (err.response.data.message.includes("type integer")) {
-                    setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
-                }
-                setLoading(false)
-            })
-
+                })
+        }
     }
-
 
 
     return (
@@ -93,16 +110,16 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
             </div>
             <TopList text={["学生", "ID", "グループ", "レート", "", "アクション"]} />
 
-            {data && data?.map(e => (
+            {data?.students && data?.students?.map(e => (
                 <PersonList
                     onClick={() => router(`/decan/students/${e?.id}`)}
                     id={e?.loginId}
                     key={e?.id}
                     name={`${e?.firstName} ${e?.lastName}`}
                     img={e?.avatar}
-                    gruop={e?.groupNumber}
+                    gruop={data?.name}
                     // skill={e?.itQualification?.skills}
-                    rate={e?.universityPercentage?.AllMarks}
+                    rate={e?.universityPercentage?.AllMarks || "0"}
                     update={() => router(`/decan/studentsSet/${e?.id}`)}
                     remove={() => setPersonId(e?.id)}
                     student={true}
@@ -129,7 +146,6 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                                 setPersonId(false)
                                 setLoading(false)
                                 queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
-
                             })
                             .catch(err => {
                                 toast(err)
@@ -141,7 +157,8 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     close={() => setPersonId(false)}
                 />
             }
-            {openMadal &&
+            {
+                openMadal &&
                 <AddMadal
                     role={"学生を追加"}
                     OnSubmit={handleSubmit(AddStudentFunc)}
@@ -153,7 +170,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     <div className={cls.StudentPage__addInputs}>
 
                         <AddInput
-                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
@@ -164,7 +181,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
-                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
+                            register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
@@ -175,11 +192,20 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         />
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} onChange={() => reset()} />
+                    <ExalInput
+                        setResolv={setexal}
+                        resolv={exal}
+                        exalError={exalError}
+                        onChange={(e) => {
+                            reset()
+                            setExalError(false)
+                        }}
+                    />
                 </AddMadal>}
             <Toaster />
 
             {loading && <Loader onClick={() => setLoading(false)} />}
+
         </div>
     )
 })

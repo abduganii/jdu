@@ -1,10 +1,9 @@
-import HomePage from "../../../components/Pages/Recruitor/homePage";
+import HomePage from "../../../components/Pages/Student/home";
 
-export default function StudentHome({ data, role, count }) {
-
+export default function StudentHome({ data, user, count }) {
   return (
     <>
-      <HomePage data={data} role={role} count={count} />
+      <HomePage data={data} user={user} count={count} />
     </>
   )
 }

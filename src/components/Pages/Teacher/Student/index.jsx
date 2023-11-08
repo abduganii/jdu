@@ -32,7 +32,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
     const [loading, setLoading] = useState(false)
     const [Sunject, setSunject] = useState("JLPT & JDU")
 
-    const oneStuednt = data.find(e => e.id === personId) || ""
+    // const oneStuednt = data.find(e => e.id === personId) || ""
 
 
 
@@ -49,16 +49,16 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
             </div>
             <TopList text={["学生", "ID", "グループ", "レート", "スキル", "アクション"]} />
 
-            {data && data?.map(e => (
+            {data?.students && data?.students?.map(e => (
                 <PersonList
                     onClick={() => router(`/${role}/students/${e?.id}`)}
                     id={e?.loginId}
                     key={e?.id}
                     name={`${e?.firstName} ${e?.lastName}`}
                     img={e?.avatar}
-                    gruop={e?.groupNumber}
-                    skill={e?.itQualification?.skills}
-                    rate={e?.universityPercentage?.AllMarks}
+                    gruop={data?.name}
+                    // skill={e?.itQualification?.skills}
+                    rate={e?.universityPercentage?.AllMarks || "0"}
                     remove={() => setPersonId(e?.id)}
                     student={true}
                 />

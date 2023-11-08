@@ -9,6 +9,16 @@ export const StudentsGet = async (query) => {
      console.log(error.response.data.message)
     } 
 }
+
+export const StudentsGetByGrup = async (query,GruopId) => {
+    try {
+        const params = new URLSearchParams(query)
+        const res = await api.get(`/studentsByGruopId/${GruopId}?${params.toString()}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message)
+    } 
+}
 export const StudentsGetSearch = async (value) => {
     try {
      const res = await api.get(`/students${value}`, {withCredentials: true})
@@ -43,7 +53,13 @@ export const GetSkills = async () => {
      console.log(error.response.data.message);
     }
 }
-
+export const StudentsAllAdd = async (data) => { 
+    const response = await api.post('/students', data, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}
 export const StudentsAdd = async (data) => { 
     const response = await api.post('/student', data, {
         headers: {

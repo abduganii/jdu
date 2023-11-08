@@ -9,7 +9,8 @@ import GroupTopList from '../../../UL/list/groupTop'
 import GroupList from '../../../UL/list/grouplist'
 
 
-export default function GroupsTechPage({ role }) {
+const GroupsTechPage = React.forwardRef(({ groups, role }, ref) => {
+
 
   const router = useNavigate()
   const Lacation = useLocation()
@@ -20,19 +21,35 @@ export default function GroupsTechPage({ role }) {
       </div>
       <GroupTopList />
 
-      <GroupList
-        remove={() => setGruopId("121")}
-        update={() => {
-          router('?updete=true')
-          setOpenMadal(true)
-          setGruopId(false)
-          setGrupId1(e?.id)
-        }}
-        onClick={() => router(`/${role}/students`)}
 
-      />
+      {
+        groups && groups.map(group => (
+          <GroupList
+            key={group?.id}
+            remove={() => {
+              setGruopId(group?.id)
+              fitchOnePerson1(group?.id)
+            }}
+            name={group?.name}
+            years={group?.year}
+            collection={group?.collection}
+            students={group?.quantity}
+            update={() => {
+              router('?updete=true')
+              setOpenMadal(true)
+              setGruopId(false)
+              setGrupId1(e?.id)
+            }}
+            onClick={() => router(`/${role}/groups/students/${group?.id}`)}
 
+          />
+        )
+
+        )
+      }
 
     </div>
   )
-}
+})
+
+export default GroupsTechPage;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import cls from "./sidebar.module.scss"
-import { navLinks, recruitorLink, decanLink, settingLinks, studentLink } from './data'
+import { navLinks, recruitorLink, decanLink, settingLinks, studentLink, teacherLink } from './data'
 import { LogOutIcon } from '../icons'
 import CancelBtn from '../buttun/cancel'
 import BlueButtun from '../buttun/blueBtn'
@@ -30,6 +30,11 @@ export default function SideBar({ user }) {
         if (user?.role === "student") {
             setLink(studentLink)
         }
+        if (user?.role === "teacher") {
+            setLink(teacherLink)
+        }
+
+
     }, [user?.role]);
 
     return (
@@ -39,19 +44,19 @@ export default function SideBar({ user }) {
                 {navLinks?.map(e => {
 
                     if (links?.includes(e.label)) {
-                    
-                            return (
-                                <React.Fragment key={e?.id}>
-                                    <Link
-                                        className={`${cls.SideBarBtn} ${pashName.pathname.includes(`/${user?.role}` + e?.link) ? cls.SideBar__active : ""}`}
-                                        to={`/${user?.role}${e?.link}`}
-                                    >
-                                        {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
-                                        {e?.label}
-                                    </Link>
-                                </React.Fragment>
-                            )
-                        
+
+                        return (
+                            <React.Fragment key={e?.id}>
+                                <Link
+                                    className={`${cls.SideBarBtn} ${pashName.pathname.includes(`/${user?.role}` + e?.link) ? cls.SideBar__active : ""}`}
+                                    to={`/${user?.role}${e?.link}`}
+                                >
+                                    {e?.icon(`${pashName.pathname.includes(`/${user?.role}` + e?.link) ? "#FFFFFF" : "black"}`)}
+                                    {e?.label}
+                                </Link>
+                            </React.Fragment>
+                        )
+
                     }
                 })}
                 <p className={cls.SideBar__text} style={{ marginTop: "50px" }}>プリファレンス </p>

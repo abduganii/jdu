@@ -74,6 +74,19 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
             })
             .catch(err => {
+                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setLoading(false)
+                }
+                if (err.response.data.message == "Validation isEmail on email failed") {
+                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setLoading(false)
+                } if (err.response.data.message === "email must be unique") {
+                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                }
+                if (err.response.data.message === "Validation len on password failed") {
+                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                }
                 setLoading(false)
             })
 

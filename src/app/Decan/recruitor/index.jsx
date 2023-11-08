@@ -30,7 +30,6 @@ export default function DecanRecruitor() {
   const recruiters = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
   useEffect(() => {
-    console.log(hasNextPage);
     if (inView && hasNextPage) {
       fetchNextPage()
     }

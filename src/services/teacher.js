@@ -25,14 +25,21 @@ export const TeacherAdd = async (data) => {
     }});
     return response;
 }
+export const TeacherAllAdd = async (data) => { 
+    const response = await api.post('/teachers', data, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}
 
-// export const TeacherUpdate = async ( data, id ) => { 
-//     const response = await api.put(`/teacher/${id}`, data, {
-//         headers: {
-//         'Content-Type': "multipart/form-data"
-//     }});
-//     return response;
-// }
+export const TeacherUpdate = async ( data, id ) => { 
+    const response = await api.put(`/teacher/${id}`, data, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}
 
 
 

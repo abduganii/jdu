@@ -12,6 +12,7 @@ import TopStudents from '../../../UL/topStudents'
 import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
+import { StudentsUpdate } from '../../../../services/student'
 
 export default function HomePage({ user }) {
 
@@ -49,7 +50,6 @@ export default function HomePage({ user }) {
         if (data.avatar) formData.append("avatar", data.avatar)
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
-        formData.append("companyName", data?.companyName)
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("email", user?.email)
         formData.append("loginId", user?.loginId)
@@ -58,7 +58,7 @@ export default function HomePage({ user }) {
         formData.append("bio", data?.bio)
 
 
-        await RecruitorUpdate(formData, user?.id)
+        await StudentsUpdate(formData, user?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -68,6 +68,7 @@ export default function HomePage({ user }) {
                     setAvatar(null)
                 }
                 setLoading(false)
+                setOpenMadal(false)
 
 
             })
@@ -202,13 +203,12 @@ export default function HomePage({ user }) {
                                 </div>
                                 <p className={cls.HomePage__test2_test}>N4</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            {openMadal && !user?.isActive &&
+            {openMadal &&
                 <AddMadal
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
@@ -253,7 +253,7 @@ export default function HomePage({ user }) {
                         />
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}
@@ -261,18 +261,17 @@ export default function HomePage({ user }) {
                             onChange={() => clearErrors("phoneNumber")}
                             style={{ marginBottom: "20px" }}
                         />
+
                         <AddInput
-                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
-                            type={"text"}
-                            label={"会社名"}
-                            placeholder={"会社名"}
-                            value={watchedFiles?.companyName || ''}
-                            alert={errors.companyName?.message}
-                            onChange={() => clearErrors("companyName")}
+                            register={{ ...register('birthday', { required: "電話番号は必要です！" }) }}
+                            type={"date"}
+                            label={"birthday"}
+                            placeholder={"birthday"}
+                            value={watchedFiles?.birthday || ''}
+                            alert={errors.birthday?.message}
+                            onChange={() => clearErrors("birthday")}
                             style={{ marginBottom: "20px" }}
-
                         />
-
                         <AddInput
                             type={"text"}
                             label={"メール"}

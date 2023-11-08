@@ -262,6 +262,20 @@ export default function SettingsPage({ data }) {
                             </>
                             }
 
+                            {
+                                <SettingsInput
+                                    className={cls.SettingsPage__inputs__wrap}
+
+                                    label={"birthday"}
+                                    placeholder={"birthday"}
+                                    type={"date"}
+
+                                    register={{ ...register("birthday", { required: "メールは必要です！" }) }}
+                                    value={watchedFiles?.birthday || ''}
+                                    alert={errors.birthday?.message}
+                                    onChange={() => clearErrors("birthday")}
+                                />
+                            }
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
 

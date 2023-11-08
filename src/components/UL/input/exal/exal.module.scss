@@ -3,7 +3,6 @@
 
     &__text {
         color: #101828;
-
         font-family: Inter;
         font-size: 12px;
         font-style: normal;
@@ -45,14 +44,15 @@
         padding-left: 13px;
 
         p {
+            cursor: pointer;
             color: #101828;
-
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
             opacity: .3;
+            width: 100%;
         }
 
         div {
@@ -72,5 +72,42 @@
         p {
             opacity: 1;
         }
+    }
+
+    &__priw {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0 auto;
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+        height: 100vh;
+
+        &__wrap {
+            width: 100%;
+            text-align: end;
+
+            div {
+                cursor: pointer;
+                display: inline-block;
+                border-radius: 10px;
+                background: #F5F5F5;
+                padding: 12px;
+                padding-top: 8px;
+                margin-bottom: 20px;
+                margin-left: auto;
+
+            }
+        }
+
+    }
+
+    &__error {
+        margin-top: 3px;
+        color: red;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
     }
 }

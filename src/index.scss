@@ -1,4 +1,5 @@
 @import url('../public/fonts/fonts.css');
+@import 'bootstrap/scss/bootstrap';
 
 :root {
   --white-color: #FFFFFF;
@@ -34,7 +35,10 @@ button {
   cursor: pointer;
 }
 
-
+p {
+  margin: 0;
+  padding: 0;
+}
 
 ul {
   padding: 0;

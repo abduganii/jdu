@@ -4,7 +4,7 @@ import BlueButtun from '../../../UL/buttun/blueBtn'
 import cls from "./GroupsPage.module.scss"
 
 import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { PlusIcon } from '../../../UL/icons'
 import GroupTopList from '../../../UL/list/groupTop'
 import GroupList from '../../../UL/list/grouplist'
@@ -37,6 +37,7 @@ const Course = [
 
 const GroupsPage = React.forwardRef(({ groups }, ref) => {
   const queryClient = useQueryClient()
+  const [params] = useSearchParams()
   const [openMadal, setOpenMadal] = useState(false)
   const [avatar, setAvatar] = useState()
   const [groupId, setGruopId] = useState(false)
@@ -79,47 +80,52 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
   }
 
   const AddStudentFunc = async (data) => {
-
     setLoading(true)
-    if (query == "false") {
-      await AddGroup({ years, ...data })
-        .then(res => {
-          if (res?.data?.message) {
-            toast(res?.data?.message)
+    if (years) {
 
-          } else if (res.status == 201) {
-            toast('recrutiar created')
-            setOpenMadal(false)
+      if (query == "false") {
+        await AddGroup({ years, ...data })
+          .then(res => {
+            if (res?.data?.message) {
+              toast(res?.data?.message)
 
-          }
-          setLoading(false)
-          queryClient.invalidateQueries(['group', params.get('search')])
+            } else if (res.status == 201) {
+              toast('gruop created')
+              setOpenMadal(false)
 
-        })
-        .catch(err => {
-          console.log(err.message)
-          setLoading(false)
-        })
-    } else if (query == "true") {
-      await UpdateGroup({ years, ...data }, groupId1)
-        .then(res => {
+            }
+            setLoading(false)
+            queryClient.invalidateQueries(['group', params.get('search')])
 
-          if (res?.data?.message) {
-            toast(res?.data?.message)
 
-          } else if (res.status == 203) {
-            toast('recrutiar update')
-            setOpenMadal(false)
+          })
+          .catch(err => {
+            setLoading(false)
+          })
+      } else if (query == "true") {
+        await UpdateGroup({ years, ...data }, groupId1)
+          .then(res => {
 
-          }
-          setLoading(false)
-          queryClient.invalidateQueries(['group', params.get('search')])
+            if (res?.data?.message) {
+              toast(res?.data?.message)
 
-        })
-        .catch(err => {
-          console.log(err.message)
-          setLoading(false)
-        })
+            } else if (res.status == 203) {
+              toast('recrutiar update')
+              setOpenMadal(false)
+
+            }
+            setLoading(false)
+            queryClient.invalidateQueries(['group', params.get('search')])
+
+          })
+          .catch(err => {
+            console.log(err.message)
+            setLoading(false)
+          })
+      }
+    } else {
+      setLoading(false)
+      setError('year', { type: 'custom', message: "gruop year reqiured" })
     }
 
   }
@@ -148,9 +154,9 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               setGruopId(group?.id)
               fitchOnePerson1(group?.id)
             }}
-            name={group?.group_name}
-            years={group?.group_year}
-            collection={group?.group_collection}
+            name={group?.name}
+            years={group?.year}
+            collection={group?.collection}
             students={group?.quantity}
             update={() => {
               router('?updete=true')
@@ -159,7 +165,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               setGrupId1(group?.id)
               fitchOnePerson(group?.id)
             }}
-            onClick={() => router('/decan/students')}
+            onClick={() => router(`/decan/groups/students/${group?.id}`)}
 
           />
         )
@@ -190,6 +196,8 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               label={"Group name"}
               placeholder={"Group name"}
               style={{ marginBottom: "10px" }}
+              alert={errors.name?.message}
+              onChange={() => clearErrors("name")}
             />
             <AddInput
               value={years}
@@ -197,6 +205,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               label={"Course year"}
               placeholder={"Course year"}
               Specialisation={Course}
+              alert={errors.year?.message}
               style={{ marginBottom: "10px" }}
               onChange={(e) => setYears(e)}
             />
@@ -229,7 +238,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
                 setGrupId1(false)
 
                 setLoading(false)
-                // queryClient.invalidateQueries(['gruop', params.get('search')])
+                queryClient.invalidateQueries(['group', params.get('search')])
 
               }).catch(err => {
                 toast(err)

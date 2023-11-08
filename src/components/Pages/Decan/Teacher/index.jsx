@@ -15,7 +15,7 @@ import { Student } from './data'
 import cls from "./Teacher.module.scss"
 import toast, { Toaster } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom'
-import { TeacherAdd } from '../../../../services/teacher'
+import { TeacherAdd, TeacherAllAdd } from '../../../../services/teacher'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import ExalInput from '../../../UL/input/exal'
@@ -28,7 +28,7 @@ export default function TeacherPage({ data }) {
     const [loading, setLoading] = useState(false)
     const [role, setRole] = useState("teacher")
     const router = useNavigate()
-
+    const [exalError, setExalError] = useState(false)
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
 
@@ -39,7 +39,7 @@ export default function TeacherPage({ data }) {
 
 
 
-    const { register, handleSubmit, reset, setValue, watch } = useForm();
+    const { register, handleSubmit, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     // const fitchOnePerson = (id) => {
     //     const fetchData = async () => {
@@ -65,24 +65,63 @@ export default function TeacherPage({ data }) {
 
 
     const AddStudentFunc = async (data) => {
-        await TeacherAdd({ role: role, ...data })
-            .then(res => {
-                if (res?.data?.message) {
-                    toast(res?.data?.message)
+        setLoading(true)
 
-                } else if (res.status == 201) {
-                    toast('recrutiar created')
-                    setOpenMadal(false)
+        if (exal) {
+            const formData = new FormData()
+            formData.append("excel", exal)
+            formData.append("role", role)
+            await TeacherAllAdd(formData)
+                .then(res => {
+                    if (res?.data?.message) {
+                        setLoading(false)
+                    }
+                    if (res.status == 201) {
+                        toast('Em created')
+                        setOpenMadal(false)
+                        reset()
+                        setLoading(false)
+                    }
+                    setexal(null)
+                })
+                .catch(err => {
+                    setLoading(false)
+                    setExalError(true)
+                })
+        } else {
+            await TeacherAdd({ role: role, ...data })
+                .then(res => {
+                    if (res?.data?.message) {
+                        toast(res?.data?.message)
 
-                }
+                    } else if (res.status == 201) {
+                        toast('recrutiar created')
+                        setOpenMadal(false)
+                    }
+                    setLoading(false)
+                    queryClient.invalidateQueries(['recruiters', params.get('search')])
 
-                setLoading(false)
-                queryClient.invalidateQueries(['recruiters', params.get('search')])
-
-            })
-            .catch(err => {
-                setLoading(false)
-            })
+                })
+                .catch(err => {
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
+                    }
+                    if (err.response.data.message.includes("type integer")) {
+                        setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
+                    }
+                    setLoading(false)
+                })
+        }
     }
 
     const UpdatetudentFunc = async (data) => {
@@ -168,6 +207,8 @@ export default function TeacherPage({ data }) {
                             type={"text"}
                             label={"Firstname"}
                             placeholder={"Firstname"}
+                            onChange={() => clearErrors("firstName")}
+                            alert={errors.firstName?.message}
                             value={watchedFiles?.firstName || ''}
                         />
                         <AddInput
@@ -175,6 +216,8 @@ export default function TeacherPage({ data }) {
                             type={"text"}
                             label={"Lastname"}
                             placeholder={"Lastname"}
+                            onChange={() => clearErrors("lastName")}
+                            alert={errors.lastName?.message}
                             value={watchedFiles?.lastName || ''}
                         />
                         <AddInput
@@ -182,6 +225,8 @@ export default function TeacherPage({ data }) {
                             type={"text"}
                             label={"Id"}
                             placeholder={"Id"}
+                            onChange={() => clearErrors("loginId")}
+                            alert={errors.loginId?.message}
                             value={watchedFiles?.loginId || ''}
                             geterat={true}
                             loginGenerate={(e) => setValue("loginId", e)}
@@ -234,6 +279,7 @@ export default function TeacherPage({ data }) {
                                 type={"radio"}
                                 value={"teacher"}
                                 checked={role == "teacher" ? true : false}
+
                                 onChange={(e) => setRole(e.target.value)}
                             />
                             <p>  Teacher</p>
@@ -242,8 +288,8 @@ export default function TeacherPage({ data }) {
                             <input
                                 name='role'
                                 type={"radio"}
-                                value={"employee"}
-                                checked={role == "employee" ? true : false}
+                                value={"staff"}
+                                checked={role == "shaff" ? true : false}
                                 onChange={(e) => setRole(e.target.value)}
                             />
                             <p>Employee</p>
@@ -252,25 +298,34 @@ export default function TeacherPage({ data }) {
                     <div className={cls.TeacherPage__addInputs}>
 
                         <AddInput
-                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
                             style={{ marginBottom: "20px" }}
+                            onChange={() => clearErrors("loginId")}
+                            alert={errors.loginId?.message}
+                            value={watchedFiles?.loginId || ''}
                             disabled={exal ? true : false}
                         />
 
                         <AddInput
-                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
+                            register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
                             style={{ marginBottom: "20px" }}
+                            onChange={() => clearErrors("loginId")}
+                            alert={errors.email?.message}
+                            value={watchedFiles?.email || ''}
                             disabled={exal ? true : false}
                         />
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} onChange={() => reset()} />
+                    <ExalInput setResolv={setexal} exalError={exalError} resolv={exal} onChange={() => {
+                        reset()
+                        setExalError(false)
+                    }} />
                 </AddMadal>
             }
             <Toaster />
