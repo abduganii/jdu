@@ -110,7 +110,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               toast(res?.data?.message)
 
             } else if (res.status == 203) {
-              toast('recrutiar update')
+              toast('gruop update')
               setOpenMadal(false)
 
             }
@@ -157,7 +157,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
             name={group?.name}
             years={group?.year}
             collection={group?.collection}
-            students={group?.quantity}
+            students={group?.students}
             update={() => {
               router('?updete=true')
               setOpenMadal(true)

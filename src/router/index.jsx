@@ -33,6 +33,7 @@ import TeacherHome from '../app/Teacher/home'
 import TecherGruop from '../app/Teacher/gruop'
 import Teachertudent from '../app/Teacher/students'
 import DecanPerantBuId from '../app/Decan/Parents/id'
+import DecanEmloyBuId from '../app/Decan/Employees/id'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -83,6 +84,8 @@ export default function AppRouter() {
                 <Route path="/decan/recruitors" element={< DecanRecruitor />} />
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/employees" element={< DecEmployees />} />
+                <Route path="/decan/employees/:id" element={< DecanEmloyBuId />} />
+
                 <Route path="/decan/parents" element={< DecParents />} />
                 <Route path="/decan/parents/:id" element={< DecanPerantBuId />} />
 

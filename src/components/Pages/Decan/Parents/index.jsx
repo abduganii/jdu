@@ -16,6 +16,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
+import { ParentAdd, Parentdelete, ParentUpdate } from '../../../../services/parent'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
     const queryClient = useQueryClient()
@@ -26,7 +27,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     const [avatar, setAvatar] = useState()
     const [loading, setLoading] = useState(false)
     const [exal, setexal] = useState()
-    // const oneStuednt = data.find(e => e.id === personId)
+    const oneStuednt = data.find(e => e.id === personId)
     const router = useNavigate()
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
@@ -42,12 +43,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setValue("avatar", res?.avatar)
             setValue("firstName", res?.firstName)
             setValue("lastName", res?.lastName)
-            setValue("companyName", res?.companyName)
-            setValue("specialisation", res?.specialisation)
             setValue("phoneNumber", res?.phoneNumber)
-            setValue("email", res?.email)
             setValue("loginId", res?.loginId)
-            setValue("bio", res?.bio)
+            setValue("studentId", res?.studentId)
+            setValue("email", res?.email)
         }
         fetchData()
             .then((err) => {
@@ -56,15 +55,86 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
-        console.log(data)
+
+
+        await ParentAdd(data)
+            .then(res => {
+                if (res?.data?.message) {
+                    toast(res?.data?.message)
+
+                } else if (res.status == 201) {
+                    toast('parent created')
+                    setOpenMadal(false)
+
+                }
+
+                setLoading(false)
+                queryClient.invalidateQueries(['parents', params.get('search')])
+
+            })
+            .catch(err => {
+                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setLoading(false)
+                }
+                if (err.response.data.message == "Validation isEmail on email failed") {
+                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setLoading(false)
+                } if (err.response.data.message === "email must be unique") {
+                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                }
+                if (err.response.data.message === "Validation len on password failed") {
+                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                }
+                setLoading(false)
+            })
     }
 
     const UpdateStudentFunc = async (data) => {
-        console.log(data)
+        setLoading(true)
+
+        const formData = new FormData()
+        if (data.avatar) formData.append("avatar", data.avatar)
+        formData.append("firstName", data?.firstName)
+        formData.append("lastName", data?.lastName)
+        formData.append("phoneNumber", data?.phoneNumber)
+        formData.append("loginId", data?.loginId)
+        formData.append("email", data?.email)
+
+        formData.append("bio", data?.bio)
+
+
+        await ParentUpdate(formData, personId1)
+            .then(res => {
+                if (res?.data?.message) {
+                    toast(res?.data?.message)
+                } else if (res.status == 203) {
+                    toast('parent updated')
+                    setOpenMadal(false)
+
+                    setAvatar(null)
+                }
+                setLoading(false)
+                queryClient.invalidateQueries(['parents', params.get('search')])
+
+            })
+            .catch(err => {
+                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setLoading(false)
+                }
+                if (err.response.data.message == "Validation isEmail on email failed") {
+                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setLoading(false)
+                } if (err.response.data.message === "email must be unique") {
+                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                }
+                if (err.response.data.message === "Validation len on password failed") {
+                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                }
+                setLoading(false)
+            })
     }
-
-
-
 
     const hendleimg = (e) => {
         if (e.target.files[0]) {
@@ -89,39 +159,54 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                 </BlueButtun>
             </div>
             <TopList text={["Parents fullname", "Parent ID", "Student", "Phone", "Email", "アクション"]} />
-            {/* {data && data?.map(e => ( */}
-            <PersonList
-                onClick={() => router(`/decan/recruitors/${"e?.id"}`)}
-                key={"e?.id"}
-                // img={"e?.avatar"}
-                id={"e?.loginId"}
-                name={"e?.firstName"}
-                gruop={"e?.companyName"}
-                phone={"e?.phoneNumber"}
-                email={"e?.email"}
-                remove={() => setPersonId("e?.id")}
-                update={() => {
-                    router('?updete=true')
-                    setOpenMadal(true)
-                    setPersonId(false)
-                    setPersonId1(e?.id)
-                    fitchOnePerson(e?.id)
-                }}
-            />
-            {/* ))} */}
+            {data && data?.map(e => (
+                <PersonList
+                    onClick={() => router(`/decan/parents/${"e?.id"}`)}
+                    key={e?.id}
+                    img={e?.avatar}
+                    id={e?.loginId}
+                    name={`${e?.firstName} ${e?.lastName}`}
+                    gruop={e?.student}
+                    phone={e?.phoneNumber}
+                    email={e?.email}
+                    remove={() => setPersonId("e?.id")}
+                    update={() => {
+                        router('?updete=true')
+                        setOpenMadal(true)
+                        setPersonId(false)
+                        setPersonId1(e?.id)
+                        fitchOnePerson(e?.id)
+                    }}
+                />
+            ))}
             <div ref={ref} style={{ padding: "10px" }}></div>
             {
                 personId && <DeleteMadel
-                    id={"oneStuednt?.loginId"}
-                    name={`${"oneStuednt?.firstName"} ${"oneStuednt?.lastName"}`}
-                    // avater={oneStuednt?.avatar}
+                    id={oneStuednt?.loginId}
+                    name={`${"?.firstName"} ${"oneStuednt?.lastName"}`}
+                    avater={oneStuednt?.avatar}
                     role={'Parent'}
-                    progress={"oneStuednt?.progress"}
-                    years={"oneStuednt?.companyName"}
-                    // remove={async () => {
-                    //     setLoading(true)
+                    progress={oneStuednt?.progress}
+                    years={oneStuednt?.companyName}
+                    remove={async () => {
+                        setLoading(true)
+                        await Parentdelete(oneStuednt?.id)
+                            .then(data => {
+                                if (data) {
+                                    toast("リクレーターが削除されました")
+                                    setLoading(false)
+                                }
+                                setPersonId(false)
+                                setLoading(false)
+                                queryClient.invalidateQueries(['parents', params.get('search')])
 
-                    // }}
+                            }).catch(err => {
+                                toast(err)
+                                setLoading(false)
+
+                            })
+
+                    }}
                     className={personId ? cls.openMadal : ''}
                     close={() => setPersonId(false)}
                 />
@@ -191,15 +276,15 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            register={{ ...register('studentId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Id"}
                             value={watchedFiles?.loginId || ''}
                             geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
+                            loginGenerate={(e) => setValue("studentId", e)}
                             alert={errors.loginId?.message}
-                            onChange={() => clearErrors("loginId")}
+                            onChange={() => clearErrors("studentId")}
                             style={{ marginBottom: "20px" }}
 
                         />
@@ -215,9 +300,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
 
                         />
-
-
-
                     </div>
                 </AddMadal>
             }

@@ -33,7 +33,7 @@ const GroupsTechPage = React.forwardRef(({ groups, role }, ref) => {
             name={group?.name}
             years={group?.year}
             collection={group?.collection}
-            students={group?.quantity}
+            students={group?.students}
             update={() => {
               router('?updete=true')
               setOpenMadal(true)

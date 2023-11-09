@@ -51,7 +51,7 @@ export default function HomeTechPage({ user }) {
         formData.append("email", user?.email)
         formData.append("loginId", user?.loginId)
         formData.append("isActive", true)
-
+        formData.append("phoneNumber", data?.phoneNumber)
         formData.append("bio", data?.bio)
 
 
@@ -286,6 +286,18 @@ export default function HomeTechPage({ user }) {
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
 
+
+                        />
+
+                        <AddInput
+                            register={{ ...register('phoneNumber', { required: "名前は必要です！" }) }}
+                            type={"text"}
+                            label={"phoneNumber"}
+                            placeholder={"phoneNumber"}
+                            value={watchedFiles?.phoneNumber || ''}
+                            alert={errors.phoneNumber?.message}
+                            onChange={() => clearErrors("firstName")}
+                            style={{ marginBottom: "20px" }}
 
                         />
                     </div>

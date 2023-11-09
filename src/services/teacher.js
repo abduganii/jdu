@@ -1,21 +1,23 @@
 import api from "./api"
 
-export const TeacherGet = async () => {
+export const TeacherGet = async (query) => {
     try {
-     const res = await api.get('/teachers', {withCredentials: true})
+        const params = new URLSearchParams(query)
+     const res = await api.get(`/teachers?${params.toString()}}`, {withCredentials: true})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);
     }
 }
-// export const TeacherGetSearch = async (query) => {
-//     try {
-//      const res = await api.get(`/teachers?search=${query}`, {withCredentials: true})
-//      return res.data
-//     } catch (error) {
-//      console.log(error.response.data.message);
-//     }
-// }
+
+export const TeacherGetById = async (id) => {
+    try {
+     const res = await api.get(`/teacher/${id}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
 
  
 export const TeacherAdd = async (data) => { 
@@ -43,11 +45,11 @@ export const TeacherUpdate = async ( data, id ) => {
 
 
 
-// export const Teacherdelete = async (id) => {
-//     try {
-//         const response = await api.delete(`/teacher/${id}`);
-//         return response;
-//        } catch (error) {
-//         console.log(error.response.data.message);
-//        }
-// }
+export const Teacherdelete = async (id) => {
+    try {
+        const response = await api.delete(`/teacher/${id}`);
+        return response;
+       } catch (error) {
+        console.log(error.response.data.message);
+       }
+}

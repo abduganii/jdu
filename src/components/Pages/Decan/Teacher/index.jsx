@@ -14,17 +14,19 @@ import React, { useState } from 'react'
 import { Student } from './data'
 import cls from "./Teacher.module.scss"
 import toast, { Toaster } from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom'
-import { TeacherAdd, TeacherAllAdd } from '../../../../services/teacher'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { TeacherAdd, TeacherAllAdd, Teacherdelete, TeacherGetById, TeacherUpdate } from '../../../../services/teacher'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import ExalInput from '../../../UL/input/exal'
+import { useQueryClient } from 'react-query'
 
-
-export default function TeacherPage({ data }) {
+const TeacherPage = React.forwardRef(({ data }, ref) => {
+    const queryClient = useQueryClient()
+    const [params] = useSearchParams()
     const [personId, setPersonId] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
-    const oneStuednt = Student.find(e => e.id === personId)
+    const oneStuednt = data.find(e => e.id === personId)
     const [loading, setLoading] = useState(false)
     const [role, setRole] = useState("teacher")
     const router = useNavigate()
@@ -38,29 +40,26 @@ export default function TeacherPage({ data }) {
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
 
 
-
-    const { register, handleSubmit, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
-    // const fitchOnePerson = (id) => {
-    //     const fetchData = async () => {
-    //         const res = await RecruitorGetById(id);
+    const fitchOnePerson = (id) => {
 
-    //         setValue("avatar", res?.avatar)
-    //         setValue("firstName", res?.firstName)
-    //         setValue("lastName", res?.lastName)
-    //         setValue("companyName", res?.companyName)
-    //         setValue("specialisation", res?.specialisation)
-    //         setValue("phoneNumber", res?.phoneNumber)
-    //         setValue("email", res?.email)
-    //         setValue("loginId", res?.loginId)
-    //         setValue("password", res?.password)
-    //         setValue("bio", res?.bio)
-    //     }
-    //     fetchData()
-    //         .then((err) => {
-    //             console.log(err);
-    //         })
-    // }
+        const fetchData = async () => {
+            const res = await TeacherGetById(id);
+            setValue("avatar", res?.rows[0]?.avatar)
+            setValue("firstName", res?.rows[0]?.firstName)
+            setValue("lastName", res?.rows[0]?.lastName)
+            setValue("companyName", res?.rows[0]?.companyName)
+            setValue("specialisation", res?.rows[0]?.specialisation)
+            setValue("phoneNumber", res?.rows[0]?.phoneNumber)
+            setValue("email", res?.rows[0]?.email)
+            setValue("loginId", res?.rows[0]?.loginId)
+        }
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
+    }
 
 
 
@@ -99,7 +98,7 @@ export default function TeacherPage({ data }) {
                         setOpenMadal(false)
                     }
                     setLoading(false)
-                    queryClient.invalidateQueries(['recruiters', params.get('search')])
+                    queryClient.invalidateQueries(['teachers', params.get('search')])
 
                 })
                 .catch(err => {
@@ -124,8 +123,49 @@ export default function TeacherPage({ data }) {
         }
     }
 
+
     const UpdatetudentFunc = async (data) => {
-        console.log("update")
+        setLoading(true)
+        const formData = new FormData()
+        if (data.avatar) formData.append("avatar", data.avatar)
+        formData.append("firstName", data?.firstName)
+        formData.append("lastName", data?.lastName)
+        formData.append("email", data?.email)
+        formData.append("loginId", data?.loginId)
+        formData.append("isActive", true)
+        formData.append("phoneNumber", data?.phoneNumber)
+        formData.append("bio", data?.bio)
+
+
+        await TeacherUpdate(formData, personId1)
+            .then(res => {
+                if (res?.data?.message) {
+                    toast(res?.data?.message)
+                } else if (res.status == 203) {
+                    toast('registor seccessful')
+                    setOpenMadal(false)
+                    setAvatar(null)
+                }
+                setLoading(false)
+                queryClient.invalidateQueries(['teachers', params.get('search')])
+
+            })
+            .catch(err => {
+                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setLoading(false)
+                }
+                if (err.response.data.message == "Validation isEmail on email failed") {
+                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setLoading(false)
+                } if (err.response.data.message === "email must be unique") {
+                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                }
+                if (err.response.data.message === "Validation len on password failed") {
+                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                }
+                setLoading(false)
+            })
     }
     const hendleimg = (e) => {
         if (e.target.files[0]) {
@@ -153,12 +193,12 @@ export default function TeacherPage({ data }) {
             {data &&
                 data?.map(e => (
                     <PersonList
-                        onClick={() => router(`/decan/recruitors/${e?.id}`)}
+                        onClick={() => router(`/decan/employees/${e?.id}`)}
                         key={e?.id}
                         img={e?.avatar}
                         id={e?.loginId}
                         name={e?.firstName}
-                        gruop={e?.fatherName}
+                        gruop={e?.specialisation || "null"}
                         phone={e?.phoneNumber}
                         email={e?.email}
                         remove={() => setPersonId(e?.id)}
@@ -166,6 +206,8 @@ export default function TeacherPage({ data }) {
                             router('?updete=true')
                             setOpenMadal(true)
                             setPersonId(false)
+                            setPersonId1(e?.id)
+                            fitchOnePerson(e?.id)
                         }}
                     />
                 ))
@@ -173,16 +215,31 @@ export default function TeacherPage({ data }) {
             }
             {
                 personId && <DeleteMadel
-                    id={oneStuednt?.id}
-                    name={oneStuednt?.name}
-                    avater={oneStuednt?.avater}
+                    id={oneStuednt?.loginId}
+                    name={oneStuednt?.firstName}
+                    avater={oneStuednt?.specialisation}
                     role={'teacher'}
                     progress={oneStuednt?.progress}
                     years={"2years"}
-                    remove={() => {
+                    remove={async () => {
+                        setLoading(true)
+                        await Teacherdelete(oneStuednt?.id)
+                            .then(data => {
+                                if (data) {
+                                    toast("emloy deleted")
+                                    setLoading(false)
+                                }
+                                setPersonId(false)
 
-                        toast("employees deleted")
-                        setPersonId(false)
+                                setLoading(false)
+                                queryClient.invalidateQueries(['teachers', params.get('search')])
+
+                            }).catch(err => {
+                                toast(err)
+                                setLoading(false)
+
+                            })
+
 
                     }}
                     className={personId ? cls.openMadal : ''}
@@ -194,8 +251,12 @@ export default function TeacherPage({ data }) {
                 <AddMadal
                     role={"Update employees"}
                     style={{ maxWidth: "775px" }}
-                    OnSubmit={handleSubmit(AddStudentFunc)}
-                    closeMadal={() => setOpenMadal(false)}>
+                    OnSubmit={handleSubmit(UpdatetudentFunc)}
+                    closeMadal={() => {
+                        setOpenMadal(false)
+                        setAvatar(null)
+                        reset()
+                    }}>
                     <AvatarInput
                         onChange={(e) => hendleimg(e)}
                         url={avatar || watchedFiles?.avatar}
@@ -203,64 +264,84 @@ export default function TeacherPage({ data }) {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
-                            register={{ ...register('firstName') }}
+                            register={{ ...register('firstName', { required: "名前は必要です！" }) }}
                             type={"text"}
-                            label={"Firstname"}
-                            placeholder={"Firstname"}
-                            onChange={() => clearErrors("firstName")}
-                            alert={errors.firstName?.message}
+                            label={"名前"}
+                            placeholder={"名前"}
                             value={watchedFiles?.firstName || ''}
+                            alert={errors.firstName?.message}
+                            onChange={() => clearErrors("firstName")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('lastName', { required: true }) }}
+                            register={{ ...register('lastName', { required: "名字は必要です！" }) }}
                             type={"text"}
-                            label={"Lastname"}
-                            placeholder={"Lastname"}
-                            onChange={() => clearErrors("lastName")}
-                            alert={errors.lastName?.message}
+                            label={"名字"}
+                            placeholder={"名字"}
                             value={watchedFiles?.lastName || ''}
+                            alert={errors.lastName?.message}
+                            onChange={() => clearErrors("lastName")}
+                            style={{ marginBottom: "20px" }}
+
                         />
                         <AddInput
-                            register={{ ...register('loginId', { required: true }) }}
                             type={"text"}
                             label={"Id"}
                             placeholder={"Id"}
-                            onChange={() => clearErrors("loginId")}
-                            alert={errors.loginId?.message}
                             value={watchedFiles?.loginId || ''}
-                            geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
+                            alert={errors.loginId?.message}
+                            style={{ marginBottom: "20px" }}
+                            onChange={() => clearErrors("loginId")}
                         />
                         <AddInput
-                            register={{ ...register('Bolim', { required: true }) }}
                             type={"select"}
                             label={"Bo’lim"}
                             placeholder={"Bo’lim"}
-                            value={watchedFiles?.Bolim || ''}
+                            style={{ marginBottom: "20px" }}
+
                         />
 
                         <AddInput
-                            register={{ ...register('specialisation', { required: true }) }}
                             type={"select"}
                             label={"Specialisation"}
                             placeholder={"Specialisation"}
-                            value={watchedFiles?.specialisation || ''}
+                            style={{ marginBottom: "20px" }}
+
                         />
+
                         <AddInput
-                            register={{ ...register('Lavozimi', { required: true }) }}
                             type={"select"}
                             label={"Lavozimi"}
                             placeholder={"Lavozimir"}
-                            value={watchedFiles?.Lavozimi || ''}
-                        />
-                        <AddInput
-                            register={{ ...register('email', { required: true }) }}
-                            type={"text"}
-                            label={"E-mail"}
-                            placeholder={"E-mail"}
-                            value={watchedFiles?.email || ''}
+                            style={{ marginBottom: "20px" }}
+
                         />
 
+                        <AddInput
+                            register={{ ...register('email', { required: "メールは必要です！" }) }}
+                            type={"text"}
+                            label={"メール"}
+                            placeholder={"メール"}
+                            value={watchedFiles?.email || ''}
+                            alert={errors.email?.message}
+                            onChange={() => clearErrors("email")}
+                            style={{ marginBottom: "20px" }}
+
+
+                        />
+
+                        <AddInput
+                            register={{ ...register('phoneNumber', { required: "名前は必要です！" }) }}
+                            type={"text"}
+                            label={"phoneNumber"}
+                            placeholder={"phoneNumber"}
+                            value={watchedFiles?.phoneNumber || ''}
+                            alert={errors.phoneNumber?.message}
+                            onChange={() => clearErrors("firstName")}
+                            style={{ marginBottom: "20px" }}
+
+                        />
 
                     </div>
                 </AddMadal>
@@ -332,4 +413,6 @@ export default function TeacherPage({ data }) {
             {loading && <Loader onClick={() => setLoading(false)} />}
         </div>
     )
-}
+})
+
+export default TeacherPage;

@@ -12,7 +12,7 @@ export default function DecEmployees() {
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
     ['teachers', params.get('search')],
-    async ({ pageParam = 1 }) => await RecruitorGet({
+    async ({ pageParam = 1 }) => await TeacherGet({
       limit: 15,
       page: pageParam,
       company: params.get('companyName') || '',
@@ -36,10 +36,11 @@ export default function DecEmployees() {
       fetchNextPage()
     }
   }, [inView])
+
   return (
 
     <>
-      <TeacherPage teachers={teachers} />
+      <TeacherPage data={teachers} ref={ref} />
     </>
   )
 }
