@@ -7,5 +7,8 @@ export default defineConfig({
   server: {
     host: true,
     port:3000
-  }
+  },
+   rollupOptions: {
+      external: ['core-js-pure/stable/object/assign.js']
+    }
 })
