@@ -8,12 +8,12 @@ export default function BackBtn({ onClick, UserId, role, ...other }) {
         <div className={cls.BackBtn} {...other}>
             <div onClick={onClick}> <LeftIcon />戻る</div>
 
-            {role ? <label >
+            {/* {role ? <label >
                 <a href={`https://api.jdu.getter.uz/student/cv/${UserId}`} target="_blank" >
                     履歴書をダウンロード
                     <DownLoadIcon />
                 </a>
-            </label> : ""}
+            </label> : ""} */}
         </div>
     )
 }

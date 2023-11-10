@@ -253,7 +253,7 @@ export default function HomePage({ user }) {
                         />
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}

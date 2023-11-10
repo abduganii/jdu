@@ -1,0 +1,226 @@
+.HomePage {
+    // display: flex;
+    // align-items: flex-start;
+    width: 100%;
+    position: relative;
+
+
+    &__container {
+        width: 95% !important;
+        background: #FFFFFF !important;
+        box-shadow: -10px 50px 250px -20px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 20px !important;
+        margin-top: 107px !important;
+        padding: 64px 0 110px 70px !important;
+        position: relative !important;
+        margin-left: 41px !important;
+    }
+
+    &__title {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 39px;
+        color: #000000;
+        width: 100%;
+        max-width: 416px;
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        color: #000000;
+        width: 100%;
+        max-width: 354px;
+        margin-top: 15px;
+    }
+
+    &__img {
+        position: absolute;
+        bottom: 0;
+        right: 20px;
+        height: 197px;
+    }
+
+    &__card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-left: 41px;
+        margin-top: 16px;
+        margin-right: 40px;
+
+
+        &__card {
+            width: 100%;
+            // max-width: 268px;
+            padding: 23px 23px 24px 20px;
+            border-radius: 3px;
+            background: rgb(74, 178, 94, 0.06);
+
+
+            &:nth-child(2) {
+                background: rgb(131, 60, 187, .06);
+
+                .HomePage__card__card__text {
+                    color: #833CBB;
+                }
+
+                .HomePage__card__card__title {
+                    color: #833CBB;
+                }
+            }
+
+            &:nth-child(3) {
+                background: rgb(66, 86, 158, .06);
+
+                .HomePage__card__card__text {
+                    color: #1867B1;
+                }
+
+                .HomePage__card__card__title {
+                    color: #1867B1;
+                }
+            }
+
+            &:nth-child(4) {
+                background: rgb(198, 122, 34, .06);
+
+                .HomePage__card__card__text {
+                    color: #C67A22;
+                }
+
+                .HomePage__card__card__title {
+                    color: #C67A22;
+                }
+            }
+
+            &__title {
+                color: #4AB25E;
+                font-family: "Inter";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+
+            &__text {
+                color: #4AB25E;
+                font-family: "Inter";
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                margin-top: 1px;
+                margin-bottom: 17px;
+            }
+
+            &__role {
+                color: #101828;
+                font-family: Inter;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+
+    }
+
+    &__chart {
+        display: flex;
+        gap: 63px;
+        margin-left: 41px;
+        margin-top: 79px;
+
+        &__wrap {
+            width: 100%;
+            max-width: 520px;
+            padding-left: 40px;
+            padding-right: 34px;
+            border-left: 1px solid #DCDCDC;
+
+        }
+
+        &__title {
+            color: #101828;
+            font-family: Inter;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        &__text {
+            color: #101828;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 17px;
+            opacity: 0.5;
+            width: 100%;
+            max-width: 257px;
+            margin-bottom: 80px;
+        }
+    }
+
+    &__test {
+        color: #101828;
+        font-family: "Inter";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        display: flex;
+        align-items: flex-end;
+        padding: 0px 0px 5px 8px;
+        width: 70px;
+        height: 185px;
+        border-left: 2px solid #5627DC;
+        border-bottom: 45px solid #5627DC;
+
+
+
+        &__wrap {
+            display: flex;
+
+            gap: 24px;
+        }
+
+        &_test {
+            color: #5627DC;
+            font-family: "Inter";
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            margin-top: 2px;
+        }
+    }
+
+    &__test2 {
+        border-left: 2px solid #DC7E27;
+        border-bottom: 45px solid #DC7E27;
+
+        &_test {
+            color: #DC7E27;
+            font-family: "Inter";
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            margin-top: 2px;
+        }
+    }
+
+    &__addInputs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}

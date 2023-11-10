@@ -51,8 +51,7 @@ export default function HomePage({ user }) {
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
         formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("email", user?.email)
-        formData.append("loginId", user?.loginId)
+
         formData.append("isActive", true)
 
         formData.append("bio", data?.bio)
@@ -176,7 +175,7 @@ export default function HomePage({ user }) {
                         </div>
                     </div>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>NAT certificate</h3>
+                        <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
@@ -277,8 +276,6 @@ export default function HomePage({ user }) {
                             label={"メール"}
                             placeholder={"メール"}
                             value={user?.email}
-                            alert={errors.email?.message}
-                            onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
                             disabled={true}
                         />

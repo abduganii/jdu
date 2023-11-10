@@ -102,3 +102,5 @@ export const decanLink = [
   "Parents",
 ];
 export const studentLink = ["ホーム", "スケジュール", "私については"];
+
+export const parentLink = ["ホーム", "My Child",];

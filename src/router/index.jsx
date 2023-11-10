@@ -34,6 +34,7 @@ import TecherGruop from '../app/Teacher/gruop'
 import Teachertudent from '../app/Teacher/students'
 import DecanPerantBuId from '../app/Decan/Parents/id'
 import DecanEmloyBuId from '../app/Decan/Employees/id'
+import ParentHome from '../app/Parant/home'
 
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
@@ -72,6 +73,7 @@ export default function AppRouter() {
             fetchData()
         }
     }, [user])
+    console.log(user)
 
     return (
         <Routes>
@@ -97,6 +99,10 @@ export default function AppRouter() {
                 <Route path="/student/home" element={<StudentHome data={topStudent} user={user} count={count} />} />
                 <Route path="/student/me" element={<StudentMe user={user} />} />
                 <Route path="/student/students/:id" element={<StuDStudentById />} />
+
+                <Route path="/parent/home" element={<ParentHome data={topStudent} user={user} count={count} />} />
+                <Route path="/parent/myChild" element={<StudentMe user={user?.Students?.[0]} />} />
+                <Route path="/parent/students/:id" element={<StuDStudentById />} />
 
                 <Route path="/teacher/home" element={<TeacherHome data={topStudent} user={user} count={count} />} />
                 <Route path="/teacher/groups" element={< TecherGruop role={"teacher"} />} />

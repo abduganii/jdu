@@ -254,7 +254,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
                             style={{ marginBottom: "20px" }}
-
                         />
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
@@ -270,7 +269,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}
@@ -301,8 +300,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
 
 

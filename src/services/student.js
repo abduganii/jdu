@@ -45,6 +45,15 @@ export const StudentsGetById = async (id) => {
     }
 }
 
+export const StudentsGetByloginId = async (id) => {
+    try {
+     const res = await api.get(`/studentbBy/${id}`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
+
 export const GetSkills = async () => {
     try {
      const res = await api.get('/skills', {withCredentials: true})

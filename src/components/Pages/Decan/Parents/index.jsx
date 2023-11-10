@@ -16,7 +16,8 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
-import { ParentAdd, Parentdelete, ParentUpdate } from '../../../../services/parent'
+import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById } from '../../../../services/parent'
+import { StudentsGetByloginId } from '../../../../services/student'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
     const queryClient = useQueryClient()
@@ -39,7 +40,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
-            const res = await RecruitorGetById(id);
+            const res = await ParentGetById(id);
             setValue("avatar", res?.avatar)
             setValue("firstName", res?.firstName)
             setValue("lastName", res?.lastName)
@@ -53,10 +54,19 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             })
     }
 
+    const getlogin = (loginId) => {
+        console.log(loginId)
+        // const fetchData = async () => {
+        //     const res = await StudentsGetByloginId(id);
+
+        //     fetchData()
+        //         .then((err) => {
+        //         })
+        // }
+    }
+
     const AddStudentFunc = async (data) => {
         setLoading(true)
-
-
         await ParentAdd(data)
             .then(res => {
                 if (res?.data?.message) {
@@ -284,7 +294,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                             geterat={true}
                             loginGenerate={(e) => setValue("studentId", e)}
                             alert={errors.loginId?.message}
-                            onChange={() => clearErrors("studentId")}
+                            onChange={() => { clearErrors("studentId") }}
                             style={{ marginBottom: "20px" }}
 
                         />
@@ -340,10 +350,11 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     </div>
                     <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
                         <AddInput
-                            // register={{ ...register('email', { required: "電子メールは必要です！" }) }}
+                            register={{ ...register('studentId', { required: "電子メールは必要です！" }) }}
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Student ID"}
+                            onChange={() => clearErrors("studentId")}
                             style={{ marginBottom: "20px" }}
                             disabled={exal ? true : false}
                         />

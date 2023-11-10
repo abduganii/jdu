@@ -370,7 +370,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                                 name='role'
                                 type={"radio"}
                                 value={"staff"}
-                                checked={role == "shaff" ? true : false}
+                                checked={role == "staff" ? true : false}
                                 onChange={(e) => setRole(e.target.value)}
                             />
                             <p>Employee</p>

@@ -11,6 +11,10 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
 
+
+const array = ["IT", "Japan language", "Hamkor universities"]
+const array1 = ["IT", "Japan language", "Hamkor universities"]
+const array2 = ["IT", "Japan language", "Hamkor universities"]
 export default function HomeTechPage({ user }) {
     const [data, setData] = useState([])
     const [data2, setData2] = useState(0)
@@ -65,7 +69,6 @@ export default function HomeTechPage({ user }) {
                     setAvatar(null)
                 }
                 setLoading(false)
-
 
             })
             .catch(err => {
@@ -174,7 +177,7 @@ export default function HomeTechPage({ user }) {
                         </div>
                     </div>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>NAT certificate</h3>
+                        <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
