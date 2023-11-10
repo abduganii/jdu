@@ -12,9 +12,32 @@ import toast, { Toaster } from 'react-hot-toast';
 import cls from "./homePage.module.scss"
 
 
-const array = ["IT", "Japan language", "Hamkor universities"]
-const array1 = ["IT", "Japan language", "Hamkor universities"]
-const array2 = ["IT", "Japan language", "Hamkor universities"]
+const array = [{
+    id: "IT",
+    name: "IT"
+},
+{
+    id: "Japan language",
+    name: "Japan language"
+},
+{
+    id: "Hamkor universities",
+    name: "Hamkor universities"
+}]
+const array2 = [{
+    id: "Bo’lim boshlig’i",
+    name: "Bo’lim boshlig’i"
+},
+{
+    id: "Leader",
+    name: "Leader"
+},
+{
+    id: "Mas’ul xodim",
+    name: "Mas’ul xodim"
+}
+]
+
 export default function HomeTechPage({ user }) {
     const [data, setData] = useState([])
     const [data2, setData2] = useState(0)
@@ -56,6 +79,7 @@ export default function HomeTechPage({ user }) {
         formData.append("loginId", user?.loginId)
         formData.append("isActive", true)
         formData.append("phoneNumber", data?.phoneNumber)
+        formData.append("specialisation", array[1])
         formData.append("bio", data?.bio)
 
 
@@ -258,6 +282,7 @@ export default function HomeTechPage({ user }) {
                             type={"select"}
                             label={"Bo’lim"}
                             placeholder={"Bo’lim"}
+                            Specialisation={array}
                             style={{ marginBottom: "20px" }}
 
                         />
@@ -267,6 +292,7 @@ export default function HomeTechPage({ user }) {
                                 type={"select"}
                                 label={"Specialisation"}
                                 placeholder={"Specialisation"}
+                                Specialisation={array}
                                 style={{ marginBottom: "20px" }}
 
                             />
@@ -275,6 +301,7 @@ export default function HomeTechPage({ user }) {
                             type={"select"}
                             label={"Lavozimi"}
                             placeholder={"Lavozimir"}
+                            Specialisation={array1}
                             style={{ marginBottom: "20px" }}
 
                         />
