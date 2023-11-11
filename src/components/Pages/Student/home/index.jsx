@@ -51,7 +51,7 @@ export default function HomePage({ user }) {
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
         formData.append("phoneNumber", data?.phoneNumber)
-
+        formData.append("birthday", data?.birthday)
         formData.append("isActive", true)
 
         formData.append("bio", data?.bio)

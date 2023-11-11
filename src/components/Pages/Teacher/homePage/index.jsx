@@ -301,7 +301,7 @@ export default function HomeTechPage({ user }) {
                             type={"select"}
                             label={"Lavozimi"}
                             placeholder={"Lavozimir"}
-                            Specialisation={array1}
+                            Specialisation={array2}
                             style={{ marginBottom: "20px" }}
 
                         />
@@ -316,7 +316,7 @@ export default function HomeTechPage({ user }) {
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
 
-
+                            disabled={true}
                         />
 
                         <AddInput

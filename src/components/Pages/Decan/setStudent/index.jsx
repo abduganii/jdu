@@ -3,7 +3,7 @@
 import BlueButtun from '../../../UL/buttun/blueBtn'
 import CancelBtn from '../../../UL/buttun/cancel'
 import Container from '../../../UL/container'
-import { DownloadIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
+import { DownloadIcons, GalaryIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
 import RangeInput from '../../../UL/input/rangeInput'
 import SearchSkill from '../../../UL/input/SearchSkill'
 import AddInput from '../../../UL/input/AddInput'
@@ -24,7 +24,7 @@ import CreditInput from '../../../UL/input/creditinput'
 import { GetCridents } from '../../../../services/statistic'
 import SertificanSkill from '../../../UL/input/sertifican/index.jsx'
 
-export default function SetStudent({ data }) {
+export default function SetStudent({ data, role }) {
     const x = useRef()
     const y = useRef()
     const router = useNavigate()
@@ -33,48 +33,42 @@ export default function SetStudent({ data }) {
 
 
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
-   
+
     const watchedFiles2 = watch2()
 
-
-
     useEffect(() => {
-        setValue2("avatar", data?.avatar)
         setValue2("firstName", data?.firstName)
         setValue2("lastName", data?.lastName)
         setValue2("loginId", data?.loginId)
-        setValue2("groupNumber", data?.groupNumber)
-        setValue2("courseNumber", data?.courseNumber)
         setValue2('email', data?.email)
+        setValue2('birthday', data?.birthday)
         setValue2('description', data?.itQualification?.description)
         setAvatar(data?.avatar)
-      
-
     }, [data])
 
     const AddDataSubmit = async (body) => {
         setLoading(true)
         const formData = new FormData()
 
-      
-
-
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body.firstName)
         if (body.lastName) formData.append("lastName", body.lastName)
         if (body.loginId) formData.append("loginId", body.loginId)
-        if (body.groupNumber) formData.append("groupNumber", body.groupNumber)
-        if (body.courseNumber) formData.append("courseNumber", body.courseNumber)
+        if (body.birthday) formData.append("birthday", data?.birthday)
         if (body.email) formData.append("email", body.email)
         if (body.password) formData.append("password", body.password)
-     
+
         await StudentsUpdate(formData, data?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
                 } else if (res.status == 203) {
                     toast('student updated')
-                    router('/decan/students')
+                    if (data?.role == "decan") {
+                        router(`/decan/students`)
+                    } else if (data?.role == "student") {
+                        router('/student/me')
+                    }
 
                 }
                 setLoading(false)
@@ -86,9 +80,6 @@ export default function SetStudent({ data }) {
             })
     }
 
-   
-    
-   
 
     const hendleimg = (e) => {
         if (e.target.files[0]) {
@@ -97,7 +88,7 @@ export default function SetStudent({ data }) {
         }
     }
 
-  
+
 
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
@@ -120,101 +111,129 @@ export default function SetStudent({ data }) {
                     </div>
                 </div>
             </div>
+
             <form onSubmit={handleSubmit2(AddDataSubmit)} >
 
-                <div className={cls.SetStudent__top}>
-                    <div className={cls.SetStudent__top__Info}>
-                        <div onClick={() => x.current.classList.add("displayBlock")}>
-                            <LeftIcon />
-                            <p className={cls.SetStudent__top__role}>戻る</p>
+                {
+                    role == "decan" && <>
+                        <div className={cls.SetStudent__top}>
+                            <div className={cls.SetStudent__top__Info}>
+                                <div onClick={() => x.current.classList.add("displayBlock")}>
+                                    <LeftIcon />
+                                    <p className={cls.SetStudent__top__role}>戻る</p>
+                                </div>
+
+                                <h3 className={cls.SetStudent__top__fName}>{data?.firstName} {data?.lastName}</h3>
+                            </div>
+                            <div className={cls.SetStudent__top__btns}>
+                                <CancelBtn onClick={() => router(-1)}>
+                                    キャンセル
+                                </CancelBtn>
+                                <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
+                                    更新を保存
+                                </BlueButtun>
+                            </div>
                         </div>
+                        <div className={cls.SetStudent__inputs}>
+                            <label className={cls.SetStudent__upload} >
+                                {avatar ?
+                                    < img
+                                        src={avatar}
+                                        width={150}
+                                        height={150}
+                                        alt="img"
 
-                        <h3 className={cls.SetStudent__top__fName}>{data?.firstName} {data?.lastName}</h3>
-                    </div>
-                    <div className={cls.SetStudent__top__btns}>
-                        <CancelBtn onClick={() => router(-1)}>
-                            キャンセル
-                        </CancelBtn>
-                        <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
-                        更新を保存
-                        </BlueButtun>
-                    </div>
-                </div>
-                <div className={cls.SetStudent__inputs}>
-                    <label className={cls.SetStudent__upload} >
-                        {avatar ?
-                            < img
-                                src={avatar}
-                                width={150}
-                                height={150}
-                                alt="img"
+                                    /> : <Avatar name={data?.firstName} size="150" round={true} />
+                                }
+                                <input className={cls.SetStudent__upload__file} type="file" onChange={(e) => hendleimg(e)} />
+                                <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
+                            </label>
+                            <div className={cls.SetStudent__content}>
+                                <AddInput
+                                    style={{ marginTop: "10px" }}
+                                    type={"text"}
+                                    label={"名前"}
+                                    placeholder={"名前"}
+                                    register={{ ...register2('firstName') }}
+                                    value={watchedFiles2?.firstName || ''}
+                                />
+                                <AddInput
+                                    style={{ marginTop: "10px" }}
+                                    type={"text"}
+                                    label={"名字"}
+                                    placeholder={"名字"}
+                                    register={{ ...register2('lastName') }}
+                                    value={watchedFiles2?.lastName || ''}
+                                />
+                                <AddInput
+                                    style={{ marginTop: "10px" }}
+                                    type={"text"}
+                                    label={"ID"}
+                                    placeholder={"LoginID"}
+                                    register={{ ...register2('loginId') }}
+                                    disabled={true}
+                                    value={watchedFiles2?.loginId || ''}
+                                />
 
-                            /> : <Avatar name={data?.firstName} size="150" round={true} />
-                        }
-                        <input className={cls.SetStudent__upload__file} type="file" onChange={(e) => hendleimg(e)} />
-                        <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
-                    </label>
-                    <div className={cls.SetStudent__content}>
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"text"}
-                            label={"名前"}
-                            placeholder={"名前"}
-                            register={{ ...register2('firstName') }}
-                            value={watchedFiles2?.firstName || ''}
-                        />
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"text"}
-                            label={"名字"}
-                            placeholder={"名字"}
-                            register={{ ...register2('lastName') }}
-                            value={watchedFiles2?.lastName || ''}
-                        />
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"text"}
-                            label={"ID"}
-                            placeholder={"LoginID"}
-                            register={{ ...register2('loginId') }}
-                            disabled={true}
-                            value={watchedFiles2?.loginId || ''}
-                        />
-
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"text"}
-                            label={"グループ"}
-                            placeholder={"グループ"}
-                            register={{ ...register2('groupNumber') }}
-                            value={watchedFiles2?.groupNumber || ''}
-                        />
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"number"}
-                            label={"コース番号"}
-                            placeholder={"コース番号"}
-                            register={{ ...register2('courseNumber') }}
-                            value={watchedFiles2?.courseNumber || ''}
-                        />
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"text"}
-                            label={"電子メール"}
-                            placeholder={"電子メール"}
-                            register={{ ...register2('email') }}
-                        />
-                        <AddInput
-                            style={{ marginTop: "10px" }}
-                            type={"password"}
-                            label={"パスワード"}
-                            placeholder={"パスワード"}
-                            register={{ ...register2('password') }}
-                        />
-                    </div>
-                </div>
-        
+                                <AddInput
+                                    register={{ ...register2('birthday') }}
+                                    type={"date"}
+                                    label={"birthday"}
+                                    placeholder={"birthday"}
+                                    value={watchedFiles2?.birthday || ''}
+                                    onChange={() => clearErrors("birthday")}
+                                    style={{ marginTop: "10px" }}
+                                />
+                                <AddInput
+                                    style={{ marginTop: "10px" }}
+                                    type={"text"}
+                                    label={"電子メール"}
+                                    placeholder={"電子メール"}
+                                    value={watchedFiles2?.email || ''}
+                                    onChange={() => clearErrors("email")}
+                                    register={{ ...register2('email') }}
+                                />
+                                <AddInput
+                                    style={{ marginTop: "10px" }}
+                                    type={"password"}
+                                    label={"パスワード"}
+                                    placeholder={"パスワード"}
+                                    onChange={() => clearErrors("password")}
+                                    register={{ ...register2('password') }}
+                                />
+                            </div>
+                        </div>
+                    </>
+                }
+                <AddInput
+                    style={{ marginTop: "10px", width: "100%" }}
+                    type={"textarea"}
+                    label={"Bio"}
+                    placeholder={"bio"}
+                    register={{ ...register2('bio') }}
+                />
             </form>
+
+            <div className={cls.SetStudent__wrap}>
+                <div className={cls.SetStudent__wrap__img}>
+                    <p className={cls.SetStudent__wrap__text}>Gallery</p>
+                    <div className={cls.SetStudent__wrap__img__box}>
+
+                        <label>
+                            <div>
+                                <GalaryIcons />
+                                <p>upload photo</p>
+                            </div>
+                            <input type="file" />
+                        </label>
+
+                        <div className={cls.SetStudent__wrap__cartume}></div>
+                    </div>
+                </div>
+                <div className={cls.SetStudent__wrap__img}>
+                    <p className={cls.SetStudent__wrap__text}>Video</p>
+                </div>
+            </div>
             <Toaster />
             {loading && <Loader onClick={() => setLoading(false)} />}
 

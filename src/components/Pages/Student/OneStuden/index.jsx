@@ -73,7 +73,7 @@ export default function OneStudent({ user, role }) {
                             <BlueButtun
                                 light={true}
                                 className={cls.OneStudent__btn}
-                                onClick={() => router(`/settings`)}
+                                onClick={() => router(`/student/studentsSet/${user?.id}`)}
                                 style={{ padding: "14px 30px", marginLeft: "auto", marginBottom: "10px" }}
                             >
                                 プロファイル編集
