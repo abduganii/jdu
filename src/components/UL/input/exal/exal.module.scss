@@ -29,6 +29,9 @@
 
         input {
             display: none;
+            color: #101828;
+
+
         }
     }
 
@@ -45,13 +48,38 @@
 
         p {
             cursor: pointer;
-            color: #101828;
+            color: rgb(16, 24, 40, .3);
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
-            opacity: .3;
+            width: 100%;
+        }
+
+        div {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+    }
+
+    &__resolvactive {
+
+        p {
+            cursor: pointer;
+            color: rgb(16, 24, 40);
+            font-family: 'Inter';
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
             width: 100%;
         }
 
@@ -65,12 +93,6 @@
             background-color: #FFEFEF;
             border-radius: 50%;
             cursor: pointer;
-        }
-    }
-
-    &__resolvactive {
-        p {
-            opacity: 1;
         }
     }
 

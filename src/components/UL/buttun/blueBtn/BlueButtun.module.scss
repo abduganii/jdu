@@ -1,7 +1,9 @@
 .BlueButtun {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
+
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -10,7 +12,8 @@
     color: #FFFFFF;
     padding: 14px 22px;
     background: #5627DC;
-    border-radius: 8px;
+    border-radius: 4px;
+
     padding: 14px 20px;
     padding-right: 30px;
     display: flex;
@@ -21,6 +24,8 @@
     &__light {
         color: #5627DC;
         background: rgba(86, 39, 220, 0.10);
+        width: 100%;
+        max-width: 250px;
     }
 
 

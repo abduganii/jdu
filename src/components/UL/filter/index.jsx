@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import paramsToObject from '../../../utils/paramsToObject.js'
-import { CloseIcon, FilterIcon } from '../icons.jsx'
+import BackBtn from '../buttun/backBtn/index.jsx'
+import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
 
 import { filterRate, YearsRate } from './data.js'
 
 import cls from "./filter.module.scss"
 
-export default function Filter({ page }) {
+export default function Filter({ page, back }) {
     const navigate = useNavigate()
+
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
     const [inoutVal1, SetInoutVal1] = useState()
@@ -39,6 +41,8 @@ export default function Filter({ page }) {
 
     return (
         <div className={cls.Filter}>
+
+            {back && <div className={cls.Filter__back} onClick={() => navigate(-1)}> <LeftIcon />戻る</div>}
             <button className={`${cls.Filter__btn} ${!cahneSet ? cls.Filter__btn__active : ""}`} onClick={() => {
                 SetInoutVal('')
                 SetInoutVal1('')

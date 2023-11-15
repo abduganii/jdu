@@ -44,11 +44,11 @@ export default function ExalInput({ onChange, setResolv, exalError, resolv }) {
                                 setOpenMadal(false)
                             }
                         }}>{resolv ? resolv?.name : "Placeholder"}</p>
-                        {resolv ? <div onClick={() => setResolv(null)}> <CloseIcon1 /></div> : ""}
+                        {resolv ? <div onClick={() => setResolv(null)}> <CloseIcon1 /></div> : <div></div>}
                     </div>
                 </div>
 
-                {exalError && <p className={cls.ExalInput__error}>Id Must be unique</p>}
+                {exalError && <p className={cls.ExalInput__error}>Id/ loginId Must be unique</p>}
             </div>
 
             {

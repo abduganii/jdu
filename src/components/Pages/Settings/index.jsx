@@ -175,11 +175,6 @@ export default function SettingsPage({ data }) {
                 <Container className={cls.SettingsPage__container}>
                     <div className={cls.SettingsPage__top} >
                         <div className={cls.SettingsPage__top__Info}>
-                            <div onClick={() => x.current.classList.add("displayBlock")}>
-                                <LeftIcon />
-                                <p className={cls.SettingsPage__top__role}>戻る</p>
-                            </div>
-
                             <h3 className={cls.SettingsPage__top__fName}>{watchedFiles?.firstName} {watchedFiles?.lastName}</h3>
                         </div>
                         <div className={cls.SettingsPage__top__div}>

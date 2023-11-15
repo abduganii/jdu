@@ -34,12 +34,23 @@
 
         }
 
+        &__fName {
+            color: #252430;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
         &__Info {
             display: flex;
             align-items: center;
             width: 100%;
             max-width: 543px;
-            padding: 6px 8px;
+            padding: 14px 24px;
             border-radius: 8px;
             background: #FFF;
             gap: 24px;

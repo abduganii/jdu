@@ -102,7 +102,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
-                <Filter page={"student"} />
+                <Filter page={"student"} back={true} />
                 <BlueButtun light={true} onClick={() => setOpenMadal(true)}>
                     <PlusIcon />
                     学生を追加

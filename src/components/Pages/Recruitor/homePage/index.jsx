@@ -116,24 +116,24 @@ export default function HomePage({ user }) {
 
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>{data?.students}</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 100%</p>
-                        <p className={cls.HomePage__card__card_role}>Students</p>
+                        <h2 className={cls.HomePage__card__card__title}>1263</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: 78%</p>
+                        <p className={cls.HomePage__card__card_role}>Freshmen</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2}</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 78%</p>
-                        <p className={cls.HomePage__card__card_role}>Teacher</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: 36%</p>
+                        <p className={cls.HomePage__card__card_role}>Second year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Must have: 237</p>
-                        <p className={cls.HomePage__card__card_role}>Lesson hour</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: 36%</p>
+                        <p className={cls.HomePage__card__card_role}>Third year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Not attended: 18%</p>
-                        <p className={cls.HomePage__card__card_role}>Marks</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: 36%</p>
+                        <p className={cls.HomePage__card__card_role}>Fouth year</p>
                     </div>
                 </div>
 
@@ -172,37 +172,6 @@ export default function HomePage({ user }) {
                                 </div>
                                 <p className={cls.HomePage__test_test}>N5</p>
                             </div>
-                        </div>
-                    </div>
-                    <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
-                        <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
-                        <div className={cls.HomePage__test__wrap}>
-                            <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q1}
-                                </div>
-                                <p className={cls.HomePage__test2_test}>N1</p>
-                            </div>
-                            <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q2}
-                                </div>
-                                <p className={cls.HomePage__test2_test}>N2</p>
-                            </div>
-                            <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q3}
-                                </div>
-                                <p className={cls.HomePage__test2_test}>N3</p>
-                            </div>
-                            <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q4}
-                                </div>
-                                <p className={cls.HomePage__test2_test}>N4</p>
-                            </div>
-
                         </div>
                     </div>
                 </div>
