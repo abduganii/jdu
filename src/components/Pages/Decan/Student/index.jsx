@@ -118,7 +118,6 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     name={`${e?.firstName} ${e?.lastName}`}
                     img={e?.avatar}
                     gruop={data?.name}
-                    // skill={e?.itQualification?.skills}
                     rate={e?.universityPercentage?.AllMarks || "0"}
                     update={() => router(`/decan/studentsSet/${e?.id}`)}
                     remove={() => setPersonId(e?.id)}

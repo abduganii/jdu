@@ -12,7 +12,6 @@ import TopStudents from '../../../UL/topStudents'
 import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
-import { StudentsUpdate } from '../../../../services/student'
 import { ParentUpdate } from '../../../../services/parent'
 
 export default function HomePage({ user }) {

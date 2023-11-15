@@ -87,7 +87,6 @@ export default function AppRouter() {
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/employees" element={< DecEmployees />} />
                 <Route path="/decan/employees/:id" element={< DecanEmloyBuId />} />
-
                 <Route path="/decan/parents" element={< DecParents />} />
                 <Route path="/decan/parents/:id" element={< DecanPerantBuId />} />
 

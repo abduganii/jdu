@@ -70,6 +70,7 @@ export default function HomeTechPage({ user }) {
 
 
     const UpdateTeacherFunc = async (data) => {
+        console.log("ok")
         setLoading(true)
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
@@ -142,24 +143,24 @@ export default function HomeTechPage({ user }) {
 
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>{data?.students}</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 100%</p>
+                        <h2 className={cls.HomePage__card__card__title}>1263</h2>
+                        <p className={cls.HomePage__card__card__text}>User percentage: 38%</p>
                         <p className={cls.HomePage__card__card_role}>Students</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2}</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 78%</p>
-                        <p className={cls.HomePage__card__card_role}>Teacher</p>
+                        <p className={cls.HomePage__card__card__text}>User percentage: 22%</p>
+                        <p className={cls.HomePage__card__card_role}>Staff</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Must have: 237</p>
-                        <p className={cls.HomePage__card__card_role}>Lesson hour</p>
+                        <p className={cls.HomePage__card__card__text}>User percentage: 8%</p>
+                        <p className={cls.HomePage__card__card_role}>Recruitors</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Not attended: 18%</p>
-                        <p className={cls.HomePage__card__card_role}>Marks</p>
+                        <p className={cls.HomePage__card__card__text}>User percentage: 32%</p>
+                        <p className={cls.HomePage__card__card_role}>Parents</p>
                     </div>
                 </div>
 
@@ -205,13 +206,12 @@ export default function HomeTechPage({ user }) {
                 </div>
             </div>
 
-            {openMadal && !user?.isActive &&
+            {!user?.isActive && openMadal &&
 
                 <AddMadal
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={handleSubmit(UpdateTeacherFunc)}
-                    closeMadal={() => setOpenMadal(false)}
                 >
                     <AvatarInput
                         onChange={(e) => hendleimg(e)}
@@ -224,8 +224,7 @@ export default function HomeTechPage({ user }) {
                             type={"text"}
                             label={"名前"}
                             placeholder={"名前"}
-                            // value={watchedFiles?.firstName || ''}
-                            // alert={errors.firstName?.message}
+
                             onChange={() => clearErrors("firstName")}
                             style={{ marginBottom: "20px" }}
 
@@ -235,8 +234,6 @@ export default function HomeTechPage({ user }) {
                             type={"text"}
                             label={"名字"}
                             placeholder={"名字"}
-                            // value={watchedFiles?.lastName || ''}
-                            // alert={errors.lastName?.message}
                             onChange={() => clearErrors("lastName")}
                             style={{ marginBottom: "20px" }}
 
@@ -249,7 +246,7 @@ export default function HomeTechPage({ user }) {
                             style={{ marginBottom: "20px" }}
                             disabled={true}
                         />
-                        <AddInput
+                        {/* <AddInput
                             type={"select"}
                             label={"Bo’lim"}
                             placeholder={"Bo’lim"}
@@ -274,19 +271,17 @@ export default function HomeTechPage({ user }) {
                             Specialisation={array2}
                             style={{ marginBottom: "20px" }}
 
-                        />
+                        /> */}
                         <AddInput
-                            register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
                             value={user?.email || ''}
-                            // alert={errors.email?.message}
-                            onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px" }}
 
+                            style={{ marginBottom: "20px" }}
                             disabled={true}
                         />
+
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "名前は必要です！" }) }}
                             type={"text"}

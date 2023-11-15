@@ -43,17 +43,16 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
-
         const fetchData = async () => {
             const res = await TeacherGetById(id);
-            setValue("avatar", res?.rows[0]?.avatar)
-            setValue("firstName", res?.rows[0]?.firstName)
-            setValue("lastName", res?.rows[0]?.lastName)
-            setValue("companyName", res?.rows[0]?.companyName)
-            setValue("specialisation", res?.rows[0]?.specialisation)
-            setValue("phoneNumber", res?.rows[0]?.phoneNumber)
-            setValue("email", res?.rows[0]?.email)
-            setValue("loginId", res?.rows[0]?.loginId)
+            setValue("avatar", res?.avatar)
+            setValue("firstName", res?.firstName)
+            setValue("lastName", res?.lastName)
+            setValue("companyName", res?.companyName)
+            setValue("specialisation", res?.specialisation)
+            setValue("phoneNumber", res?.phoneNumber)
+            setValue("email", res?.email)
+            setValue("loginId", res?.loginId)
         }
         fetchData()
             .then((err) => {

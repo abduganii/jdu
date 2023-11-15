@@ -1,7 +1,7 @@
 .TopStudentList {
     width: 100%;
     background: #FFFFFF;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 12px;
     padding-right: 16px;
     margin-bottom: 4px;
@@ -10,14 +10,11 @@
     gap: 8px;
     transition: .2s all ease;
 
-
     &:hover {
         box-shadow: 10px 10px 30px -10px rgba(0, 0, 0, 0.15);
         transform: translate(5px);
         -webkit-transform: translate(5px);
     }
-
-
 
 
     &__img {

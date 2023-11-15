@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 
 import { RecruitorGet } from "../../../services/recruter";
 import PerantPage from "../../../components/Pages/Decan/Parents";
+import { ParentGet } from "../../../services/parent";
 
 
 
@@ -12,8 +13,8 @@ export default function DecParents() {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['parents', params.get('search')],
-    async ({ pageParam = 1 }) => await RecruitorGet({
+    ['parent', params.get('search')],
+    async ({ pageParam = 1 }) => await ParentGet({
       limit: 15,
       page: pageParam,
       search: params.get('search') || ''
@@ -33,9 +34,10 @@ export default function DecParents() {
       fetchNextPage()
     }
   }, [inView])
+
   return (
     <>
-      <PerantPage data={[]} ref={ref} />
+      <PerantPage data={parents} ref={ref} />
     </>
   )
 }

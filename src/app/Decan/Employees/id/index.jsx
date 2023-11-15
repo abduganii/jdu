@@ -7,12 +7,12 @@ import { TeacherGetById } from "../../../../services/teacher";
 
 export default function DecanEmloyBuId({ role }) {
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState()
     const param = useParams()
     useEffect(() => {
         const fetchData = async () => {
             const res = await TeacherGetById(param?.id);
-            setData(res?.rows[0])
+            setData(res)
         }
         fetchData()
             .then((err) => {
@@ -20,6 +20,7 @@ export default function DecanEmloyBuId({ role }) {
             })
 
     }, []);
+
 
     return (
         <>

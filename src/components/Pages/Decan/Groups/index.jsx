@@ -18,20 +18,20 @@ import { useQueryClient } from 'react-query'
 import toast, { Toaster } from 'react-hot-toast';
 const Course = [
   {
-    id: "first",
-    name: "first"
+    id: "First",
+    name: "First"
   },
   {
-    id: "second",
-    name: "second"
+    id: "Second",
+    name: "Second"
   },
   {
-    id: "third",
-    name: "third"
+    id: "Third",
+    name: "Third"
   },
   {
-    id: "fourth",
-    name: "fourth"
+    id: "Fourth",
+    name: "Fourth"
   }
 ]
 
@@ -42,7 +42,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
   const [avatar, setAvatar] = useState()
   const [groupId, setGruopId] = useState(false)
   const [groupId1, setGrupId1] = useState()
-  const [years, setYears] = useState()
+  const [year, setYears] = useState()
   const [loading, setLoading] = useState(false)
 
   const [oneGruop, setOneGruop] = useState()
@@ -81,10 +81,10 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
 
   const AddStudentFunc = async (data) => {
     setLoading(true)
-    if (years) {
+    if (year) {
 
       if (query == "false") {
-        await AddGroup({ years, ...data })
+        await AddGroup({ year, ...data })
           .then(res => {
             if (res?.data?.message) {
               toast(res?.data?.message)
@@ -103,7 +103,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
             setLoading(false)
           })
       } else if (query == "true") {
-        await UpdateGroup({ years, ...data }, groupId1)
+        await UpdateGroup({ year, ...data }, groupId1)
           .then(res => {
 
             if (res?.data?.message) {
@@ -119,7 +119,6 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
 
           })
           .catch(err => {
-            console.log(err.message)
             setLoading(false)
           })
       }
@@ -200,7 +199,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               onChange={() => clearErrors("name")}
             />
             <AddInput
-              value={years}
+              value={year}
               type={"select"}
               label={"Course year"}
               placeholder={"Course year"}

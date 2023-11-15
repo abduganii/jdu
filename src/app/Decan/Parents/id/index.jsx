@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import OnePerson from "../../../../components/Pages/OnePerson";
-import { RecruitorGetById } from "../../../../services/recruter";
+import { ParentGetById } from "../../../../services/parent";
 
 
 export default function DecanPerantBuId() {
-
     const [data, setData] = useState([])
     const param = useParams()
     useEffect(() => {
         const fetchData = async () => {
-            const res = await RecruitorGetById(param?.id);
+            const res = await ParentGetById(param?.id);
             setData(res)
         }
         fetchData()

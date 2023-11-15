@@ -50,8 +50,8 @@
             align-items: center;
             width: 100%;
             max-width: 543px;
-            padding: 14px 24px;
-            border-radius: 8px;
+            padding: 13px 24px;
+            border-radius: 4px;
             background: #FFF;
             gap: 24px;
             border: 1px solid rgb(0, 0, 0, .1);
@@ -200,13 +200,31 @@
         margin-top: 60px;
         margin-left: 111px;
 
+        &__wrap2 {
+            margin-left: 69px;
+            margin-bottom: 40px;
+            margin-left: 178px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
         &__wrap {
             margin-left: 69px;
             margin-bottom: 40px;
             margin-left: 178px;
+
+        }
+
+        &__time {
+            input {
+
+                padding: 13px !important;
+            }
         }
 
         &__div {
+
             display: flex;
             justify-content: flex-start;
             gap: 10px;

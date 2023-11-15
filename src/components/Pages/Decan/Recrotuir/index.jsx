@@ -276,8 +276,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             alert={errors.phoneNumber?.message}
                             onChange={() => clearErrors("phoneNumber")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
                         <AddInput
                             register={{ ...register('companyName', { required: "会社名は必要です！" }) }}

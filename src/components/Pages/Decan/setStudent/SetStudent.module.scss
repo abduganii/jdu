@@ -37,6 +37,18 @@
             }
         }
 
+        &__Name {
+            color: #252430;
+
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
         &__btns {
             display: flex;
             align-items: center;

@@ -20,6 +20,7 @@ import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById } from '../../../.
 import { StudentsGetByloginId } from '../../../../services/student'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
+
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
 
@@ -46,7 +47,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setValue("lastName", res?.lastName)
             setValue("phoneNumber", res?.phoneNumber)
             setValue("loginId", res?.loginId)
-            setValue("studentId", res?.studentId)
+            setValue("studentId", res?.Students?.[0]?.loginId)
             setValue("email", res?.email)
         }
         fetchData()
@@ -64,6 +65,8 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         //         })
         // }
     }
+
+
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
@@ -85,6 +88,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
                     setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setLoading(false)
+                }
+                if (err.response.data.message.includes('StudentId')) {
+                    setError('studentId', { type: 'custom', message: err.response.data.message })
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
@@ -109,8 +116,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         formData.append("lastName", data?.lastName)
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("loginId", data?.loginId)
-        formData.append("email", data?.email)
+        formData.append("studentId", data?.studentId)
 
+
+        formData.append("email", data?.email)
         formData.append("bio", data?.bio)
 
 
@@ -171,15 +180,15 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             <TopList text={["Parents fullname", "Parent ID", "Student", "Phone", "Email", "アクション"]} />
             {data && data?.map(e => (
                 <PersonList
-                    onClick={() => router(`/decan/parents/${"e?.id"}`)}
+                    onClick={() => router(`/decan/parents/${e?.id}`)}
                     key={e?.id}
                     img={e?.avatar}
                     id={e?.loginId}
                     name={`${e?.firstName} ${e?.lastName}`}
-                    gruop={e?.student}
+                    gruop={e?.Students?.[0].firstName}
                     phone={e?.phoneNumber}
                     email={e?.email}
-                    remove={() => setPersonId("e?.id")}
+                    remove={() => setPersonId(e?.id)}
                     update={() => {
                         router('?updete=true')
                         setOpenMadal(true)
@@ -261,15 +270,13 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"電話番号"}
                             placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}
                             alert={errors.phoneNumber?.message}
                             onChange={() => clearErrors("phoneNumber")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
 
                         <AddInput
@@ -290,10 +297,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Id"}
-                            value={watchedFiles?.loginId || ''}
+                            value={watchedFiles?.studentId || ''}
                             geterat={true}
                             loginGenerate={(e) => setValue("studentId", e)}
-                            alert={errors.loginId?.message}
+                            alert={errors.studentId?.message}
                             onChange={() => { clearErrors("studentId") }}
                             style={{ marginBottom: "20px" }}
 
@@ -317,7 +324,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                 <AddMadal
                     role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
                     OnSubmit={handleSubmit(AddStudentFunc)}
-
                     closeMadal={() => {
                         setOpenMadal(false)
                         setAvatar(null)

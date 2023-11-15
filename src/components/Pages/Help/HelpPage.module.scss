@@ -59,7 +59,7 @@
         }
 
         &__title {
-
+            margin-top: 5px;
             font-family: 'Inter';
             font-style: normal;
             font-weight: 500;
@@ -166,7 +166,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        max-width: 646px;
+        max-width: 690px;
         flex-wrap: wrap;
         margin-top: 63px;
         margin-bottom: 40px;
@@ -182,7 +182,7 @@
         &__icon {
             border-radius: 10px;
             background: #F5F5F5;
-            padding: 12px;
+            padding: 8px 12px 12px 12px;
         }
 
         &__text {

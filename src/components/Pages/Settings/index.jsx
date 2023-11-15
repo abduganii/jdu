@@ -12,7 +12,7 @@ import cls from "./Settings.module.scss"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Avatar from 'react-avatar'
-import { DecanUpdate } from '../../../services/decan'
+import { CanactGet, CanactUpdate, DecanUpdate } from '../../../services/decan'
 import { RecruitorUpdate } from '../../../services/recruter'
 import Loader from '../../UL/loader'
 import { StudentsUpdate } from '../../../services/student'
@@ -27,9 +27,11 @@ export default function SettingsPage({ data }) {
     const [newPass, setnewPass] = useState('password')
     const [conPass, setconPass] = useState('password')
     const [avatar, setAvatar] = useState(data?.avatar)
+    const [cantactId, setCantactId] = useState(data?.avatar)
     const [loader, setLoager] = useState(false)
 
     const { register, handleSubmit, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
+
     const watchedFiles = watch()
 
     useEffect(() => {
@@ -42,6 +44,24 @@ export default function SettingsPage({ data }) {
         setValue("companyName", data?.companyName)
         setValue("phoneNumber", data?.phoneNumber)
         setValue("specialisation", data?.specialisation)
+
+        if (data?.role == "decan") {
+            const fetchData = async () => {
+                const res = await CanactGet();
+                setValue("phoneNumber", res[0]?.phoneNumber)
+                setValue("emailInfo", res[0]?.emailInfo)
+                setValue("startTime", res[0]?.startTime)
+                setValue("endTime", res[0]?.endTime)
+                setValue("location", res[0]?.location)
+                setCantactId(res[0]?.id)
+            }
+
+            fetchData()
+                .then((err) => {
+                    console.log(err);
+                })
+        }
+
     }, [data])
 
     const addData = async (body) => {
@@ -57,14 +77,23 @@ export default function SettingsPage({ data }) {
         if (body.specialisation) formData.append("specialisation", body?.specialisation)
         if (body.password) formData.append("password", body?.password)
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
-        if (body.confirmPassword) formData.append("confirmPassword", body?.confirmPassword)
 
+        if (body.startTime) formData.append("startTime", body?.startTime)
+        if (body.endTime) formData.append("endTime", body?.endTime)
+        if (body.location) formData.append("location", body?.location)
+        if (body.emailInfo) formData.append("emailInfo", body?.emailInfo)
         if ((!body.password.length && !body.currentPassword.length && !body.confirmPassword.length) || (body.password.length && body.currentPassword.length && body.confirmPassword.length)) {
             if (data?.role == 'decan') {
                 await DecanUpdate(formData)
                     .then((data) => {
-                        router('/decan/home')
-                        setLoager(false)
+                        CanactUpdate(formData, cantactId)
+                            .then((data) => {
+                                router('/decan/home')
+                                setLoager(false)
+                            })
+                            .catch(err => {
+                                setLoager(false)
+                            })
                     })
                     .catch(err => {
                         if (err.response.data.message.includes('current')) {
@@ -84,6 +113,8 @@ export default function SettingsPage({ data }) {
                         }
                         setLoager(false)
                     })
+
+
             }
             if (data?.role == 'recruitor') {
                 await RecruitorUpdate(formData, data?.id)
@@ -230,7 +261,7 @@ export default function SettingsPage({ data }) {
                                 alert={errors.lastName?.message}
                                 onChange={() => clearErrors("lastName")}
                             />
-                            {data?.role == "decan" || data?.role == "recruitor" && <br />}
+                            {/* {data?.role == "decan" || data?.role == "recruitor" && <br />} */}
                             {data?.role == "recruitor" && <>
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
@@ -253,23 +284,88 @@ export default function SettingsPage({ data }) {
                                     value={watchedFiles?.phoneNumber || ''}
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
-                                /> <br />
+                                />
                             </>
+                            }
+
+                            {data?.role == "teacher" &&
+                                <>
+                                    <SettingsInput
+                                        className={cls.SettingsPage__inputs__wrap}
+                                        type={"select"}
+                                        label={"Bo’lim"}
+
+                                        placeholder={"Bo’lim"}
+
+                                    />
+                                    <SettingsInput
+                                        className={cls.SettingsPage__inputs__wrap}
+                                        type={"select"}
+                                        label={"Specialisation"}
+                                        placeholder={"Specialisation"}
+
+                                    />
+
+                                    <SettingsInput
+                                        className={cls.SettingsPage__inputs__wrap}
+                                        type={"select"}
+                                        label={"Lavozimi"}
+                                        placeholder={"Lavozimir"}
+
+                                    />
+                                </>
+                            }
+                            {data?.role == "staff" &&
+                                <>
+                                    <SettingsInput
+                                        className={cls.SettingsPage__inputs__wrap}
+                                        type={"select"}
+                                        label={"Bo’lim"}
+
+                                        placeholder={"Bo’lim"}
+
+                                    />
+                                    <SettingsInput
+                                        className={cls.SettingsPage__inputs__wrap}
+                                        type={"select"}
+                                        label={"Lavozimi"}
+                                        placeholder={"Lavozimir"}
+
+                                    />
+                                </>
+                            }
+
+                            {data?.role == "student" &&
+                                <SettingsInput
+                                    className={cls.SettingsPage__inputs__wrap}
+                                    type={"date"}
+                                    label={"Birthday"}
+                                    placeholder={"Birthday"}
+
+                                />
+                            }
+                            {data?.role == "parent" &&
+                                <SettingsInput
+                                    className={cls.SettingsPage__inputs__wrap}
+                                    type={"text"}
+                                    label={"phoneNumber"}
+                                    placeholder={"phoneNumber"}
+
+                                />
                             }
 
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
-
                                 label={"メール"}
                                 placeholder={"メール"}
                                 type={"email"}
-
                                 register={{ ...register("email", { required: "メールは必要です！" }) }}
                                 value={watchedFiles?.email || ''}
                                 alert={errors.email?.message}
                                 onChange={() => clearErrors("email")}
+                                disabled={true}
                             />
-                            {data?.role == "decan" && <SettingsInput
+                            <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
                                 disabled={true}
                                 label={"ログインID"}
@@ -279,8 +375,7 @@ export default function SettingsPage({ data }) {
                                 value={watchedFiles?.loginId || ''}
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}
-                            />}
-
+                            />
 
                         </div>
                     </div>
@@ -288,9 +383,9 @@ export default function SettingsPage({ data }) {
 
 
                     <p className={cls.SettingsPage__passsword}>パスワード</p>
-                    <div className={cls.SettingsPage__passsword__wrap}>
+                    <div className={cls.SettingsPage__passsword__wrap2}>
                         <SettingsInput
-                            style={{ maxWidth: "205px" }}
+
                             label={"現在のパスワード"}
                             placeholder={"現在のパスワード"}
                             type={curPass}
@@ -307,41 +402,38 @@ export default function SettingsPage({ data }) {
                             alert={errors.currentPassword?.message}
                             onChange={() => clearErrors("currentPassword")}
                         />
-                        <div className={cls.SettingsPage__passsword__div}>
-                            <SettingsInput
-                                style={{ maxWidth: "205px" }}
-                                label={"新しいパスワード"}
-                                placeholder={"新しいパスワード"}
-                                type={newPass}
-                                icon={eyeOpenIcons()}
-                                icon2={eyeCloseIcons()}
-                                eyeOpen={eyeicons1}
-                                eyeClick={(e) => {
-                                    setnewPass(state => state == "password" ? "text" : "password")
-                                    setEyeicons1(!eyeicons1)
-                                }}
-                                register={{ ...register("password") }}
-                                alert={errors.password?.message}
-                                onChange={() => clearErrors("password")}
-                            />
-                            <SettingsInput
-                                style={{ maxWidth: "205px" }}
-                                label={"パスワードを認証する"}
-                                placeholder={"パスワードを認証する"}
-                                icon={eyeOpenIcons()}
-                                icon2={eyeCloseIcons()}
-                                eyeOpen={eyeicons2}
-                                eyeClick={(e) => {
-                                    setconPass(state => state == "password" ? "text" : "password")
-                                    setEyeicons2(!eyeicons2)
-                                }}
-                                type={conPass}
-                                register={{ ...register("confirmPassword") }}
-                                alert={errors.confirmPassword?.message}
-                                onChange={() => clearErrors("confirmPassword")}
-                            />
+                        <SettingsInput
+                            label={"新しいパスワード"}
+                            placeholder={"新しいパスワード"}
+                            type={newPass}
+                            icon={eyeOpenIcons()}
+                            icon2={eyeCloseIcons()}
+                            eyeOpen={eyeicons1}
+                            eyeClick={(e) => {
+                                setnewPass(state => state == "password" ? "text" : "password")
+                                setEyeicons1(!eyeicons1)
+                            }}
+                            register={{ ...register("password") }}
+                            alert={errors.password?.message}
+                            onChange={() => clearErrors("password")}
+                        />
+                        <SettingsInput
+                            label={"パスワードを認証する"}
+                            placeholder={"パスワードを認証する"}
+                            icon={eyeOpenIcons()}
+                            icon2={eyeCloseIcons()}
+                            eyeOpen={eyeicons2}
+                            eyeClick={(e) => {
+                                setconPass(state => state == "password" ? "text" : "password")
+                                setEyeicons2(!eyeicons2)
+                            }}
+                            type={conPass}
+                            register={{ ...register("confirmPassword") }}
+                            alert={errors.confirmPassword?.message}
+                            onChange={() => clearErrors("confirmPassword")}
+                        />
 
-                        </div>
+
                     </div>
 
                     {data?.role == 'decan' &&
@@ -351,35 +443,45 @@ export default function SettingsPage({ data }) {
 
                                 <div className={cls.SettingsPage__passsword__div}>
                                     <SettingsInput
-                                        style={{ maxWidth: "205px" }}
+
                                         label={"email"}
                                         placeholder={"email"}
                                         type={"email"}
+                                        register={{ ...register("emailInfo") }}
+                                        value={watchedFiles?.emailInfo || ''}
                                     />
                                     <SettingsInput
-                                        style={{ maxWidth: "205px" }}
+
                                         label={"Phone number"}
                                         placeholder={"number"}
-                                        type={"number"}
+                                        type={"text"}
+                                        register={{ ...register("phoneNumber") }}
+                                        value={watchedFiles?.phoneNumber || ''}
                                     />
                                     <SettingsInput
+                                        className={cls.SettingsPage__passsword__time}
                                         style={{ maxWidth: "105px" }}
                                         label={"start time"}
-                                        placeholder={"email"}
                                         type={"time"}
+                                        register={{ ...register("startTime") }}
+                                        value={watchedFiles?.startTime || ''}
                                     />
                                     <SettingsInput
+                                        className={cls.SettingsPage__passsword__time}
                                         style={{ maxWidth: "105px" }}
                                         label={"time to finish"}
-                                        placeholder={"email"}
                                         type={"time"}
+                                        register={{ ...register("endTime") }}
+                                        value={watchedFiles?.endTime || ''}
                                     />
                                 </div>
                                 <SettingsInput
-                                    style={{ maxWidth: "442px" }}
+                                    style={{ maxWidth: "100%" }}
                                     label={"Location"}
                                     placeholder={"Location"}
                                     type={"Location"}
+                                    register={{ ...register("location") }}
+                                    value={watchedFiles?.location || ''}
                                 />
                             </div>
 

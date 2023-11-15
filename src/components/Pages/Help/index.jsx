@@ -1,13 +1,27 @@
 
 import Container from '../../UL/container'
 import { AdressIcons, ClockIcons, EmailIcons, MinusIcons, PlussIcons, TelIcons } from '../../UL/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Condition, Question } from "./data"
 import cls from "./HelpPage.module.scss"
+import { CanactGet } from '../../../services/decan'
 
 export default function HelpPage() {
     const [id, setId] = useState(Question[0].id)
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await CanactGet();
+            setData(res[0])
+        }
+
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
+    }, [])
     return (
         <Container className={cls.HelpPage__container}>
             <h3 className={cls.HelpPage__title}>システムについて</h3>
@@ -36,25 +50,25 @@ export default function HelpPage() {
                     <div className={cls.HelpPage__contact__icon}>
                         <EmailIcons />
                     </div>
-                    <p className={cls.HelpPage__contact__text}>test@jdu.uz</p>
+                    <p className={cls.HelpPage__contact__text}>{data?.emailInfo}</p>
                 </div>
                 <div className={cls.HelpPage__contact__div}>
                     <div className={cls.HelpPage__contact__icon}>
                         <TelIcons />
                     </div>
-                    <p className={cls.HelpPage__contact__text}>+998 90 123 45 67</p>
+                    <p className={cls.HelpPage__contact__text}>{data?.phoneNumber}</p>
                 </div>
                 <div className={cls.HelpPage__contact__div}>
                     <div className={cls.HelpPage__contact__icon}>
                         <ClockIcons />
                     </div>
-                    <p className={cls.HelpPage__contact__text}>09:00 ⁓ 18:00</p>
+                    <p className={cls.HelpPage__contact__text}>{data?.startTime} ⁓ {data?.endTime}</p>
                 </div>
                 <div className={cls.HelpPage__contact__div}>
                     <div className={cls.HelpPage__contact__icon}>
                         <AdressIcons />
                     </div>
-                    <p className={cls.HelpPage__contact__text}>Tashkent, Shayhontohur district, Sebzor, 21</p>
+                    <p className={cls.HelpPage__contact__text}>{data?.location}</p>
                 </div>
             </div>
 

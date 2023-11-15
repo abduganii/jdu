@@ -35,28 +35,27 @@ export default function SetStudent({ data, role }) {
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
 
     const watchedFiles2 = watch2()
-
     useEffect(() => {
         setValue2("firstName", data?.firstName)
         setValue2("lastName", data?.lastName)
         setValue2("loginId", data?.loginId)
         setValue2('email', data?.email)
-        setValue2('birthday', data?.birthday)
-        setValue2('description', data?.itQualification?.description)
+        setValue2('brithday', data?.brithday)
+        setValue2('bio', data?.bio)
         setAvatar(data?.avatar)
     }, [data])
 
     const AddDataSubmit = async (body) => {
-        setLoading(true)
+        // setLoading(true)
         const formData = new FormData()
 
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body.firstName)
         if (body.lastName) formData.append("lastName", body.lastName)
-        if (body.loginId) formData.append("loginId", body.loginId)
-        if (body.birthday) formData.append("birthday", data?.birthday)
+        if (body.brithday) formData.append("brithday", body?.brithday)
         if (body.email) formData.append("email", body.email)
         if (body.password) formData.append("password", body.password)
+        if (body.bio) formData.append("bio", body.bio)
 
         await StudentsUpdate(formData, data?.id)
             .then(res => {
@@ -64,9 +63,9 @@ export default function SetStudent({ data, role }) {
                     toast(res?.data?.message)
                 } else if (res.status == 203) {
                     toast('student updated')
-                    if (data?.role == "decan") {
-                        router(`/decan/students`)
-                    } else if (data?.role == "student") {
+                    if (role == "decan") {
+                        router(`/decan/students/${data?.id}`)
+                    } else if (role == "student") {
                         router('/student/me')
                     }
 
@@ -123,7 +122,7 @@ export default function SetStudent({ data, role }) {
                                     <p className={cls.SetStudent__top__role}>戻る</p>
                                 </div>
 
-                                <h3 className={cls.SetStudent__top__fName}>{data?.firstName} {data?.lastName}</h3>
+                                <h3 className={cls.SetStudent__top__Name}>{data?.firstName} {data?.lastName}</h3>
                             </div>
                             <div className={cls.SetStudent__top__btns}>
                                 <CancelBtn onClick={() => router(-1)}>
@@ -176,12 +175,12 @@ export default function SetStudent({ data, role }) {
                                 />
 
                                 <AddInput
-                                    register={{ ...register2('birthday') }}
+                                    register={{ ...register2('brithday') }}
                                     type={"date"}
-                                    label={"birthday"}
-                                    placeholder={"birthday"}
-                                    value={watchedFiles2?.birthday || ''}
-                                    onChange={() => clearErrors("birthday")}
+                                    label={"brithday"}
+                                    placeholder={"brithday"}
+                                    value={watchedFiles2?.brithday || ''}
+                                    onChange={() => clearErrors("brithday")}
                                     style={{ marginTop: "10px" }}
                                 />
                                 <AddInput
@@ -209,7 +208,9 @@ export default function SetStudent({ data, role }) {
                     style={{ marginTop: "10px", width: "100%" }}
                     type={"textarea"}
                     label={"Bio"}
+                    value={watchedFiles2?.bio || 'bio'}
                     placeholder={"bio"}
+                    onChange={() => clearErrors("password")}
                     register={{ ...register2('bio') }}
                 />
             </form>
