@@ -83,13 +83,13 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             {openMadal && role == "teacher" &&
                 <AddMadal
-                    role={"学生を追加"}
+                    role={"JLPT & JDU"}
                     OnSubmit={handleSubmit(AddDataSubmit)}
                     closeMadal={() => {
                         setOpenMadal(false)
                     }}>
 
-                    <div className={cls.StudentPage__checkBox}>
+                    {/* <div className={cls.StudentPage__checkBox}>
                         <label>
                             <input
                                 name='role'
@@ -110,7 +110,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                             />
                             <p>Credits</p>
                         </label>
-                    </div>
+                    </div> */}
 
                     {
                         Sunject == "Credits" ? <div className={cls.StudentPage__addInputs}>
