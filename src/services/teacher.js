@@ -3,7 +3,7 @@ import api from "./api"
 export const TeacherGet = async (query) => {
     try {
         const params = new URLSearchParams(query)
-     const res = await api.get(`/teachers?${params.toString()}}`, {withCredentials: true})
+     const res = await api.get(`/teachers?${params.toString()}`, {withCredentials: true})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);
@@ -52,4 +52,15 @@ export const Teacherdelete = async (id) => {
        } catch (error) {
         console.log(error.response.data.message);
        }
+}
+
+
+export const SectionGet = async () => {
+    try {
+
+     const res = await api.get(`/section`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { GetCertificates } from '../../../../services/statistic'
-import { TeacherGet, TeacherUpdate } from '../../../../services/teacher'
+import { SectionGet, TeacherGet, TeacherUpdate } from '../../../../services/teacher'
 import Container from '../../../UL/container'
 import AddInput from '../../../UL/input/AddInput'
 import AvatarInput from '../../../UL/input/AvatarInput'
@@ -11,31 +11,20 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
 
+const lavozim = [
+    {
+        id: "bolim boshlig'i",
+        name: "bolim boshlig'i",
+    },
+    {
+        id: "leader",
+        name: "leader",
+    },
+    {
+        id: "masul hodim",
+        name: "masul hodim",
+    }
 
-const array = [{
-    id: "IT",
-    name: "IT"
-},
-{
-    id: "Japan language",
-    name: "Japan language"
-},
-{
-    id: "Hamkor universities",
-    name: "Hamkor universities"
-}]
-const array2 = [{
-    id: "Bo’lim boshlig’i",
-    name: "Bo’lim boshlig’i"
-},
-{
-    id: "Leader",
-    name: "Leader"
-},
-{
-    id: "Mas’ul xodim",
-    name: "Mas’ul xodim"
-}
 ]
 
 export default function HomeTechPage({ user }) {
@@ -44,11 +33,20 @@ export default function HomeTechPage({ user }) {
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
     const [openMadal, setOpenMadal] = useState(!user?.isActive)
+    const [section, setSection] = useState()
+    const [section1, setSection1] = useState()
+    const [section2, setSection2] = useState()
+    const [section3, setSection3] = useState()
+    const [section4, setSection4] = useState()
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     useEffect(() => {
+
+
         const fetchData = async () => {
             const res = await GetCertificates();
+            const data2 = await SectionGet()
+            setSection(data2)
             setData(res)
         }
         fetchData()
@@ -59,10 +57,12 @@ export default function HomeTechPage({ user }) {
             const res = await TeacherGet();
             setData2(res?.count)
         }
+
         fetchData2()
             .then((err) => {
                 console.log(err);
             })
+
 
     }, [])
 
@@ -70,7 +70,7 @@ export default function HomeTechPage({ user }) {
 
 
     const UpdateTeacherFunc = async (data) => {
-        console.log("ok")
+
         setLoading(true)
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
@@ -79,8 +79,10 @@ export default function HomeTechPage({ user }) {
         formData.append("email", user?.email)
         formData.append("loginId", user?.loginId)
         formData.append("isActive", true)
+        formData.append("section", section1)
+        formData.append("specialisation", section3)
+        formData.append("position", section4)
         formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("specialisation", array[1])
         formData.append("bio", data?.bio)
 
 
@@ -246,12 +248,18 @@ export default function HomeTechPage({ user }) {
                             style={{ marginBottom: "20px" }}
                             disabled={true}
                         />
-                        {/* <AddInput
+                        <AddInput
                             type={"select"}
                             label={"Bo’lim"}
                             placeholder={"Bo’lim"}
-                            Specialisation={array}
+                            value={section1}
                             style={{ marginBottom: "20px" }}
+                            Specialisation={section}
+                            onChange={(e) => {
+                                const data = section.find(el => el?.id == e)
+                                setSection1(data?.name)
+                                setSection2(data?.specialisations)
+                            }}
 
                         />
                         {
@@ -259,19 +267,25 @@ export default function HomeTechPage({ user }) {
                                 type={"select"}
                                 label={"Specialisation"}
                                 placeholder={"Specialisation"}
-                                Specialisation={array}
+                                value={section3}
+                                Specialisation={section2}
                                 style={{ marginBottom: "20px" }}
-
+                                onChange={(e) => {
+                                    const data = section2.find(el => el?.id == e)
+                                    setSection3(data?.name)
+                                }}
                             />
                         }
                         <AddInput
                             type={"select"}
                             label={"Lavozimi"}
                             placeholder={"Lavozimir"}
-                            Specialisation={array2}
+                            value={section4}
                             style={{ marginBottom: "20px" }}
+                            Specialisation={lavozim}
+                            onChange={(e) => setSection4(e)}
 
-                        /> */}
+                        />
                         <AddInput
                             type={"text"}
                             label={"メール"}

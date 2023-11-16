@@ -16,6 +16,25 @@ import { CanactGet, CanactUpdate, DecanUpdate } from '../../../services/decan'
 import { RecruitorUpdate } from '../../../services/recruter'
 import Loader from '../../UL/loader'
 import { StudentsUpdate } from '../../../services/student'
+import { SectionGet, TeacherUpdate } from '../../../services/teacher'
+import { ParentUpdate } from '../../../services/parent'
+
+const lavozim = [
+    {
+        id: "bolim boshlig'i",
+        name: "bolim boshlig'i",
+    },
+    {
+        id: "leader",
+        name: "leader",
+    },
+    {
+        id: "masul hodim",
+        name: "masul hodim",
+    }
+
+]
+
 export default function SettingsPage({ data }) {
     const x = useRef()
     const y = useRef()
@@ -29,11 +48,14 @@ export default function SettingsPage({ data }) {
     const [avatar, setAvatar] = useState(data?.avatar)
     const [cantactId, setCantactId] = useState(data?.avatar)
     const [loader, setLoager] = useState(false)
-
+    const [section, setSection] = useState()
+    const [section1, setSection1] = useState()
+    const [section2, setSection2] = useState()
+    const [section3, setSection3] = useState()
+    const [section4, setSection4] = useState()
     const { register, handleSubmit, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
 
     const watchedFiles = watch()
-
     useEffect(() => {
         setAvatar(data?.avatar)
         setValue("avatar", data?.avatar)
@@ -42,8 +64,24 @@ export default function SettingsPage({ data }) {
         setValue("email", data?.email)
         setValue("loginId", data?.loginId)
         setValue("companyName", data?.companyName)
+        setValue("brithday", data?.brithday)
         setValue("phoneNumber", data?.phoneNumber)
         setValue("specialisation", data?.specialisation)
+        setSection1(data?.section)
+        setSection3(data?.specialisation)
+        setSection4(data?.position)
+
+
+
+
+        const fetchData = async () => {
+            const data = await SectionGet()
+            setSection(data)
+        }
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
 
         if (data?.role == "decan") {
             const fetchData = async () => {
@@ -55,7 +93,6 @@ export default function SettingsPage({ data }) {
                 setValue("location", res[0]?.location)
                 setCantactId(res[0]?.id)
             }
-
             fetchData()
                 .then((err) => {
                     console.log(err);
@@ -77,6 +114,7 @@ export default function SettingsPage({ data }) {
         if (body.specialisation) formData.append("specialisation", body?.specialisation)
         if (body.password) formData.append("password", body?.password)
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
+        if (body.brithday) formData.append("brithday", body?.brithday)
 
         if (body.startTime) formData.append("startTime", body?.startTime)
         if (body.endTime) formData.append("endTime", body?.endTime)
@@ -113,8 +151,31 @@ export default function SettingsPage({ data }) {
                         }
                         setLoager(false)
                     })
-
-
+            }
+            if (data?.role == 'teacher' || data?.role == "staff") {
+                await TeacherUpdate(formData, data?.id)
+                    .then((data) => {
+                        router(`/${data?.role}/home`)
+                        setLoager(false)
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('current')) {
+                            setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
+                        }
+                        if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "loginId must be unique") {
+                            setError('loginId', { type: 'custom', message: "ログイン ID は一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes('confirm')) {
+                            setError('confirmPassword', { type: 'custom', message: "パスワードをもう一度確認してください" })
+                        }
+                        setLoager(false)
+                    })
             }
             if (data?.role == 'recruitor') {
                 await RecruitorUpdate(formData, data?.id)
@@ -141,6 +202,29 @@ export default function SettingsPage({ data }) {
             }
             if (data?.role == 'student') {
                 await StudentsUpdate(formData, data?.id)
+                    .then((data) => {
+                        router('/student/home')
+                        setLoager(false)
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('current')) {
+                            setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
+                        }
+                        if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes('confirm')) {
+                            setError('confirmPassword', { type: 'custom', message: "パスワードが正しくないことを確認する" })
+                        }
+                        setLoager(false)
+                    })
+
+            }
+            if (data?.role == 'parent') {
+                await ParentUpdate(formData, data?.id)
                     .then((data) => {
                         router('/student/home')
                         setLoager(false)
@@ -246,7 +330,6 @@ export default function SettingsPage({ data }) {
                                 placeholder={"名前"}
                                 type={"text"}
                                 register={{ ...register("firstName", { required: "名前は必要です！" }) }}
-                                value={watchedFiles?.firstName || ''}
                                 alert={errors.firstName?.message}
                                 onChange={() => clearErrors("firstName")}
                             />
@@ -257,11 +340,10 @@ export default function SettingsPage({ data }) {
                                 placeholder={"名字"}
                                 type={"text"}
                                 register={{ ...register("lastName", { required: " 名字は必要です！" }) }}
-                                value={watchedFiles?.lastName || ''}
                                 alert={errors.lastName?.message}
                                 onChange={() => clearErrors("lastName")}
                             />
-                            {/* {data?.role == "decan" || data?.role == "recruitor" && <br />} */}
+
                             {data?.role == "recruitor" && <>
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
@@ -270,18 +352,15 @@ export default function SettingsPage({ data }) {
                                     placeholder={"会社名"}
                                     type={"text"}
                                     register={{ ...register("companyName", { required: "会社名は必要です！" }) }}
-                                    value={watchedFiles?.companyName || ''}
                                     alert={errors.companyName?.message}
                                     onChange={() => clearErrors("companyName")}
                                 />
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
-
                                     label={"電話番号"}
                                     placeholder={"998"}
                                     type={"text"}
                                     register={{ ...register("phoneNumber", { required: "電話番号は必要です！" }) }}
-                                    value={watchedFiles?.phoneNumber || ''}
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
                                 />
@@ -296,6 +375,14 @@ export default function SettingsPage({ data }) {
                                         label={"Bo’lim"}
 
                                         placeholder={"Bo’lim"}
+                                        value={section1}
+
+                                        Specialisation={section}
+                                        onChange={(e) => {
+                                            const data = section.find(el => el?.id == e)
+                                            setSection1(data?.name)
+                                            setSection2(data?.specialisations)
+                                        }}
 
                                     />
                                     <SettingsInput
@@ -303,7 +390,13 @@ export default function SettingsPage({ data }) {
                                         type={"select"}
                                         label={"Specialisation"}
                                         placeholder={"Specialisation"}
+                                        value={section3}
+                                        Specialisation={section2}
 
+                                        onChange={(e) => {
+                                            const data = section2.find(el => el?.id == e)
+                                            setSection3(data?.name)
+                                        }}
                                     />
 
                                     <SettingsInput
@@ -311,7 +404,10 @@ export default function SettingsPage({ data }) {
                                         type={"select"}
                                         label={"Lavozimi"}
                                         placeholder={"Lavozimir"}
+                                        value={section4}
 
+                                        Specialisation={lavozim}
+                                        onChange={(e) => setSection4(e)}
                                     />
                                 </>
                             }
@@ -323,6 +419,14 @@ export default function SettingsPage({ data }) {
                                         label={"Bo’lim"}
 
                                         placeholder={"Bo’lim"}
+                                        value={section1}
+
+                                        Specialisation={section}
+                                        onChange={(e) => {
+                                            const data = section.find(el => el?.id == e)
+                                            setSection1(data?.name)
+                                            setSection2(data?.specialisations)
+                                        }}
 
                                     />
                                     <SettingsInput
@@ -330,7 +434,10 @@ export default function SettingsPage({ data }) {
                                         type={"select"}
                                         label={"Lavozimi"}
                                         placeholder={"Lavozimir"}
+                                        value={section4}
 
+                                        Specialisation={lavozim}
+                                        onChange={(e) => setSection4(e)}
                                     />
                                 </>
                             }
@@ -339,9 +446,12 @@ export default function SettingsPage({ data }) {
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
                                     type={"date"}
-                                    label={"Birthday"}
-                                    placeholder={"Birthday"}
+                                    label={"brithday"}
+                                    placeholder={"brithday"}
+                                    register={{ ...register("brithday", { required: "電話番号は必要です！" }) }}
 
+                                    alert={errors.brithday?.message}
+                                    onChange={() => clearErrors("brithday")}
                                 />
                             }
                             {data?.role == "parent" &&
@@ -350,17 +460,17 @@ export default function SettingsPage({ data }) {
                                     type={"text"}
                                     label={"phoneNumber"}
                                     placeholder={"phoneNumber"}
-
+                                    register={{ ...register("phoneNumber", { required: "電話番号は必要です！" }) }}
+                                    alert={errors.phoneNumber?.message}
+                                    onChange={() => clearErrors("phoneNumber")}
                                 />
                             }
-
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
                                 label={"メール"}
                                 placeholder={"メール"}
                                 type={"email"}
                                 register={{ ...register("email", { required: "メールは必要です！" }) }}
-                                value={watchedFiles?.email || ''}
                                 alert={errors.email?.message}
                                 onChange={() => clearErrors("email")}
                                 disabled={true}
@@ -372,20 +482,15 @@ export default function SettingsPage({ data }) {
                                 placeholder={"ログインID"}
                                 type={"text"}
                                 register={{ ...register("loginId", { required: "ログインIDは必要です!" }) }}
-                                value={watchedFiles?.loginId || ''}
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}
                             />
 
                         </div>
                     </div>
-
-
-
                     <p className={cls.SettingsPage__passsword}>パスワード</p>
                     <div className={cls.SettingsPage__passsword__wrap2}>
                         <SettingsInput
-
                             label={"現在のパスワード"}
                             placeholder={"現在のパスワード"}
                             type={curPass}
@@ -395,9 +500,7 @@ export default function SettingsPage({ data }) {
                             eyeClick={(e) => {
                                 setcurPass(state => state == "password" ? "text" : "password")
                                 setEyeicons(!eyeicons)
-
                             }}
-
                             register={{ ...register("currentPassword") }}
                             alert={errors.currentPassword?.message}
                             onChange={() => clearErrors("currentPassword")}
@@ -448,7 +551,6 @@ export default function SettingsPage({ data }) {
                                         placeholder={"email"}
                                         type={"email"}
                                         register={{ ...register("emailInfo") }}
-                                        value={watchedFiles?.emailInfo || ''}
                                     />
                                     <SettingsInput
 
@@ -456,7 +558,6 @@ export default function SettingsPage({ data }) {
                                         placeholder={"number"}
                                         type={"text"}
                                         register={{ ...register("phoneNumber") }}
-                                        value={watchedFiles?.phoneNumber || ''}
                                     />
                                     <SettingsInput
                                         className={cls.SettingsPage__passsword__time}
@@ -464,7 +565,6 @@ export default function SettingsPage({ data }) {
                                         label={"start time"}
                                         type={"time"}
                                         register={{ ...register("startTime") }}
-                                        value={watchedFiles?.startTime || ''}
                                     />
                                     <SettingsInput
                                         className={cls.SettingsPage__passsword__time}
@@ -472,7 +572,6 @@ export default function SettingsPage({ data }) {
                                         label={"time to finish"}
                                         type={"time"}
                                         register={{ ...register("endTime") }}
-                                        value={watchedFiles?.endTime || ''}
                                     />
                                 </div>
                                 <SettingsInput
@@ -481,7 +580,6 @@ export default function SettingsPage({ data }) {
                                     placeholder={"Location"}
                                     type={"Location"}
                                     register={{ ...register("location") }}
-                                    value={watchedFiles?.location || ''}
                                 />
                             </div>
 

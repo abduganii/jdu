@@ -11,15 +11,32 @@ import DeleteMadel from '../../../UL/madals/deleteModel'
 
 
 import React, { useState } from 'react'
-import { Student } from './data'
+
 import cls from "./Teacher.module.scss"
 import toast, { Toaster } from 'react-hot-toast';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { TeacherAdd, TeacherAllAdd, Teacherdelete, TeacherGetById, TeacherUpdate } from '../../../../services/teacher'
+import { SectionGet, TeacherAdd, TeacherAllAdd, Teacherdelete, TeacherGetById, TeacherUpdate } from '../../../../services/teacher'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import ExalInput from '../../../UL/input/exal'
 import { useQueryClient } from 'react-query'
+
+const lavozim = [
+    {
+        id: "bolim boshlig'i",
+        name: "bolim boshlig'i",
+    },
+    {
+        id: "leader",
+        name: "leader",
+    },
+    {
+        id: "masul hodim",
+        name: "masul hodim",
+    }
+
+]
+
 
 const TeacherPage = React.forwardRef(({ data }, ref) => {
     const queryClient = useQueryClient()
@@ -33,7 +50,11 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const [exalError, setExalError] = useState(false)
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
-
+    const [section, setSection] = useState()
+    const [section1, setSection1] = useState()
+    const [section2, setSection2] = useState()
+    const [section3, setSection3] = useState()
+    const [section4, setSection4] = useState()
     const [exal, setexal] = useState()
 
     const Lacation = useLocation()
@@ -45,11 +66,18 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
             const res = await TeacherGetById(id);
+
+            const data = await SectionGet()
+            setSection(data)
+
             setValue("avatar", res?.avatar)
             setValue("firstName", res?.firstName)
             setValue("lastName", res?.lastName)
             setValue("companyName", res?.companyName)
-            setValue("specialisation", res?.specialisation)
+
+            setSection1(res?.section)
+            setSection3(res?.specialisation)
+            setSection4(res?.position)
             setValue("phoneNumber", res?.phoneNumber)
             setValue("email", res?.email)
             setValue("loginId", res?.loginId)
@@ -60,11 +88,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
             })
     }
 
-
-
     const AddStudentFunc = async (data) => {
         setLoading(true)
-
         if (exal) {
             const formData = new FormData()
             formData.append("excel", exal)
@@ -130,6 +155,9 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
         formData.append("email", data?.email)
+        formData.append("section", section1)
+        formData.append("specialisation", section3)
+        formData.append("position", section4)
         formData.append("loginId", data?.loginId)
         formData.append("isActive", true)
         formData.append("phoneNumber", data?.phoneNumber)
@@ -297,24 +325,37 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             type={"select"}
                             label={"Bo’lim"}
                             placeholder={"Bo’lim"}
+                            value={section1}
                             style={{ marginBottom: "20px" }}
-
+                            Specialisation={section}
+                            onChange={(e) => {
+                                const data = section.find(el => el?.id == e)
+                                setSection1(data?.name)
+                                setSection2(data?.specialisations)
+                            }}
                         />
 
                         <AddInput
                             type={"select"}
                             label={"Specialisation"}
                             placeholder={"Specialisation"}
+                            value={section3}
+                            Specialisation={section2}
                             style={{ marginBottom: "20px" }}
-
+                            onChange={(e) => {
+                                const data = section2.find(el => el?.id == e)
+                                setSection3(data?.name)
+                            }}
                         />
 
                         <AddInput
                             type={"select"}
-                            label={"Lavozimi"}
-                            placeholder={"Lavozimir"}
+                            label={"Lavozim"}
+                            placeholder={"Lavozim"}
+                            value={section4}
                             style={{ marginBottom: "20px" }}
-
+                            Specialisation={lavozim}
+                            onChange={(e) => setSection4(e)}
                         />
 
                         <AddInput

@@ -104,7 +104,17 @@ export const FileUploadStudent = async (data) => {
        }
 }
 
-
+export const PhotoUploadStudent = async (data,id) => {
+    try {
+        const response = await api.post(`/students/galary/${id}`,data, {
+            headers: {
+            'Content-Type': "multipart/form-data"
+        }});
+        return response?.data;
+       } catch (error) {
+        console.log(error.response.data.message);
+       }
+}
 export const StudentsDounlowGet = async (id) => {
     try {
      const res = await api.get(`/student/cv/${id}`, {withCredentials: true})
@@ -113,4 +123,15 @@ export const StudentsDounlowGet = async (id) => {
      console.log(error.response.data.message);
     }
 }
+
+export const Studentscertificates = async (data) => {
+    try {
+     const res = await api.get(`/student/certificates`, data,{withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}
+
+
 

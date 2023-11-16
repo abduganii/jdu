@@ -1,8 +1,6 @@
 
 import BackBtn from '../../../UL/buttun/backBtn'
-import SkillBtn from '../../../UL/buttun/skill'
 import Container from '../../../UL/container'
-import LessonTable from '../../../UL/LassonTable'
 import Person from '../../../UL/person'
 import RateTest from '../../../UL/RateTest'
 
@@ -126,84 +124,26 @@ export default function OneStudent({ user, role }) {
                                 </> : <NoGaler />
                             }
                         </>}
+                    {
+                        user?.jlpt || user?.jud && <h3 className={cls.OneStudent__title}>Japan Language tests</h3>
+                    }
 
-
-                    <h3 className={cls.OneStudent__Percentage}>単位取得状況</h3>
-                    <p className={cls.OneStudent__Percentage__text}>コースの状況</p>
-                    <hr className={cls.OneStudent__Percentage__hr} />
-                    <div className={cls.OneStudent__Percentage__wrap}>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>出席率</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.Attendee}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.Attendee} max="100"></progress>
-                        </div>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>ITコース</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.ItCourse}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.ItCourse} max="100"></progress>
-                        </div>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>日本語</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.JapanLanguage}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.JapanLanguage} max="100"></progress>
-                        </div>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>産業能率大学</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.SannoUniversity}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.SannoUniversity} max="100"></progress>
-                        </div>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>世界言語大学</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.UzSWLUniversity}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.UzSWLUniversity} max="100"></progress>
-                        </div>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}>コワーキング</h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{user?.universityPercentage?.CoWork}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.CoWork} max="100"></progress>
-                        </div>
-                        <div className={cls.OneStudent__Percentage__div}>
-                            <div className={cls.OneStudent__Percentage__top}>
-                                <h3 className={cls.OneStudent__Percentage__title}> すべてのマーク
-                                </h3>
-                                <p className={cls.OneStudent__Percentage__progress}>{Number(Math.round(user?.universityPercentage?.AllMarks))}%</p>
-                            </div>
-                            <progress value={user?.universityPercentage?.AllMarks} max="100"></progress>
-                        </div>
-
+                    <div className={cls.OneStudent__Test__wrap}>
+                        {
+                            user?.jlpt ? <div className={cls.OneStudent__Test}>
+                                <p className={cls.OneStudent__Test__text}>JLPT</p>
+                                <div className={cls.OneStudent__Test__box}>{user?.jlpt ? user?.jlpt : "N"}</div>
+                                <p className={cls.OneStudent__Test__p}>Japanese Language Proficiency Test</p>
+                            </div> : <div></div>
+                        }
+                        {
+                            user?.jdu ? <div className={cls.OneStudent__Test}>
+                                <p className={cls.OneStudent__Test__text}>JLPT</p>
+                                <div className={cls.OneStudent__Test__box}>{user?.jdu ? user?.jdu : "Q"}</div>
+                                <p className={cls.OneStudent__Test__p}>Japanese Language Proficiency Test</p>
+                            </div> : <div></div>
+                        }
                     </div>
-                    <LessonTable lassons={user?.lessons} lessonId={lessonId} setsemestorId={setsemestorId} setLessonId={setLessonId} semestorId={semestorId}>
-                        <div className={cls.OneStudent__list}>
-                            <div className={cls.OneStudent__list__top}>
-                                <p className={cls.OneStudent__list__top__text}>科目</p>
-                                <p className={cls.OneStudent__list__top__text}>状態</p>
-                                <p className={cls.OneStudent__list__top__text}>科目</p>
-                                <p className={cls.OneStudent__list__top__text}>単位</p>
-                            </div>
-                            {
-                                lassonsArr && lassonsArr?.find(e => e?.id == semestorId)?.results?.map(el => (
-                                    <div className={cls.OneStudent__list__bottom} key={el?.id}>
-                                        <p className={cls.OneStudent__list__bottom__text}>{el?.lessonName}</p>
-                                        <p className={cls.OneStudent__list__bottom__text}>{el?.status == "Incompleted" ? "未完成" : "完成した"}</p>
-                                        <p className={cls.OneStudent__list__bottom__text}>{el?.university}</p>
-                                        <p className={cls.OneStudent__list__bottom__text}>{el?.credit}</p>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </LessonTable>
                 </div>
 
             </Container >

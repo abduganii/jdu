@@ -177,7 +177,7 @@ export default function HomePage({ user }) {
                 </div>
             </div>
 
-            {openMadal &&
+            {!user.isActive && openMadal &&
                 <AddMadal
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}

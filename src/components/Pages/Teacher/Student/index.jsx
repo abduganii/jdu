@@ -15,7 +15,7 @@ import { Student } from "./data"
 
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { StudentsAdd, Studentsdelete } from '../../../../services/student'
+import { StudentsAdd, Studentscertificates, Studentsdelete } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
@@ -32,11 +32,27 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
     const [loading, setLoading] = useState(false)
     const [Sunject, setSunject] = useState("JLPT & JDU")
 
-    // const oneStuednt = data.find(e => e.id === personId) || ""
 
 
 
+    const { register, handleSubmit, setValue, watch } = useForm();
+    const AddDataSubmit = async () => {
+        setLoading(true)
+        const formData = new FormData()
 
+        formData.append("excel", exal)
+
+        await Studentscertificates(formData)
+            .then(res => {
+
+                setLoading(false)
+            })
+            .catch(err => {
+                toast(err.response.data.message)
+                setLoading(false)
+
+            })
+    }
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
@@ -68,7 +84,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
             {openMadal && role == "teacher" &&
                 <AddMadal
                     role={"学生を追加"}
-                    // OnSubmit={handleSubmit(AddStudentFunc)}
+                    OnSubmit={handleSubmit(AddDataSubmit)}
                     closeMadal={() => {
                         setOpenMadal(false)
                     }}>
@@ -122,7 +138,8 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                     <ExalInput
                         setResolv={setexal}
                         resolv={exal}
-                    // onChange={() => reset()} 
+                        teacher={true}
+
                     />
                 </AddMadal>}
             <Toaster />

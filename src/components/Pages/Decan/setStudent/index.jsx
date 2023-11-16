@@ -16,7 +16,7 @@ import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
 import { LessonsAdd, LessonsUpdate } from '../../../../services/Lesson'
-import { FileUploadStudent, GetSkills, StudentsUpdate } from '../../../../services/student'
+import { FileUploadStudent, GetSkills, PhotoUploadStudent, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 import Loader from '../../../UL/loader'
@@ -30,7 +30,7 @@ export default function SetStudent({ data, role }) {
     const router = useNavigate()
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
-
+    const [avatarArr, setAvatarArr] = useState(data?.images || [])
 
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
 
@@ -46,7 +46,7 @@ export default function SetStudent({ data, role }) {
     }, [data])
 
     const AddDataSubmit = async (body) => {
-        // setLoading(true)
+        setLoading(true)
         const formData = new FormData()
 
         if (body.avatar) formData.append("avatar", body.avatar)
@@ -87,6 +87,18 @@ export default function SetStudent({ data, role }) {
         }
     }
 
+    const hendleimg2 = async (e) => {
+        if (e.target.files[0]) {
+            const newUrl = URL.createObjectURL(e.target.files[0]);
+            setAvatarArr(statu => [...statu, newUrl])
+            const formData = new FormData()
+            formData.append("image", e.target.files[0])
+            await PhotoUploadStudent(formData, data?.id)
+                .then(() => setLoading(false))
+                .catch(() => setLoading(false))
+        }
+    }
+
 
 
     return (
@@ -95,7 +107,6 @@ export default function SetStudent({ data, role }) {
                 if (e.target == x.current) {
                     x.current.classList.remove("displayBlock")
                 }
-
             }}>
                 <div className={cls.SetStudent__logout2} ref={y}>
                     <p className={cls.SetStudent__logout2__text}>
@@ -225,10 +236,14 @@ export default function SetStudent({ data, role }) {
                                 <GalaryIcons />
                                 <p>upload photo</p>
                             </div>
-                            <input type="file" />
+                            <input type="file" onChange={(e) => hendleimg2(e)} />
                         </label>
+                        {
+                            avatarArr && avatarArr.map((e, i) => (
+                                <img key={i} src={e} alt="imd" className={cls.SetStudent__wrap__cartume} />
+                            ))
+                        }
 
-                        <div className={cls.SetStudent__wrap__cartume}></div>
                     </div>
                 </div>
                 <div className={cls.SetStudent__wrap__img}>

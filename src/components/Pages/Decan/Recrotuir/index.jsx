@@ -33,8 +33,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
     const [openMadal, setOpenMadal] = useState(false)
 
-
-    const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
@@ -56,8 +55,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
-
-
         await RecruitorAdd(data)
             .then(res => {
                 if (res?.data?.message) {
@@ -66,12 +63,9 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                 } else if (res.status == 201) {
                     toast('recrutiar created')
                     setOpenMadal(false)
-
                 }
-
                 setLoading(false)
                 queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
-
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {

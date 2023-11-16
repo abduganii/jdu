@@ -5,11 +5,11 @@ import SmallExample from "../../exalTable/exalTable"
 import { CloseIcon1, FileIcons, XIcons } from "../../icons"
 import cls from "./exal.module.scss"
 
-export default function ExalInput({ onChange, setResolv, exalError, resolv }) {
+export default function ExalInput({ onChange, setResolv, teacher, exalError, resolv }) {
 
     const [openMadal, setOpenMadal] = useState(false)
     const [data, setData] = useState([])
-
+    console.log(data)
     const PriewExalFunc = async () => {
 
         const formData = new FormData()
@@ -58,7 +58,9 @@ export default function ExalInput({ onChange, setResolv, exalError, resolv }) {
                             <XIcons />
                         </div>
                     </div>
-                    <SmallExample data={data} />
+
+                    <SmallExample data={data} teacher={teacher} />
+
                 </div>
             }
         </>
