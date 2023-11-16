@@ -73,7 +73,6 @@ export default function AppRouter() {
             fetchData()
         }
     }, [user])
-    console.log(user)
 
     return (
         <Routes>

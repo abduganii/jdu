@@ -22,7 +22,6 @@ export default function DecParents() {
 
     {
       getNextPageParam: (lastPage, pages) => {
-        console.log(lastPage);
         return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
       }
     }

@@ -73,7 +73,6 @@ const config = (setValue, getValues) => ({
                         }
                     })
                         .then(res => {
-                            console.log(res)
                             if (res.data?.url) {
                                 replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get())
                                 resolve('')

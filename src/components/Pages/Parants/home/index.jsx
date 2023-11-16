@@ -175,6 +175,37 @@ export default function HomePage({ user }) {
                             </div>
                         </div>
                     </div>
+                    <div className={cls.HomePage__chart__wrap}>
+                        <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
+                        <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
+                        <div className={cls.HomePage__test__wrap}>
+                            <div>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
+                                    {data?.NAT?.Q1}
+                                </div>
+                                <p className={cls.HomePage__test2_test}>N1</p>
+                            </div>
+                            <div>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
+                                    {data?.NAT?.Q2}
+                                </div>
+                                <p className={cls.HomePage__test2_test}>N2</p>
+                            </div>
+                            <div>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
+                                    {data?.NAT?.Q3}
+                                </div>
+                                <p className={cls.HomePage__test2_test}>N3</p>
+                            </div>
+                            <div>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
+                                    {data?.NAT?.Q4}
+                                </div>
+                                <p className={cls.HomePage__test2_test}>N4</p>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 

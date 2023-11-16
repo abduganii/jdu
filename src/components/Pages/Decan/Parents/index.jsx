@@ -56,7 +56,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     }
 
     const getlogin = (loginId) => {
-        console.log(loginId)
         // const fetchData = async () => {
         //     const res = await StudentsGetByloginId(id);
 

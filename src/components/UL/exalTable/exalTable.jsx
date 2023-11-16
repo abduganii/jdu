@@ -1,6 +1,7 @@
 import Table from 'react-bootstrap/Table';
 
 function SmallExample({ data, teacher }) {
+
   return (
     <Table striped bordered hover >
 
@@ -25,7 +26,7 @@ function SmallExample({ data, teacher }) {
                   <td>{e?.lastname}</td>
                   <td>{e?.id}</td>
                   <td>{e?.JLPT}</td>
-                  <td>{e?.JLPT}</td>
+                  <td>{e?.JDU}</td>
                 </tr>
               ))
             }

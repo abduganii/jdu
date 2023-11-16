@@ -38,14 +38,16 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
     const { register, handleSubmit, setValue, watch } = useForm();
     const AddDataSubmit = async () => {
         setLoading(true)
-        const formData = new FormData()
 
+
+        const formData = new FormData()
         formData.append("excel", exal)
 
         await Studentscertificates(formData)
             .then(res => {
-
+                setOpenMadal(false)
                 setLoading(false)
+                setexal(null)
             })
             .catch(err => {
                 toast(err.response.data.message)
@@ -58,7 +60,10 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
             <div className={cls.StudentPage__filter}>
                 <Filter page={"student"} />
                 {
-                    role == "teacher" && <BlueButtun light={true} onClick={() => setOpenMadal(true)}>
+                    role == "teacher" && <BlueButtun light={true} onClick={() => {
+                        setOpenMadal(true)
+                        setexal(null)
+                    }}>
                         Mark for semester
                     </BlueButtun>
                 }

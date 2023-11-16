@@ -9,7 +9,6 @@ export default function ExalInput({ onChange, setResolv, teacher, exalError, res
 
     const [openMadal, setOpenMadal] = useState(false)
     const [data, setData] = useState([])
-    console.log(data)
     const PriewExalFunc = async () => {
 
         const formData = new FormData()
@@ -17,6 +16,7 @@ export default function ExalInput({ onChange, setResolv, teacher, exalError, res
 
         await PriewExal(formData)
             .then(res => {
+
                 setData(res?.data)
             })
             .catch(err => {

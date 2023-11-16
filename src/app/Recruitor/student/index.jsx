@@ -22,7 +22,6 @@ export default function RecStudent({ data: topStudent, role, count }) {
     }) || {},
     {
       getNextPageParam: (lastPage, pages) => {
-        console.log(lastPage);
         return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
       }
     }
@@ -34,7 +33,6 @@ export default function RecStudent({ data: topStudent, role, count }) {
   }
 
   useEffect(() => {
-    console.log(hasNextPage);
     if (inView && hasNextPage) {
       fetchNextPage()
     }

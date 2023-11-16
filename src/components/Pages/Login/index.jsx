@@ -20,7 +20,7 @@ export default function LoginPage() {
     const [curPass, setcurPass] = useState('password')
     const [eyeicons, setEyeicons] = useState(true)
     const [loader, setLoader] = useState(false)
-   
+
     const router = useNavigate()
 
     const handleAuth = async (data) => {
@@ -28,7 +28,6 @@ export default function LoginPage() {
         await AuthLogin({ remember: check, ...data })
             .then((response) => {
                 setLoader(false)
-                console.log(response)
                 if (check) {
                     localStorage.setItem("myapp-loginId", watchedFiles?.loginId); localStorage.setItem("myapp-password", watchedFiles?.password)
                 }

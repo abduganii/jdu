@@ -17,6 +17,7 @@ import { EmailIcons2, TelIcons2 } from '../../../UL/icons'
 export default function OneStudent({ user, role }) {
     const router = useNavigate()
 
+    const newDate = new Date()
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
     const [lassonsArr, setLessonArr] = useState([])
@@ -63,7 +64,7 @@ export default function OneStudent({ user, role }) {
                         id={user?.loginId}
                         name={`${user?.firstName} ${user?.lastName}`}
                         avatar={user?.avatar}
-                        year={user?.courseNumber + "年生"}
+                        year={newDate.getFullYear() - user.brithday?.split('-')[0] + "年生"}
                         email={user?.email}
                     />
                     <div>
@@ -110,16 +111,21 @@ export default function OneStudent({ user, role }) {
                     }
                     {
                         <>
-                            {user?.image ?
+                            {user?.images ?
                                 <>
                                     <p className={cls.OneStudent__title}>ギャラリー</p>
                                     <div className={cls.OneStudent__imgs}>
-                                        <img
-                                            src={'/Image/Rectangle502.png'}
-                                            width={223}
-                                            height={160}
-                                            alt='img'
-                                        />
+                                        {
+                                            user?.images?.map((e, i) => (
+                                                <img
+                                                    key={i}
+                                                    src={e}
+                                                    width={223}
+                                                    height={160}
+                                                    alt='img'
+                                                />
+                                            ))
+                                        }
                                     </div>
                                 </> : <NoGaler />
                             }

@@ -114,7 +114,7 @@ export default function HomePage() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className={cls.HomePage__chart__wrap}>
+                    <div className={cls.HomePage__chart__wrap}>
                         <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
@@ -143,8 +143,8 @@ export default function HomePage() {
                                 <p className={cls.HomePage__test2_test}>N4</p>
                             </div>
 
-                        </div> 
-                </div>*/}
+                        </div>
+                    </div>
                 </div>
             </div>
 

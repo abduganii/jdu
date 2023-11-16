@@ -126,7 +126,10 @@ export const StudentsDounlowGet = async (id) => {
 
 export const Studentscertificates = async (data) => {
     try {
-     const res = await api.get(`/student/certificates`, data,{withCredentials: true})
+     const res = await api.post(`/students/certificates`, data,{
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }})
      return res.data
     } catch (error) {
      console.log(error.response.data.message);
