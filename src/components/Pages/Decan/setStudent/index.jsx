@@ -45,6 +45,9 @@ export default function SetStudent({ data, role }) {
         setAvatar(data?.avatar)
     }, [data])
 
+
+    console.log(data?.images)
+
     const AddDataSubmit = async (body) => {
         setLoading(true)
         const formData = new FormData()
@@ -99,8 +102,6 @@ export default function SetStudent({ data, role }) {
         }
     }
 
-
-
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
             <div className={cls.SetStudent__logout2__wrap} ref={x} onClick={(e) => {
@@ -123,27 +124,27 @@ export default function SetStudent({ data, role }) {
             </div>
 
             <form onSubmit={handleSubmit2(AddDataSubmit)} >
+                <div className={cls.SetStudent__top}>
+                    <div className={cls.SetStudent__top__Info}>
+                        <div onClick={() => x.current.classList.add("displayBlock")}>
+                            <LeftIcon />
+                            <p className={cls.SetStudent__top__role}>戻る</p>
+                        </div>
 
+                        <h3 className={cls.SetStudent__top__Name}>{data?.firstName} {data?.lastName}</h3>
+                    </div>
+                    <div className={cls.SetStudent__top__btns}>
+                        <CancelBtn onClick={() => router(-1)}>
+                            キャンセル
+                        </CancelBtn>
+                        <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
+                            更新を保存
+                        </BlueButtun>
+                    </div>
+                </div>
                 {
                     role == "decan" && <>
-                        <div className={cls.SetStudent__top}>
-                            <div className={cls.SetStudent__top__Info}>
-                                <div onClick={() => x.current.classList.add("displayBlock")}>
-                                    <LeftIcon />
-                                    <p className={cls.SetStudent__top__role}>戻る</p>
-                                </div>
 
-                                <h3 className={cls.SetStudent__top__Name}>{data?.firstName} {data?.lastName}</h3>
-                            </div>
-                            <div className={cls.SetStudent__top__btns}>
-                                <CancelBtn onClick={() => router(-1)}>
-                                    キャンセル
-                                </CancelBtn>
-                                <BlueButtun type={"submit"} style={{ padding: "14px 30px" }}>
-                                    更新を保存
-                                </BlueButtun>
-                            </div>
-                        </div>
                         <div className={cls.SetStudent__inputs}>
                             <label className={cls.SetStudent__upload} >
                                 {avatar ?

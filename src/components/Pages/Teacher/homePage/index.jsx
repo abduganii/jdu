@@ -85,7 +85,6 @@ export default function HomeTechPage({ user }) {
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("bio", data?.bio)
 
-
         await TeacherUpdate(formData, user?.id)
             .then(res => {
                 if (res?.data?.message) {
@@ -115,15 +114,12 @@ export default function HomeTechPage({ user }) {
                 setLoading(false)
             })
     }
-
     const hendleimg = (e) => {
         if (e.target.files[0]) {
             setValue('avatar', e.target.files[0])
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
-
     return (
         <>
             <div className={cls.HomePage} >
@@ -134,7 +130,6 @@ export default function HomeTechPage({ user }) {
                         <img
                             src={'/Image/image1.png'}
                             alt='img'
-
                             width={269}
                             height={197}
                         />

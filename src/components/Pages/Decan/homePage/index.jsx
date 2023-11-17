@@ -119,7 +119,7 @@ export default function HomePage() {
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: "185px solid #DC7E27" }}>
                                     {data?.NAT?.Q1}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>N1</p>

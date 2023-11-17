@@ -26,6 +26,13 @@ export const ParentAdd = async (data) => {
     }});
     return response;
 }
+export const ParentAllAdd = async (data) => { 
+    const response = await api.post('/parents', data, {
+        headers: {
+        'Content-Type': "multipart/form-data"
+    }});
+    return response;
+}
 export const ParentUpdate = async ( data, id ) => { 
     const response = await api.put(`/parent/${id}`, data, {
         headers: {

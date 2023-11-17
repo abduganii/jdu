@@ -97,7 +97,7 @@ export default function AppRouter() {
                 <Route path="/student/home" element={<StudentHome data={topStudent} user={user} count={count} />} />
                 <Route path="/student/me" element={<StudentMe user={user} />} />
                 <Route path="/student/students/:id" element={<StuDStudentById />} />
-                <Route path="/student/studentsSet/:id" element={< SetStudentpage />} />
+                <Route path="/student/studentsSet/:id" element={< SetStudentpage role={user?.role} />} />
 
                 <Route path="/parent/home" element={<ParentHome data={topStudent} user={user} count={count} />} />
                 <Route path="/parent/myChild" element={<StudentMe user={user?.Students?.[0]} />} />

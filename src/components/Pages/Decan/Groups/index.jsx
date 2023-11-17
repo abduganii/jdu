@@ -82,7 +82,6 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
   const AddStudentFunc = async (data) => {
     setLoading(true)
     if (year) {
-
       if (query == "false") {
         await AddGroup({ year, ...data })
           .then(res => {

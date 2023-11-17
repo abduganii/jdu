@@ -16,7 +16,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
-import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById } from '../../../../services/parent'
+import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById, ParentAllAdd } from '../../../../services/parent'
 import { StudentsGetByloginId } from '../../../../services/student'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
@@ -69,41 +69,63 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
-        await ParentAdd(data)
-            .then(res => {
-                if (res?.data?.message) {
-                    toast(res?.data?.message)
-
-                } else if (res.status == 201) {
-                    toast('parent created')
-                    setOpenMadal(false)
-
-                }
-
-                setLoading(false)
-                queryClient.invalidateQueries(['parents', params.get('search')])
-
-            })
-            .catch(err => {
-                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                    setError('loginId', { type: 'custom', message: err.response.data.message })
+        if (exal) {
+            const formData = new FormData()
+            formData.append("excel", exal)
+            await ParentAllAdd(formData)
+                .then(res => {
+                    if (res?.data?.message) {
+                        setLoading(false)
+                    }
+                    if (res.status == 201) {
+                        toast('Parents created')
+                        setOpenMadal(false)
+                        reset()
+                        setLoading(false)
+                    }
+                    setexal(null)
+                })
+                .catch(err => {
+                    setExalError(true)
                     setLoading(false)
-                }
-                if (err.response.data.message.includes('StudentId')) {
-                    setError('studentId', { type: 'custom', message: err.response.data.message })
+                })
+        } else {
+            await ParentAdd(data)
+                .then(res => {
+                    if (res?.data?.message) {
+                        toast(res?.data?.message)
+
+                    } else if (res.status == 201) {
+                        toast('parent created')
+                        setOpenMadal(false)
+
+                    }
+
                     setLoading(false)
-                }
-                if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    queryClient.invalidateQueries(['parents', params.get('search')])
+
+                })
+                .catch(err => {
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message.includes('StudentId')) {
+                        setError('studentId', { type: 'custom', message: err.response.data.message })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                    }
                     setLoading(false)
-                } if (err.response.data.message === "email must be unique") {
-                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                }
-                if (err.response.data.message === "Validation len on password failed") {
-                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                }
-                setLoading(false)
-            })
+                })
+        }
     }
 
     const UpdateStudentFunc = async (data) => {
@@ -330,7 +352,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     }}> <div className={cls.TeacherPage__addInputs}>
 
                         <AddInput
-                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            register={{ ...register('loginId') }}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
@@ -343,7 +365,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
-                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
+                            register={{ ...register('email') }}
                             type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
@@ -355,7 +377,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     </div>
                     <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
                         <AddInput
-                            register={{ ...register('studentId', { required: "電子メールは必要です！" }) }}
+                            register={{ ...register('studentId') }}
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Student ID"}
