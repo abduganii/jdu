@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { SectionGet2 } from '../../../services/teacher.js'
 import paramsToObject from '../../../utils/paramsToObject.js'
 import BackBtn from '../buttun/backBtn/index.jsx'
 import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
@@ -15,8 +16,10 @@ export default function Filter({ page, back }) {
 
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
+    const [data, SetData] = useState([])
     const [inoutVal1, SetInoutVal1] = useState()
     const [yearRateText, setRateYears] = useState("コース")
+    const [specialisationText, setSpecialisation] = useState("specialisation")
     const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
@@ -37,6 +40,21 @@ export default function Filter({ page, back }) {
                 setRateRate(e?.text)
             }
         })
+
+        data.forEach(e => {
+            if (e?.name == params.get('specialisation')) {
+                setSpecialisation(e?.name)
+            }
+        })
+        const fetchData = async () => {
+            const data2 = await SectionGet2()
+            console.log(data2)
+            SetData(data2)
+        }
+        fetchData()
+            .then((err) => {
+                console.log(err);
+            })
     }, [params])
 
     return (
@@ -46,13 +64,15 @@ export default function Filter({ page, back }) {
             <button className={`${cls.Filter__btn} ${!cahneSet ? cls.Filter__btn__active : ""}`} onClick={() => {
                 SetInoutVal('')
                 SetInoutVal1('')
+
                 SetCahnegSet(true)
-                setSearchParams({ ...paramsToObject(params.entries()), companyName: "", Group: "", rate: "", year: "" })
+                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", Group: "", rate: "", year: "" })
                 setY(false)
                 setW(false)
                 setH(false)
                 setX(false)
                 setRateYears("コース")
+                setSpecialisation("specialisation")
                 setRateRate("人気")
             }}>
                 {cahneSet ? <FilterIcon /> : <CloseIcon />}
@@ -88,49 +108,79 @@ export default function Filter({ page, back }) {
                 </>
             }
             {
-
                 page == 'group' && <>
                     <div className={cls.Filter__Select} onClick={() => {
+                        setH(true)
                         setY(true)
                         setW(true)
+                        SetCahnegSet(false)
                     }}>
-                        <div className={cls.Filter__Select} onClick={() => {
-                            setH(true)
-                            setY(true)
-                            SetCahnegSet(false)
-                        }}>
-                            <p className={cls.Filter__Select__p}>{yearRateText}</p>
-                            <img
-                                src={'/Image/Icons.svg'}
-                                width={16}
-                                height={16}
-                                objectFit="contain"
-                            />
-                            <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
-                                {YearsRate?.map(e => (
-                                    <p
-                                        key={e?.id}
-                                        className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
-                                        onClick={() => {
-                                            setH(false)
-                                            setY(false)
-                                            setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
-                                            SetCahnegSet(false)
-                                        }}
+                        <p className={cls.Filter__Select__p}>{yearRateText}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
+                            {YearsRate?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}
+                                      ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setH(false)
+                                        setY(false)
+                                        setW(false)
+                                        setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
+                                        SetCahnegSet(true)
+                                    }}
+                                >
+                                    {e.text}
+                                </p>
+                            ))}
 
-                                    >
-                                        {e.text}
-                                    </p>
-                                ))}
-
-                            </div>
                         </div>
+                    </div>
 
+
+                </>
+            }
+            {
+                page == 'staff' && <>
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setH(true)
+                        setY(true)
+                        setW(true)
+                        SetCahnegSet(false)
+                    }}>
+                        <p className={cls.Filter__Select__p}>{specialisationText}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
+                            {data?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}
+                                      ${params.get('specialisation') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setSearchParams({ ...paramsToObject(params.entries()), specialisation: e?.name })
+                                        SetCahnegSet(true)
+                                    }}
+                                >
+                                    {e.name}
+                                </p>
+                            ))}
+                        </div>
                     </div>
                 </>
             }
             {
-                false && <>
+                page == "student" && <>
                     <div className={cls.Filter__Select} onClick={() => {
                         setY(true)
                         setW(true)
@@ -148,7 +198,7 @@ export default function Filter({ page, back }) {
                                 value={inoutVal}
                                 placeholder='グループを入力'
                                 onChange={(e) => {
-                                    setSearchParams({ ...paramsToObject(params.entries()), Group: e.target.value })
+                                    setSearchParams({ ...paramsToObject(params.entries()), group: e.target.value })
                                     SetCahnegSet(false)
                                     SetInoutVal(e.target.value)
                                 }}

@@ -17,7 +17,7 @@ const GroupsTechPage = React.forwardRef(({ groups, role }, ref) => {
   return (
     <div className={cls.GroupsPage}>
       <div className={cls.GroupsPage__filter}>
-        <Filter page={'recruiter'} />
+        <Filter page={'group'} />
       </div>
       <GroupTopList />
 

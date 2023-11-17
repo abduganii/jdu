@@ -122,7 +122,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         setOpenMadal(false)
                     }
                     setLoading(false)
-                    queryClient.invalidateQueries(['teachers', params.get('search')])
+                    queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
 
                 })
                 .catch(err => {
@@ -174,7 +174,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     setAvatar(null)
                 }
                 setLoading(false)
-                queryClient.invalidateQueries(['teachers', params.get('search')])
+                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
 
             })
             .catch(err => {
@@ -205,7 +205,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
-                <Filter />
+                <Filter page={"staff"} />
                 <BlueButtun light={true} onClick={() => {
                     setOpenMadal(true)
                     router('?updete=false')
@@ -259,7 +259,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                                 setPersonId(false)
 
                                 setLoading(false)
-                                queryClient.invalidateQueries(['teachers', params.get('search')])
+                                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
 
                             }).catch(err => {
                                 toast(err)

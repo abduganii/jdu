@@ -20,21 +20,21 @@ export const YearsRate = [
   {
     id: 0,
     text: "1年生",
-    link: "1",
+    link: "First",
   },
   {
     id: 1,
     text: "2年生",
-    link: "2",
+    link: "Second",
   },
   {
     id: 3,
     text: "3年生",
-    link: "3",
+    link: "Third",
   },
   {
     id: 4,
     text: "4年生",
-    link: "4",
+    link: "Fourth",
   },
 ];

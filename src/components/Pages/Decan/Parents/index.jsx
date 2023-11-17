@@ -48,8 +48,8 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setValue("loginId", res?.loginId)
             setValue("studentId", res?.Students?.[0]?.loginId)
             setValue("email", res?.email)
+
         }
-        console.log(res)
         fetchData()
             .then((err) => {
             })
@@ -102,7 +102,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     }
 
                     setLoading(false)
-                    queryClient.invalidateQueries(['parents', params.get('search')])
+                    queryClient.invalidateQueries(['parent', params.get('search')])
 
                 })
                 .catch(err => {
@@ -155,7 +155,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     setAvatar(null)
                 }
                 setLoading(false)
-                queryClient.invalidateQueries(['parents', params.get('search')])
+                queryClient.invalidateQueries(['parent', params.get('search')])
 
             })
             .catch(err => {

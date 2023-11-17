@@ -12,7 +12,7 @@ const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref) 
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
-                <Filter />
+                <Filter page={"student"} />
                 <ul className={cls.StudentsPage__top}>
                     <li className={cls.StudentsPage__top__item}>学生</li>
                     <li className={cls.StudentsPage__top__item}>スキル</li>

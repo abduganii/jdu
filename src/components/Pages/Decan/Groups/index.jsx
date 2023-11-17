@@ -94,7 +94,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
 
             }
             setLoading(false)
-            queryClient.invalidateQueries(['group', params.get('search')])
+            queryClient.invalidateQueries(['group', params.get('search'), params.get('year')])
 
 
           })
@@ -114,7 +114,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
 
             }
             setLoading(false)
-            queryClient.invalidateQueries(['group', params.get('search')])
+            queryClient.invalidateQueries(['group', params.get('search'), params.get('year')])
 
           })
           .catch(err => {
@@ -236,7 +236,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
                 setGrupId1(false)
 
                 setLoading(false)
-                queryClient.invalidateQueries(['group', params.get('search')])
+                queryClient.invalidateQueries(['group', params.get('search'), params.get('year')])
 
               }).catch(err => {
                 toast(err)

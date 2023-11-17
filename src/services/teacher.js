@@ -64,3 +64,14 @@ export const SectionGet = async () => {
      console.log(error.response.data.message);
     }
 }
+
+
+export const SectionGet2 = async () => {
+    try {
+
+     const res = await api.get(`/specialisations`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message);
+    }
+}

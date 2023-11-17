@@ -11,11 +11,11 @@ export default function DecEmployees() {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['teachers', params.get('search')],
+    ['teachers', params.get('search'), params.get('specialisation')],
     async ({ pageParam = 1 }) => await TeacherGet({
       limit: 15,
       page: pageParam,
-      company: params.get('companyName') || '',
+      specialisation: params.get('specialisation') || '',
       search: params.get('search') || '',
       // lang: 'en'
     }) || {},
