@@ -293,9 +293,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
                         />
-
-
-
                     </div>
                 </AddMadal>
             }

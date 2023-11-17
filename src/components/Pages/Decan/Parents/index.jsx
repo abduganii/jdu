@@ -33,9 +33,8 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     const router = useNavigate()
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
-
+    const [exalError, setExalError] = useState(false)
     const [openMadal, setOpenMadal] = useState(false)
-
 
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
@@ -50,6 +49,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setValue("studentId", res?.Students?.[0]?.loginId)
             setValue("email", res?.email)
         }
+        console.log(res)
         fetchData()
             .then((err) => {
             })
@@ -64,8 +64,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         //         })
         // }
     }
-
-
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
@@ -83,11 +81,13 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         reset()
                         setLoading(false)
                     }
+
+
                     setexal(null)
                 })
                 .catch(err => {
-                    setExalError(true)
                     setLoading(false)
+                    setExalError(true)
                 })
         } else {
             await ParentAdd(data)
@@ -389,7 +389,15 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         <p> name</p>
                     </div>
 
-                    <ExalInput setResolv={setexal} resolv={exal} onChange={() => reset()} />
+                    <ExalInput
+                        setResolv={setexal}
+                        resolv={exal}
+                        exalError={exalError}
+                        onChange={(e) => {
+                            reset()
+                            setExalError(false)
+                        }}
+                    />
                 </AddMadal>
             }
             <Toaster />
