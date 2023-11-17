@@ -480,7 +480,7 @@ export default function SettingsPage({ data }) {
                                 disabled={true}
                                 label={"ログインID"}
                                 placeholder={"ログインID"}
-                                type={"text"}
+                                type={"number"}
                                 register={{ ...register("loginId", { required: "ログインIDは必要です!" }) }}
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}

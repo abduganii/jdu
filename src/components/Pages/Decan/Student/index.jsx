@@ -170,7 +170,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"text"}
+                            type={"number"}
                             label={"ID"}
                             placeholder={"ID"}
                             alert={errors.loginId?.message}

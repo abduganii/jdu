@@ -48,7 +48,7 @@ export default function ExalInput({ onChange, setResolv, teacher, exalError, res
                     </div>
                 </div>
 
-                {exalError && <p className={cls.ExalInput__error}>Id/ loginId Must be unique</p>}
+                {exalError && <p className={cls.ExalInput__error}>Id/ loginId Must be unique / loginId Must be number</p>}
             </div>
 
             {
