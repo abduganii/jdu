@@ -7,8 +7,6 @@ import TopStudents from '../../../UL/topStudents'
 import cls from "./StudentsPage.module.scss"
 
 const StudentsPage = React.forwardRef(({ data, selected, student, count }, ref) => {
-
-
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>

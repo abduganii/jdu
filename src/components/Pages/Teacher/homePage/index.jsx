@@ -42,7 +42,6 @@ export default function HomeTechPage({ user }) {
     const watchedFiles = watch()
     useEffect(() => {
 
-
         const fetchData = async () => {
             const res = await GetCertificates();
             const data2 = await SectionGet()
@@ -62,8 +61,6 @@ export default function HomeTechPage({ user }) {
             .then((err) => {
                 console.log(err);
             })
-
-
     }, [])
 
 

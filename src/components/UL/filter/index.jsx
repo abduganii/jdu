@@ -7,12 +7,14 @@ import paramsToObject from '../../../utils/paramsToObject.js'
 import BackBtn from '../buttun/backBtn/index.jsx'
 import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
 
-import { filterRate, YearsRate } from './data.js'
+import { filterRate, YearsRate, TeacherRate } from './data.js'
 
 import cls from "./filter.module.scss"
 
 export default function Filter({ page, back }) {
     const navigate = useNavigate()
+
+
 
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
@@ -25,6 +27,7 @@ export default function Filter({ page, back }) {
     const [w, setW] = useState(false)
     const [x, setX] = useState(false)
     const [h, setH] = useState(false)
+    const [g, setG] = useState(false)
     const y = useRef()
 
     const [params, setSearchParams] = useSearchParams()
@@ -71,6 +74,7 @@ export default function Filter({ page, back }) {
                 setW(false)
                 setH(false)
                 setX(false)
+                setG(false)
                 setRateYears("コース")
                 setSpecialisation("specialisation")
                 setRateRate("人気")
@@ -177,6 +181,35 @@ export default function Filter({ page, back }) {
                             ))}
                         </div>
                     </div>
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setG(true)
+                        setW(true)
+                        setY(true)
+                        SetCahnegSet(false)
+                    }}>
+                        <p className={cls.Filter__Select__p}>{params.get('role') || "role"}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${g ? "displayBlock" : "displayNone"}`}>
+                            {TeacherRate?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}
+                                      ${params.get('role') == e?.text && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setSearchParams({ ...paramsToObject(params.entries()), role: e?.link })
+                                        SetCahnegSet(true)
+                                    }}
+                                >
+                                    {e.text}
+                                </p>
+                            ))}
+                        </div>
+                    </div>
                 </>
             }
             {
@@ -269,7 +302,7 @@ export default function Filter({ page, back }) {
                     setW(false)
                     setH(false)
                     setX(false)
-
+                    setG(false)
                 }
             }} className={`${cls.Filter__backround} ${ys ? "displayBlock" : "displayNone"}`}></div>
         </div >

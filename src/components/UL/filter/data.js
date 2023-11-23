@@ -16,6 +16,24 @@ export const filterRate = [
   },
 ];
 
+export const TeacherRate = [
+  {
+    id: 2,
+    text: "all",
+    link: "",
+  },
+  {
+    id: 0,
+    text: "teacher",
+    link: "teacher",
+  },
+  {
+    id: 1,
+    text: "staff",
+    link: "staff",
+  },
+];
+
 export const YearsRate = [
   {
     id: 0,

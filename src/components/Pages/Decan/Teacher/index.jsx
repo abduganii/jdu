@@ -60,7 +60,6 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
 
-
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const fitchOnePerson = (id) => {
@@ -174,8 +173,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     setAvatar(null)
                 }
                 setLoading(false)
-                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
-
+                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation'), params.get('role')])
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -259,7 +257,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                                 setPersonId(false)
 
                                 setLoading(false)
-                                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
+                                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation'), params.get('role')])
 
                             }).catch(err => {
                                 toast(err)
