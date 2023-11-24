@@ -62,7 +62,7 @@ export default function HomePage({ user }) {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
                 } else if (res.status == 203) {
-                    toast('registor seccessful')
+                    toast('student seccessful')
                     setOpenMadal(false)
                     setAvatar(null)
                 }
