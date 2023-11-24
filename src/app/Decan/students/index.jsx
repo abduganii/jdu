@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useInView } from 'react-intersection-observer'
-
 import { SpecialisationsGet } from "../../../services/specialisations";
 import { StudentsGet } from "../../../services/student";
 import StudentPage from "../../../components/Pages/Decan/Student";

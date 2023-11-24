@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { useInView } from 'react-intersection-observer'
-
 import RecruitorPage from "../../../components/Pages/Decan/Recrotuir";
 import { RecruitorGet } from "../../../services/recruter";
 

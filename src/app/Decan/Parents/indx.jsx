@@ -7,8 +7,6 @@ import { RecruitorGet } from "../../../services/recruter";
 import PerantPage from "../../../components/Pages/Decan/Parents";
 import { ParentGet } from "../../../services/parent";
 
-
-
 export default function DecParents() {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()

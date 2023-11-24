@@ -7,7 +7,6 @@ import { TeacherGet } from "../../../services/teacher";
 
 export default function DecEmployees() {
 
-
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(

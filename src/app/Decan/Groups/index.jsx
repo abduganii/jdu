@@ -6,6 +6,7 @@ import GroupsPage from '../../../components/Pages/Decan/Groups'
 import { GruopGet } from "../../../services/gruop";
 
 export default function DecanGroups() {
+
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
