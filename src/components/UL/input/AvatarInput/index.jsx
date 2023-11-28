@@ -8,12 +8,10 @@ import cls from "./AvatarInput.module.scss"
 export default function AvatarInput({ onChange, url, ...other }) {
 
 
-
-
     return (
         <div className={cls.AvatarInput}  {...other} >
             <label >
-                <input type="file" accept="image/png, image/jpeg" onChange={(e) => {
+                <input type="file" accept="image/jpeg" onChange={(e) => {
                     onChange(e)
                 }
                 } />
