@@ -311,7 +311,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
-                            type={"number"}
+                            type={"text"}
                             label={"Id"}
                             placeholder={"Id"}
                             value={watchedFiles?.loginId || ''}
@@ -418,7 +418,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
                             style={{ marginBottom: "20px" }}
@@ -430,7 +430,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"メール"}
                             placeholder={"メール"}
                             style={{ marginBottom: "20px" }}

@@ -1,9 +1,11 @@
 import HomePage from "../../../components/Pages/Decan/homePage";
 
-export default function DecanHome({ data, role, count }) {
+export default function DecanHome({ role }) {
+
+
   return (
     <>
-      <HomePage data={data} role={role} count={count} />
+      <HomePage role={role} />
     </>
   )
 }

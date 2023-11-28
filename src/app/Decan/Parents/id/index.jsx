@@ -27,9 +27,8 @@ export default function DecanPerantBuId() {
                 lastName={data?.lastName}
                 loginId={data?.loginId}
                 work={data?.specialisation}
-                bio={data?.bio}
                 email={data?.email}
-
+                student={data?.Students}
             />
         </>
     )

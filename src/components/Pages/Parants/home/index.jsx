@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { RecruitorUpdate } from '../../../../services/recruter'
-import { GetCertificates } from '../../../../services/statistic'
+import { GetCertificates, GetStudentgroupRec } from '../../../../services/statistic'
 import { TeacherGet } from '../../../../services/teacher'
 import Container from '../../../UL/container'
 import AddInput from '../../../UL/input/AddInput'
 import AvatarInput from '../../../UL/input/AvatarInput'
 import Loader from '../../../UL/loader'
 import AddMadal from '../../../UL/madals/AddMadal'
-import TopStudents from '../../../UL/topStudents'
 import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
-import { ParentUpdate } from '../../../../services/parent'
+import { TopStudentsGet } from '../../../../services/student'
+import { Loginout } from '../../../../services/auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function HomePage({ user }) {
 
-    const [data, setData] = useState([])
-    const [data2, setData2] = useState(0)
+    const [JDU, setJDU] = useState({})
+    const [JLPT, setJLPT] = useState({})
+    const [maxValue, setmaxValue] = useState(0)
+    const [data2, setData2] = useState([])
     const [avatar, setAvatar] = useState()
     const [openMadal, setOpenMadal] = useState(!user?.isActive)
     const [loading, setLoading] = useState(false)
@@ -26,15 +29,27 @@ export default function HomePage({ user }) {
     useEffect(() => {
         const fetchData = async () => {
             const res = await GetCertificates();
-            setData(res)
+            setJDU(res?.JDU)
+            setJLPT(res?.JLPT)
+            setmaxValue(res?.student)
         }
         fetchData()
             .then((err) => {
                 console.log(err);
             })
+        const fetchData3 = async () => {
+            const res = await TopStudentsGet();
+
+
+        }
+        fetchData3()
+            .then((err) => {
+                console.log(err);
+            })
         const fetchData2 = async () => {
-            const res = await TeacherGet();
-            setData2(res?.count)
+            const res = await GetStudentgroupRec();
+            setData2(res)
+
         }
         fetchData2()
             .then((err) => {
@@ -50,15 +65,16 @@ export default function HomePage({ user }) {
         if (data.avatar) formData.append("avatar", data.avatar)
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
+        formData.append("companyName", data?.companyName)
         formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("loginId", user?.loginId)
         formData.append("email", user?.email)
+        formData.append("loginId", user?.loginId)
         formData.append("isActive", true)
 
         formData.append("bio", data?.bio)
 
 
-        await ParentUpdate(formData, user?.id)
+        await RecruitorUpdate(formData, user?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -68,7 +84,6 @@ export default function HomePage({ user }) {
                     setAvatar(null)
                 }
                 setLoading(false)
-                setOpenMadal(false)
 
 
             })
@@ -97,7 +112,7 @@ export default function HomePage({ user }) {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
+    const router = useNavigate()
     return (
         <>
             <div className={cls.HomePage} >
@@ -117,24 +132,24 @@ export default function HomePage({ user }) {
 
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>{data?.students}</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 100%</p>
-                        <p className={cls.HomePage__card__card_role}>Students</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.First?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.First?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Freshmen</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>{data2}</h2>
-                        <p className={cls.HomePage__card__card__text}>Attendence: 78%</p>
-                        <p className={cls.HomePage__card__card_role}>Teacher</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Second?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Second?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Second year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Must have: 237</p>
-                        <p className={cls.HomePage__card__card_role}>Lesson hour</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Third?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Third?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Third year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Not attended: 18%</p>
-                        <p className={cls.HomePage__card__card_role}>Marks</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Fourth?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Fourth?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Fouth year</p>
                     </div>
                 </div>
 
@@ -142,34 +157,34 @@ export default function HomePage({ user }) {
                     <div className={cls.HomePage__chart__wrap}>
                         <h3 className={cls.HomePage__chart__title}>JLPT certificate</h3>
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
-                        <div className={cls.HomePage__test__wrap}>
+                        <div className={cls.HomePage__test__wrap} >
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N1}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N1}
                                 </div>
-                                <p className={cls.HomePage__test_test}>N1</p>
+                                <p className={cls.HomePage__test_test} >N1</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N2}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N2 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N2}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N2</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N3}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N3 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N3}
                                 </div>
-                                <p className={cls.HomePage__test_test}>N3</p>
+                                <p className={cls.HomePage__test_test} >N3</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N4}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N4 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N4}
                                 </div>
-                                <p className={cls.HomePage__test_test}>N4</p>
+                                <p className={cls.HomePage__test_test} >N4</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N5}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N5 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N5}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N5</p>
                             </div>
@@ -180,40 +195,43 @@ export default function HomePage({ user }) {
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q1}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q1}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N1</p>
+                                <p className={cls.HomePage__test2_test}>Q1</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q2}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N2 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q2}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N2</p>
+                                <p className={cls.HomePage__test2_test}>Q2</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q3}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N3 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q3}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N3</p>
+                                <p className={cls.HomePage__test2_test}>Q3</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q4}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N4 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q5}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N4</p>
+                                <p className={cls.HomePage__test2_test}>Q4</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            {openMadal &&
+            {openMadal && !user?.isActive &&
                 <AddMadal
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={handleSubmit(UpdateStudentFunc)}
+                    closeMadal={async () => {
+                        await Loginout()
+                        router('/auth/login')
+                    }}
                 >
                     <AvatarInput
                         onChange={(e) => hendleimg(e)}
@@ -244,7 +262,14 @@ export default function HomePage({ user }) {
                             style={{ marginBottom: "20px" }}
 
                         />
-
+                        <AddInput
+                            type={"text"}
+                            label={"Id"}
+                            placeholder={"Id"}
+                            value={user?.loginId}
+                            style={{ marginBottom: "20px" }}
+                            disabled={true}
+                        />
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
                             type={"text"}
@@ -256,21 +281,17 @@ export default function HomePage({ user }) {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
+                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
                             type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
-                            value={user?.loginId}
+                            label={"会社名"}
+                            placeholder={"会社名"}
+                            value={watchedFiles?.companyName || ''}
+                            alert={errors.companyName?.message}
+                            onChange={() => clearErrors("companyName")}
                             style={{ marginBottom: "20px" }}
-                            disabled={true}
+
                         />
-                        <AddInput
-                            type={"text"}
-                            label={"Student Id"}
-                            placeholder={"Student Id"}
-                            value={user?.Students?.[0]?.loginId}
-                            style={{ marginBottom: "20px" }}
-                            disabled={true}
-                        />
+
                         <AddInput
                             type={"text"}
                             label={"メール"}

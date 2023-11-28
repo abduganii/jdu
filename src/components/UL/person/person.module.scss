@@ -104,4 +104,9 @@
         gap: 11px;
         cursor: pointer;
     }
+
+    &__wrap {
+        width: 100%;
+        display: flex;
+    }
 }

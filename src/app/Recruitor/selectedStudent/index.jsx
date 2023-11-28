@@ -5,7 +5,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import StudentsPage from "../../../components/Pages/Recruitor/StudentsPage";
 import { StudentsGet, StudentsGetSearch } from "../../../services/student";
 
-export default function RecSeelctStudent({ data: topStudent, role, count }) {
+export default function RecSeelctStudent({ role }) {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
 
@@ -37,7 +37,7 @@ export default function RecSeelctStudent({ data: topStudent, role, count }) {
 
   return (
     <>
-      <StudentsPage selected={true} data={students} student={topStudent} role={role} count={count} />
+      <StudentsPage selected={true} data={students} data2={students} role={role} />
     </>
   )
 }

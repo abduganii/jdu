@@ -5,10 +5,9 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import StudentsPage from "../../../components/Pages/Recruitor/StudentsPage";
 import { StudentsGet, StudentsGetSearch } from "../../../services/student";
 
-export default function RecStudent({ data: topStudent, role, count }) {
+export default function RecStudent({ role }) {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
-
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
     ['student', params.get('Group'), params.get('year'), params.get('search')],
@@ -27,6 +26,7 @@ export default function RecStudent({ data: topStudent, role, count }) {
   )
 
   let students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
+  let students2 = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
   if (!params.get('Group') && !params.get('year') && !params.get('search')) {
     students = null
   }
@@ -39,7 +39,7 @@ export default function RecStudent({ data: topStudent, role, count }) {
 
   return (
     <>
-      <StudentsPage data={students} student={topStudent} role={role} count={count} ref={ref} />
+      <StudentsPage data={students} data2={students2} role={role} ref={ref} />
     </>
   )
 }

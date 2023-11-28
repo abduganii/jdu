@@ -11,7 +11,7 @@ import cls from "./personlist.module.scss";
 import { Link } from '@react-email/link'
 
 
-export default function PersonList({ id, img, name, gruop, student, rate, phone, skill = [], email, remove, update, onClick }) {
+export default function PersonList({ id, img, name, gruop, student, rate, phone, skill, email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
     const [clickTrue, setClick] = useState(false)
     const x = useRef()
@@ -43,40 +43,11 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                 </div>
                 <p className={cls.PersonList__Gruop}>{gruop}</p>
                 {rate && <div className={cls.PersonList__progres}>
-                    <progress className={cls.PersonList__progres__progress} value={rate} max="100">70 %</progress>
-                    <p className={cls.PersonList__progres__text}>{Number(Math.round(rate))}%</p>
+                    {rate}
                 </div>
                 }
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}
-                {skill.length !== 0 ? <div className={cls.PersonList__skill} style={clickTrue ? { overflowX: "auto" } : { overflow: "hidden" }}>
-                    {skill?.slice(0, (number + 3))?.map(e => (
-                        <SkillBtn
-                            name={e?.skill?.name}
-                            color={e?.skill?.color}
-                            backround={e?.skill?.color} />
-                    ))}
-                    {
-                        (skill?.length - (number + 3)) > 0 ?
-                            <PlusBtn
-                                label={"+"}
-                                ref={o}
-                                onClick={() => {
-                                    setNumber(number + skill?.length)
-                                    setClick(true)
-                                }}
-                                lenght={skill.length - (number + 3)}
-                            />
-                            : clickTrue ? <PlusBtn
-                                label={"<"}
-                                ref={u}
-                                onClick={() => {
-                                    setNumber(number - skill?.length)
-                                    setClick(false)
-                                }}
-                            /> : ""
-                    }
-
-                </div> : student ? <div className={cls.PersonList__skill}></div> : ""}
+                {student ? <div className={cls.PersonList__skill}>{skill}</div> : ""}
                 {email && <a href={`mailto:${email}`} className={cls.PersonList__email} ref={em}>{email}</a>}
                 <DoteBtn ref={y} style={{ marginLeft: "80px" }} onClick={() => setIseId(true)} />
                 <hr className={cls.PersonList__line} />

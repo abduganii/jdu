@@ -7,7 +7,10 @@
 
     &__container {
         margin-top: 100px !important;
-        margin-right: 375px !important;
+        margin-right: 20px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
     }
 
     &__title {
@@ -45,6 +48,78 @@
     &__btn {
         width: 100% !important;
         max-width: 143px !important;
+    }
+
+    &__person {
+        border-radius: 8px;
+        border: 1px solid #E9E8EE;
+
+        background: #FFF;
+        width: 100%;
+        max-width: 246px;
+        padding: 8px;
+        padding-bottom: 32px;
+
+        &__box {
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #E9E8EE;
+
+            background: #F5F5F5;
+            padding: 8px 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+
+        }
+
+        &__text {
+            color: #000;
+
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            margin-bottom: 8px;
+        }
+
+        &__id {
+            border-radius: 1000px;
+            border: 1px solid #1381E6;
+            color: #1381E6;
+            font-family: Inter;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-align: center;
+            padding: 4px 8px;
+        }
+
+        a {
+            display: inline-block;
+            width: 100%;
+            margin-left: 24px;
+            margin-top: 30px;
+
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            line-height: normal;
+            gap: 9px;
+
+            color: #0094FF;
+
+            &:last-child {
+                color: black;
+                margin-top: 15px;
+            }
+        }
     }
 
 }

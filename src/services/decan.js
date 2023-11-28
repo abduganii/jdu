@@ -26,3 +26,13 @@ export const CanactGet = async () => {
      console.log(error.response.data.message)
     } 
 }
+export const DecanPerson = async () => {
+    try {
+    const res = await api.get(`/decan/percentages`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message)
+    } 
+}
+
+

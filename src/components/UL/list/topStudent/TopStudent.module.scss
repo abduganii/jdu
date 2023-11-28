@@ -16,6 +16,17 @@
         -webkit-transform: translate(5px);
     }
 
+    &__btm {
+        color: #667085;
+
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        width: 100%;
+    }
+
 
     &__img {
         min-width: 44px !important;

@@ -30,6 +30,7 @@ export default function SetStudent({ data, role }) {
     const router = useNavigate()
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
+    const [desc, setDesc] = useState()
     const [avatarArr, setAvatarArr] = useState(data?.images || [])
 
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
@@ -42,11 +43,12 @@ export default function SetStudent({ data, role }) {
         setValue2('email', data?.email)
         setValue2('brithday', data?.brithday)
         setValue2('bio', data?.bio)
+        setDesc(data?.desc)
         setAvatar(data?.avatar)
     }, [data])
 
 
-    console.log(data?.images)
+
 
     const AddDataSubmit = async (body) => {
         setLoading(true)
@@ -59,6 +61,7 @@ export default function SetStudent({ data, role }) {
         if (body.email) formData.append("email", body.email)
         if (body.password) formData.append("password", body.password)
         if (body.bio) formData.append("bio", body.bio)
+        if (desc) formData.append("desc", desc)
 
         await StudentsUpdate(formData, data?.id)
             .then(res => {
@@ -101,6 +104,7 @@ export default function SetStudent({ data, role }) {
                 .catch(() => setLoading(false))
         }
     }
+
 
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
@@ -222,9 +226,10 @@ export default function SetStudent({ data, role }) {
                     label={"Bio"}
                     value={watchedFiles2?.bio || 'bio'}
                     placeholder={"bio"}
-                    onChange={() => clearErrors("password")}
+                    onChange={() => clearErrors("bio")}
                     register={{ ...register2('bio') }}
                 />
+
             </form>
 
             <div className={cls.SetStudent__wrap}>
@@ -251,6 +256,14 @@ export default function SetStudent({ data, role }) {
                     <p className={cls.SetStudent__wrap__text}>Video</p>
                 </div>
             </div>
+            <AddInput
+                style={{ marginTop: "10px", width: "100%" }}
+                type={"textarea"}
+                label={"Description"}
+                // value={desc}
+                placeholder={"Description"}
+                onChange={(e) => setDesc(e.target.value)}
+            />
             <Toaster />
             {loading && <Loader onClick={() => setLoading(false)} />}
 

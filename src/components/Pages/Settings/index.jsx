@@ -114,6 +114,7 @@ export default function SettingsPage({ data }) {
         if (body.specialisation) formData.append("specialisation", body?.specialisation)
         if (body.password) formData.append("password", body?.password)
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
+        if (body.currentPassword) formData.append("confirmPassword", body?.confirmPassword)
         if (body.brithday) formData.append("brithday", body?.brithday)
 
         if (body.startTime) formData.append("startTime", body?.startTime)
@@ -230,6 +231,7 @@ export default function SettingsPage({ data }) {
                         setLoager(false)
                     })
                     .catch(err => {
+                        console.log(err)
                         if (err.response.data.message.includes('current')) {
                             setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
                         }
@@ -480,7 +482,7 @@ export default function SettingsPage({ data }) {
                                 disabled={true}
                                 label={"ログインID"}
                                 placeholder={"ログインID"}
-                                type={"number"}
+                                type={"text"}
                                 register={{ ...register("loginId", { required: "ログインIDは必要です!" }) }}
                                 alert={errors.loginId?.message}
                                 onChange={() => clearErrors("loginId")}

@@ -421,6 +421,7 @@
     &__Wrap {
         display: flex;
         align-items: flex-start;
+        justify-content: space-between;
     }
 
     &__Wrap1 {
@@ -474,6 +475,7 @@
             font-style: normal;
             font-weight: 400;
             line-height: normal;
+            text-align: center;
             padding: 4px 8px;
         }
 

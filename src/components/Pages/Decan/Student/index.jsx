@@ -108,7 +108,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     学生を追加
                 </BlueButtun>
             </div>
-            <TopList text={["学生", "ID", "グループ", "レート", "", "アクション"]} />
+            <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
             {data?.students && data?.students?.map(e => (
                 <PersonList
@@ -118,7 +118,8 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     name={`${e?.firstName} ${e?.lastName}`}
                     img={e?.avatar}
                     gruop={data?.name}
-                    rate={e?.universityPercentage?.AllMarks || "0"}
+                    rate={e?.jlpt || "-"}
+                    skill={e?.jdu || "-"}
                     update={() => router(`/decan/studentsSet/${e?.id}`)}
                     remove={() => setPersonId(e?.id)}
                     student={true}
@@ -170,7 +171,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
                             alert={errors.loginId?.message}

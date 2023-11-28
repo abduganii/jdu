@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
 import { GetCertificates } from '../../../../services/statistic'
 import { SectionGet, TeacherGet, TeacherUpdate } from '../../../../services/teacher'
@@ -7,9 +8,10 @@ import AddInput from '../../../UL/input/AddInput'
 import AvatarInput from '../../../UL/input/AvatarInput'
 import Loader from '../../../UL/loader'
 import AddMadal from '../../../UL/madals/AddMadal'
-import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
+import { Loginout } from '../../../../services/auth';
+import { useNavigate } from 'react-router-dom';
 
 const lavozim = [
     {
@@ -41,7 +43,6 @@ export default function HomeTechPage({ user }) {
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     useEffect(() => {
-
         const fetchData = async () => {
             const res = await GetCertificates();
             const data2 = await SectionGet()
@@ -64,10 +65,7 @@ export default function HomeTechPage({ user }) {
     }, [])
 
 
-
-
     const UpdateTeacherFunc = async (data) => {
-
         setLoading(true)
         const formData = new FormData()
         if (data.avatar) formData.append("avatar", data.avatar)
@@ -92,7 +90,6 @@ export default function HomeTechPage({ user }) {
                     setAvatar(null)
                 }
                 setLoading(false)
-
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -110,6 +107,7 @@ export default function HomeTechPage({ user }) {
                 }
                 setLoading(false)
             })
+            .finally(() => setLoading(false))
     }
     const hendleimg = (e) => {
         if (e.target.files[0]) {
@@ -117,6 +115,7 @@ export default function HomeTechPage({ user }) {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
+    const router = useNavigate()
     return (
         <>
             <div className={cls.HomePage} >
@@ -234,7 +233,12 @@ export default function HomeTechPage({ user }) {
                 <AddMadal
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
-                    OnSubmit={handleSubmit(UpdateTeacherFunc)}
+                    OnSubmit={
+                        (UpdateTeacherFunc)}
+                    closeMadal={async () => {
+                        await Loginout()
+                        router('/auth/login')
+                    }}
                 >
                     <AvatarInput
                         onChange={(e) => hendleimg(e)}

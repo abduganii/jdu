@@ -251,7 +251,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"Id"}
                             placeholder={"Id"}
                             value={watchedFiles?.loginId || ''}
@@ -309,7 +309,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"number"}
+                            type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
                             geterat={true}

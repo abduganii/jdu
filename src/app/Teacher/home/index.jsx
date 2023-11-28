@@ -1,10 +1,10 @@
 import React from 'react'
 import HomeTechPage from '../../../components/Pages/Teacher/homePage'
 
-export default function TeacherHome({ data, user, count }) {
+export default function TeacherHome({ user }) {
     return (
         <>
-            <HomeTechPage data={data} user={user} count={count} />
+            <HomeTechPage user={user} />
         </>
     )
 }

@@ -17,6 +17,7 @@ import { EmailIcons2, TelIcons2 } from '../../../UL/icons'
 export default function OneStudent({ user, role }) {
     const router = useNavigate()
 
+    console.log(user?.Parents)
     const newDate = new Date()
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
@@ -34,6 +35,8 @@ export default function OneStudent({ user, role }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
+
+
 
     return (
         <div className={cls.OneStudent}>
@@ -58,8 +61,6 @@ export default function OneStudent({ user, role }) {
                 </div>
 
                 <div className={cls.OneStudent__Wrap}>
-
-
                     <Person
                         id={user?.loginId}
                         name={`${user?.firstName} ${user?.lastName}`}
@@ -67,7 +68,7 @@ export default function OneStudent({ user, role }) {
                         year={newDate.getFullYear() - user.brithday?.split('-')[0] + "年生"}
                         email={user?.email}
                     />
-                    <div>
+                    <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
                         {role === "student" ?
                             <BlueButtun
                                 light={true}
@@ -77,28 +78,31 @@ export default function OneStudent({ user, role }) {
                             >
                                 プロファイル編集
                             </BlueButtun> : ""}
-                        <div className={cls.OneStudent__person}>
 
-                            <div className={cls.OneStudent__person__box}>
+                        {
+                            role !== "parent" ? user?.Parents?.length ? <div className={cls.OneStudent__person}>
+                                <div className={cls.OneStudent__person__box}>
+                                    {user?.Parents?.[0].avatar ? <img
+                                        src={user?.Parents?.[0].avatar}
+                                        width={130}
+                                        height={130}
+                                        alt={"img"}
+                                        style={{ borderRadius: "50%", objectFit: "cover" }}
+                                    /> : <Avatar name={"Name"} size="64" round={64} />
+                                    }
 
-                                {false ? <img
-                                    src={null}
-                                    width={130}
-                                    height={130}
-                                    alt={"img"}
-                                /> : <Avatar name={"Name"} size="64" round={64} />
-                                }
+                                    <div className={cls.OneStudent__person__dv}>
+                                        <p className={cls.OneStudent__person__text}>{user?.Parents?.[0].firstName} {user?.Parents?.[0].lastName}</p>
+                                        <p className={cls.OneStudent__person__id}>ID:{user?.Parents?.[0].loginId}</p>
+                                    </div>
 
-                                <div className={cls.OneStudent__person__dv}>
-                                    <p className={cls.OneStudent__person__text}>Name Name</p>
-                                    <p className={cls.OneStudent__person__id}>ID: 0928179</p>
                                 </div>
 
-                            </div>
+                                <a href="#"> <EmailIcons2 />{user?.Parents?.[0].email}</a>
+                                <a href="#"> <TelIcons2 /> {user?.Parents?.[0].phoneNumber}</a>
+                            </div> : "" : ""
+                        }
 
-                            <a href="#"> <EmailIcons2 /> barotovj@gmail.com</a>
-                            <a href="#"> <TelIcons2 /> +998 99 345 42 43</a>
-                        </div>
                     </div>
                 </div>
 

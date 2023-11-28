@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import OneStudent from "../../../components/Pages/Student/OneStuden";
 import { StudentsGetById } from "../../../services/student";
 
-export default function StudentMe({ user }) {
+export default function StudentMe({ user, role }) {
     const [data, setData] = useState([])
 
 
@@ -19,7 +19,7 @@ export default function StudentMe({ user }) {
     }, []);
     return (
         <>
-            <OneStudent user={data} role={user?.role} />
+            <OneStudent user={data} role={role} />
         </>
     )
 }

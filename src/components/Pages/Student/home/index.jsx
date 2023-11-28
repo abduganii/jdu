@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { RecruitorUpdate } from '../../../../services/recruter'
-import { GetCertificates } from '../../../../services/statistic'
+import { GetCertificates, GetStudentgroupRec } from '../../../../services/statistic'
 import { TeacherGet } from '../../../../services/teacher'
 import Container from '../../../UL/container'
 import AddInput from '../../../UL/input/AddInput'
 import AvatarInput from '../../../UL/input/AvatarInput'
 import Loader from '../../../UL/loader'
 import AddMadal from '../../../UL/madals/AddMadal'
-import TopStudents from '../../../UL/topStudents'
+
 import toast, { Toaster } from 'react-hot-toast';
 
 import cls from "./homePage.module.scss"
 import { StudentsUpdate } from '../../../../services/student'
+import { Loginout } from '../../../../services/auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function HomePage({ user }) {
-
-    const [data, setData] = useState([])
+    const [JDU, setJDU] = useState({})
+    const [JLPT, setJLPT] = useState({})
+    const [maxValue, setmaxValue] = useState(0)
     const [data2, setData2] = useState(0)
     const [avatar, setAvatar] = useState()
     const [openMadal, setOpenMadal] = useState(!user?.isActive)
@@ -26,20 +29,25 @@ export default function HomePage({ user }) {
     useEffect(() => {
         const fetchData = async () => {
             const res = await GetCertificates();
-            setData(res)
+
+            setJDU(res?.JDU)
+            setJLPT(res?.JLPT)
+            setmaxValue(res?.student)
         }
         fetchData()
             .then((err) => {
                 console.log(err);
             })
         const fetchData2 = async () => {
-            const res = await TeacherGet();
-            setData2(res?.count)
+            const res = await GetStudentgroupRec();
+            setData2(res)
+
         }
         fetchData2()
             .then((err) => {
                 console.log(err);
             })
+
 
     }, [])
 
@@ -51,7 +59,7 @@ export default function HomePage({ user }) {
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
         formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("birthday", data?.birthday)
+        formData.append("brithday", data?.brithday)
         formData.append("isActive", true)
 
         formData.append("bio", data?.bio)
@@ -89,14 +97,13 @@ export default function HomePage({ user }) {
             })
     }
 
-
     const hendleimg = (e) => {
         if (e.target.files[0]) {
             setValue('avatar', e.target.files[0])
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
+    const router = useNavigate()
     return (
         <>
             <div className={cls.HomePage} >
@@ -113,26 +120,25 @@ export default function HomePage({ user }) {
                     </div>
 
                 </Container>
-
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>1263</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: 78%</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.First?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.First?.percentage}%</p>
                         <p className={cls.HomePage__card__card_role}>Freshmen</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>{data2}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: 36%</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Second?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Second?.percentage}%</p>
                         <p className={cls.HomePage__card__card_role}>Second year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: 36%</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Third?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Third?.percentage}%</p>
                         <p className={cls.HomePage__card__card_role}>Third year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
-                        <h2 className={cls.HomePage__card__card__title}>12639</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: 36%</p>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Fourth?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Fourth?.percentage}%</p>
                         <p className={cls.HomePage__card__card_role}>Fouth year</p>
                     </div>
                 </div>
@@ -141,34 +147,34 @@ export default function HomePage({ user }) {
                     <div className={cls.HomePage__chart__wrap}>
                         <h3 className={cls.HomePage__chart__title}>JLPT certificate</h3>
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
-                        <div className={cls.HomePage__test__wrap}>
+                        <div className={cls.HomePage__test__wrap} >
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N1}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N1}
                                 </div>
-                                <p className={cls.HomePage__test_test}>N1</p>
+                                <p className={cls.HomePage__test_test} >N1</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N2}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N2 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N2}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N2</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N3}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N3 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N3}
                                 </div>
-                                <p className={cls.HomePage__test_test}>N3</p>
+                                <p className={cls.HomePage__test_test} >N3</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N4}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N4 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N4}
                                 </div>
-                                <p className={cls.HomePage__test_test}>N4</p>
+                                <p className={cls.HomePage__test_test} >N4</p>
                             </div>
                             <div>
-                                <div className={cls.HomePage__test}>
-                                    {data?.JLPT?.N5}
+                                <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N5 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
+                                    {JLPT?.N5}
                                 </div>
                                 <p className={cls.HomePage__test_test}>N5</p>
                             </div>
@@ -179,30 +185,29 @@ export default function HomePage({ user }) {
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q1}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q1}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N1</p>
+                                <p className={cls.HomePage__test2_test}>Q1</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q2}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N2 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q2}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N2</p>
+                                <p className={cls.HomePage__test2_test}>Q2</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q3}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N3 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q3}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N3</p>
+                                <p className={cls.HomePage__test2_test}>Q3</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`}>
-                                    {data?.NAT?.Q4}
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N4 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q5}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>N4</p>
+                                <p className={cls.HomePage__test2_test}>Q4</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -213,6 +218,10 @@ export default function HomePage({ user }) {
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={handleSubmit(UpdateStudentFunc)}
+                    closeMadal={async () => {
+                        await Loginout()
+                        router('/auth/login')
+                    }}
                 >
                     <AvatarInput
                         onChange={(e) => hendleimg(e)}
@@ -263,13 +272,13 @@ export default function HomePage({ user }) {
                         />
 
                         <AddInput
-                            register={{ ...register('birthday', { required: "電話番号は必要です！" }) }}
+                            register={{ ...register('brithday', { required: "電話番号は必要です！" }) }}
                             type={"date"}
-                            label={"birthday"}
-                            placeholder={"birthday"}
-                            value={watchedFiles?.birthday || ''}
-                            alert={errors.birthday?.message}
-                            onChange={() => clearErrors("birthday")}
+                            label={"brithday"}
+                            placeholder={"brithday"}
+                            value={watchedFiles?.brithday || ''}
+                            alert={errors.brithday?.message}
+                            onChange={() => clearErrors("brithday")}
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput

@@ -11,16 +11,19 @@ export default function TopStudents({ students = [], role, count }) {
             <h3 className={cls.TopStudents__title}>トップの学生</h3>
             <p className={cls.TopStudents__text}>{count}人中から10人の学生 </p>
 
-            {students?.map(e => (
-                <TopStudentList
-                    key={e.id}
-                    avatar={e.avatar}
-
-                    name={`${e?.firstName} ${e?.lastName}`}
-                    progress={e?.universityPercentage?.AllMarks}
-                    onClick={() => router(`/${role}/students/${e.id}`)}
-                />
-            ))}
+            {students?.map(e => {
+                if (e.isSelected === true) {
+                    return (
+                        <TopStudentList
+                            key={e.id}
+                            avatar={e.avatar}
+                            name={`${e?.firstName} ${e?.lastName}`}
+                            progress={e?.loginId}
+                            onClick={() => router(`/${role}/students/${e.id}`)}
+                        />
+                    )
+                }
+            })}
         </RightAsideWrapper>
     )
 }

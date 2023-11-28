@@ -51,7 +51,6 @@ export default function Filter({ page, back }) {
         })
         const fetchData = async () => {
             const data2 = await SectionGet2()
-            console.log(data2)
             SetData(data2)
         }
         fetchData()
@@ -152,35 +151,7 @@ export default function Filter({ page, back }) {
             }
             {
                 page == 'staff' && <>
-                    <div className={cls.Filter__Select} onClick={() => {
-                        setH(true)
-                        setY(true)
-                        setW(true)
-                        SetCahnegSet(false)
-                    }}>
-                        <p className={cls.Filter__Select__p}>{specialisationText}</p>
-                        <img
-                            src={'/Image/Icons.svg'}
-                            width={16}
-                            height={16}
-                            objectFit="contain"
-                        />
-                        <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
-                            {data?.map(e => (
-                                <p
-                                    key={e?.id}
-                                    className={`${cls.Filter__Select__dropdown__text}
-                                      ${params.get('specialisation') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
-                                    onClick={() => {
-                                        setSearchParams({ ...paramsToObject(params.entries()), specialisation: e?.name })
-                                        SetCahnegSet(true)
-                                    }}
-                                >
-                                    {e.name}
-                                </p>
-                            ))}
-                        </div>
-                    </div>
+
                     <div className={cls.Filter__Select} onClick={() => {
                         setG(true)
                         setW(true)
@@ -206,6 +177,35 @@ export default function Filter({ page, back }) {
                                     }}
                                 >
                                     {e.text}
+                                </p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setH(true)
+                        setY(true)
+                        setW(true)
+                        SetCahnegSet(false)
+                    }}>
+                        <p className={cls.Filter__Select__p}>{specialisationText}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
+                            {data?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}
+                                      ${params.get('specialisation') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setSearchParams({ ...paramsToObject(params.entries()), specialisation: e?.name })
+                                        SetCahnegSet(true)
+                                    }}
+                                >
+                                    {e.name}
                                 </p>
                             ))}
                         </div>

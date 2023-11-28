@@ -1,9 +1,9 @@
 import HomePage from "../../../components/Pages/Student/home";
 
-export default function StudentHome({ data, user, count }) {
+export default function StudentHome({ user }) {
   return (
     <>
-      <HomePage data={data} user={user} count={count} />
+      <HomePage user={user} />
     </>
   )
 }

@@ -58,7 +58,7 @@ export default function LoginPage() {
                     <form className={cls.Form} onSubmit={handleSubmit(handleAuth)}>
                         <p className={cls.Form__idtext}>ログイン</p>
                         <LoginInput
-                            type={'number'}
+                            type={'text'}
                             placeholder={"IDを入力してください"}
                             style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
                             register={{ ...register("loginId", { required: "ログインIDが必要です" }) }}
