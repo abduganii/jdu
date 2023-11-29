@@ -163,7 +163,9 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               setGrupId1(group?.id)
               fitchOnePerson(group?.id)
             }}
-            onClick={() => router(`/decan/groups/students/${group?.id}`)}
+            onClick={() =>
+              router(`/decan/groups/students/${group?.id}`)
+            }
 
           />
         )

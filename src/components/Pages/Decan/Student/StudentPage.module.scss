@@ -7,7 +7,7 @@
     &__filter {
         width: 100%;
         display: flex;
-        
+
         justify-content: space-between;
     }
 
@@ -15,6 +15,15 @@
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
+    }
+
+    &__page {
+        display: flex;
+        gap: 20px;
+
+        &__div {
+            width: 100%;
+        }
     }
 }
 

@@ -7,6 +7,7 @@ export default function GroupList({ onClick, name, years, collection, students, 
   const [useId, setIseId] = useState()
   const x = useRef()
   const y = useRef()
+
   return (
     <div style={{ position: 'relative' }}
     >

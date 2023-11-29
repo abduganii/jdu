@@ -10,12 +10,13 @@ export default function DecanGroups() {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['group', params.get('search'), params.get('year')],
+    ['group', params.get('search'), params.get('year'), params.get('Group')],
     async ({ pageParam = 1 }) => await GruopGet({
       limit: 15,
       page: pageParam,
       search: params.get('search') || '',
-      year: params.get('year') || ""
+      year: params.get('year') || "",
+      group: params.get('Group') || ""
       // lang: 'en'
     }) || {},
 

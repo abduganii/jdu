@@ -63,12 +63,12 @@ export default function Filter({ page, back }) {
         <div className={cls.Filter}>
 
             {back && <div className={cls.Filter__back} onClick={() => navigate(-1)}> <LeftIcon />戻る</div>}
-            <button className={`${cls.Filter__btn} ${!cahneSet ? cls.Filter__btn__active : ""}`} onClick={() => {
+            <button className={`${cls.Filter__btn} ${!cahneSet || params.get('group') ? cls.Filter__btn__active : ""}`} onClick={() => {
                 SetInoutVal('')
                 SetInoutVal1('')
 
                 SetCahnegSet(true)
-                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", Group: "", rate: "", year: "" })
+                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", Group: "", rate: "", year: "" })
                 setY(false)
                 setW(false)
                 setH(false)
@@ -78,7 +78,7 @@ export default function Filter({ page, back }) {
                 setSpecialisation("specialisation")
                 setRateRate("人気")
             }}>
-                {cahneSet ? <FilterIcon /> : <CloseIcon />}
+                {!cahneSet || params.get('group') ? <CloseIcon /> : <FilterIcon />}
                 フィルター
             </button>
             {

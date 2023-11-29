@@ -68,7 +68,7 @@ export default function AppRouter() {
         <Routes>
             <Route path="/" element={<MainLayout user={user} />}  >
                 <Route path="/decan/home" element={< DecanHome role={user?.role} />} />
-                <Route path="/decan/groups/students/:id" element={< DecanStudent />} />
+                <Route path="/decan/students/" element={< DecanStudent />} />
                 <Route path="/decan/students/:id" element={< StudentById role={user?.role} />} />
                 <Route path="/decan/studentsSet/:id" element={< SetStudentpage role={user?.role} />} />
                 <Route path="/decan/groups" element={< DecanGroups />} />

@@ -403,3 +403,12 @@ export function GalaryIcons() {
 
     )
 }
+export function GruopPlusIcons() {
+    return (
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10.0003 4.16602V15.8327M4.16699 9.99935H15.8337" stroke="#5627DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+    )
+}

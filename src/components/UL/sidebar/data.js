@@ -17,9 +17,9 @@ export const navLinks = [
     icon: (e) => HomeIcon({ fill: e }),
   },
   {
-    id: 7,
-    link: "/groups",
-    label: "Groups",
+    id: 1,
+    link: "/students",
+    label: "学生",
     icon: (e) => StudentsIcon({ fill: e }),
   },
   {
@@ -28,12 +28,7 @@ export const navLinks = [
     label: "Employees",
     icon: (e) => PersonIcon({ fill: e }),
   },
-  {
-    id: 1,
-    link: "/students",
-    label: "学生",
-    icon: (e) => StudentsIcon({ fill: e }),
-  },
+
   {
     id: 3,
     link: "/recruitors",
@@ -95,7 +90,7 @@ export const teacherLink = ["ホーム", "Groups",];
 
 export const decanLink = [
   "ホーム",
-  "Groups",
+  "学生",
   "Employees",
   "スケジュール",
   "リクルーター",

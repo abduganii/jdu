@@ -1,4 +1,3 @@
-'use client'
 import BlueButtun from '../../../UL/buttun/blueBtn'
 import Filter from '../../../UL/filter'
 import { PlusIcon } from '../../../UL/icons'
@@ -14,31 +13,138 @@ import cls from "./StudentPage.module.scss"
 import { Student } from "./data"
 
 import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { StudentsAdd, StudentsAllAdd, Studentsdelete } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
+import GruopList from '../../../UL/gruop'
+import { AddGroup, Groupdelete, GroupGetById, UpdateGroup } from '../../../../services/gruop'
 
-const StudentPage = React.forwardRef(({ data }, ref) => {
+const Course = [
+    {
+        id: "First",
+        name: "First"
+    },
+    {
+        id: "Second",
+        name: "Second"
+    },
+    {
+        id: "Third",
+        name: "Third"
+    },
+    {
+        id: "Fourth",
+        name: "Fourth"
+    }
+]
+
+const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
+
+
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
     const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
+    const [openMadal2, setOpenMadal2] = useState(false)
     const [loading, setLoading] = useState(false)
     const [exalError, setExalError] = useState(false)
+    const [oneGruop, setOneGruop] = useState()
+    const [year, setYears] = useState()
     const oneStuednt = data?.students?.find(e => e.id === personId) || ""
+    const [groupId, setGruopId] = useState(false)
+    const [groupId1, setGrupId1] = useState()
+    const [groupIdim, setGrupIdIm] = useState()
+    const Lacation = useLocation()
+    const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
 
     const { register, handleSubmit, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
+
+    const { register: register2, clearErrors: clearErrors2, handleSubmit: handleSubmit2, setError: setError2, setValue: setValue2, reset: reset2, watch: watch2, formState: { errors2 } } = useForm();
+    const watchedFiles = watch2()
+
+
+    const fitchOnePerson1 = (id) => {
+        setGruopId(id)
+        const fetchData = async () => {
+            const res = await GroupGetById(id);
+            setOneGruop(res)
+        }
+        fetchData()
+            .then((err) => {
+            })
+    }
+    const fitchOnePerson = (id) => {
+        const fetchData = async () => {
+            const res = await GroupGetById(id);
+            setValue2("name", res?.name)
+            setValue2("collection", res?.collection)
+            setYears(res?.year)
+
+        }
+        fetchData()
+            .then((err) => {
+            })
+    }
+
+    const AddGruopFunc = async (data) => {
+        setLoading(true)
+        if (year) {
+            if (query == "false") {
+                await AddGroup({ year, ...data })
+                    .then(res => {
+                        if (res?.data?.message) {
+                            toast(res?.data?.message)
+
+                        } else if (res.status == 201) {
+                            toast('gruop created')
+                            setOpenMadal2(false)
+
+                        }
+                        setLoading(false)
+                        queryClient.invalidateQueries(['group'])
+
+
+                    })
+                    .catch(err => {
+                        setLoading(false)
+                    })
+            } else if (query == "true") {
+                await UpdateGroup({ year, ...data }, groupId1)
+                    .then(res => {
+
+                        if (res?.data?.message) {
+                            toast(res?.data?.message)
+
+                        } else if (res.status == 203) {
+                            toast('gruop update')
+                            setOpenMadal2(false)
+
+                        }
+                        setLoading(false)
+                        queryClient.invalidateQueries(['group'])
+
+                    })
+                    .catch(err => {
+                        setLoading(false)
+                    })
+            }
+        } else {
+            setLoading(false)
+            setError2('year', { type: 'custom', message: "gruop year reqiured" })
+        }
+
+    }
 
     const AddStudentFunc = async (e) => {
         setLoading(true)
         if (exal) {
             const formData = new FormData()
-            formData.append("groupId", data?.id)
+            if (groupIdim) formData.append("groupId", groupIdim)
             formData.append("excel", exal)
             await StudentsAllAdd(formData)
                 .then(res => {
@@ -61,7 +167,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
             const formData = new FormData()
             formData.append("loginId", e?.loginId)
             formData.append("email", e?.email)
-            formData.append("groupId", data?.id)
+            if (groupIdim) formData.append("groupId", groupIdim)
 
             await StudentsAdd(formData)
                 .then(res => {
@@ -108,23 +214,46 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     学生を追加
                 </BlueButtun>
             </div>
-            <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
-            {data?.students && data?.students?.map(e => (
-                <PersonList
-                    onClick={() => router(`/decan/students/${e?.id}`)}
-                    id={e?.loginId}
-                    key={e?.id}
-                    name={`${e?.firstName} ${e?.lastName}`}
-                    img={e?.avatar}
-                    gruop={data?.name}
-                    rate={e?.jlpt || "-"}
-                    skill={e?.jdu || "-"}
-                    update={() => router(`/decan/studentsSet/${e?.id}`)}
-                    remove={() => setPersonId(e?.id)}
-                    student={true}
-                />
-            ))}
+            <div className={cls.StudentPage__page}>
+                <div className={cls.StudentPage__page__div}>
+                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
+
+                    {data && data?.map(e => (
+                        <PersonList
+                            onClick={() => router(`/decan/students/${e?.id}`)}
+                            id={e?.loginId}
+                            key={e?.id}
+                            name={`${e?.firstName} ${e?.lastName}`}
+                            img={e?.avatar}
+                            gruop={e?.group?.name}
+                            rate={e?.jlpt || "-"}
+                            skill={e?.jdu || "-"}
+                            update={() => router(`/decan/studentsSet/${e?.id}`)}
+                            remove={() => setPersonId(e?.id)}
+                            student={true}
+                        />
+                    ))}
+                </div>
+                <GruopList
+                    data={[]}
+                    setGrupIdIm={setGrupIdIm}
+                    setGrupId1={setGrupId1}
+                    fitchOnePerson1={fitchOnePerson1}
+                    fitchOnePerson={fitchOnePerson}
+                    update={() => {
+                        router('?updete=true')
+                        setOpenMadal2(true)
+                        setGruopId(false)
+                    }}
+                    CreateGruop={() => {
+                        setOpenMadal2(true)
+                        router('?updete=false')
+                        reset2()
+
+                    }} />
+
+            </div>
             <div ref={ref} style={{ padding: "10px" }}></div>
             {
                 personId && <DeleteMadel
@@ -165,6 +294,7 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                     closeMadal={() => {
                         setOpenMadal(false)
                         reset()
+                        setYears()
                     }}>
 
                     <div className={cls.StudentPage__addInputs}>
@@ -202,6 +332,80 @@ const StudentPage = React.forwardRef(({ data }, ref) => {
                         }}
                     />
                 </AddMadal>}
+
+            {openMadal2 &&
+                <AddMadal
+                    role={`${query == 'true' ? "Update group" : "Add group"} `}
+                    OnSubmit={handleSubmit2(AddGruopFunc)}
+                    closeMadal={() => {
+                        setOpenMadal2(false)
+                        reset2()
+
+                    }}>
+                    <div className={cls.StudentPage__addInputs}>
+                        <AddInput
+                            register={{ ...register2('name', { required: "name is required" }) }}
+                            value={watchedFiles?.name || ''}
+                            type={"text"}
+                            label={"Group name"}
+                            placeholder={"Group name"}
+                            style={{ marginBottom: "10px" }}
+                            // alert={errors2.name?.message}
+                            onChange={() => clearErrors2("name")}
+                        />
+                        <AddInput
+                            value={year}
+                            type={"select"}
+                            label={"Course year"}
+                            placeholder={"Course year"}
+                            Specialisation={Course}
+                            // alert={errors2.year?.message}
+                            style={{ marginBottom: "10px" }}
+                            onChange={(e) => setYears(e)}
+                        />
+                        <AddInput
+                            register={{ ...register2('collection', { required: "collection is required" }) }}
+                            value={watchedFiles?.collection || ''}
+                            type={"text"}
+                            label={"Faculty"}
+                            placeholder={"Faculty"}
+                            style={{ marginBottom: "10px" }}
+                        />
+                    </div>
+                </AddMadal>
+            }
+
+            {
+                groupId && <DeleteMadel
+                    id={oneGruop?.year}
+                    name={oneGruop?.name}
+                    collection={oneGruop?.collection}
+                    years={`${oneGruop?.students?.length} students`}
+                    role={'gruop'}
+                    remove={async () => {
+                        setLoading(true)
+                        await Groupdelete(oneGruop?.id)
+                            .then(data => {
+                                setGruopId(false)
+                                if (data) {
+                                    toast("リクレーターが削除されました")
+                                    setLoading(false)
+                                }
+                                setGrupId1(false)
+
+                                setLoading(false)
+                                queryClient.invalidateQueries(['group'])
+
+                            }).catch(err => {
+                                toast(err)
+                                setLoading(false)
+
+                            })
+                    }}
+                    className={groupId ? cls.openMadal : ''}
+                    close={() => setGruopId(false)}
+                />
+            }
             <Toaster />
 
             {loading && <Loader onClick={() => setLoading(false)} />}
