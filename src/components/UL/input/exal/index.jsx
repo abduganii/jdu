@@ -20,7 +20,7 @@ export default function ExalInput({ onChange, setResolv, teacher, exalError, res
                 setData(res?.data)
             })
             .catch(err => {
-                console.log("ok")
+                console.log(err)
             })
     }
     return (

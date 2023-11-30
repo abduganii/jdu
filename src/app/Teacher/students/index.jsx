@@ -6,25 +6,35 @@ import { useInView } from 'react-intersection-observer'
 import { SpecialisationsGet } from "../../../services/specialisations";
 import StudentTeachPage from "../../../components/Pages/Teacher/Student";
 import { GroupGetById } from "../../../services/gruop";
+import { StudentsGet } from "../../../services/student";
 
 export default function Teachertudent({ role }) {
 
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const param = useParams()
-  const { data: specialisation } = useQuery('specialisation', SpecialisationsGet)
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')],
-    async () => await GroupGetById(param?.id, {
-
-      group: params.get('Group') || '',
+    ['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')],
+    async ({ pageParam = 1 }) => await StudentsGet({
+      limit: 15,
+      page: pageParam,
+      group: params.get('group') || '',
       search: params.get('search') || '',
       rate: params.get('rate') || '',
-      year: params.get('year') || ''
+      year: params.get('year') || '',
+      isArchive: params.get('isArchive') || false,
     }) || {},
+    {
+      getNextPageParam: (lastPage, pages) => {
+
+        return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
+      }
+    }
   )
 
+  const students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
+  console.log(students)
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage()
@@ -32,7 +42,7 @@ export default function Teachertudent({ role }) {
   }, [inView])
   return (
     <>
-      <StudentTeachPage data={data?.pages[0]} role={role} Specialisation={specialisation} ref={ref} />
+      <StudentTeachPage data={students} role={role} ref={ref} />
     </>
   )
 }

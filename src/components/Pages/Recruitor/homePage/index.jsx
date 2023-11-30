@@ -121,12 +121,12 @@ export default function HomePage({ user }) {
                     <h2 className={cls.HomePage__title}>雇用者のワークシート</h2>
                     <p className={cls.HomePage__text}>会社のマニュアルを作成し、会社に関するすべてを追加します。</p>
                     <div className={cls.HomePage__img}>
-                        <img
+                        {/* <img
                             src={'/Image/image1.png'}
                             alt='img'
                             width={269}
                             height={197}
-                        />
+                        /> */}
                     </div>
 
                 </Container>
@@ -134,22 +134,22 @@ export default function HomePage({ user }) {
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.First?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.First?.percentage}%</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: {Math.floor(+data2?.First?.percentage)}%</p>
                         <p className={cls.HomePage__card__card_role}>Freshmen</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.Second?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Second?.percentage}%</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: {Math.floor(+data2?.Second?.percentage)}%</p>
                         <p className={cls.HomePage__card__card_role}>Second year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.Third?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Third?.percentage}%</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: {Math.floor(+data2?.Third?.percentage)}%</p>
                         <p className={cls.HomePage__card__card_role}>Third year</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.Fourth?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Fourth?.percentage}%</p>
+                        <p className={cls.HomePage__card__card__text}>Percent: {Math.floor(+data2?.Fourth?.percentage)}%</p>
                         <p className={cls.HomePage__card__card_role}>Fouth year</p>
                     </div>
                 </div>

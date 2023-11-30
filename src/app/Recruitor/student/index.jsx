@@ -10,11 +10,13 @@ export default function RecStudent({ role }) {
   const [params, setSearchParams] = useSearchParams()
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['student', params.get('Group'), params.get('year'), params.get('search')],
+    ['student', params.get('group'), params.get('year'), params.get('jdu'), params.get('jlpt'), params.get('search')],
     async ({ pageParam = 1 }) => await StudentsGet({
       limit: 15,
       page: pageParam,
-      group: params.get('Group') || '',
+      group: params.get('group') || '',
+      group: params.get('jdu') || '',
+      group: params.get('jlpt') || '',
       search: params.get('search') || '',
       year: params.get('year') || ''
     }) || {},
@@ -27,7 +29,7 @@ export default function RecStudent({ role }) {
 
   let students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
   let students2 = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
-  if (!params.get('Group') && !params.get('year') && !params.get('search')) {
+  if (!params.get('group') && !params.get('year') && !params.get('search')) {
     students = null
   }
 

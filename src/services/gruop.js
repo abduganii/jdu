@@ -12,6 +12,15 @@ export const GruopGet = async (query) => {
      console.log(error.response.data.message)
     } 
 }
+export const StudentarchiveGet = async (query) => {
+    try {
+        const params = new URLSearchParams(query)
+        const res = await api.get(`/students/archive`, {withCredentials: true})
+     return res.data
+    } catch (error) {
+     console.log(error.response.data.message)
+    } 
+}
 
 export const GroupGetById = async (id) => {
     try {

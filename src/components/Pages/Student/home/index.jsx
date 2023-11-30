@@ -111,12 +111,12 @@ export default function HomePage({ user }) {
                     <h2 className={cls.HomePage__title}>雇用者のワークシート</h2>
                     <p className={cls.HomePage__text}>会社のマニュアルを作成し、会社に関するすべてを追加します。</p>
                     <div className={cls.HomePage__img}>
-                        <img
+                        {/* <img
                             src={'/Image/image1.png'}
                             alt='img'
                             width={269}
                             height={197}
-                        />
+                        /> */}
                     </div>
 
                 </Container>

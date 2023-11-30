@@ -95,7 +95,7 @@ export default function AppRouter() {
 
                 <Route path="/teacher/home" element={<TeacherHome user={user} />} />
                 <Route path="/teacher/groups" element={< TecherGruop role={"teacher"} />} />
-                <Route path="/teacher/groups/students/:id" element={< Teachertudent role={"teacher"} />} />
+                <Route path="/teacher/students" element={< Teachertudent role={"teacher"} />} />
                 <Route path="/teacher/students/:id" element={<StuDStudentById />} />
 
 

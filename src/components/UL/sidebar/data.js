@@ -86,7 +86,7 @@ export const settingLinks = [
 
 export const recruitorLink = ["ホーム", "学生", "お気に入り"];
 
-export const teacherLink = ["ホーム", "Groups",];
+export const teacherLink = ["ホーム", "学生",];
 
 export const decanLink = [
   "ホーム",

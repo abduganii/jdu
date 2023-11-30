@@ -17,7 +17,7 @@ import { EmailIcons2, TelIcons2 } from '../../../UL/icons'
 export default function OneStudent({ user, role }) {
     const router = useNavigate()
 
-    console.log(user?.Parents)
+
     const newDate = new Date()
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
@@ -68,7 +68,7 @@ export default function OneStudent({ user, role }) {
                         year={newDate.getFullYear() - user.brithday?.split('-')[0] + "年生"}
                         email={user?.email}
                     />
-                    <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+                    <div style={{ width: "100%", }}>
                         {role === "student" ?
                             <BlueButtun
                                 light={true}
@@ -82,13 +82,14 @@ export default function OneStudent({ user, role }) {
                         {
                             role !== "parent" ? user?.Parents?.length ? <div className={cls.OneStudent__person}>
                                 <div className={cls.OneStudent__person__box}>
-                                    {user?.Parents?.[0].avatar ? <img
-                                        src={user?.Parents?.[0].avatar}
+                                    {user?.Parents?.[0]?.avatar ? <img
+                                        src={user?.Parents?.[0]?.avatar}
                                         width={130}
                                         height={130}
                                         alt={"img"}
                                         style={{ borderRadius: "50%", objectFit: "cover" }}
-                                    /> : <Avatar name={"Name"} size="64" round={64} />
+                                    /> :
+                                        <Avatar name={"Name"} size="64" round={64} />
                                     }
 
                                     <div className={cls.OneStudent__person__dv}>

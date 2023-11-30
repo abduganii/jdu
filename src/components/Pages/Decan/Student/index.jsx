@@ -48,6 +48,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
     const [params] = useSearchParams()
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
+    const [personId2, setPersonId2] = useState(false)
     const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
     const [openMadal2, setOpenMadal2] = useState(false)
@@ -55,13 +56,14 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
     const [exalError, setExalError] = useState(false)
     const [oneGruop, setOneGruop] = useState()
     const [year, setYears] = useState()
-    const oneStuednt = data?.students?.find(e => e.id === personId) || ""
+    const oneStuednt = data?.find(e => e.id === personId) || ""
+    const oneStuednt2 = data?.find(e => e.id === personId2) || ""
     const [groupId, setGruopId] = useState(false)
     const [groupId1, setGrupId1] = useState()
     const [groupIdim, setGrupIdIm] = useState()
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
-
+    const newDate = new Date()
     const { register, handleSubmit, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
 
     const { register: register2, clearErrors: clearErrors2, handleSubmit: handleSubmit2, setError: setError2, setValue: setValue2, reset: reset2, watch: watch2, formState: { errors2 } } = useForm();
@@ -107,8 +109,6 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                         }
                         setLoading(false)
                         queryClient.invalidateQueries(['group'])
-
-
                     })
                     .catch(err => {
                         setLoading(false)
@@ -137,9 +137,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
             setLoading(false)
             setError2('year', { type: 'custom', message: "gruop year reqiured" })
         }
-
     }
-
     const AddStudentFunc = async (e) => {
         setLoading(true)
         if (exal) {
@@ -205,6 +203,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
     }
 
 
+
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
@@ -230,6 +229,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             rate={e?.jlpt || "-"}
                             skill={e?.jdu || "-"}
                             update={() => router(`/decan/studentsSet/${e?.id}`)}
+                            moveTo={() => setPersonId2(e?.id)}
                             remove={() => setPersonId(e?.id)}
                             student={true}
                         />
@@ -237,6 +237,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                 </div>
                 <GruopList
                     data={[]}
+                    decan={true}
                     setGrupIdIm={setGrupIdIm}
                     setGrupId1={setGrupId1}
                     fitchOnePerson1={fitchOnePerson1}
@@ -262,7 +263,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     avater={oneStuednt?.avatar}
                     role={'student'}
                     progress={oneStuednt?.universityPercentage?.AllMarks}
-                    years={`${oneStuednt?.courseNumber}年生 `}
+                    years={`${+newDate.getFullYear() - oneStuednt.brithday?.split('-')[0]}年生 `}
                     remove={async () => {
                         setLoading(true)
 
@@ -273,6 +274,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                                     setLoading(false)
                                 }
                                 setPersonId(false)
+                                setPersonId2(false)
                                 setLoading(false)
                                 queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
                             })
@@ -287,6 +289,25 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                 />
             }
             {
+                personId2 && <DeleteMadel
+                    id={oneStuednt2?.loginId}
+                    name={`${oneStuednt2?.firstName} ${oneStuednt2?.lastName}`}
+                    avater={oneStuednt2?.avatar}
+                    orginalId={oneStuednt2?.id}
+                    role={'student'}
+                    GroupChange={true}
+                    defaultGruop={oneStuednt2?.groupId}
+                    progress={oneStuednt2?.universityPercentage?.AllMarks}
+                    years={`${+newDate.getFullYear() - oneStuednt2.brithday?.split('-')[0]}年生 `}
+
+                    className={personId2 ? cls.openMadal : ''}
+                    close={() => {
+                        setPersonId(false)
+                        setPersonId2(false)
+                    }}
+                />
+            }
+            {
                 openMadal &&
                 <AddMadal
                     role={"学生を追加"}
@@ -298,7 +319,6 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     }}>
 
                     <div className={cls.StudentPage__addInputs}>
-
                         <AddInput
                             register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}

@@ -7,26 +7,28 @@ import paramsToObject from '../../../utils/paramsToObject.js'
 import BackBtn from '../buttun/backBtn/index.jsx'
 import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
 
-import { filterRate, YearsRate, TeacherRate } from './data.js'
+import { filterRate, YearsRate, TeacherRate, JLPT, JDU } from './data.js'
 
 import cls from "./filter.module.scss"
 
 export default function Filter({ page, back }) {
     const navigate = useNavigate()
 
-
-
     const [cahneSet, SetCahnegSet] = useState(true)
     const [inoutVal, SetInoutVal] = useState()
     const [data, SetData] = useState([])
     const [inoutVal1, SetInoutVal1] = useState()
     const [yearRateText, setRateYears] = useState("コース")
+    const [JLPTText, setJLPTText] = useState("JLPT")
+    const [JDUText, setJDUYears] = useState("JDU")
     const [specialisationText, setSpecialisation] = useState("specialisation")
     const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
     const [x, setX] = useState(false)
     const [h, setH] = useState(false)
+    const [j, setJ] = useState(false)
+    const [n, setN] = useState(false)
     const [g, setG] = useState(false)
     const y = useRef()
 
@@ -62,18 +64,22 @@ export default function Filter({ page, back }) {
     return (
         <div className={cls.Filter}>
 
-            {back && <div className={cls.Filter__back} onClick={() => navigate(-1)}> <LeftIcon />戻る</div>}
+
             <button className={`${cls.Filter__btn} ${!cahneSet || params.get('group') ? cls.Filter__btn__active : ""}`} onClick={() => {
                 SetInoutVal('')
                 SetInoutVal1('')
 
                 SetCahnegSet(true)
-                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", Group: "", rate: "", year: "" })
+                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
                 setY(false)
                 setW(false)
                 setH(false)
                 setX(false)
                 setG(false)
+                setJ(false)
+                setJLPTText('JLPT')
+                setJDUYears('JDU')
+                setN(false)
                 setRateYears("コース")
                 setSpecialisation("specialisation")
                 setRateRate("人気")
@@ -238,30 +244,7 @@ export default function Filter({ page, back }) {
                             />
                         </div>
                     </div>
-                    <div className={cls.Filter__Select} onClick={() => {
-                        setY(true)
-                        setX(true)
-                        SetCahnegSet(false)
-                    }}>
-                        <p className={cls.Filter__Select__p} > {RateRateText}</p>
-                        <img
-                            src={'/Image/Icons.svg'}
-                            width={16}
-                            height={16}
-                        />
-                        <div className={`${cls.Filter__Select__dropdown} ${x ? "displayBlock" : "displayNone"}`}>
-                            {filterRate?.map(e => (
-                                <p key={e?.id}
-                                    className={`${cls.Filter__Select__dropdown__text} ${params.get('rate') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
-                                    onClick={() => {
-                                        setX(false)
-                                        setY(false)
-                                        setSearchParams({ ...paramsToObject(params.entries()), rate: e?.link })
-                                        SetCahnegSet(false)
-                                    }}>{e.text}</p>
-                            ))}
-                        </div>
-                    </div>
+
                     <div className={cls.Filter__Select} onClick={() => {
                         setH(true)
                         setY(true)
@@ -284,6 +267,72 @@ export default function Filter({ page, back }) {
                                         setY(false)
                                         setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
                                         SetCahnegSet(false)
+
+                                    }}
+
+                                >
+                                    {e.text}
+                                </p>
+                            ))}
+
+                        </div>
+                    </div>
+
+
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setN(true)
+                        setY(true)
+                        SetCahnegSet(false)
+                    }}>
+                        <p className={cls.Filter__Select__p}>{JLPTText}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${n ? "displayBlock" : "displayNone"}`}>
+                            {JLPT?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}  ${params.get('jlpt') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setH(false)
+                                        setY(false)
+                                        setSearchParams({ ...paramsToObject(params.entries()), jlpt: e?.link })
+                                        SetCahnegSet(false)
+                                        setJLPTText(e?.link)
+                                    }}
+                                >
+                                    {e.text}
+                                </p>
+                            ))}
+
+                        </div>
+                    </div>
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setJ(true)
+                        setY(true)
+                        SetCahnegSet(false)
+                    }}>
+                        <p className={cls.Filter__Select__p}>{JDUText}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${j ? "displayBlock" : "displayNone"}`}>
+                            {JDU?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}  ${params.get('jdu') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setH(false)
+                                        setY(false)
+                                        setSearchParams({ ...paramsToObject(params.entries()), jdu: e?.link })
+                                        SetCahnegSet(false)
+                                        setJDUYears(e?.link)
                                     }}
 
                                 >
@@ -303,6 +352,8 @@ export default function Filter({ page, back }) {
                     setH(false)
                     setX(false)
                     setG(false)
+                    setJ(false)
+                    setN(false)
                 }
             }} className={`${cls.Filter__backround} ${ys ? "displayBlock" : "displayNone"}`}></div>
         </div >

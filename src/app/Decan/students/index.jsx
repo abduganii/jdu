@@ -13,18 +13,21 @@ export default function DecanStudent() {
   const { data: specialisation } = useQuery('specialisation', SpecialisationsGet)
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')],
+    ['student', params.get('group'), params.get('rate'), params.get('jdu'), params.get('jlpt'), params.get('year'), params.get('search')],
     async ({ pageParam = 1 }) => await StudentsGet({
       limit: 15,
       page: pageParam,
       group: params.get('group') || '',
+      jdu: params.get('jdu') || '',
+      jlpt: params.get('jlpt') || '',
       search: params.get('search') || '',
       rate: params.get('rate') || '',
-      year: params.get('year') || ''
+      year: params.get('year') || '',
+      isArchive: params.get('isArchive') || false,
     }) || {},
     {
       getNextPageParam: (lastPage, pages) => {
-        console.log(lastPage);
+
         return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
       }
     }
@@ -33,7 +36,6 @@ export default function DecanStudent() {
   const students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
 
   useEffect(() => {
-    console.log(hasNextPage);
     if (inView && hasNextPage) {
       fetchNextPage()
     }

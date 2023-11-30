@@ -85,3 +85,17 @@
 .openMadal {
     display: flex;
 }
+
+.Gruop {
+    &__title {
+        color: #000;
+
+        font-family: Inter;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-top: 27px;
+        margin-bottom: 15px;
+    }
+}

@@ -56,3 +56,59 @@ export const YearsRate = [
     link: "Fourth",
   },
 ];
+
+
+export const JLPT = [
+  {
+    id: 0,
+    text: "N1",
+    link: "N1",
+  },
+  {
+    id: 1,
+    text: "N2",
+    link: "N2",
+  },
+  {
+    id: 3,
+    text: "N3",
+    link: "N3",
+  },
+  {
+    id: 4,
+    text: "N4",
+    link: "N4",
+  },
+  {
+    id: 5,
+    text: "N5",
+    link: "N5",
+  },
+];
+export const JDU = [
+  {
+    id: 0,
+    text: "Q1",
+    link: "Q1",
+  },
+  {
+    id: 1,
+    text: "Q2",
+    link: "Q2",
+  },
+  {
+    id: 3,
+    text: "Q3",
+    link: "Q3",
+  },
+  {
+    id: 4,
+    text: "Q4",
+    link: "Q4",
+  },
+  {
+    id: 5,
+    text: "Q5",
+    link: "Q5",
+  },
+];

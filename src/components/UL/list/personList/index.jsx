@@ -11,7 +11,7 @@ import cls from "./personlist.module.scss";
 import { Link } from '@react-email/link'
 
 
-export default function PersonList({ id, img, name, gruop, student, rate, phone, skill, email, remove, update, onClick }) {
+export default function PersonList({ id, img, name, gruop, student, moveTo, rate, phone, skill, email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
     const [clickTrue, setClick] = useState(false)
     const x = useRef()
@@ -72,6 +72,11 @@ export default function PersonList({ id, img, name, gruop, student, rate, phone,
                     setIseId(false)
                     update()
                 }}
+
+                moveTo={moveTo ? () => {
+                    setIseId(false)
+                    moveTo()
+                } : false}
                 onClick={onClick}
                 style={useId ? { display: "block" } : { display: "none" }}
             />

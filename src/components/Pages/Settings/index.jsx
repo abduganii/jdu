@@ -36,6 +36,7 @@ const lavozim = [
 ]
 
 export default function SettingsPage({ data }) {
+
     const x = useRef()
     const y = useRef()
     const router = useNavigate()
@@ -155,7 +156,7 @@ export default function SettingsPage({ data }) {
             }
             if (data?.role == 'teacher' || data?.role == "staff") {
                 await TeacherUpdate(formData, data?.id)
-                    .then((data) => {
+                    .then((e) => {
                         router(`/${data?.role}/home`)
                         setLoager(false)
                     })
@@ -318,7 +319,7 @@ export default function SettingsPage({ data }) {
                                 <input
                                     className={cls.SettingsPage__upload__file}
                                     type="file"
-                                    accept="image/png, image/jpeg"
+                                    accept=" image/jpeg"
                                     onChange={(e) => hendleimg(e)}
                                 />
                                 <UploadIcons />

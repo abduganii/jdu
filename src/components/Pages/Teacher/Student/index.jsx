@@ -20,19 +20,19 @@ import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
+import GruopList from '../../../UL/gruop'
 
 
 const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
-    const [personId, setPersonId] = useState(false)
     const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [Sunject, setSunject] = useState("JLPT & JDU")
 
-
+    const [GrupIdIm, setGrupIdIm] = useState()
 
 
     const { register, handleSubmit, setValue, watch } = useForm();
@@ -68,22 +68,30 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                     </BlueButtun>
                 }
             </div>
-            <TopList text={["学生", "ID", "グループ", "レート", "スキル", "アクション"]} />
 
-            {data?.students && data?.students?.map(e => (
-                <PersonList
-                    onClick={() => router(`/${role}/students/${e?.id}`)}
-                    id={e?.loginId}
-                    key={e?.id}
-                    name={`${e?.firstName} ${e?.lastName}`}
-                    img={e?.avatar}
-                    gruop={data?.name}
-                    // skill={e?.itQualification?.skills}
-                    rate={e?.universityPercentage?.AllMarks || "0"}
-                    remove={() => setPersonId(e?.id)}
-                    student={true}
+            <div className={cls.StudentPage__page}>
+                <div className={cls.StudentPage__page__div}>
+                    <TopList text={["学生", "ID", "グループ", "レート", "スキル", "アクション"]} />
+
+                    {data && data?.map(e => (
+                        <PersonList
+                            onClick={() => router(`/${role}/students/${e?.id}`)}
+                            id={e?.loginId}
+                            key={e?.id}
+                            name={`${e?.firstName} ${e?.lastName}`}
+                            img={e?.avatar}
+                            gruop={e?.group?.name}
+                            rate={e?.jlpt || "-"}
+                            skill={e?.jdu || "-"}
+                            student={true}
+                        />
+                    ))}
+
+                </div>
+                <GruopList
+                    setGrupIdIm={setGrupIdIm}
                 />
-            ))}
+            </div>
             <div ref={ref} style={{ padding: "10px" }}></div>
 
             {openMadal && role == "teacher" &&

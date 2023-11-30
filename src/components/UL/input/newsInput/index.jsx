@@ -17,7 +17,7 @@ export default function NewsInput({ label, type, placeholder, alert, register = 
                     :
                     type == "file" ?
                         <div className={`${cls.NewsInput__file} ${alert && cls.alertBorder}`}>
-                            <input type="file" onChange={onChange} accept=" image/jpg, image/png" />
+                            <input type="file" onChange={onChange} accept=" image/jpg" />
                             <div className={cls.NewsInput__file__top}>
                                 {url ?
                                     <img className={cls.NewsInput__input__img} src={URL.createObjectURL(url)} alt="img" />

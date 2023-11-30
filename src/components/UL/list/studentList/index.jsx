@@ -11,8 +11,9 @@ import Avatar from 'react-avatar'
 import { StudentSelect, StudentSelectDel } from '../../../../services/recruter'
 import ListModal from '../../madals/listMadal'
 import { useQueryClient } from 'react-query'
+import IdBtn from '../../buttun/idBtn'
 
-export default function StudentList({ isSelcted, avatar, name, student, id, loginId, select, skills = [], rate }) {
+export default function StudentList({ isSelcted, avatar, name, gruop, id, loginId, select, jdu, jlpt }) {
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
@@ -23,7 +24,6 @@ export default function StudentList({ isSelcted, avatar, name, student, id, logi
     const x = useRef()
     const o = useRef()
     const u = useRef()
-
     return (
         <div style={{ position: 'relative' }}>
             <li className={cls.StudentList}>
@@ -31,10 +31,10 @@ export default function StudentList({ isSelcted, avatar, name, student, id, logi
                     <div className={cls.StudentList__select} onClick={(e) => {
                         if (color) {
                             StudentSelectDel(id)
-                            queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
+                            queryClient.invalidateQueries(['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
                         } else {
                             StudentSelect(id)
-                            queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
+                            queryClient.invalidateQueries(['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
                         }
                         setColor(!color)
                     }}>
@@ -49,43 +49,21 @@ export default function StudentList({ isSelcted, avatar, name, student, id, logi
                         /> : <Avatar name={name} size="48" round={true} />}
                         <div className={cls.StudentList__pirson__div}>
                             <p className={cls.StudentList__pirson__name}>{name}</p>
-                            <p className={cls.StudentList__pirson__id}> ID:{loginId}</p>
+
                         </div>
                     </div>
                 </div>
-
-                {skills.length !== 0 ? <div className={cls.StudentList__skill} style={clickTrue ? { overflowX: "auto" } : { overflow: "hidden" }}>
-                    {skills?.slice(0, (number + 3))?.map(e => (
-                        <SkillBtn
-                            name={e?.skill?.name}
-                            color={e?.skill?.color}
-                            backround={e?.skill?.color} />
-                    ))}
-                    {
-                        (skills?.length - (number + 3)) > 0 ?
-                            <PlusBtn
-                                label={"+"}
-                                ref={o}
-                                onClick={() => {
-                                    setNumber(number + skills?.length)
-                                    setClick(true)
-                                }}
-                                lenght={skills.length - (number + 3)}
-                            />
-                            : clickTrue ? <PlusBtn
-                                label={"<"}
-                                ref={u}
-                                onClick={() => {
-                                    setNumber(number - skills?.length)
-                                    setClick(false)
-                                }}
-                            /> : ""
-                    }
-
-                </div> : student ? <div className={cls.StudentList__skill}></div> : ""}
-                <div className={cls.StudentList__progres}>
-                    <progress className={cls.StudentList__progres__progress} value={rate} max="100">70 %</progress>
-                    <p className={cls.StudentList__progres__text}>{Math.round(rate)}%</p>
+                <div className={cls.StudentList__id}>
+                    <IdBtn>ID:{loginId}</IdBtn>
+                </div>
+                <div className={cls.StudentList__gruop}>
+                    {gruop}
+                </div>
+                <div className={cls.StudentList__jdu}>
+                    {jdu}
+                </div>
+                <div className={cls.StudentList_jlpt}>
+                    {jlpt}
                 </div>
                 <DoteBtn onClick={(e) => setIseId(true)} style={{ marginLeft: "100px" }} />
 

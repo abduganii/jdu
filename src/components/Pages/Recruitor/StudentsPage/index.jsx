@@ -13,8 +13,10 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                 <Filter page={"student"} />
                 <ul className={cls.StudentsPage__top}>
                     <li className={cls.StudentsPage__top__item}>学生</li>
-                    <li className={cls.StudentsPage__top__item}>スキル</li>
-                    <li className={cls.StudentsPage__top__item}>レート</li>
+                    <li className={cls.StudentsPage__top__item}>ID</li>
+                    <li className={cls.StudentsPage__top__item}>グループ</li>
+                    <li className={cls.StudentsPage__top__item}>JLPT</li>
+                    <li className={cls.StudentsPage__top__item}>JDU</li>
                     <li className={cls.StudentsPage__top__item}>アクション</li>
                 </ul>
                 <ul>
@@ -28,8 +30,9 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                                         id={e?.id}
                                         loginId={e?.loginId}
                                         avatar={e?.avatar}
-                                        skills={e?.itQualification?.skills}
-                                        rate={e?.universityPercentage?.AllMarks}
+                                        gruop={e?.group?.name}
+                                        jdu={e?.jdu || "-"}
+                                        jlpt={e?.jlpt || "-"}
                                         isSelcted={e?.isSelected}
                                         student={true}
                                     />

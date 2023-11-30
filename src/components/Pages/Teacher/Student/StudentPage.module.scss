@@ -43,6 +43,15 @@
             }
         }
     }
+
+    &__page {
+        display: flex;
+        gap: 20px;
+
+        &__div {
+            width: 100%;
+        }
+    }
 }
 
 
