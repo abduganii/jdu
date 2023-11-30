@@ -38,6 +38,6 @@ jobs:
           script: |
             cd /home/user/getter/jdu-admin
             git stash
-            git pull origin main
+            git pull origin main --force
             npm install --yes --legacy-peer-deps
             npm run build
