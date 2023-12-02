@@ -18,6 +18,7 @@ import Loader from '../../UL/loader'
 import { StudentsUpdate } from '../../../services/student'
 import { SectionGet, TeacherUpdate } from '../../../services/teacher'
 import { ParentUpdate } from '../../../services/parent'
+import AddInput from '../../UL/input/AddInput'
 
 const lavozim = [
     {
@@ -63,6 +64,7 @@ export default function SettingsPage({ data }) {
         setValue("firstName", data?.firstName)
         setValue("lastName", data?.lastName)
         setValue("email", data?.email)
+        setValue("bio", data?.bio)
         setValue("loginId", data?.loginId)
         setValue("companyName", data?.companyName)
         setValue("brithday", data?.brithday)
@@ -117,12 +119,14 @@ export default function SettingsPage({ data }) {
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
         if (body.currentPassword) formData.append("confirmPassword", body?.confirmPassword)
         if (body.brithday) formData.append("brithday", body?.brithday)
+        if (body.bio) formData.append("bio", body?.bio)
 
         if (body.startTime) formData.append("startTime", body?.startTime)
         if (body.endTime) formData.append("endTime", body?.endTime)
         if (body.location) formData.append("location", body?.location)
         if (body.emailInfo) formData.append("emailInfo", body?.emailInfo)
         if ((!body.password.length && !body.currentPassword.length && !body.confirmPassword.length) || (body.password.length && body.currentPassword.length && body.confirmPassword.length)) {
+
             if (data?.role == 'decan') {
                 await DecanUpdate(formData)
                     .then((data) => {
@@ -232,7 +236,6 @@ export default function SettingsPage({ data }) {
                         setLoager(false)
                     })
                     .catch(err => {
-                        console.log(err)
                         if (err.response.data.message.includes('current')) {
                             setError('currentPassword', { type: 'custom', message: "現在のパスワードは正しくありません" })
                         }
@@ -250,10 +253,12 @@ export default function SettingsPage({ data }) {
 
             }
         } else {
+
             setLoager(false)
             if (!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
             if (!body.password.length) setError('password', { type: 'custom', message: "パスワードを入力してください" })
             if (!body.currentPassword.length) setError('currentPassword', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+            if (!body.confirmPassword.length) setError('confirmPassword', { type: 'custom', message: "confirmPassword is requied" })
 
 
         }
@@ -367,6 +372,8 @@ export default function SettingsPage({ data }) {
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}
                                 />
+
+
                             </>
                             }
 
@@ -489,6 +496,17 @@ export default function SettingsPage({ data }) {
                                 onChange={() => clearErrors("loginId")}
                             />
 
+
+                            {
+                                data?.role == "recruitor" && <AddInput
+                                    label={"Bio"}
+                                    placeholder={"Bio"}
+                                    type={"textarea"}
+                                    register={{ ...register("bio", { required: "ログインIDは必要です!" }) }}
+                                    alert={errors.bio?.message}
+                                    onChange={() => clearErrors("bio")}
+                                />
+                            }
                         </div>
                     </div>
                     <p className={cls.SettingsPage__passsword}>パスワード</p>

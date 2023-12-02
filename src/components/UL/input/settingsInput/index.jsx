@@ -30,7 +30,7 @@ export default function SettingsInput({
                         disabled={disabled}
                         options={Specialisation?.map(sp => ({ value: sp.id, label: sp.name }))}
                     /> :
-                    <input disabled={disabled} value={value} className={`${cls.SettingsInput__input} ${alert && cls.SettingsInput__border}`} type={type} placeholder={placeholder} {...register} onChange={onChange} />
+                    <input disabled={disabled} value={value} className={`${cls.SettingsInput__input} ${alert && cls.SettingsInput__border} ${disabled && cls.SettingsInput__disabled}`} type={type} placeholder={placeholder} {...register} onChange={onChange} />
             }
             {icon && <div className={cls.SettingsInput__eye} onClick={eyeClick}> {eyeOpen ? icon : icon2}</div>}
             {alert ? <p className={cls.SettingsInput__alert}>{alert}</p> : ""}

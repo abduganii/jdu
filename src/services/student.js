@@ -104,7 +104,7 @@ export const FileUploadStudent = async (data) => {
        }
 }
 
-export const PhotoUploadStudent = async (data,id) => {
+export const PhotoDeleteStudent = async (data,id) => {
     try {
         const response = await api.delete(`/students/galary/${id}`,data);
         return response?.data;
@@ -112,7 +112,7 @@ export const PhotoUploadStudent = async (data,id) => {
         console.log(error.response.data.message);
        }
 }
-export const PhotoDeleteStudent = async (data,id) => {
+export const  PhotoUploadStudent = async (data,id) => {
     try {
         const response = await api.post(`/students/galary/${id}`,data, {
             headers: {

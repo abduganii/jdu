@@ -3,7 +3,7 @@
 import BlueButtun from '../../../UL/buttun/blueBtn'
 import CancelBtn from '../../../UL/buttun/cancel'
 import Container from '../../../UL/container'
-import { DownloadIcons, GalaryIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
+import { BusketDeleteIcons, DownloadIcons, GalaryIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
 import RangeInput from '../../../UL/input/rangeInput'
 import SearchSkill from '../../../UL/input/SearchSkill'
 import AddInput from '../../../UL/input/AddInput'
@@ -16,7 +16,7 @@ import SkillBtn from '../../../UL/buttun/skill'
 import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
 import { LessonsAdd, LessonsUpdate } from '../../../../services/Lesson'
-import { FileUploadStudent, GetSkills, PhotoUploadStudent, StudentsUpdate } from '../../../../services/student'
+import { FileUploadStudent, GetSkills, PhotoDeleteStudent, PhotoUploadStudent, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 import Loader from '../../../UL/loader'
@@ -241,7 +241,7 @@ export default function SetStudent({ data, role }) {
                                     <GalaryIcons />
                                     <p>upload photo</p>
                                 </div>
-                                <input type="file" onChange={(e) => hendleimg2(e)} />
+                                <input type="file" accept=" image/jpg" onChange={(e) => hendleimg2(e)} />
                             </label>
                             {
                                 avatarArr && avatarArr.map((e, i) => (
@@ -250,12 +250,15 @@ export default function SetStudent({ data, role }) {
                                         <div
                                             className={cls.SetStudent__wrap__cartume__div}
                                             onClick={async () => {
+
                                                 setAvatarArr(state => state.filter(el => el !== e))
-                                                await PhotoUploadStudent({ url: e }, data?.id)
+                                                await PhotoDeleteStudent({ url: e }, data?.id)
                                                     .then(() => toast('photo deleted successfully'))
                                                     .catch(() => toast('failed to upload'))
                                             }}
-                                        >X</div>
+                                        >
+                                            <BusketDeleteIcons />
+                                        </div>
                                     </div>
                                 ))
                             }

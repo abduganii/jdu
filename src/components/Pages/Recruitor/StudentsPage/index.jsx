@@ -7,6 +7,7 @@ import TopStudents from '../../../UL/topStudents'
 import cls from "./StudentsPage.module.scss"
 
 const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
+
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -21,8 +22,10 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                 </ul>
                 <ul>
                     {data?.length ? data?.map(e => {
+
                         if (selected) {
                             if (e.isSelected === true) {
+
                                 return (
                                     <StudentList
                                         key={e?.id}
@@ -46,8 +49,9 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                                     id={e?.id}
                                     loginId={e?.loginId}
                                     avatar={e?.avatar}
-                                    skills={e?.itQualification?.skills}
-                                    rate={e?.universityPercentage?.AllMarks}
+                                    gruop={e?.group?.name}
+                                    jdu={e?.jdu || "-"}
+                                    jlpt={e?.jlpt || "-"}
                                     isSelcted={e?.isSelected}
                                     student={true}
                                 />
@@ -70,7 +74,7 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                     <div ref={ref} style={{ padding: "10px" }}></div>
                 </ul>
             </Container>
-            <TopStudents students={data2} />
+            <TopStudents role={'recruitor'} students={data2} />
         </>
     )
 })

@@ -16,8 +16,8 @@ export default function RecStudent({ role }) {
       page: pageParam,
       group: params.get('group') || '',
       groups: params.get('groups') || '',
-      group: params.get('jdu') || '',
-      group: params.get('jlpt') || '',
+      jdu: params.get('jdu') || '',
+      jlpt: params.get('jlpt') || '',
       search: params.get('search') || '',
       year: params.get('year') || ''
     }) || {},
@@ -27,10 +27,23 @@ export default function RecStudent({ role }) {
       }
     }
   )
+  const { data: data2 } = useInfiniteQuery(
+    ['student'],
+    async ({ pageParam = 1 }) => await StudentsGet({
+      limit: 15,
+      page: pageParam,
+    }) || {},
+    {
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
+      }
+    }
+  )
 
+
+  let students2 = data2?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
   let students = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
-  let students2 = data?.pages?.reduce((acc, page) => [...acc, ...page?.rows], []) || []
-  if (!params.get('group') && !params.get('year') && !params.get('search')) {
+  if (!params.get('group') && !params.get('groups') && !params.get('jdu') && !params.get('jlpt') && !params.get('year') && !params.get('search')) {
     students = null
   }
 
@@ -39,6 +52,7 @@ export default function RecStudent({ role }) {
       fetchNextPage()
     }
   }, [inView])
+
 
   return (
     <>

@@ -21,6 +21,7 @@ const data = {
 
 }
 export default function OnePerson({ loginId, firstName, lastName, email, avatar, student, bio, work }) {
+    console.log(work)
     const router = useNavigate()
     return (
         <Container className={cls.OnePerson__container}>

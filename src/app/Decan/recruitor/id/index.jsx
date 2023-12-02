@@ -21,17 +21,27 @@ export default function DecanRecruitorBuId({ role }) {
     }, []);
 
     return (
-        <>
+        <div>
             <OnePerson
                 avatar={data?.avatar}
                 firstName={data?.firstName}
                 lastName={data?.lastName}
                 loginId={data?.loginId}
-                work={data?.specialisation}
+                work={data?.companyName}
                 bio={data?.bio}
                 email={data?.email}
 
             />
-        </>
+            {
+                +data?.bio ? <>
+                    <div style={{ margin: "50px 0 16px 110px", fontSize: "16px", fontFamily: "Inter", fontWeight: "700" }}>
+                        Bio
+                    </div>
+                    <p style={{ margin: "16px 0 16px 110px", fontSize: "14px", fontFamily: "Inter", fontWeight: "400" }}>
+                        {data?.bio}
+                    </p>
+                </> : ""
+            }
+        </div>
     )
 }

@@ -9,7 +9,7 @@
     align-items: center;
     gap: 8px;
     transition: .2s all ease;
-
+    cursor: pointer;
     &:hover {
         box-shadow: 10px 10px 30px -10px rgba(0, 0, 0, 0.15);
         transform: translate(5px);

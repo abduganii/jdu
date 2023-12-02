@@ -14,6 +14,7 @@ import { useQueryClient } from 'react-query'
 import IdBtn from '../../buttun/idBtn'
 
 export default function StudentList({ isSelcted, avatar, name, gruop, id, loginId, select, jdu, jlpt }) {
+
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
@@ -28,7 +29,8 @@ export default function StudentList({ isSelcted, avatar, name, gruop, id, loginI
         <div style={{ position: 'relative' }}>
             <li className={cls.StudentList}>
                 <div className={cls.StudentList__personWrap}>
-                    <div className={cls.StudentList__select} onClick={(e) => {
+                    <div className={cls.StudentList__select} onClick={async (e) => {
+
                         if (color) {
                             StudentSelectDel(id)
                             queryClient.invalidateQueries(['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])

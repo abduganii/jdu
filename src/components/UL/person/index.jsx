@@ -5,7 +5,7 @@ import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
 export default function Person({ avatar, role, name, id, year, email, Professor, rate }) {
-
+    console.log(year)
     return (
         <div className={cls.Person}>
             {
@@ -23,7 +23,9 @@ export default function Person({ avatar, role, name, id, year, email, Professor,
                     <p className={cls.Person__name}>{name}</p>
                     <div className={cls.Person__div}>
                         <p className={cls.Person__id}>ID:{id}</p>
-                        {year || Professor ? <p className={cls.Person__year}> {year || Professor}</p> : ""}
+
+                        {year ? <p className={cls.Person__year}> {year}</p> : ""}
+                        {Professor ? <p className={cls.Person__year}> {Professor}</p> : ""}
                     </div>
                     {rate && <div className={cls.Person__rate}><SelectIcon fill={"black"} border={"black"} /> <p>{rate}</p></div>}
                 </div>
