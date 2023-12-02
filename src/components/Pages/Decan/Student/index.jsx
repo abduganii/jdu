@@ -178,7 +178,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                         reset()
                         setLoading(false)
                     }
-                    queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
+                    queryClient.invalidateQueries(['student', params.get('Group'), params.get('groups'), params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
                 })
                 .catch(err => {
                     if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -213,6 +213,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     学生を追加
                 </BlueButtun>
             </div>
+
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
@@ -276,7 +277,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                                 setPersonId(false)
                                 setPersonId2(false)
                                 setLoading(false)
-                                queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
+                                queryClient.invalidateQueries(['student', params.get('Group'), params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
                             })
                             .catch(err => {
                                 toast(err)

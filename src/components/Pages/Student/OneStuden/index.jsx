@@ -120,21 +120,29 @@ export default function OneStudent({ user, role }) {
                                 <>
                                     <p className={cls.OneStudent__title}>ギャラリー</p>
                                     <div className={cls.OneStudent__imgs}>
-                                        {
-                                            user?.images?.map((e, i) => (
-                                                <img
-                                                    key={i}
-                                                    src={e}
-                                                    width={223}
-                                                    height={160}
-                                                    alt='img'
-                                                />
-                                            ))
+                                        <div>
+                                            {
+                                                user?.images?.map((e, i) => (
+                                                    <img
+                                                        key={i}
+                                                        src={e}
+                                                        width={223}
+                                                        height={160}
+                                                        alt='img'
+                                                    />
+                                                ))
+                                            }
+                                        </div>
+                                        {user?.desc && <>
+
+                                            <p className={cls.OneStudent__text}>{user?.desc}</p>
+                                        </>
                                         }
                                     </div>
                                 </> : <NoGaler />
                             }
                         </>}
+
                     {
                         user?.jlpt || user?.jud && <h3 className={cls.OneStudent__title}>Japan Language tests</h3>
                     }

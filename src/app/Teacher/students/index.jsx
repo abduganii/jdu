@@ -15,11 +15,12 @@ export default function Teachertudent({ role }) {
   const param = useParams()
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')],
+    ['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')],
     async ({ pageParam = 1 }) => await StudentsGet({
       limit: 15,
       page: pageParam,
       group: params.get('group') || '',
+      groups: params.get('groups') || '',
       search: params.get('search') || '',
       rate: params.get('rate') || '',
       year: params.get('year') || '',

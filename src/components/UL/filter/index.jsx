@@ -70,7 +70,7 @@ export default function Filter({ page, back }) {
                 SetInoutVal1('')
 
                 SetCahnegSet(true)
-                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
+                setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", groups: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
                 setY(false)
                 setW(false)
                 setH(false)
@@ -237,7 +237,7 @@ export default function Filter({ page, back }) {
                                 value={inoutVal}
                                 placeholder='グループを入力'
                                 onChange={(e) => {
-                                    setSearchParams({ ...paramsToObject(params.entries()), group: e.target.value })
+                                    setSearchParams({ ...paramsToObject(params.entries()), groups: e.target.value })
                                     SetCahnegSet(false)
                                     SetInoutVal(e.target.value)
                                 }}

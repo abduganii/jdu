@@ -1,7 +1,26 @@
+.aside {
+    background: #f4f4f4;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 335px;
+    margin-right: 20px;
+
+    height: auto;
+    position: relative;
+    margin-top: 100px;
+    right: 0;
+    z-index: 9;
+    top: 0;
+    height: calc(100vh - 154px);
+
+
+}
+
 .TopStudents {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+
 
     &__title {
         color: #000;
@@ -13,6 +32,16 @@
         padding-left: 12px;
         padding-bottom: 6px;
         margin: 0;
+    }
+
+    &__content {
+        height: calc(100vh - 350px);
+
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
     }
 
     &__text {

@@ -10,11 +10,12 @@ export default function RecStudent({ role }) {
   const [params, setSearchParams] = useSearchParams()
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['student', params.get('group'), params.get('year'), params.get('jdu'), params.get('jlpt'), params.get('search')],
+    ['student', params.get('group'), params.get('groups'), params.get('year'), params.get('jdu'), params.get('jlpt'), params.get('search')],
     async ({ pageParam = 1 }) => await StudentsGet({
       limit: 15,
       page: pageParam,
       group: params.get('group') || '',
+      groups: params.get('groups') || '',
       group: params.get('jdu') || '',
       group: params.get('jlpt') || '',
       search: params.get('search') || '',

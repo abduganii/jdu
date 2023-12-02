@@ -13,11 +13,12 @@ export default function DecanStudent() {
   const { data: specialisation } = useQuery('specialisation', SpecialisationsGet)
 
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['student', params.get('group'), params.get('rate'), params.get('jdu'), params.get('jlpt'), params.get('year'), params.get('search')],
+    ['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('jdu'), params.get('jlpt'), params.get('year'), params.get('search')],
     async ({ pageParam = 1 }) => await StudentsGet({
       limit: 15,
       page: pageParam,
       group: params.get('group') || '',
+      groups: params.get('groups') || '',
       jdu: params.get('jdu') || '',
       jlpt: params.get('jlpt') || '',
       search: params.get('search') || '',

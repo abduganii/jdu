@@ -42,7 +42,7 @@ export default function DeleteMadel({ id, orginalId, defaultGruop, GroupChange, 
                     toast('changed gruop')
                 }
 
-                queryClient.invalidateQueries(['student', params.get('Group'), params.get('rate'), params.get('year'), params.get('search')])
+                queryClient.invalidateQueries(['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
                 queryClient.invalidateQueries(['group'])
             })
             .catch(err => {

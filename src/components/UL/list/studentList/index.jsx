@@ -31,10 +31,10 @@ export default function StudentList({ isSelcted, avatar, name, gruop, id, loginI
                     <div className={cls.StudentList__select} onClick={(e) => {
                         if (color) {
                             StudentSelectDel(id)
-                            queryClient.invalidateQueries(['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
+                            queryClient.invalidateQueries(['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
                         } else {
                             StudentSelect(id)
-                            queryClient.invalidateQueries(['student', params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
+                            queryClient.invalidateQueries(['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
                         }
                         setColor(!color)
                     }}>

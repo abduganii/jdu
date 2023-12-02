@@ -56,7 +56,7 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
     const y = useRef()
 
     return (
-        <RightAsideWrapper style={{ padding: "24px 20px 10px 24px", position: "relative", top: 0, margin: "10px 0 78px 0" }}>
+        <div className={cls.aside} style={{ padding: "24px 20px 10px 24px", margin: "10px 0 78px 0" }}>
             <div >
                 <div className={cls.TopStudents} >
                     <div className={cls.TopStudents__wrap}>
@@ -66,59 +66,67 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
                     {decan && <div className={cls.TopStudents__btn} onClick={CreateGruop}><GruopPlusIcons /></div>}
                 </div>
 
-                {group && group?.map(e => (
-                    (
-                        <div style={{ position: 'relative' }} key={e?.id}>
+                <div className={cls.TopStudents__content}>
 
-                            <div className={`${cls.GruopList} ${e?.name == params.get('group') ? cls.GruopListactive : ""}`}>
-                                <div className={cls.GruopList__name} onClick={
-                                    () => {
-                                        setGrupIdIm(e?.id)
-                                        setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
-                                    }}>{e?.name}</div>
-                                <div className={cls.GruopList__div} onClick={
-                                    () => {
-                                        setGrupIdIm(e?.id)
-                                        setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
-                                    }}>
-                                    <h3 className={cls.GruopList__title}>{e?.collection}</h3>
-                                    <p className={cls.GruopList__student}>{e?.students} students</p>
+
+                    {group && group?.map(e => (
+                        (
+                            <div style={{ position: 'relative' }} key={e?.id}>
+
+                                <div className={`${cls.GruopList} ${e?.name == params.get('group') ? cls.GruopListactive : ""}`}>
+                                    <div className={cls.GruopList__name} onClick={
+                                        () => {
+                                            setGrupIdIm(e?.id)
+                                            setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
+                                        }}>{e?.name}</div>
+                                    <div className={cls.GruopList__div} onClick={
+                                        () => {
+                                            setGrupIdIm(e?.id)
+                                            setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
+                                        }}>
+                                        <h3 className={cls.GruopList__title}>{e?.collection}</h3>
+                                        <p className={cls.GruopList__student}>{e?.students} students</p>
+                                    </div>
+
+                                    <DoteBtn style={{ margin: "0 0 0 auto" }} onClick={() => setIseId(e?.id)} />
+
                                 </div>
 
-                                <DoteBtn style={{ margin: "0 0 0 auto" }} onClick={() => setIseId(e?.id)} />
-
-                            </div>
-
-                            <div ref={x}
-                                onClick={e => {
-                                    if (e.target == x.current) {
+                                <div ref={x}
+                                    onClick={e => {
+                                        if (e.target == x.current) {
+                                            setIseId(false)
+                                        }
+                                    }}
+                                    style={useId ? { display: "flex" } : { display: "none" }}
+                                    className={cls.backround}
+                                >
+                                </div>
+                                {decan && <ListModal
+                                    //   onClick={onClick}
+                                    remove={() => {
                                         setIseId(false)
+                                        fitchOnePerson1(e?.id)
+                                        remove()
                                     }
-                                }}
-                                style={useId ? { display: "flex" } : { display: "none" }}
-                                className={cls.backround}
-                            >
+                                    }
+                                    update={() => {
+                                        setIseId(false)
+                                        update()
+                                        setGrupId1(e?.id)
+                                        fitchOnePerson(e?.id)
+                                    }}
+                                    style={useId == e?.id ? { display: "block" } : { display: "none" }} />}
                             </div>
-                            {decan && <ListModal
-                                //   onClick={onClick}
-                                remove={() => {
-                                    setIseId(false)
-                                    fitchOnePerson1(e?.id)
-                                    remove()
-                                }
-                                }
-                                update={() => {
-                                    setIseId(false)
-                                    update()
-                                    setGrupId1(e?.id)
-                                    fitchOnePerson(e?.id)
-                                }}
-                                style={useId == e?.id ? { display: "block" } : { display: "none" }} />}
-                        </div>
 
-                    )
-                ))
-                }
+                        )
+                    ))
+                    }
+
+
+                    <div ref={ref} style={{ padding: "10px" }}></div>
+
+                </div>
                 {
                     decan == true &&
 
@@ -136,11 +144,8 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
 
                     </div>
                 }
-
-                <div ref={ref} style={{ padding: "10px" }}></div>
-
             </div>
 
-        </RightAsideWrapper>
+        </div>
     )
 }
