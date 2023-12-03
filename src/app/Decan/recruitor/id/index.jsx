@@ -20,6 +20,7 @@ export default function DecanRecruitorBuId({ role }) {
 
     }, []);
 
+
     return (
         <div>
             <OnePerson
@@ -33,7 +34,7 @@ export default function DecanRecruitorBuId({ role }) {
 
             />
             {
-                +data?.bio ? <>
+                data?.bio && data.bio !== "undefined" ? <>
                     <div style={{ margin: "50px 0 16px 110px", fontSize: "16px", fontFamily: "Inter", fontWeight: "700" }}>
                         Bio
                     </div>
@@ -42,6 +43,6 @@ export default function DecanRecruitorBuId({ role }) {
                     </p>
                 </> : ""
             }
-        </div>
+        </div >
     )
 }

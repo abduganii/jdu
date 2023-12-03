@@ -22,7 +22,7 @@ export default function OneStudent({ user, role }) {
     const [lessonId, setLessonId] = useState()
     const [semestorId, setsemestorId] = useState()
     const [lassonsArr, setLessonArr] = useState([])
-
+    const [openImg, setOpneImg] = useState(false)
     useEffect(() => {
         if (!lessonId) {
             setLessonId(user.lessons?.[0]?.id)
@@ -37,12 +37,10 @@ export default function OneStudent({ user, role }) {
     }, [lessonId])
 
 
-
     return (
         <div className={cls.OneStudent}>
 
             <Container  >
-
                 <div className={cls.OneStudent__Wrap1}>
                     {role != 'student' ? <BackBtn onClick={(e) => router(-1)} role={true} UserId={user?.id} style={{ maxWidth: "100%" }} /> : ""}
                     {
@@ -69,15 +67,17 @@ export default function OneStudent({ user, role }) {
                         email={user?.email}
                     />
                     <div style={{ width: "100%", }}>
-                        {role === "student" ?
-                            <BlueButtun
-                                light={true}
-                                className={cls.OneStudent__btn}
-                                onClick={() => router(`/student/studentsSet/${user?.id}`)}
-                                style={{ padding: "14px 30px", marginLeft: "auto", marginBottom: "10px" }}
-                            >
-                                プロファイル編集
-                            </BlueButtun> : ""}
+                        {
+                            role === "student" ?
+                                <BlueButtun
+                                    light={true}
+                                    className={cls.OneStudent__btn}
+                                    onClick={() => router(`/student/studentsSet/${user?.id}`)}
+                                    style={{ padding: "14px 30px", marginLeft: "auto", marginBottom: "10px" }}
+                                >
+                                    プロファイル編集
+                                </BlueButtun> : ""
+                        }
 
                         {
                             role !== "parent" ? user?.Parents?.length ? <div className={cls.OneStudent__person}>
@@ -120,7 +120,7 @@ export default function OneStudent({ user, role }) {
                                 <>
                                     <p className={cls.OneStudent__title}>ギャラリー</p>
                                     <div className={cls.OneStudent__imgs}>
-                                        <div>
+                                        <div >
                                             {
                                                 user?.images?.map((e, i) => (
                                                     <img
@@ -128,6 +128,8 @@ export default function OneStudent({ user, role }) {
                                                         src={e}
                                                         width={223}
                                                         height={160}
+                                                        onClick={() => setOpneImg(e)
+                                                        }
                                                         alt='img'
                                                     />
                                                 ))
@@ -142,6 +144,17 @@ export default function OneStudent({ user, role }) {
                                 </> : <NoGaler />
                             }
                         </>}
+                    {
+                        openImg && <div className={cls.OneStudent__imgOpen} onClick={() => setOpneImg(false)}>
+                            <img
+
+                                src={openImg}
+                                width={500}
+                                height={500}
+                                alt={"img"}
+                            />
+                        </div>
+                    }
 
                     {
                         user?.jlpt || user?.jud && <h3 className={cls.OneStudent__title}>Japan Language tests</h3>

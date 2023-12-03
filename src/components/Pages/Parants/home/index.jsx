@@ -65,7 +65,6 @@ export default function HomePage({ user }) {
         if (data.avatar) formData.append("avatar", data.avatar)
         formData.append("firstName", data?.firstName)
         formData.append("lastName", data?.lastName)
-        formData.append("companyName", data?.companyName)
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("email", user?.email)
         formData.append("loginId", user?.loginId)
@@ -262,14 +261,7 @@ export default function HomePage({ user }) {
                             style={{ marginBottom: "20px" }}
 
                         />
-                        <AddInput
-                            type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
-                            value={user?.loginId}
-                            style={{ marginBottom: "20px" }}
-                            disabled={true}
-                        />
+
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
                             type={"text"}
@@ -281,15 +273,20 @@ export default function HomePage({ user }) {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
-                            register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
                             type={"text"}
-                            label={"会社名"}
-                            placeholder={"会社名"}
-                            value={watchedFiles?.companyName || ''}
-                            alert={errors.companyName?.message}
-                            onChange={() => clearErrors("companyName")}
+                            label={"Id"}
+                            placeholder={"Id"}
+                            value={user?.loginId}
                             style={{ marginBottom: "20px" }}
-
+                            disabled={true}
+                        />
+                        <AddInput
+                            type={"text"}
+                            label={"studentId"}
+                            placeholder={"studentId"}
+                            value={user?.Students?.[0]?.loginId}
+                            style={{ marginBottom: "20px" }}
+                            disabled={true}
                         />
 
                         <AddInput

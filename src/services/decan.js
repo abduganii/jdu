@@ -36,3 +36,14 @@ export const DecanPerson = async () => {
 }
 
 
+
+export const PersonDelete = async (id) => {
+    try {
+    const res = await api.delete(`/avatar/${id}`, {withCredentials: true})
+     return res
+    } catch (error) {
+     console.log(error.response.data.message)
+    } 
+}
+
+

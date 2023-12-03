@@ -71,7 +71,7 @@ export default function AppRouter() {
                 <Route path="/decan/students/" element={< DecanStudent />} />
                 <Route path="/decan/students/:id" element={< StudentById role={user?.role} />} />
                 <Route path="/decan/studentsSet/:id" element={< SetStudentpage role={user?.role} />} />
-                <Route path="/decan/groups" element={< DecanGroups />} />
+                {/* <Route path="/decan/groups" element={< DecanGroups />} /> */}
                 <Route path="/decan/recruitors" element={< DecanRecruitor />} />
                 <Route path="/decan/recruitors/:id" element={< DecanRecruitorBuId />} />
                 <Route path="/decan/employees" element={< DecEmployees />} />
@@ -94,16 +94,15 @@ export default function AppRouter() {
                 <Route path="/parent/students/:id" element={<StuDStudentById role={user?.role} />} />
 
                 <Route path="/teacher/home" element={<TeacherHome user={user} />} />
-                <Route path="/teacher/groups" element={< TecherGruop role={"teacher"} />} />
-                <Route path="/teacher/students" element={< Teachertudent role={"teacher"} />} />
+                {/* <Route path="/teacher/groups" element={< TecherGruop role={user?.role} />} /> */}
+                <Route path="/teacher/students" element={< Teachertudent role={user?.role} />} />
                 <Route path="/teacher/students/:id" element={<StuDStudentById />} />
 
 
-                <Route path="/staff/home" element={<TeacherHome role={user?.role} />} />
-                <Route path="/staff/groups" element={< TecherGruop role={"staff"} />} />
-                <Route path="/staff/groups/students/:id" element={< Teachertudent role={"staff"} />} />
+                <Route path="/staff/home" element={<TeacherHome user={user} />} />
+                {/* <Route path="/staff/students" element={< TecherGruop role={"staff"} />} /> */}
+                <Route path="/staff/students" element={< Teachertudent role={"staff"} />} />
                 <Route path="/staff/students/:id" element={<StuDStudentById role={user?.role} />} />
-
 
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/help" element={<Help />} />

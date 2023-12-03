@@ -2,7 +2,7 @@
     display: flex;
     align-items: flex-start;
     gap: 22px;
-
+    cursor: pointer;
 
     input {
         display: none;
@@ -21,6 +21,7 @@
         display: flex;
         justify-content: center;
         text-align: center;
+        cursor: pointer;
 
 
         &__text {
@@ -37,6 +38,7 @@
         }
 
         &__img {
+            cursor: pointer;
 
             width: 85px;
             height: 85px;

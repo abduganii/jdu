@@ -30,7 +30,7 @@ export default function SideBar({ user }) {
         if (user?.role === "student") {
             setLink(studentLink)
         }
-        if (user?.role === "teacher") {
+        if (user?.role === "teacher" || user?.role === "staff") {
             setLink(teacherLink)
         }
         if (user?.role === "parent") {

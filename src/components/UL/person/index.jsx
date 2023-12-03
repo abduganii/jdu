@@ -1,22 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
 import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
 export default function Person({ avatar, role, name, id, year, email, Professor, rate }) {
-    console.log(year)
+    const [open, setOpen] = useState(false)
     return (
         <div className={cls.Person}>
             {
                 role == 'gruop' ? <div className={cls.Person__gruop}>{name}
                 </div> : avatar ? <img
+                    onClick={() => setOpen(true)}
                     src={avatar}
                     width={130}
                     height={130}
                     alt={"img"}
                 /> : <Avatar name={name} size="130" round={true} />
 
+            }
+
+            {open && <div className={cls.Person__imgOpen} onClick={() => setOpen(false)}>
+                <img
+                    src={avatar}
+                    width={500}
+                    height={500}
+                    alt={"img"}
+                />
+            </div>
             }
             <div className={cls.Person__contect}>
                 <div>

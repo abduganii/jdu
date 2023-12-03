@@ -76,7 +76,7 @@ export default function HomePage() {
                         data && data?.map(e => (
                             <div className={cls.HomePage__card__card}>
                                 <h2 className={cls.HomePage__card__card__title}>{e?.count}</h2>
-                                <p className={cls.HomePage__card__card__text}>User percentage: {e?.percentage}</p>
+                                <p className={cls.HomePage__card__card__text}>User percentage:  {e?.percentage}</p>
                                 <p className={cls.HomePage__card__card_role}>{e?.type}</p>
                             </div>
                         ))

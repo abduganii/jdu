@@ -61,7 +61,7 @@ export default function SetStudent({ data, role }) {
         if (body.email) formData.append("email", body.email)
         if (body.password) formData.append("password", body.password)
         if (body.bio) formData.append("bio", body.bio)
-        if (body.desc) formData.append("desc", body.desc)
+        formData.append("desc", body.desc)
 
         await StudentsUpdate(formData, data?.id)
             .then(res => {
@@ -251,10 +251,10 @@ export default function SetStudent({ data, role }) {
                                             className={cls.SetStudent__wrap__cartume__div}
                                             onClick={async () => {
 
-                                                setAvatarArr(state => state.filter(el => el !== e))
                                                 await PhotoDeleteStudent({ url: e }, data?.id)
                                                     .then(() => toast('photo deleted successfully'))
                                                     .catch(() => toast('failed to upload'))
+                                                setAvatarArr(state => state.filter(el => el !== e))
                                             }}
                                         >
                                             <BusketDeleteIcons />

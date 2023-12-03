@@ -1,7 +1,7 @@
 .OneStudent {
     display: flex;
     align-items: flex-start;
-    margin-top: 100px !important;
+    margin-top: 70px !important;
     width: 100%;
     margin-right: 20px;
 
@@ -73,6 +73,7 @@
         opacity: 0.8;
         margin-top: 16px;
         margin-bottom: 25px;
+        overflow-wrap: break-word;
     }
 
     &__text2 {
@@ -110,6 +111,10 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+
+            img {
+                cursor: pointer;
+            }
         }
 
         margin-top: 20px;
@@ -536,12 +541,15 @@
 
         &__text {
             color: #000;
-
+            width: 100%;
+            max-width: 690px;
             font-family: Inter;
             font-size: 18px;
             font-style: normal;
             font-weight: 700;
-            line-height: 18px
+            line-height: 18px;
+            white-space: nowrap !important;
+
         }
 
         &__box {
@@ -568,5 +576,26 @@
         }
     }
 
+
+    &__imgOpen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgb(0, 0, 0, .8);
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain !important;
+            border-radius: 0 !important;
+
+        }
+    }
 
 }

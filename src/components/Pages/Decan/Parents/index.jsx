@@ -55,14 +55,15 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             })
     }
 
-    const getlogin = (loginId) => {
-        // const fetchData = async () => {
-        //     const res = await StudentsGetByloginId(id);
+    const getlogin = (id) => {
+        const fetchData = async () => {
 
-        //     fetchData()
-        //         .then((err) => {
-        //         })
-        // }
+            const res = await StudentsGetByloginId(id);
+            console.log(res)
+        }
+        fetchData()
+            .then((err) => {
+            })
     }
 
     const AddStudentFunc = async (data) => {
@@ -377,11 +378,14 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     </div>
                     <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
                         <AddInput
-                            register={{ ...register('studentId') }}
+                            // register={{ ...register('studentId') }}
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Student ID"}
-                            onChange={() => clearErrors("studentId")}
+                            onChange={(e) => {
+                                getlogin(e.target.value)
+                                // clearErrors("studentId")
+                            }}
                             style={{ marginBottom: "20px" }}
                             disabled={exal ? true : false}
                         />

@@ -2,7 +2,7 @@
 import BlueButtun from '../../UL/buttun/blueBtn'
 import CancelBtn from '../../UL/buttun/cancel'
 import Container from '../../UL/container'
-import { eyeOpenIcons, eyeCloseIcons, UploadIcons, LeftIcon } from '../../UL/icons'
+import { eyeOpenIcons, eyeCloseIcons, UploadIcons, LeftIcon, BusketDeleteIcons, BusketDeleteIcons2 } from '../../UL/icons'
 import SettingsInput from '../../UL/input/settingsInput'
 import BackBtn2 from '../../UL/buttun/backBtns'
 
@@ -12,7 +12,7 @@ import cls from "./Settings.module.scss"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Avatar from 'react-avatar'
-import { CanactGet, CanactUpdate, DecanUpdate } from '../../../services/decan'
+import { CanactGet, CanactUpdate, DecanUpdate, PersonDelete } from '../../../services/decan'
 import { RecruitorUpdate } from '../../../services/recruter'
 import Loader from '../../UL/loader'
 import { StudentsUpdate } from '../../../services/student'
@@ -55,7 +55,7 @@ export default function SettingsPage({ data }) {
     const [section2, setSection2] = useState()
     const [section3, setSection3] = useState()
     const [section4, setSection4] = useState()
-    const { register, handleSubmit, setValue, clearErrors, setError, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, reset, clearErrors, setError, watch, formState: { errors } } = useForm();
 
     const watchedFiles = watch()
     useEffect(() => {
@@ -105,7 +105,9 @@ export default function SettingsPage({ data }) {
     }, [data])
 
     const addData = async (body) => {
+
         setLoager(true)
+
         const formData = new FormData()
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body?.firstName)
@@ -269,8 +271,13 @@ export default function SettingsPage({ data }) {
             setValue('avatar', e.target.files[0])
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
-    }
 
+    }
+    const deleteimg = async () => {
+        setValue('avatar', ' ')
+        setAvatar(null)
+
+    }
 
     return (
         <>
@@ -310,13 +317,20 @@ export default function SettingsPage({ data }) {
                     <div className={cls.SettingsPage__form}>
                         <div className={cls.SettingsPage__upload} >
                             {
-                                avatar ? <img
-                                    src={avatar || watchedFiles?.avatar}
-                                    width={150}
-                                    height={150}
-                                    alt="img"
+                                avatar ? <div className={cls.SettingsPage__upload__div}>
+                                    <img
+                                        src={avatar || watchedFiles?.avatar}
+                                        width={150}
+                                        height={150}
+                                        alt="img"
 
-                                /> : <Avatar name={data?.firstName} size="150" round={true} />
+                                    />
+                                    <div className={cls.SettingsPage__imgDelete} >
+                                        <div onClick={() => deleteimg()}>
+                                            <BusketDeleteIcons2 />
+                                        </div>
+                                    </div>
+                                </div> : <Avatar name={data?.firstName} size="150" round={true} />
                             }
 
 

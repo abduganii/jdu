@@ -44,7 +44,7 @@ export default function AddInput({
                 /> : <div className={`${cls.AddInput__labelinut}`}>
                     < input autoComplete="none"
                         value={value}
-
+                        onChange={onChange}
                         {...register}
                         className={`${cls.AddInput__input} ${alert && cls.AddInput__border} ${disabled && cls.AddInput__disabled}`}
                         type={type}

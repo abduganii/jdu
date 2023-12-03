@@ -49,6 +49,14 @@ export default function HomeTechPage({ user }) {
     const watchedFiles = watch()
     useEffect(() => {
 
+        const fetchData4 = async () => {
+            const res = await SectionGet();
+            setSection(res)
+        }
+        fetchData4()
+            .then((err) => {
+                console.log(err);
+            })
 
         const fetchData = async () => {
             const res = await GetCertificates();
@@ -153,7 +161,7 @@ export default function HomeTechPage({ user }) {
                         data && data?.map(e => (
                             <div className={cls.HomePage__card__card}>
                                 <h2 className={cls.HomePage__card__card__title}>{e?.count}</h2>
-                                <p className={cls.HomePage__card__card__text}>User percentage: {e?.percentage}</p>
+                                <p className={cls.HomePage__card__card__text}>User percentage: {e?.percentage}%</p>
                                 <p className={cls.HomePage__card__card_role}>{e?.type}</p>
                             </div>
                         ))
@@ -235,7 +243,7 @@ export default function HomeTechPage({ user }) {
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={
-                        (UpdateTeacherFunc)}
+                        handleSubmit(UpdateTeacherFunc)}
                     closeMadal={async () => {
                         await Loginout()
                         router('/auth/login')
