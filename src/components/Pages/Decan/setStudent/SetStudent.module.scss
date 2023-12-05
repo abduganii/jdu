@@ -97,10 +97,37 @@
             padding: 15px;
         }
 
+        &__div {
+
+
+            div {
+                cursor: pointer;
+            }
+
+            &:hover {
+                .SetStudent__imgDelete {
+                    display: flex;
+                }
+            }
+        }
+
         img {
             border-radius: 50%;
             object-fit: cover;
         }
+    }
+
+    &__imgDelete {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(0, 0, 0, .5);
     }
 
     &__lesson {

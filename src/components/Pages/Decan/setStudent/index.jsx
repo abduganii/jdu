@@ -3,7 +3,7 @@
 import BlueButtun from '../../../UL/buttun/blueBtn'
 import CancelBtn from '../../../UL/buttun/cancel'
 import Container from '../../../UL/container'
-import { BusketDeleteIcons, DownloadIcons, GalaryIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
+import { BusketDeleteIcons, BusketDeleteIcons2, DownloadIcons, GalaryIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
 import RangeInput from '../../../UL/input/rangeInput'
 import SearchSkill from '../../../UL/input/SearchSkill'
 import AddInput from '../../../UL/input/AddInput'
@@ -104,6 +104,11 @@ export default function SetStudent({ data, role }) {
                 .catch(() => setLoading(false))
         }
     }
+    const deleteAvatar = async () => {
+        setValue2('avatar', ' ')
+        setAvatar(null)
+
+    }
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
             <form onSubmit={handleSubmit2(AddDataSubmit)}>
@@ -149,19 +154,29 @@ export default function SetStudent({ data, role }) {
                         role == "decan" && <>
 
                             <div className={cls.SetStudent__inputs}>
-                                <label className={cls.SetStudent__upload} >
+                                <div className={cls.SetStudent__upload} >
                                     {avatar ?
-                                        < img
-                                            src={avatar}
-                                            width={150}
-                                            height={150}
-                                            alt="img"
+                                        <div className={cls.SetStudent__upload__div}>
 
-                                        /> : <Avatar name={data?.firstName} size="150" round={true} />
+                                            < img
+                                                src={avatar}
+                                                width={150}
+                                                height={150}
+                                                alt="img"
+
+                                            />
+                                            <div className={cls.SetStudent__imgDelete} >
+                                                <div onClick={() => deleteAvatar()}>
+                                                    <BusketDeleteIcons2 />
+                                                </div>
+                                            </div>
+                                        </div> : <Avatar name={data?.firstName} size="150" round={true} />
                                     }
-                                    <input className={cls.SetStudent__upload__file} type="file" onChange={(e) => hendleimg(e)} />
-                                    <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
-                                </label>
+                                    <label >
+                                        <input className={cls.SetStudent__upload__file} type="file" onChange={(e) => hendleimg(e)} />
+                                        <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
+                                    </label>
+                                </div>
                                 <div className={cls.SetStudent__content}>
                                     <AddInput
                                         style={{ marginTop: "10px" }}

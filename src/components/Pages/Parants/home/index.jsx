@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { RecruitorUpdate } from '../../../../services/recruter'
+
+import { ParentUpdate } from '../../../../services/parent'
 import { GetCertificates, GetStudentgroupRec } from '../../../../services/statistic'
 import { TeacherGet } from '../../../../services/teacher'
 import Container from '../../../UL/container'
@@ -16,6 +17,7 @@ import { Loginout } from '../../../../services/auth'
 import { useNavigate } from 'react-router-dom'
 
 export default function HomePage({ user }) {
+
 
     const [JDU, setJDU] = useState({})
     const [JLPT, setJLPT] = useState({})
@@ -73,7 +75,7 @@ export default function HomePage({ user }) {
         formData.append("bio", data?.bio)
 
 
-        await RecruitorUpdate(formData, user?.id)
+        await ParentUpdate(formData, user?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)

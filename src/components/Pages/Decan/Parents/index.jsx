@@ -27,6 +27,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     const [personId, setPersonId] = useState(false)
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
+    const [studentName, setStudentName] = useState()
     const [loading, setLoading] = useState(false)
     const [exal, setexal] = useState()
     const oneStuednt = data.find(e => e.id === personId)
@@ -56,19 +57,28 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     }
 
     const getlogin = (id) => {
-        const fetchData = async () => {
-
-            const res = await StudentsGetByloginId(id);
-            console.log(res)
+        setValue("studentId", id)
+        if (!id?.length) {
+            setStudentName(false)
         }
+        const fetchData = async () => {
+            const res = await StudentsGetByloginId(id);
+            if (res) {
+                setStudentName(res?.firstName)
+            } else {
+                setStudentName("student not found")
+            }
+        }
+
         fetchData()
             .then((err) => {
             })
     }
 
     const AddStudentFunc = async (data) => {
-        setLoading(true)
+
         if (exal) {
+            setLoading(true)
             const formData = new FormData()
             formData.append("excel", exal)
             await ParentAllAdd(formData)
@@ -91,6 +101,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     setExalError(true)
                 })
         } else {
+            setLoading(true)
             await ParentAdd(data)
                 .then(res => {
                     if (res?.data?.message) {
@@ -127,9 +138,11 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     setLoading(false)
                 })
         }
+
     }
 
     const UpdateStudentFunc = async (data) => {
+
         setLoading(true)
 
         const formData = new FormData()
@@ -139,8 +152,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         formData.append("phoneNumber", data?.phoneNumber)
         formData.append("loginId", data?.loginId)
         formData.append("studentId", data?.studentId)
-
-
         formData.append("email", data?.email)
         formData.append("bio", data?.bio)
 
@@ -378,19 +389,17 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     </div>
                     <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
                         <AddInput
-                            // register={{ ...register('studentId') }}
                             type={"text"}
                             label={"Student ID"}
                             placeholder={"Student ID"}
                             onChange={(e) => {
                                 getlogin(e.target.value)
-                                // clearErrors("studentId")
                             }}
                             style={{ marginBottom: "20px" }}
                             disabled={exal ? true : false}
                         />
 
-                        <p> name</p>
+                        {studentName ? <p> {studentName}</p> : ""}
                     </div>
 
                     <ExalInput

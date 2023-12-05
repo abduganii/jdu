@@ -12,6 +12,7 @@ export default function AddInput({
     loginGenerate,
     geterat,
     type,
+    onKeyDawn,
     alert,
     value,
     disabled,
@@ -46,6 +47,7 @@ export default function AddInput({
                         value={value}
                         onChange={onChange}
                         {...register}
+                        onKeyDown={onKeyDawn}
                         className={`${cls.AddInput__input} ${alert && cls.AddInput__border} ${disabled && cls.AddInput__disabled}`}
                         type={type}
                         placeholder={placeholder}
