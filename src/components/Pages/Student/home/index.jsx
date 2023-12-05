@@ -22,14 +22,17 @@ export default function HomePage({ user }) {
     const [maxValue, setmaxValue] = useState(0)
     const [data2, setData2] = useState(0)
     const [avatar, setAvatar] = useState()
-    const [openMadal, setOpenMadal] = useState(!user?.isActive)
+    const [openMadal, setOpenMadal] = useState(!user?.isActive || false)
     const [loading, setLoading] = useState(false)
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
+
     useEffect(() => {
+
+
+
         const fetchData = async () => {
             const res = await GetCertificates();
-
             setJDU(res?.JDU)
             setJLPT(res?.JLPT)
             setmaxValue(res?.student)
@@ -51,6 +54,10 @@ export default function HomePage({ user }) {
 
     }, [])
 
+    useEffect(() => {
+        setValue('firstName', user?.firstName)
+        setValue('lastName', user?.lastName)
+    }, [user])
 
     const UpdateStudentFunc = async (data) => {
         setLoading(true)
