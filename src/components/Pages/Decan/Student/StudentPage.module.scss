@@ -20,8 +20,11 @@
         display: flex;
         gap: 20px;
 
+
         &__div {
             width: 100%;
+            // height: calc(100vh - 150px);
+// overflow-x: scroll;
         }
     }
 }

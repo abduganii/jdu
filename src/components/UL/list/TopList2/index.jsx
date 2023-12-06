@@ -2,7 +2,7 @@ import React from 'react'
 
 import cls from "./TopList.module.scss"
 
-export default function TopList({ text, }) {
+export default function TopList2({ text }) {
     return (
         <ul className={cls.TopList}>
             {text && text?.map((e, i) => (

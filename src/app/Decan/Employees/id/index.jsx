@@ -32,7 +32,8 @@ export default function DecanEmloyBuId({ role }) {
                 work={data?.specialisation}
                 bio={data?.bio}
                 email={data?.email}
-
+                section={data?.section}
+                position={data?.position}
             />
         </>
     )

@@ -10,7 +10,7 @@ import AddInput from '../../../UL/input/AddInput'
 
 import React, { useState } from 'react'
 import cls from "./StudentPage.module.scss"
-import { Student } from "./data"
+
 
 import toast, { Toaster } from 'react-hot-toast';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
@@ -21,6 +21,7 @@ import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
 import GruopList from '../../../UL/gruop'
 import { AddGroup, Groupdelete, GroupGetById, UpdateGroup } from '../../../../services/gruop'
+import TopList2 from '../../../UL/list/TopList2'
 
 const Course = [
     {
@@ -40,6 +41,8 @@ const Course = [
         name: "Fourth"
     }
 ]
+
+
 
 const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
@@ -217,7 +220,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
+                    <TopList2 text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList
@@ -226,7 +229,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             key={e?.id}
                             name={`${e?.firstName} ${e?.lastName}`}
                             img={e?.avatar}
-                            gruop={e?.group?.name}
+                            gruop={e?.group?.name || "-"}
                             rate={e?.jlpt || "-"}
                             skill={e?.jdu || "-"}
                             update={() => router(`/decan/studentsSet/${e?.id}`)}
@@ -235,6 +238,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             student={true}
                         />
                     ))}
+                    <div ref={ref} style={{ padding: "10px" }}></div>
                 </div>
                 <GruopList
                     data={[]}
@@ -256,7 +260,6 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     }} />
 
             </div>
-            <div ref={ref} style={{ padding: "10px" }}></div>
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}

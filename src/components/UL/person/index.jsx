@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
-export default function Person({ avatar, role, name, id, year, email, Professor, rate }) {
+export default function Person({ avatar, role, position, section, name, id, year, email, Professor, rate }) {
     const [open, setOpen] = useState(false)
     return (
         <div className={cls.Person}>
@@ -37,6 +37,11 @@ export default function Person({ avatar, role, name, id, year, email, Professor,
 
                         {year ? <p className={cls.Person__year}> {year}</p> : ""}
                         {Professor ? <p className={cls.Person__year}> {Professor}</p> : ""}
+
+                    </div>
+                    <div className={cls.Person__div}>
+                        {position ? <p className={cls.Person__year}> {position}</p> : ""}
+                        {section ? <p className={cls.Person__year}> {section}</p> : ""}
                     </div>
                     {rate && <div className={cls.Person__rate}><SelectIcon fill={"black"} border={"black"} /> <p>{rate}</p></div>}
                 </div>

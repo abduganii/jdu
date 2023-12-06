@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form'
-import { GetCertificates } from '../../../../services/statistic'
+import { GetCertificates, GetStudentgroupRec } from '../../../../services/statistic'
 import { SectionGet, TeacherGet, TeacherUpdate } from '../../../../services/teacher'
 import Container from '../../../UL/container'
 import AddInput from '../../../UL/input/AddInput'
@@ -78,13 +78,15 @@ export default function HomeTechPage({ user }) {
             })
 
         const fetchData2 = async () => {
-            const res = await TeacherGet();
-            setData2(res?.count)
+            const res = await GetStudentgroupRec();
+            setData2(res)
+
         }
         fetchData2()
             .then((err) => {
                 console.log(err);
             })
+
     }, [])
 
 
@@ -156,16 +158,26 @@ export default function HomeTechPage({ user }) {
 
                 </Container>
                 <div className={cls.HomePage__card}>
-
-                    {
-                        data && data?.map(e => (
-                            <div className={cls.HomePage__card__card}>
-                                <h2 className={cls.HomePage__card__card__title}>{e?.count}</h2>
-                                <p className={cls.HomePage__card__card__text}>User percentage: {e?.percentage}%</p>
-                                <p className={cls.HomePage__card__card_role}>{e?.type}</p>
-                            </div>
-                        ))
-                    }
+                    <div className={cls.HomePage__card__card}>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.First?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.First?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Freshmen</p>
+                    </div>
+                    <div className={cls.HomePage__card__card}>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Second?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Second?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Second year</p>
+                    </div>
+                    <div className={cls.HomePage__card__card}>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Third?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Third?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Third year</p>
+                    </div>
+                    <div className={cls.HomePage__card__card}>
+                        <h2 className={cls.HomePage__card__card__title}>{data2?.Fourth?.count}</h2>
+                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Fourth?.percentage}%</p>
+                        <p className={cls.HomePage__card__card_role}>Fouth year</p>
+                    </div>
                 </div>
                 <div className={cls.HomePage__chart}>
                     <div className={cls.HomePage__chart__wrap}>
@@ -209,28 +221,34 @@ export default function HomeTechPage({ user }) {
                         <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q1}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>Q1</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N2 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q2 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q2}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>Q2</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N3 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q3 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q3}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>Q3</p>
                             </div>
                             <div>
-                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JLPT?.N4 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q4 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q5}
                                 </div>
                                 <p className={cls.HomePage__test2_test}>Q4</p>
+                            </div>
+                            <div>
+                                <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q5 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
+                                    {JDU?.Q5}
+                                </div>
+                                <p className={cls.HomePage__test2_test}>Q5</p>
                             </div>
                         </div>
                     </div>
