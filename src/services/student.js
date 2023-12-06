@@ -104,17 +104,17 @@ export const FileUploadStudent = async (data) => {
        }
 }
 
-export const PhotoDeleteStudent = async (data,id) => {
+export const PhotoDeleteStudent = async (url) => {
     try {
-        const response = await api.delete(`/students/galary/${id}`,data);
+        const response = await api.delete(`/galary?url=${url}`);
         return response?.data;
        } catch (error) {
         console.log(error.response.data.message);
        }
 }
-export const  PhotoUploadStudent = async (data,id) => {
+export const  PhotoUploadStudent = async (data) => {
     try {
-        const response = await api.post(`/students/galary/${id}`,data, {
+        const response = await api.post(`/galary`,data, {
             headers: {
             'Content-Type': "multipart/form-data"
         }});

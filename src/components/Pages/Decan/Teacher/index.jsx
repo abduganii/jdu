@@ -238,6 +238,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                 ))
 
             }
+            <div ref={ref} style={{ padding: "10px" }}></div>
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}

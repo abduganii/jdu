@@ -32,13 +32,13 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
     const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
         ['group'],
         async ({ pageParam = 1 }) => await GruopGet({
-            limit: 15,
+            limit: 30,
             page: pageParam,
             // lang: 'en'
         }) || {},
         {
             getNextPageParam: (lastPage, pages) => {
-                return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
+                return lastPage?.count > pages?.length * 30 ? pages.length + 1 : undefined
             }
         }
 
@@ -47,6 +47,7 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
 
 
     useEffect(() => {
+        console.log(inView)
         if (inView && hasNextPage) {
             fetchNextPage()
         }
@@ -123,7 +124,6 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
                     ))
                     }
 
-
                     <div ref={ref} style={{ padding: "10px" }}></div>
 
                 </div>
@@ -145,6 +145,7 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
                     </div>
                 }
             </div>
+
 
         </div>
     )

@@ -46,7 +46,7 @@ export default function SetStudent({ data, role }) {
         setValue2('bio', data?.bio)
         setValue2("desc", data?.desc)
         setAvatar(data?.avatar)
-        setAvatarArr(data?.images)
+        setAvatarArr(data?.images || [])
     }, [data])
 
 
@@ -61,6 +61,7 @@ export default function SetStudent({ data, role }) {
         if (body.email) formData.append("email", body.email)
         if (body.password) formData.append("password", body.password)
         if (body.bio) formData.append("bio", body.bio)
+        if (avatarArr) formData.append("images", JSON.stringify(avatarArr))
         formData.append("desc", body.desc)
 
         await StudentsUpdate(formData, data?.id)
@@ -93,14 +94,18 @@ export default function SetStudent({ data, role }) {
         }
     }
 
+
     const hendleimg2 = async (e) => {
         if (e.target.files[0]) {
-            const newUrl = URL.createObjectURL(e.target.files[0]);
-            setAvatarArr(statu => [...statu, newUrl])
+
+            // setAvatarArr(statu => [...statu, newUrl])
             const formData = new FormData()
             formData.append("image", e.target.files[0])
-            await PhotoUploadStudent(formData, data?.id)
-                .then(() => setLoading(false))
+            await PhotoUploadStudent(formData)
+                .then((data) => {
+                    setAvatarArr(state => [...state, data])
+                    setLoading(false)
+                })
                 .catch(() => setLoading(false))
         }
     }
@@ -123,7 +128,9 @@ export default function SetStudent({ data, role }) {
                             終了しますか?
                         </p>
                         <div>
-                            <CancelBtn onClick={() => router(-1)}>
+                            <CancelBtn onClick={() => {
+                                router(-1)
+                            }}>
                                 はい
                             </CancelBtn>
                             <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }} >いいえ</BlueButtun>
@@ -266,7 +273,7 @@ export default function SetStudent({ data, role }) {
                                             className={cls.SetStudent__wrap__cartume__div}
                                             onClick={async () => {
 
-                                                await PhotoDeleteStudent({ url: e }, data?.id)
+                                                await PhotoDeleteStudent(e)
                                                     .then(() => toast('photo deleted successfully'))
                                                     .catch(() => toast('failed to upload'))
                                                 setAvatarArr(state => state.filter(el => el !== e))

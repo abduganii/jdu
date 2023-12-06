@@ -239,6 +239,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                         />
                     ))}
                     <div ref={ref} style={{ padding: "10px" }}></div>
+
                 </div>
                 <GruopList
                     data={[]}
@@ -258,7 +259,6 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                         reset2()
 
                     }} />
-
             </div>
             {
                 personId && <DeleteMadel
