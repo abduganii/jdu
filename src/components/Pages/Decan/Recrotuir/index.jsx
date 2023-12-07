@@ -157,28 +157,31 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                     リクレーターを追加
                 </BlueButtun>
             </div>
-            <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "アクション"]} />
-            {data && data?.map(e => (
-                <PersonList
-                    onClick={() => router(`/decan/recruitors/${e?.id}`)}
-                    key={e?.id}
-                    img={e?.avatar}
-                    id={e?.loginId}
-                    name={e?.firstName}
-                    gruop={e?.companyName}
-                    phone={e?.phoneNumber}
-                    email={e?.email}
-                    remove={() => setPersonId(e?.id)}
-                    update={() => {
-                        router('?updete=true')
-                        setOpenMadal(true)
-                        setPersonId(false)
-                        setPersonId1(e?.id)
-                        fitchOnePerson(e?.id)
-                    }}
-                />
-            ))}
-            <div ref={ref} style={{ padding: "10px" }}></div>
+            <div className={cls.TeacherPage__div}>
+
+                <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "アクション"]} />
+                {data && data?.map(e => (
+                    <PersonList
+                        onClick={() => router(`/decan/recruitors/${e?.id}`)}
+                        key={e?.id}
+                        img={e?.avatar}
+                        id={e?.loginId}
+                        name={`${e?.firstName} ${e?.lastName}`}
+                        gruop={e?.companyName}
+                        phone={e?.phoneNumber}
+                        email={e?.email}
+                        remove={() => setPersonId(e?.id)}
+                        update={() => {
+                            router('?updete=true')
+                            setOpenMadal(true)
+                            setPersonId(false)
+                            setPersonId1(e?.id)
+                            fitchOnePerson(e?.id)
+                        }}
+                    />
+                ))}
+                <div ref={ref} style={{ padding: "10px" }}></div>
+            </div>
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}

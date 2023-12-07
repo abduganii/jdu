@@ -88,12 +88,12 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                         />
                     ))}
 
+                    <div ref={ref} style={{ padding: "10px" }}></div>
                 </div>
                 <GruopList
                     setGrupIdIm={setGrupIdIm}
                 />
             </div>
-            <div ref={ref} style={{ padding: "10px" }}></div>
 
             {openMadal && role == "teacher" &&
                 <AddMadal

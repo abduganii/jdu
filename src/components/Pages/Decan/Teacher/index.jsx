@@ -214,31 +214,35 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     Add  Employee
                 </BlueButtun>
             </div>
-            <TopList text={["Employee", "Employee ID", "Specialisation", "Phone", "E-mail", "Actions"]} />
-            {data &&
-                data?.map(e => (
-                    <PersonList
-                        onClick={() => router(`/decan/employees/${e?.id}`)}
-                        key={e?.id}
-                        img={e?.avatar}
-                        id={e?.loginId}
-                        name={e?.firstName}
-                        gruop={e?.specialisation || "null"}
-                        phone={e?.phoneNumber}
-                        email={e?.email}
-                        remove={() => setPersonId(e?.id)}
-                        update={() => {
-                            router('?updete=true')
-                            setOpenMadal(true)
-                            setPersonId(false)
-                            setPersonId1(e?.id)
-                            fitchOnePerson(e?.id)
-                        }}
-                    />
-                ))
 
-            }
-            <div ref={ref} style={{ padding: "10px" }}></div>
+            <div className={cls.TeacherPage__div}>
+
+                <TopList text={["Employee", "Employee ID", "Specialisation", "Phone", "E-mail", "Actions"]} />
+                {data &&
+                    data?.map(e => (
+                        <PersonList
+                            onClick={() => router(`/decan/employees/${e?.id}`)}
+                            key={e?.id}
+                            img={e?.avatar}
+                            id={e?.loginId}
+                            name={`${e?.firstName} ${e?.lastName}`}
+                            gruop={e?.specialisation || "null"}
+                            phone={e?.phoneNumber}
+                            email={e?.email}
+                            remove={() => setPersonId(e?.id)}
+                            update={() => {
+                                router('?updete=true')
+                                setOpenMadal(true)
+                                setPersonId(false)
+                                setPersonId1(e?.id)
+                                fitchOnePerson(e?.id)
+                            }}
+                        />
+                    ))
+
+                }
+                <div ref={ref} style={{ padding: "10px" }}></div>
+            </div>
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}

@@ -64,7 +64,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         const fetchData = async () => {
             const res = await StudentsGetByloginId(id);
             if (res) {
-                setStudentName(res?.firstName)
+                setStudentName(`${res?.firstName} ${res.lastName}`)
             } else {
                 setStudentName("student not found")
             }
@@ -210,28 +210,30 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     リクレーターを追加
                 </BlueButtun>
             </div>
-            <TopList text={["Parents fullname", "Parent ID", "Student", "Phone", "Email", "アクション"]} />
-            {data && data?.map(e => (
-                <PersonList
-                    onClick={() => router(`/decan/parents/${e?.id}`)}
-                    key={e?.id}
-                    img={e?.avatar}
-                    id={e?.loginId}
-                    name={`${e?.firstName} ${e?.lastName}`}
-                    gruop={e?.Students?.[0].firstName}
-                    phone={e?.phoneNumber}
-                    email={e?.email}
-                    remove={() => setPersonId(e?.id)}
-                    update={() => {
-                        router('?updete=true')
-                        setOpenMadal(true)
-                        setPersonId(false)
-                        setPersonId1(e?.id)
-                        fitchOnePerson(e?.id)
-                    }}
-                />
-            ))}
-            <div ref={ref} style={{ padding: "10px" }}></div>
+            <div className={cls.TeacherPage__div}>
+                <TopList text={["Parents fullname", "Parent ID", "Student", "Phone", "Email", "アクション"]} />
+                {data && data?.map(e => (
+                    <PersonList
+                        onClick={() => router(`/decan/parents/${e?.id}`)}
+                        key={e?.id}
+                        img={e?.avatar}
+                        id={e?.loginId}
+                        name={`${e?.firstName} ${e?.lastName}`}
+                        gruop={e?.Students?.[0].firstName}
+                        phone={e?.phoneNumber}
+                        email={e?.email}
+                        remove={() => setPersonId(e?.id)}
+                        update={() => {
+                            router('?updete=true')
+                            setOpenMadal(true)
+                            setPersonId(false)
+                            setPersonId1(e?.id)
+                            fitchOnePerson(e?.id)
+                        }}
+                    />
+                ))}
+                <div ref={ref} style={{ padding: "10px" }}></div>
+            </div>
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}

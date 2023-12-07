@@ -38,7 +38,7 @@ export default function DecanRecruitorBuId({ role }) {
                     <div style={{ margin: "50px 0 16px 110px", fontSize: "16px", fontFamily: "Inter", fontWeight: "700" }}>
                         Bio
                     </div>
-                    <p style={{ margin: "16px 0 16px 110px", fontSize: "14px", fontFamily: "Inter", fontWeight: "400" }}>
+                    <p style={{ margin: "16px 0 16px 110px", width: "100%", maxWidth: "650px", fontSize: "14px", fontFamily: "Inter", fontWeight: "400" }}>
                         {data?.bio}
                     </p>
                 </> : ""

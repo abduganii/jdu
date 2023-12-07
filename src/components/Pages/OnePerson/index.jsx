@@ -21,7 +21,7 @@ const data = {
 
 }
 export default function OnePerson({ loginId, firstName, position, section, lastName, email, avatar, student, bio, work }) {
-    console.log(work)
+
     const router = useNavigate()
     return (
         <Container className={cls.OnePerson__container}>
@@ -31,7 +31,7 @@ export default function OnePerson({ loginId, firstName, position, section, lastN
             </div>
             {
                 student || student?.length ? <div className={cls.OnePerson__person}>
-                    <div className={cls.OnePerson__person__box}>
+                    <div className={cls.OnePerson__person__box} onClick={() => router(`/decan/students/${student?.[0]?.id}`)}>
                         {student?.[0].avatar ? <img
                             src={student?.[0].avatar}
                             width={60}
@@ -48,7 +48,7 @@ export default function OnePerson({ loginId, firstName, position, section, lastN
 
                     </div>
 
-                    <a href="#"> <EmailIcons2 />{student?.[0].email}</a>
+                    <a href={`mailto:${student?.[0].email}`}> <EmailIcons2 />{student?.[0].email}</a>
                     <a href="#"> <TelIcons2 /> {student?.[0].phoneNumber}</a>
                 </div> : ""
             }

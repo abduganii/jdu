@@ -81,7 +81,7 @@ export default function OneStudent({ user, role }) {
 
                         {
                             role !== "parent" ? user?.Parents?.length ? <div className={cls.OneStudent__person}>
-                                <div className={cls.OneStudent__person__box}>
+                                <div className={cls.OneStudent__person__box} onClick={() => router(`/decan/parents/${user?.Parents?.[0]?.id}`)}>
                                     {user?.Parents?.[0]?.avatar ? <img
                                         src={user?.Parents?.[0]?.avatar}
                                         width={130}
@@ -98,8 +98,7 @@ export default function OneStudent({ user, role }) {
                                     </div>
 
                                 </div>
-
-                                <a href="#"> <EmailIcons2 />{user?.Parents?.[0].email}</a>
+                                <a href={`mailto:${user?.Parents?.[0].email}`} > <EmailIcons2 />{user?.Parents?.[0].email}</a>
                                 <a href="#"> <TelIcons2 /> {user?.Parents?.[0].phoneNumber}</a>
                             </div> : "" : ""
                         }
@@ -108,7 +107,9 @@ export default function OneStudent({ user, role }) {
                 </div>
 
                 <div className={cls.OneStudent__content}>
-                    <h3 className={cls.OneStudent__title}>自己紹介</h3>
+                    {
+                        user?.bio && user?.images && <h3 className={cls.OneStudent__title}>自己紹介</h3>
+                    }
                     {
                         user?.bio && <>
                             <p className={cls.OneStudent__text}>{user?.bio}</p>

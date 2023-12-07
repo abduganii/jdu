@@ -57,7 +57,7 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
     const y = useRef()
 
     return (
-        <div className={cls.aside} style={{ padding: "24px 20px 10px 24px", margin: "10px 0 78px 0" }}>
+        <div className={cls.aside} style={{ padding: "24px 20px 10px 24px", margin: "10px 0 0 0" }}>
             <div >
                 <div className={cls.TopStudents} >
                     <div className={cls.TopStudents__wrap}>
