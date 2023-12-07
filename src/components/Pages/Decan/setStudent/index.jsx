@@ -54,6 +54,7 @@ export default function SetStudent({ data, role }) {
         setLoading(true)
         const formData = new FormData()
 
+        console.log(body?.bio)
         if (body.avatar) formData.append("avatar", body.avatar)
         if (body.firstName) formData.append("firstName", body.firstName)
         if (body.lastName) formData.append("lastName", body.lastName)
@@ -61,6 +62,7 @@ export default function SetStudent({ data, role }) {
         if (body.email) formData.append("email", body.email)
         if (body.password) formData.append("password", body.password)
         if (body.bio) formData.append("bio", body.bio)
+        if (!body.bio) formData.append("bio", "")
         if (avatarArr) formData.append("images", JSON.stringify(avatarArr))
         formData.append("desc", body.desc)
 
@@ -245,7 +247,7 @@ export default function SetStudent({ data, role }) {
                         style={{ marginTop: "10px", width: "100%" }}
                         type={"textarea"}
                         label={"Bio"}
-                        value={watchedFiles2?.bio || 'bio'}
+                        value={["null", "undefined", null, undefined].includes(watchedFiles2?.bio) ? "bio" : watchedFiles2?.bio}
                         placeholder={"bio"}
                         onChange={() => clearErrors("bio")}
                         register={{ ...register2('bio') }}
@@ -294,7 +296,7 @@ export default function SetStudent({ data, role }) {
                     type={"textarea"}
                     label={"Description"}
                     placeholder={"Description"}
-                    value={watchedFiles2?.desc || ''}
+                    value={["null", "undefined", null, undefined].includes(watchedFiles2?.desc) ? "Description" : watchedFiles2?.desc}
                     onChange={() => clearErrors("desc")}
                     register={{ ...register2('desc') }}
                 />

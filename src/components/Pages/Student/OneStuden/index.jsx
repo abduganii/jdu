@@ -108,10 +108,10 @@ export default function OneStudent({ user, role }) {
 
                 <div className={cls.OneStudent__content}>
                     {
-                        user?.bio && user?.images && <h3 className={cls.OneStudent__title}>自己紹介</h3>
+                        ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && user?.images && <h3 className={cls.OneStudent__title}>自己紹介</h3>
                     }
                     {
-                        user?.bio && <>
+                        ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && <>
                             <p className={cls.OneStudent__text}>{user?.bio}</p>
                         </>
                     }
@@ -136,7 +136,7 @@ export default function OneStudent({ user, role }) {
                                                 ))
                                             }
                                         </div>
-                                        {user?.desc && <>
+                                        {["null", "undefined", null, undefined].includes(user?.desc) || user?.desc && <>
 
                                             <p className={cls.OneStudent__text}>{user?.desc}</p>
                                         </>
