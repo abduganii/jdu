@@ -77,10 +77,7 @@ export const StudentsAdd = async (data) => {
     return response;
 }
 export const StudentsUpdate = async ( data, id ) => { 
-    const response = await api.put(`/student/${id}`, data, {
-        headers: {
-        'Content-Type': "multipart/form-data"
-    }});
+    const response = await api.put(`/student/${id}`, data);
     return response;
 }
 

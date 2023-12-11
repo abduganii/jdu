@@ -18,6 +18,7 @@ import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
 import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById, ParentAllAdd } from '../../../../services/parent'
 import { StudentsGetByloginId } from '../../../../services/student'
+import { ImageUpload } from '../../../../utils/imageUpload'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
 
@@ -47,6 +48,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setValue("lastName", res?.lastName)
             setValue("phoneNumber", res?.phoneNumber)
             setValue("loginId", res?.loginId)
+            setAvatar(data?.avatar)
             setValue("studentId", res?.Students?.[0]?.loginId)
             setValue("email", res?.email)
 
@@ -145,18 +147,8 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
         setLoading(true)
 
-        const formData = new FormData()
-        if (data.avatar) formData.append("avatar", data.avatar)
-        formData.append("firstName", data?.firstName)
-        formData.append("lastName", data?.lastName)
-        formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("loginId", data?.loginId)
-        formData.append("studentId", data?.studentId)
-        formData.append("email", data?.email)
-        formData.append("bio", data?.bio)
 
-
-        await ParentUpdate(formData, personId1)
+        await ParentUpdate(data, personId1)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -188,9 +180,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             })
     }
 
-    const hendleimg = (e) => {
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+            setValue('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }

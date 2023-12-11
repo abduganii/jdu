@@ -113,6 +113,16 @@
             line-height: normal;
             gap: 9px;
 
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            p {
+                max-width: 140px;
+                overflow: hidden;
+            }
+
             color: #0094FF;
 
             &:last-child {

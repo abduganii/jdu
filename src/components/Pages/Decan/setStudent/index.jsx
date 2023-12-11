@@ -4,25 +4,21 @@ import BlueButtun from '../../../UL/buttun/blueBtn'
 import CancelBtn from '../../../UL/buttun/cancel'
 import Container from '../../../UL/container'
 import { BusketDeleteIcons, BusketDeleteIcons2, DownloadIcons, GalaryIcons, LeftIcon, UploadIcons } from '../../../UL/icons'
-import RangeInput from '../../../UL/input/rangeInput'
-import SearchSkill from '../../../UL/input/SearchSkill'
 import AddInput from '../../../UL/input/AddInput'
 
 import React, { useEffect, useRef, useState } from 'react'
 import cls from "./SetStudent.module.scss"
 import { useNavigate } from 'react-router-dom'
-import LessonTable from '../../../UL/LassonTable'
-import SkillBtn from '../../../UL/buttun/skill'
-import { Select } from 'antd'
 import { useForm } from 'react-hook-form'
-import { LessonsAdd, LessonsUpdate } from '../../../../services/Lesson'
 import { FileUploadStudent, GetSkills, PhotoDeleteStudent, PhotoUploadStudent, StudentsUpdate } from '../../../../services/student'
 import toast, { Toaster } from 'react-hot-toast'
 import Avatar from 'react-avatar'
 import Loader from '../../../UL/loader'
-import CreditInput from '../../../UL/input/creditinput'
-import { GetCridents } from '../../../../services/statistic'
-import SertificanSkill from '../../../UL/input/sertifican/index.jsx'
+import { FileRemove } from '../../../../services/upload'
+import { ImageUpload } from '../../../../utils/imageUpload'
+
+
+
 
 export default function SetStudent({ data, role }) {
     const x = useRef()
@@ -30,9 +26,7 @@ export default function SetStudent({ data, role }) {
     const router = useNavigate()
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
-
     const [avatarArr, setAvatarArr] = useState(data?.images || [])
-
     const { register: register2, handleSubmit: handleSubmit2, setValue: setValue2, watch: watch2 } = useForm();
 
 
@@ -42,31 +36,20 @@ export default function SetStudent({ data, role }) {
         setValue2("lastName", data?.lastName)
         setValue2("loginId", data?.loginId)
         setValue2('email', data?.email)
+        setValue2('password', data?.password)
         setValue2('brithday', data?.brithday)
         setValue2('bio', data?.bio)
         setValue2("desc", data?.desc)
+        setValue2("avatar", data?.avatar)
         setAvatar(data?.avatar)
         setAvatarArr(data?.images || [])
     }, [data])
 
-
     const AddDataSubmit = async (body) => {
         setLoading(true)
-        const formData = new FormData()
 
-        console.log(body?.bio)
-        if (body.avatar) formData.append("avatar", body.avatar)
-        if (body.firstName) formData.append("firstName", body.firstName)
-        if (body.lastName) formData.append("lastName", body.lastName)
-        if (body.brithday) formData.append("brithday", body?.brithday)
-        if (body.email) formData.append("email", body.email)
-        if (body.password) formData.append("password", body.password)
-        if (body.bio) formData.append("bio", body.bio)
-        if (!body.bio) formData.append("bio", "")
-        if (avatarArr) formData.append("images", JSON.stringify(avatarArr))
-        formData.append("desc", body.desc)
 
-        await StudentsUpdate(formData, data?.id)
+        await StudentsUpdate({ images: JSON.stringify(avatarArr), ...body }, data?.id)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -77,7 +60,6 @@ export default function SetStudent({ data, role }) {
                     } else if (role == "student") {
                         router('/student/me')
                     }
-
                 }
                 setLoading(false)
             })
@@ -88,10 +70,10 @@ export default function SetStudent({ data, role }) {
             })
     }
 
-
-    const hendleimg = (e) => {
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue2('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+            setValue2('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
@@ -99,22 +81,18 @@ export default function SetStudent({ data, role }) {
 
     const hendleimg2 = async (e) => {
         if (e.target.files[0]) {
-
             // setAvatarArr(statu => [...statu, newUrl])
             const formData = new FormData()
             formData.append("image", e.target.files[0])
-            await PhotoUploadStudent(formData)
-                .then((data) => {
-                    setAvatarArr(state => [...state, data])
-                    setLoading(false)
-                })
-                .catch(() => setLoading(false))
+            const data = await ImageUpload(e.target.files[0])
+            setAvatarArr(state => [...state, data?.url])
         }
     }
     const deleteAvatar = async () => {
+
+        await FileRemove({ url: data?.avatar })
         setValue2('avatar', ' ')
         setAvatar(null)
-
     }
     return (
         <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
@@ -172,7 +150,6 @@ export default function SetStudent({ data, role }) {
                                                 width={150}
                                                 height={150}
                                                 alt="img"
-
                                             />
                                             <div className={cls.SetStudent__imgDelete} >
                                                 <div onClick={() => deleteAvatar()}>
@@ -182,7 +159,7 @@ export default function SetStudent({ data, role }) {
                                         </div> : <Avatar name={data?.firstName} size="150" round={true} />
                                     }
                                     <label >
-                                        <input className={cls.SetStudent__upload__file} type="file" onChange={(e) => hendleimg(e)} />
+                                        <input className={cls.SetStudent__upload__file} accept="image/jpeg, image/png" type="file" onChange={(e) => hendleimg(e)} />
                                         <div className={cls.SetStudent__upload__icon}>  <UploadIcons /> </div>
                                     </label>
                                 </div>
@@ -265,7 +242,7 @@ export default function SetStudent({ data, role }) {
                                     <GalaryIcons />
                                     <p>upload photo</p>
                                 </div>
-                                <input type="file" accept=" image/jpg" onChange={(e) => hendleimg2(e)} />
+                                <input type="file" accept="image/jpeg, image/png" onChange={(e) => hendleimg2(e)} />
                             </label>
                             {
                                 avatarArr && avatarArr.map((e, i) => (

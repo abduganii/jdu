@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import ExalInput from '../../../UL/input/exal'
 import { useQueryClient } from 'react-query'
+import { ImageUpload } from '../../../../utils/imageUpload'
 
 const lavozim = [
     {
@@ -34,7 +35,6 @@ const lavozim = [
         id: "masul hodim",
         name: "masul hodim",
     }
-
 ]
 
 
@@ -65,7 +65,6 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
             const res = await TeacherGetById(id);
-
             const data = await SectionGet()
             setSection(data)
 
@@ -75,18 +74,20 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
             setValue("companyName", res?.companyName)
 
             setSection1(res?.section)
+            const value = data.find(el => el?.name == res?.section)
+            setSection2(value?.specialisations)
             setSection3(res?.specialisation)
             setSection4(res?.position)
             setValue("phoneNumber", res?.phoneNumber)
             setValue("email", res?.email)
             setValue("loginId", res?.loginId)
+            setAvatar(data?.avatar)
         }
         fetchData()
             .then((err) => {
                 console.log(err);
             })
     }
-
     const AddStudentFunc = async (data) => {
         setLoading(true)
         if (exal) {
@@ -115,14 +116,12 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
-
                     } else if (res.status == 201) {
                         toast('recrutiar created')
                         setOpenMadal(false)
                     }
                     setLoading(false)
                     queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
-
                 })
                 .catch(err => {
                     if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -149,21 +148,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
     const UpdatetudentFunc = async (data) => {
         setLoading(true)
-        const formData = new FormData()
-        if (data.avatar) formData.append("avatar", data.avatar)
-        formData.append("firstName", data?.firstName)
-        formData.append("lastName", data?.lastName)
-        formData.append("email", data?.email)
-        formData.append("section", section1)
-        formData.append("specialisation", section3)
-        formData.append("position", section4)
-        formData.append("loginId", data?.loginId)
-        formData.append("isActive", true)
-        formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("bio", data?.bio)
 
-
-        await TeacherUpdate(formData, personId1)
+        await TeacherUpdate({ section: section1, specialisation: section3, position: section4, isActive: true, ...data }, personId1)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -192,9 +178,10 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                 setLoading(false)
             })
     }
-    const hendleimg = (e) => {
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+            setValue('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }

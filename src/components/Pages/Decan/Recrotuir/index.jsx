@@ -16,6 +16,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { RecruitorAdd, Recruitordelete, RecruitorGetById, RecruitorUpdate } from '../../../../services/recruter'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
+import { ImageUpload } from '../../../../utils/imageUpload'
 
 const RecruitorPage = React.forwardRef(({ data }, ref) => {
     const queryClient = useQueryClient()
@@ -47,6 +48,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
             setValue("email", res?.email)
             setValue("loginId", res?.loginId)
             setValue("bio", res?.bio)
+            setAvatar(data?.avatar)
         }
         fetchData()
             .then((err) => {
@@ -89,20 +91,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
     const UpdateStudentFunc = async (data) => {
         setLoading(true)
 
-        const formData = new FormData()
-        if (data.avatar) formData.append("avatar", data.avatar)
-        formData.append("firstName", data?.firstName)
-        formData.append("lastName", data?.lastName)
-        formData.append("companyName", data?.companyName)
-        formData.append("specialisation", data?.specialisation)
-        formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("email", data?.email)
-        formData.append("loginId", data?.loginId)
-
-        formData.append("bio", data?.bio)
-
-
-        await RecruitorUpdate(formData, personId1)
+        await RecruitorUpdate(data, personId1)
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -135,9 +124,11 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
     }
 
 
-    const hendleimg = (e) => {
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+
+            setValue('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }

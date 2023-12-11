@@ -19,6 +19,8 @@ import { StudentsUpdate } from '../../../services/student'
 import { SectionGet, TeacherUpdate } from '../../../services/teacher'
 import { ParentUpdate } from '../../../services/parent'
 import AddInput from '../../UL/input/AddInput'
+import { ImageUpload } from '../../../utils/imageUpload'
+import { FileRemove } from '../../../services/upload'
 
 const lavozim = [
     {
@@ -70,9 +72,15 @@ export default function SettingsPage({ data }) {
         setValue("brithday", data?.brithday)
         setValue("phoneNumber", data?.phoneNumber)
         setValue("specialisation", data?.specialisation)
+
         setSection1(data?.section)
         setSection3(data?.specialisation)
         setSection4(data?.position)
+
+        if (data?.role == "teacher") {
+            const value = section.find(el => el?.name == section1)
+            setSection2(value?.specialisations)
+        }
 
 
 
@@ -117,6 +125,8 @@ export default function SettingsPage({ data }) {
         if (body.email) formData.append("email", body?.email)
         if (body.loginId) formData.append("loginId", body?.loginId)
         if (body.specialisation) formData.append("specialisation", body?.specialisation)
+        if (section1) formData.append("section", section1)
+        if (section4) formData.append("position", section4)
         if (body.password) formData.append("password", body?.password)
         if (body.currentPassword) formData.append("currentPassword", body?.currentPassword)
         if (body.currentPassword) formData.append("confirmPassword", body?.confirmPassword)
@@ -266,14 +276,16 @@ export default function SettingsPage({ data }) {
         }
     }
 
-    const hendleimg = (e) => {
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+            setValue('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
 
     }
     const deleteimg = async () => {
+        await FileRemove({ url: data?.avatar })
         setValue('avatar', ' ')
         setAvatar(null)
 
@@ -281,7 +293,6 @@ export default function SettingsPage({ data }) {
 
     return (
         <>
-
             <div className={cls.SettingsPage__logout2__wrap} ref={x} onClick={(e) => {
                 if (e.target == x.current) {
                     x.current.classList.remove("displayBlock")
@@ -338,7 +349,7 @@ export default function SettingsPage({ data }) {
                                 <input
                                     className={cls.SettingsPage__upload__file}
                                     type="file"
-                                    accept=" image/jpeg"
+                                    accept="image/jpeg, image/png"
                                     onChange={(e) => hendleimg(e)}
                                 />
                                 <UploadIcons />
@@ -406,6 +417,7 @@ export default function SettingsPage({ data }) {
                                             const data = section.find(el => el?.id == e)
                                             setSection1(data?.name)
                                             setSection2(data?.specialisations)
+                                            setSection3()
                                         }}
 
                                     />
@@ -414,12 +426,13 @@ export default function SettingsPage({ data }) {
                                         type={"select"}
                                         label={"Specialisation"}
                                         placeholder={"Specialisation"}
-                                        value={section3}
+                                        value={section3 || "Specialisation"}
                                         Specialisation={section2}
 
                                         onChange={(e) => {
                                             const data = section2.find(el => el?.id == e)
                                             setSection3(data?.name)
+                                            setValue("specialisation", data?.name)
                                         }}
                                     />
 

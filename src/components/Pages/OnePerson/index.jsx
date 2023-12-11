@@ -48,7 +48,9 @@ export default function OnePerson({ loginId, firstName, position, section, lastN
 
                     </div>
 
-                    <a href={`mailto:${student?.[0].email}`}> <EmailIcons2 />{student?.[0].email}</a>
+                    <a href={`mailto:${student?.[0].email}`}> <EmailIcons2 />
+                        <p>{student?.[0].email}</p>
+                    </a>
                     <a href="#"> <TelIcons2 /> {student?.[0].phoneNumber}</a>
                 </div> : ""
             }

@@ -13,6 +13,7 @@ import cls from "./homePage.module.scss"
 import { Loginout } from '../../../../services/auth';
 import { useNavigate } from 'react-router-dom';
 import { DecanPerson } from '../../../../services/decan';
+import { ImageUpload } from '../../../../utils/imageUpload';
 
 const lavozim = [
     {
@@ -47,6 +48,8 @@ export default function HomeTechPage({ user }) {
     const [section4, setSection4] = useState()
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
+
+
     useEffect(() => {
 
         const fetchData4 = async () => {
@@ -90,53 +93,67 @@ export default function HomeTechPage({ user }) {
     }, [])
 
 
-    const UpdateTeacherFunc = async (data) => {
-        setLoading(true)
-        const formData = new FormData()
-        if (data.avatar) formData.append("avatar", data.avatar)
-        formData.append("firstName", data?.firstName)
-        formData.append("lastName", data?.lastName)
-        formData.append("email", user?.email)
-        formData.append("loginId", user?.loginId)
-        formData.append("isActive", true)
-        formData.append("section", section1)
-        formData.append("specialisation", section3)
-        formData.append("position", section4)
-        formData.append("phoneNumber", data?.phoneNumber)
-        formData.append("bio", data?.bio)
+    useEffect(() => {
+        setValue("firstName", user?.firstName)
+        setValue("lastName", user?.lastName)
+    }, [user])
 
-        await TeacherUpdate(formData, user?.id)
-            .then(res => {
-                if (res?.data?.message) {
-                    toast(res?.data?.message)
-                } else if (res.status == 203) {
-                    toast('registor seccessful')
-                    setOpenMadal(false)
-                    setAvatar(null)
-                }
-                setLoading(false)
-            })
-            .catch(err => {
-                if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                    setError('loginId', { type: 'custom', message: err.response.data.message })
+    const UpdateTeacherFunc = async (data) => {
+
+        if (section1 && section3 && section4) {
+            setLoading(true)
+            const formData = new FormData()
+            if (data.avatar) formData.append("avatar", data.avatar)
+            formData.append("firstName", data?.firstName)
+            formData.append("lastName", data?.lastName)
+            formData.append("email", user?.email)
+            formData.append("loginId", user?.loginId)
+            formData.append("isActive", true)
+            formData.append("section", section1)
+            formData.append("specialisation", section3)
+            formData.append("position", section4)
+            formData.append("phoneNumber", data?.phoneNumber)
+            formData.append("bio", data?.bio)
+
+            await TeacherUpdate(formData, user?.id)
+                .then(res => {
+                    if (res?.data?.message) {
+                        toast(res?.data?.message)
+                    } else if (res.status == 203) {
+                        toast('registor seccessful')
+                        setOpenMadal(false)
+                        setAvatar(null)
+                    }
                     setLoading(false)
-                }
-                if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                })
+                .catch(err => {
+                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setLoading(false)
+                    }
+                    if (err.response.data.message == "Validation isEmail on email failed") {
+                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        setLoading(false)
+                    } if (err.response.data.message === "email must be unique") {
+                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                    }
+                    if (err.response.data.message === "Validation len on password failed") {
+                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                    }
                     setLoading(false)
-                } if (err.response.data.message === "email must be unique") {
-                    setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                }
-                if (err.response.data.message === "Validation len on password failed") {
-                    setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                }
-                setLoading(false)
-            })
-            .finally(() => setLoading(false))
+                })
+                .finally(() => setLoading(false))
+        } else {
+            setError('section', { type: 'custom', message: "section 文字でます" })
+            setError('specialisation', { type: 'custom', message: "specialisation 文字であります" })
+            setError('position', { type: 'custom', message: "phoneNumber 文があります" })
+
+        }
     }
-    const hendleimg = (e) => {
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+            setValue('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
@@ -256,7 +273,6 @@ export default function HomeTechPage({ user }) {
             </div>
 
             {!user?.isActive && openMadal &&
-
                 <AddMadal
                     role={"Registeration"}
                     style={{ maxWidth: "775px" }}
@@ -278,7 +294,7 @@ export default function HomeTechPage({ user }) {
                             type={"text"}
                             label={"名前"}
                             placeholder={"名前"}
-
+                            alert={errors.firstName?.message}
                             onChange={() => clearErrors("firstName")}
                             style={{ marginBottom: "20px" }}
 
@@ -289,6 +305,7 @@ export default function HomeTechPage({ user }) {
                             label={"名字"}
                             placeholder={"名字"}
                             onChange={() => clearErrors("lastName")}
+                            alert={errors.lastName?.message}
                             style={{ marginBottom: "20px" }}
 
                         />
@@ -307,10 +324,12 @@ export default function HomeTechPage({ user }) {
                             value={section1}
                             style={{ marginBottom: "20px" }}
                             Specialisation={section}
+                            alert={errors.section?.message}
                             onChange={(e) => {
                                 const data = section.find(el => el?.id == e)
                                 setSection1(data?.name)
                                 setSection2(data?.specialisations)
+                                clearErrors('section')
                             }}
 
                         />
@@ -321,10 +340,12 @@ export default function HomeTechPage({ user }) {
                                 placeholder={"Specialisation"}
                                 value={section3}
                                 Specialisation={section2}
+                                alert={errors.specialisation?.message}
                                 style={{ marginBottom: "20px" }}
                                 onChange={(e) => {
                                     const data = section2.find(el => el?.id == e)
                                     setSection3(data?.name)
+                                    clearErrors("specialisation")
                                 }}
                             />
                         }
@@ -335,7 +356,11 @@ export default function HomeTechPage({ user }) {
                             value={section4}
                             style={{ marginBottom: "20px" }}
                             Specialisation={lavozim}
-                            onChange={(e) => setSection4(e)}
+                            alert={errors.position?.message}
+                            onChange={(e) => {
+                                setSection4(e)
+                                clearErrors("position")
+                            }}
 
                         />
                         <AddInput

@@ -98,7 +98,11 @@ export default function OneStudent({ user, role }) {
                                     </div>
 
                                 </div>
-                                <a href={`mailto:${user?.Parents?.[0].email}`} > <EmailIcons2 />{user?.Parents?.[0].email}</a>
+                                <a href={`mailto:${user?.Parents?.[0].email}`} > <EmailIcons2 />
+
+                                    <p>   {user?.Parents?.[0].email}</p>
+
+                                </a>
                                 <a href="#"> <TelIcons2 /> {user?.Parents?.[0].phoneNumber}</a>
                             </div> : "" : ""
                         }

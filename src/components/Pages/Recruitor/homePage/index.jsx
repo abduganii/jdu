@@ -14,6 +14,7 @@ import cls from "./homePage.module.scss"
 import { TopStudentsGet } from '../../../../services/student'
 import { Loginout } from '../../../../services/auth'
 import { useNavigate } from 'react-router-dom'
+import { ImageUpload } from '../../../../utils/imageUpload'
 
 export default function HomePage({ user }) {
 
@@ -58,6 +59,10 @@ export default function HomePage({ user }) {
 
     }, [])
 
+    useEffect(() => {
+        setValue("firstName", user?.firstName)
+        setValue("lastName", user?.lastName)
+    }, [user])
 
     const UpdateStudentFunc = async (data) => {
         setLoading(true)
@@ -106,9 +111,11 @@ export default function HomePage({ user }) {
     }
 
 
-    const hendleimg = (e) => {
+
+    const hendleimg = async (e) => {
         if (e.target.files[0]) {
-            setValue('avatar', e.target.files[0])
+            const data = await ImageUpload(e.target.files[0])
+            setValue('avatar', data?.url)
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
