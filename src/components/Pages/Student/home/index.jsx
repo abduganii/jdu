@@ -197,31 +197,31 @@ export default function HomePage({ user }) {
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q1}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>Q1</p>
+                                <p className={cls.HomePage__test2_test}>N1</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q2 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q2}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>Q2</p>
+                                <p className={cls.HomePage__test2_test}>N2</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q3 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q3}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>Q3</p>
+                                <p className={cls.HomePage__test2_test}>N3</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q4 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q4}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>Q4</p>
+                                <p className={cls.HomePage__test2_test}>N4</p>
                             </div>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q5 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
                                     {JDU?.Q5}
                                 </div>
-                                <p className={cls.HomePage__test2_test}>Q5</p>
+                                <p className={cls.HomePage__test2_test}>N5</p>
                             </div>
                         </div>
                     </div>

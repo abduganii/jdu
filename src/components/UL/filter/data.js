@@ -88,27 +88,27 @@ export const JLPT = [
 export const JDU = [
   {
     id: 0,
-    text: "Q1",
-    link: "Q1",
+    text: "N1",
+    link: "N1",
   },
   {
     id: 1,
-    text: "Q2",
-    link: "Q2",
+    text: "N2",
+    link: "N2",
   },
   {
     id: 3,
-    text: "Q3",
-    link: "Q3",
+    text: "N3",
+    link: "N3",
   },
   {
     id: 4,
-    text: "Q4",
-    link: "Q4",
+    text: "N4",
+    link: "N4",
   },
   {
     id: 5,
-    text: "Q5",
-    link: "Q5",
+    text: "N5",
+    link: "N5",
   },
 ];
