@@ -110,7 +110,7 @@ export default function OneStudent({ user, role }) {
                     </div>
                 </div>
 
-                <div className={cls.OneStudent__content}>
+                <div className={`${cls.OneStudent__content} ${role !== "parent" && user?.Parents?.length ? cls.margin : ""}`} >
                     {
                         ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && user?.images && <h3 className={cls.OneStudent__title}>自己紹介</h3>
                     }

@@ -113,6 +113,7 @@ export default function HomePage({ user }) {
         }
     }
     const router = useNavigate()
+
     return (
         <>
             <div className={cls.HomePage} >

@@ -158,6 +158,7 @@ export default function HomeTechPage({ user }) {
         }
     }
     const router = useNavigate()
+    console.log(data2?.First?.percentage)
     return (
         <>
             <div className={cls.HomePage} >
