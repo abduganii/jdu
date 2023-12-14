@@ -51,7 +51,7 @@ export default function OneStudent({ user, role }) {
                                 onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
                                 style={{ padding: "14px 30px" }}
                             >
-                                プロファイル編集
+                                プロフィール編集
                             </BlueButtun> :
                             ""
                     }
@@ -63,7 +63,7 @@ export default function OneStudent({ user, role }) {
                         id={user?.loginId}
                         name={`${user?.firstName} ${user?.lastName}`}
                         avatar={user?.avatar}
-                        year={newDate.getFullYear() - user.brithday?.split('-')[0] + "年生"}
+                        year={newDate.getFullYear() - user.brithday?.split('-')[0] + "歳"}
                         email={user?.email}
                     />
                     <div style={{ width: "100%", }}>
@@ -175,9 +175,9 @@ export default function OneStudent({ user, role }) {
                         }
                         {
                             user?.jdu ? <div className={cls.OneStudent__Test}>
-                                <p className={cls.OneStudent__Test__text}>JLPT</p>
+                                <p className={cls.OneStudent__Test__text}>JDU</p>
                                 <div className={cls.OneStudent__Test__box}>{user?.jdu ? user?.jdu : "Q"}</div>
-                                <p className={cls.OneStudent__Test__p}>Japanese Language Proficiency Test</p>
+                                <p className={cls.OneStudent__Test__p}>Japan Digital University</p>
                             </div> : <div></div>
                         }
                     </div>

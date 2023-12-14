@@ -132,7 +132,7 @@ export default function HomeTechPage({ user }) {
                         setLoading(false)
                     }
                     if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
                         setLoading(false)
                     } if (err.response.data.message === "email must be unique") {
                         setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
@@ -163,8 +163,10 @@ export default function HomeTechPage({ user }) {
         <>
             <div className={cls.HomePage} >
                 <Container className={cls.HomePage__container} >
-                    <h2 className={cls.HomePage__title}>雇用者のワークシート</h2>
-                    <p className={cls.HomePage__text}>会社のマニュアルを作成し、会社に関するすべてを追加します。</p>
+                    <h2 className={cls.HomePage__title}>JDUの学生については</h2>
+                    <p className={cls.HomePage__text}>
+                        本プラットフォームでは、学生たちの日本語のスキルを簡単に確認でき、その他の素晴らしい特徴も垣間見ることができます。学生たちの日本語のスキルは一目でわかります。彼らの自己紹介やプロフィールには、日本語での経験やライティングスキルが詳細に記載されています。学生たちは様々なバックグラウンドを持っています。留学経験や日本語の資格を持つ者から、日本企業への就職を目指す者まで、多岐にわたる才能がここに集結しています。これからの時代を担うリーダーとなる学生たち。その中でも、日本語スキルを武器にビジョンを持ち、挑戦に果敢に立ち向かう彼らがいます。
+                    </p>
                     <div className={cls.HomePage__img}>
                         {/* <img
                             src={'/Image/image1.png'}
@@ -178,29 +180,29 @@ export default function HomeTechPage({ user }) {
                 <div className={cls.HomePage__card}>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.First?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.First?.percentage}%</p>
-                        <p className={cls.HomePage__card__card_role}>Freshmen</p>
+                        {/* <p className={cls.HomePage__card__card__text}>Percent: {+data2?.First?.percentage}%</p> */}
+                        <p className={cls.HomePage__card__card_role}>1年生</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.Second?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Second?.percentage}%</p>
-                        <p className={cls.HomePage__card__card_role}>Second year</p>
+                        {/* <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Second?.percentage}%</p> */}
+                        <p className={cls.HomePage__card__card_role}>2年生</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.Third?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Third?.percentage}%</p>
-                        <p className={cls.HomePage__card__card_role}>Third year</p>
+                        {/* <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Third?.percentage}%</p> */}
+                        <p className={cls.HomePage__card__card_role}>3年生</p>
                     </div>
                     <div className={cls.HomePage__card__card}>
                         <h2 className={cls.HomePage__card__card__title}>{data2?.Fourth?.count}</h2>
-                        <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Fourth?.percentage}%</p>
-                        <p className={cls.HomePage__card__card_role}>Fouth year</p>
+                        {/* <p className={cls.HomePage__card__card__text}>Percent: {+data2?.Fourth?.percentage}%</p> */}
+                        <p className={cls.HomePage__card__card_role}>4年生</p>
                     </div>
                 </div>
                 <div className={cls.HomePage__chart}>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>JLPT certificate</h3>
-                        <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
+                        <h3 className={cls.HomePage__chart__title}>JLPT</h3>
+                        <p className={cls.HomePage__chart__text}>Japanese-Language Proficiency Test</p>
                         <div className={cls.HomePage__test__wrap} >
                             <div>
                                 <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
@@ -235,8 +237,8 @@ export default function HomeTechPage({ user }) {
                         </div>
                     </div>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
-                        <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
+                        <h3 className={cls.HomePage__chart__title}>JDU</h3>
+                        <p className={cls.HomePage__chart__text}>Japan Digital University</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>
@@ -275,7 +277,7 @@ export default function HomeTechPage({ user }) {
 
             {!user?.isActive && openMadal &&
                 <AddMadal
-                    role={"Registeration"}
+                    role={"申し込み"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={
                         handleSubmit(UpdateTeacherFunc)}
@@ -312,16 +314,16 @@ export default function HomeTechPage({ user }) {
                         />
                         <AddInput
                             type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
+                            label={"ID"}
+                            placeholder={"ID"}
                             value={user?.loginId || ""}
                             style={{ marginBottom: "20px" }}
                             disabled={true}
                         />
                         <AddInput
                             type={"select"}
-                            label={"Bo’lim"}
-                            placeholder={"Bo’lim"}
+                            label={"部署"}
+                            placeholder={"部署"}
                             value={section1}
                             style={{ marginBottom: "20px" }}
                             Specialisation={section}
@@ -337,8 +339,8 @@ export default function HomeTechPage({ user }) {
                         {
                             user?.role == "teacher" && <AddInput
                                 type={"select"}
-                                label={"Specialisation"}
-                                placeholder={"Specialisation"}
+                                label={"分野"}
+                                placeholder={"分野"}
                                 value={section3}
                                 Specialisation={section2}
                                 alert={errors.specialisation?.message}
@@ -352,8 +354,8 @@ export default function HomeTechPage({ user }) {
                         }
                         <AddInput
                             type={"select"}
-                            label={"Lavozimi"}
-                            placeholder={"Lavozimir"}
+                            label={"役職"}
+                            placeholder={"役職"}
                             value={section4}
                             style={{ marginBottom: "20px" }}
                             Specialisation={lavozim}
@@ -366,8 +368,8 @@ export default function HomeTechPage({ user }) {
                         />
                         <AddInput
                             type={"text"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             value={user?.email || ''}
 
                             style={{ marginBottom: "20px" }}
@@ -377,8 +379,8 @@ export default function HomeTechPage({ user }) {
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "名前は必要です！" }) }}
                             type={"text"}
-                            label={"phoneNumber"}
-                            placeholder={"phoneNumber"}
+                            label={"電話番号"}
+                            placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}
                             alert={errors.phoneNumber?.message}
                             onChange={() => clearErrors("firstName")}

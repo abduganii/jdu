@@ -198,13 +198,13 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                 }}>
                     <PlusIcon />
-                    Add  Employee
+                    職員を追加
                 </BlueButtun>
             </div>
 
             <div className={cls.TeacherPage__div}>
 
-                <TopList text={["Employee", "Employee ID", "Specialisation", "Phone", "E-mail", "Actions"]} />
+                <TopList text={["職員", "ID", "部署", "電話番号", "電子メール", "アクション"]} />
                 {data &&
                     data?.map(e => (
                         <PersonList
@@ -237,7 +237,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     avater={oneStuednt?.specialisation}
                     role={'teacher'}
                     progress={oneStuednt?.progress}
-                    years={"2years"}
+                    years={""}
                     remove={async () => {
                         setLoading(true)
                         await Teacherdelete(oneStuednt?.id)
@@ -266,7 +266,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
             {
                 openMadal && query == "true" &&
                 <AddMadal
-                    role={"Update employees"}
+                    role={"職員を変更"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={handleSubmit(UpdatetudentFunc)}
                     closeMadal={() => {
@@ -304,8 +304,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
+                            label={"ID"}
+                            placeholder={"ID"}
                             value={watchedFiles?.loginId || ''}
                             alert={errors.loginId?.message}
                             style={{ marginBottom: "20px" }}
@@ -313,8 +313,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             type={"select"}
-                            label={"Bo’lim"}
-                            placeholder={"Bo’lim"}
+                            label={"部署"}
+                            placeholder={"部署"}
                             value={section1}
                             style={{ marginBottom: "20px" }}
                             Specialisation={section}
@@ -327,8 +327,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             type={"select"}
-                            label={"Specialisation"}
-                            placeholder={"Specialisation"}
+                            label={"職員"}
+                            placeholder={"職員"}
                             value={section3}
                             Specialisation={section2}
                             style={{ marginBottom: "20px" }}
@@ -340,8 +340,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             type={"select"}
-                            label={"Lavozim"}
-                            placeholder={"Lavozim"}
+                            label={"役職"}
+                            placeholder={"役職"}
                             value={section4}
                             style={{ marginBottom: "20px" }}
                             Specialisation={lavozim}
@@ -351,8 +351,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"text"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             value={watchedFiles?.email || ''}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
@@ -364,8 +364,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={{ ...register('phoneNumber', { required: "名前は必要です！" }) }}
                             type={"text"}
-                            label={"phoneNumber"}
-                            placeholder={"phoneNumber"}
+                            label={"電話番号"}
+                            placeholder={"電話番号"}
                             value={watchedFiles?.phoneNumber || ''}
                             alert={errors.phoneNumber?.message}
                             onChange={() => clearErrors("firstName")}
@@ -380,7 +380,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
             {
                 openMadal && query == "false" &&
                 <AddMadal
-                    role={"Add employees"}
+                    role={"職員を追加   "}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => setOpenMadal(false)}>
 
@@ -393,7 +393,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                                 onChange={(e) => setRole(e.target.value)}
                             />
-                            <p>  Teacher</p>
+                            <p>  先生</p>
                         </label>
                         <label>
                             <input
@@ -403,7 +403,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                                 checked={role == "staff" ? true : false}
                                 onChange={(e) => setRole(e.target.value)}
                             />
-                            <p>Employee</p>
+                            <p>一般の職員</p>
                         </label>
                     </div>
                     <div className={cls.TeacherPage__addInputs}>
@@ -423,8 +423,8 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"text"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             style={{ marginBottom: "20px" }}
                             onChange={() => clearErrors("loginId")}
                             alert={errors.email?.message}

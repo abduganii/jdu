@@ -75,7 +75,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
                     setLoading(false)
                 } if (err.response.data.message === "email must be unique") {
                     setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
@@ -111,7 +111,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
                     setLoading(false)
                 } if (err.response.data.message === "email must be unique") {
                     setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
@@ -150,7 +150,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
             </div>
             <div className={cls.TeacherPage__div}>
 
-                <TopList text={["リクルーター", "ID", "会社", "電話番号", "メール", "アクション"]} />
+                <TopList text={["リクルーター", "ID", "会社", "電話番号", "電子メール", "アクション"]} />
                 {data && data?.map(e => (
                     <PersonList
                         onClick={() => router(`/decan/recruitors/${e?.id}`)}
@@ -208,7 +208,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
             }
             {openMadal && query == 'true' &&
                 <AddMadal
-                    role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
+                    role={`${query == 'true' ? "リクルーターを変更" : "リクルーターの追加"} `}
                     OnSubmit={handleSubmit(UpdateStudentFunc)}
                     style={{ maxWidth: "775px" }}
                     closeMadal={() => {
@@ -246,8 +246,8 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
-                            label={"Id"}
-                            placeholder={"Id"}
+                            label={"ID"}
+                            placeholder={"ID"}
                             value={watchedFiles?.loginId || ''}
                             geterat={true}
                             loginGenerate={(e) => setValue("loginId", e)}
@@ -280,8 +280,8 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"text"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             value={watchedFiles?.email || ''}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
@@ -292,7 +292,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
             }
             {openMadal && query == 'false' &&
                 <AddMadal
-                    role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
+                    role={`${query == 'true' ? "リクルーターを更新" : "リクルーターの追加"} `}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
@@ -316,14 +316,16 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"text"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
                         />
                     </div>
-                    <p className={cls.TeacherPage__inputtext}>By creating a recruitor, you will immediately add this recruitor to the recruitor page.</p>
+                    <p className={cls.TeacherPage__inputtext}>
+                        リクルーターを追加すると、そのリクルーターがすぐにリクルーターページに追加されます。
+                    </p>
                 </AddMadal>
             }
             <Toaster />

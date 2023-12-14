@@ -41,10 +41,10 @@ export default function LogoutPage() {
                             <p className={cls.Form__idtext}>パスワードの変更</p>
                             <LoginInput
                                 type={'text'}
-                                placeholder={"メールアドレスを入力"}
+                                placeholder={"電子メールアドレスを入力"}
                                 style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "50px" }}
                                 alert={errors.email?.message}
-                                register={{ ...register("email", { required: "メールは必要です！" }) }}
+                                register={{ ...register("email", { required: "電子メールは必要です！" }) }}
                             />
                             {/* <p className={cls.Form__forget} onClick={() => router('/auth/login')}>Back</p> */}
                             <ButtunLogin type='submit'>送信</ButtunLogin>

@@ -18,10 +18,10 @@ export default function Filter({ page, back }) {
     const [inoutVal, SetInoutVal] = useState()
     const [data, SetData] = useState([])
     const [inoutVal1, SetInoutVal1] = useState()
-    const [yearRateText, setRateYears] = useState("コース")
+    const [yearRateText, setRateYears] = useState("学年")
     const [JLPTText, setJLPTText] = useState("JLPT")
     const [JDUText, setJDUYears] = useState("JDU")
-    const [specialisationText, setSpecialisation] = useState("specialisation")
+    const [specialisationText, setSpecialisation] = useState("役職")
     const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
@@ -47,7 +47,7 @@ export default function Filter({ page, back }) {
         })
 
         data.forEach(e => {
-            if (e?.name == params.get('specialisation')) {
+            if (e?.name == params.get('役職')) {
                 setSpecialisation(e?.name)
             }
         })
@@ -80,8 +80,8 @@ export default function Filter({ page, back }) {
                 setJLPTText('JLPT')
                 setJDUYears('JDU')
                 setN(false)
-                setRateYears("コース")
-                setSpecialisation("specialisation")
+                setRateYears("学年")
+                setSpecialisation("役職")
                 setRateRate("人気")
             }}>
                 {!cahneSet || params.get('group') ? <CloseIcon /> : <FilterIcon />}
@@ -164,7 +164,7 @@ export default function Filter({ page, back }) {
                         setY(true)
                         SetCahnegSet(false)
                     }}>
-                        <p className={cls.Filter__Select__p}>{params.get('role') || "role"}</p>
+                        <p className={cls.Filter__Select__p}>{params.get('職員') || "職員"}</p>
                         <img
                             src={'/Image/Icons.svg'}
                             width={16}
@@ -176,7 +176,7 @@ export default function Filter({ page, back }) {
                                 <p
                                     key={e?.id}
                                     className={`${cls.Filter__Select__dropdown__text}
-                                      ${params.get('role') == e?.text && cls.Filter__Select__dropdown__textActive1}`}
+                                      ${params.get('職員') == e?.text && cls.Filter__Select__dropdown__textActive1}`}
                                     onClick={() => {
                                         setSearchParams({ ...paramsToObject(params.entries()), role: e?.link })
                                         SetCahnegSet(true)
@@ -205,7 +205,7 @@ export default function Filter({ page, back }) {
                                 <p
                                     key={e?.id}
                                     className={`${cls.Filter__Select__dropdown__text}
-                                      ${params.get('specialisation') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
+                                      ${params.get('役職') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
                                     onClick={() => {
                                         setSearchParams({ ...paramsToObject(params.entries()), specialisation: e?.name })
                                         SetCahnegSet(true)

@@ -19,17 +19,17 @@ export const filterRate = [
 export const TeacherRate = [
   {
     id: 2,
-    text: "all",
+    text: "全て",
     link: "",
   },
   {
     id: 0,
-    text: "teacher",
+    text: "先生",
     link: "teacher",
   },
   {
     id: 1,
-    text: "staff",
+    text: "一般の職員",
     link: "staff",
   },
 ];

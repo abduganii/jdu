@@ -59,19 +59,19 @@ export default function DeleteMadel({ id, orginalId, defaultGruop, GroupChange, 
             {...other}>
             <div className={cls.DeleteMadel__wrap}>
                 <h3 className={cls.DeleteMadel__top}>
-                    {GroupChange ? "Change Gruop " : role == "student" ? "学生を削除" : role == "decan" ? "" : "リクルーターを削除"}
+                    {GroupChange ? "グループを変更 " : role == "student" ? "学生を削除" : role == "decan" ? "" : "ユーザーを削除"}
                 </h3>
                 <div className={cls.DeleteMadel__content}>
                     <Person name={name} year={years} role={role} avatar={avater} id={id} />
                     {
                         GroupChange ? <>
                             <h3 className={cls.Gruop__title}>
-                                Do you want to Change this students group?
+                                この学生のグループを変更しますか?
                             </h3>
 
                             <AddInput
                                 type={"select"}
-                                label={"Choose group"}
+                                label={"グループを選択してください"}
                                 Specialisation={data}
                                 value={gruopID}
                                 placeholder={"Choose group"}
@@ -80,11 +80,11 @@ export default function DeleteMadel({ id, orginalId, defaultGruop, GroupChange, 
                             />
                         </> : <>
                             <h3 className={cls.DeleteMadel__agree}>
-                                {role == "student" ? "この学生を削除しますか？" : role == "decan" ? "" : "このリクルーターを削除しますか？"}
+                                {role == "student" ? "この学生を削除しますか？" : role == "decan" ? "" : "このユーザーを削除しますか？"}
                             </h3>
                             <p p className={cls.DeleteMadel__text}>
                                 {role === "student" ? "学生を削除すると、その学生はすぐに学生アーカイブに追加されます。" :
-                                    role == "decan" ? "リクルーターを削除すると、そのリクルーターはすぐにリクルーターアーカイブに追加されます。"
+                                    role == "decan" ? "ユーザーを削除すると、そのリクルーターはすぐにリクルーターアーカイブに追加されます。"
                                         : ""
                                 }
                             </p>

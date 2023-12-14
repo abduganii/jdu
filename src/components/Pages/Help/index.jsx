@@ -24,8 +24,8 @@ export default function HelpPage() {
     }, [])
     return (
         <Container className={cls.HelpPage__container}>
-            <h3 className={cls.HelpPage__title}>システムについて</h3>
-            <p className={cls.HelpPage__text}>このシステムは、才能のある学生を特定し、学生の出席状況を監視するのに役立ちます。また、学生に関するすべての情報を1か所に収集し、1か所で確認できるようになります。さらに、学生の教育ローンを表示および管理するのに便利です。学生にとっては、お知らせやニュースを1か所から配信できるのは便利な点です。</p>
+            {/* <h3 className={cls.HelpPage__title}>システムについて</h3> */}
+            {/* <p className={cls.HelpPage__text}>このシステムは、才能のある学生を特定し、学生の出席状況を監視するのに役立ちます。また、学生に関するすべての情報を1か所に収集し、1か所で確認できるようになります。さらに、学生の教育ローンを表示および管理するのに便利です。学生にとっては、お知らせやニュースを1か所から配信できるのは便利な点です。</p> */}
 
             <h2 className={cls.HelpPage__faq}>FAQ</h2>
             <div>
