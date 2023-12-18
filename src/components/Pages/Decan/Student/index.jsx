@@ -71,7 +71,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
     const { register: register2, clearErrors: clearErrors2, handleSubmit: handleSubmit2, setError: setError2, setValue: setValue2, reset: reset2, watch: watch2, formState: { errors2 } } = useForm();
     const watchedFiles = watch2()
-
+    const regex = /@jdu\.uz$/g;
 
     const fitchOnePerson1 = (id) => {
         setGruopId(id)
@@ -165,43 +165,47 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     setLoading(false)
                 })
         } else {
-            const formData = new FormData()
-            formData.append("loginId", e?.loginId)
-            formData.append("email", e?.email)
-            if (groupIdim) formData.append("groupId", groupIdim)
-
-            await StudentsAdd(formData)
-                .then(res => {
-                    if (res?.data?.message) {
+            if (regex.test(e?.email)) {
+                const formData = new FormData()
+                formData.append("loginId", e?.email?.slice(0, -7))
+                formData.append("email", e?.email)
+                if (groupIdim) formData.append("groupId", groupIdim)
+                await StudentsAdd(formData)
+                    .then(res => {
+                        if (res?.data?.message) {
+                            setLoading(false)
+                        }
+                        if (res.status == 201) {
+                            toast('Student created')
+                            setOpenMadal(false)
+                            reset()
+                            setLoading(false)
+                        }
+                        queryClient.invalidateQueries(['student', params.get('Group'), params.get('groups'), params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                            setError('email', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+                            setLoading(false)
+                        }
+                        if (err.response.data.message == "Validation isEmail on email failed") {
+                            setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                            setLoading(false)
+                        } if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes("type integer")) {
+                            setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
+                        }
                         setLoading(false)
-                    }
-                    if (res.status == 201) {
-                        toast('Student created')
-                        setOpenMadal(false)
-                        reset()
-                        setLoading(false)
-                    }
-                    queryClient.invalidateQueries(['student', params.get('Group'), params.get('groups'), params.get('group'), params.get('rate'), params.get('year'), params.get('search')])
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
-                        setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
-                        setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    if (err.response.data.message.includes("type integer")) {
-                        setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
-                    }
-                    setLoading(false)
-                })
+                    })
+            } else {
+                setLoading(false)
+                setError('email', { type: 'custom', message: "email must include jdu.uz" })
+            }
         }
     }
 
@@ -324,24 +328,13 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
                     <div className={cls.StudentPage__addInputs}>
                         <AddInput
-                            register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"text"}
-                            label={"ID"}
-                            placeholder={"ID"}
-                            alert={errors.loginId?.message}
-                            onChange={() => clearErrors("loginId")}
-                            style={{ marginBottom: "20px" }}
-                            disabled={exal ? true : false}
-                        />
-
-                        <AddInput
                             register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"メール"}
                             placeholder={"メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px" }}
+                            style={{ marginBottom: "20px", maxWidth: "100%" }}
                             disabled={exal ? true : false}
                         />
                     </div>

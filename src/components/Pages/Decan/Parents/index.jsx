@@ -95,7 +95,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         setLoading(false)
                     }
 
-
                     setexal(null)
                 })
                 .catch(err => {
@@ -104,24 +103,22 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                 })
         } else {
             setLoading(true)
-            await ParentAdd(data)
+            await ParentAdd({ loginId: data?.email?.substring(0, data?.email?.indexOf('@')), ...data })
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
-
                     } else if (res.status == 201) {
                         toast('parent created')
                         setOpenMadal(false)
-
                     }
-
                     setLoading(false)
                     queryClient.invalidateQueries(['parent', params.get('search')])
 
                 })
                 .catch(err => {
+                    setLoading(false)
                     if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: err.response.data.message })
+                        setError('email', { type: 'custom', message: err.response.data.message })
                         setLoading(false)
                     }
                     if (err.response.data.message.includes('StudentId')) {
@@ -146,8 +143,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     const UpdateStudentFunc = async (data) => {
 
         setLoading(true)
-
-
         await ParentUpdate(data, personId1)
             .then(res => {
                 if (res?.data?.message) {
@@ -160,7 +155,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                 }
                 setLoading(false)
                 queryClient.invalidateQueries(['parent', params.get('search')])
-
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -187,8 +181,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
-
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
@@ -335,7 +327,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"メール"}
                             placeholder={"メール"}
                             value={watchedFiles?.email || ''}
@@ -359,26 +351,13 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     }}> <div className={cls.TeacherPage__addInputs}>
 
                         <AddInput
-                            register={{ ...register('loginId') }}
-                            type={"text"}
-                            label={"ID"}
-                            placeholder={"ID"}
-                            geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
-                            alert={errors.loginId?.message}
-                            onChange={() => clearErrors("loginId")}
-                            style={{ marginBottom: "20px" }}
-                            disabled={exal ? true : false}
-                        />
-
-                        <AddInput
                             register={{ ...register('email') }}
-                            type={"text"}
+                            type={"email"}
                             label={"メール"}
                             placeholder={"メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px" }}
+                            style={{ marginBottom: "20px", maxWidth: "100%" }}
                             disabled={exal ? true : false}
                         />
                     </div>

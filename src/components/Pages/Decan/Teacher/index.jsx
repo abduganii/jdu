@@ -62,6 +62,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
+    const regex = /@jdu\.uz$/g;
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
             const res = await TeacherGetById(id);
@@ -112,36 +113,41 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     setExalError(true)
                 })
         } else {
-            await TeacherAdd({ role: role, ...data })
-                .then(res => {
-                    if (res?.data?.message) {
-                        toast(res?.data?.message)
-                    } else if (res.status == 201) {
-                        toast('recrutiar created')
-                        setOpenMadal(false)
-                    }
-                    setLoading(false)
-                    queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+            if (regex.test(data?.email)) {
+                await TeacherAdd({ role: role, loginId: data?.email?.slice(0, -7), ...data })
+                    .then(res => {
+                        if (res?.data?.message) {
+                            toast(res?.data?.message)
+                        } else if (res.status == 201) {
+                            toast('recrutiar created')
+                            setOpenMadal(false)
+                        }
                         setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                            setError('email', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+                            setLoading(false)
+                        }
+                        if (err.response.data.message == "Validation isEmail on email failed") {
+                            setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                            setLoading(false)
+                        } if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes("type integer")) {
+                            setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
+                        }
                         setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    if (err.response.data.message.includes("type integer")) {
-                        setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
-                    }
-                    setLoading(false)
-                })
+                    })
+            } else {
+                setLoading(false)
+                setError('email', { type: 'custom', message: "email must include jdu.uz" })
+            }
         }
     }
 
@@ -350,7 +356,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"メール"}
                             placeholder={"メール"}
                             value={watchedFiles?.email || ''}
@@ -408,25 +414,15 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     </div>
                     <div className={cls.TeacherPage__addInputs}>
 
-                        <AddInput
-                            register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"text"}
-                            label={"ID"}
-                            placeholder={"ID"}
-                            style={{ marginBottom: "20px" }}
-                            onChange={() => clearErrors("loginId")}
-                            alert={errors.loginId?.message}
-                            value={watchedFiles?.loginId || ''}
-                            disabled={exal ? true : false}
-                        />
+
 
                         <AddInput
                             register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"メール"}
                             placeholder={"メール"}
-                            style={{ marginBottom: "20px" }}
-                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px", maxWidth: "100%" }}
+                            onChange={() => clearErrors("email")}
                             alert={errors.email?.message}
                             value={watchedFiles?.email || ''}
                             disabled={exal ? true : false}
