@@ -57,6 +57,19 @@ export const YearsRate = [
   },
 ];
 
+export const YearsRate1 = [
+ 
+  {
+    id: 3,
+    text: "3年生",
+    link: "Third",
+  },
+  {
+    id: 4,
+    text: "4年生",
+    link: "Fourth",
+  },
+];
 
 export const JLPT = [
   {

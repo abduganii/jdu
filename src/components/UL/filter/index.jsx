@@ -7,7 +7,7 @@ import paramsToObject from '../../../utils/paramsToObject.js'
 import BackBtn from '../buttun/backBtn/index.jsx'
 import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
 
-import { filterRate, YearsRate, TeacherRate, JLPT, JDU } from './data.js'
+import { filterRate, YearsRate, YearsRate1, TeacherRate, JLPT, JDU } from './data.js'
 
 import cls from "./filter.module.scss"
 
@@ -219,7 +219,7 @@ export default function Filter({ page, back }) {
                 </>
             }
             {
-                page == "student" && <>
+                page == "student" | page == "student2" && <>
                     <div className={cls.Filter__Select} onClick={() => {
                         setY(true)
                         setW(true)
@@ -258,22 +258,42 @@ export default function Filter({ page, back }) {
                             objectFit="contain"
                         />
                         <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
-                            {YearsRate?.map(e => (
-                                <p
-                                    key={e?.id}
-                                    className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
-                                    onClick={() => {
-                                        setH(false)
-                                        setY(false)
-                                        setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
-                                        SetCahnegSet(false)
 
-                                    }}
 
-                                >
-                                    {e.text}
-                                </p>
-                            ))}
+                            {
+                                page == "student" ? YearsRate?.map(e => (
+                                    <p
+                                        key={e?.id}
+                                        className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                        onClick={() => {
+                                            setH(false)
+                                            setY(false)
+                                            setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
+                                            SetCahnegSet(false)
+
+                                        }}
+
+                                    >
+                                        {e.text}
+                                    </p>
+                                )) :
+                                    YearsRate1?.map(e => (
+                                        <p
+                                            key={e?.id}
+                                            className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                            onClick={() => {
+                                                setH(false)
+                                                setY(false)
+                                                setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
+                                                SetCahnegSet(false)
+
+                                            }}
+
+                                        >
+                                            {e.text}
+                                        </p>
+                                    ))
+                            }
 
                         </div>
                     </div>
