@@ -85,7 +85,7 @@ export default function StudentList({ isSelcted, avatar, name, gruop, id, loginI
             ></div>
             <ListModal
                 role={"student"}
-                lebel={color ? "取り消す" : " お気に入り"}
+                lebel={color ? "取り消す" : " 気になる"}
                 select={(e) => {
                     if (color) {
                         StudentSelectDel(id)

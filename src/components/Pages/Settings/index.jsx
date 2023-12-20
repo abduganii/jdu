@@ -407,9 +407,9 @@ export default function SettingsPage({ data }) {
                                     <SettingsInput
                                         className={cls.SettingsPage__inputs__wrap}
                                         type={"select"}
-                                        label={"Bo’lim"}
+                                        label={"部署"}
 
-                                        placeholder={"Bo’lim"}
+                                        placeholder={"部署"}
                                         value={section1}
 
                                         Specialisation={section}
@@ -424,8 +424,8 @@ export default function SettingsPage({ data }) {
                                     <SettingsInput
                                         className={cls.SettingsPage__inputs__wrap}
                                         type={"select"}
-                                        label={"Specialisation"}
-                                        placeholder={"Specialisation"}
+                                        label={"専門"}
+                                        placeholder={"専門"}
                                         value={section3 || "Specialisation"}
                                         Specialisation={section2}
 
@@ -439,8 +439,8 @@ export default function SettingsPage({ data }) {
                                     <SettingsInput
                                         className={cls.SettingsPage__inputs__wrap}
                                         type={"select"}
-                                        label={"Lavozimi"}
-                                        placeholder={"Lavozimir"}
+                                        label={"役職"}
+                                        placeholder={"役職"}
                                         value={section4}
 
                                         Specialisation={lavozim}
@@ -483,9 +483,9 @@ export default function SettingsPage({ data }) {
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
                                     type={"date"}
-                                    label={"brithday"}
-                                    placeholder={"brithday"}
-                                    register={{ ...register("brithday", { required: "電話番号は必要です！" }) }}
+                                    label={"生年月日"}
+                                    placeholder={"生年月日"}
+                                    register={{ ...register("生年月日", { required: "電話番号は必要です！" }) }}
 
                                     alert={errors.brithday?.message}
                                     onChange={() => clearErrors("brithday")}
@@ -504,10 +504,10 @@ export default function SettingsPage({ data }) {
                             }
                             <SettingsInput
                                 className={cls.SettingsPage__inputs__wrap}
-                                label={"メール"}
-                                placeholder={"メール"}
+                                label={"電子メール"}
+                                placeholder={"電子メール"}
                                 type={"email"}
-                                register={{ ...register("email", { required: "メールは必要です！" }) }}
+                                register={{ ...register("email", { required: "電子メールは必要です！" }) }}
                                 alert={errors.email?.message}
                                 onChange={() => clearErrors("email")}
                                 disabled={true}
@@ -526,8 +526,8 @@ export default function SettingsPage({ data }) {
 
                             {
                                 data?.role == "recruitor" && <AddInput
-                                    label={"Bio"}
-                                    placeholder={"Bio"}
+                                    label={"自己紹介"}
+                                    placeholder={"自己紹介"}
                                     type={"textarea"}
                                     register={{ ...register("bio", { required: "ログインIDは必要です!" }) }}
                                     alert={errors.bio?.message}
@@ -589,20 +589,20 @@ export default function SettingsPage({ data }) {
 
                     {data?.role == 'decan' &&
                         <>
-                            <p className={cls.SettingsPage__passsword}>JDU CONTACTS</p>
+                            <p className={cls.SettingsPage__passsword}>JDUの連絡先</p>
                             <div className={cls.SettingsPage__passsword__wrap}>
 
                                 <div className={cls.SettingsPage__passsword__div}>
                                     <SettingsInput
 
-                                        label={"email"}
+                                        label={"電子メール"}
                                         placeholder={"email"}
                                         type={"email"}
                                         register={{ ...register("emailInfo") }}
                                     />
                                     <SettingsInput
 
-                                        label={"Phone number"}
+                                        label={"電話番号"}
                                         placeholder={"number"}
                                         type={"text"}
                                         register={{ ...register("phoneNumber") }}
@@ -610,21 +610,21 @@ export default function SettingsPage({ data }) {
                                     <SettingsInput
                                         className={cls.SettingsPage__passsword__time}
                                         style={{ maxWidth: "105px" }}
-                                        label={"start time"}
+                                        label={"仕事開始"}
                                         type={"time"}
                                         register={{ ...register("startTime") }}
                                     />
                                     <SettingsInput
                                         className={cls.SettingsPage__passsword__time}
                                         style={{ maxWidth: "105px" }}
-                                        label={"time to finish"}
+                                        label={"仕事完了"}
                                         type={"time"}
                                         register={{ ...register("endTime") }}
                                     />
                                 </div>
                                 <SettingsInput
                                     style={{ maxWidth: "100%" }}
-                                    label={"Location"}
+                                    label={"場所"}
                                     placeholder={"Location"}
                                     type={"Location"}
                                     register={{ ...register("location") }}

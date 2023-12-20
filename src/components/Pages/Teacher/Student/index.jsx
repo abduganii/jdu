@@ -65,14 +65,14 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                         setOpenMadal(true)
                         setexal(null)
                     }}>
-                        Mark for semester
+                        日本語能力試験を追加
                     </BlueButtun>
                 }
             </div>
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList2 text={["学生", "ID", "グループ", "レート", "スキル", "アクション"]} />
+                    <TopList2 text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList

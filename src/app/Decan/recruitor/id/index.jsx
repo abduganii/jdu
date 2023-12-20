@@ -36,7 +36,7 @@ export default function DecanRecruitorBuId({ role }) {
             {
                 data?.bio && data.bio !== "undefined" ? <>
                     <div style={{ margin: "50px 0 16px 110px", fontSize: "16px", fontFamily: "Inter", fontWeight: "700" }}>
-                        Bio
+                        自己紹介
                     </div>
                     <p style={{ margin: "16px 0 16px 110px", width: "100%", maxWidth: "650px", fontSize: "14px", fontFamily: "Inter", fontWeight: "400" }}>
                         {data?.bio}

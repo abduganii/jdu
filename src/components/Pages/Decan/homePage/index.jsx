@@ -58,8 +58,10 @@ export default function HomePage() {
         <>
             <div className={cls.HomePage} >
                 <Container className={cls.HomePage__container} >
-                    <h2 className={cls.HomePage__title}>雇用者のワークシート</h2>
-                    <p className={cls.HomePage__text}>会社のマニュアルを作成し、会社に関するすべてを追加します。</p>
+                    <h2 className={cls.HomePage__title}>JDUの学生については</h2>
+                    <p className={cls.HomePage__text}>
+                        本プラットフォームでは、学生たちの日本語のスキルを簡単に確認でき、その他の素晴らしい特徴も垣間見ることができます。学生たちの日本語のスキルは一目でわかります。彼らの自己紹介やプロフィールには、日本語での経験やライティングスキルが詳細に記載されています。学生たちは様々なバックグラウンドを持っています。留学経験や日本語の資格を持つ者から、日本企業への就職を目指す者まで、多岐にわたる才能がここに集結しています。これからの時代を担うリーダーとなる学生たち。その中でも、日本語スキルを武器にビジョンを持ち、挑戦に果敢に立ち向かう彼らがいます。
+                    </p>
                     <div className={cls.HomePage__img}>
                         {/* <img
                             src={'/Image/image1.png'}
@@ -75,8 +77,8 @@ export default function HomePage() {
                     {
                         data && data?.map(e => (
                             <div className={cls.HomePage__card__card}>
-                                <h2 className={cls.HomePage__card__card__title}>{e?.count}<span> /{e?.inActive} inActive</span></h2>
-                                <p className={cls.HomePage__card__card__text}>User percentage: {e?.percentage}%</p>
+                                <h2 className={cls.HomePage__card__card__title}>{e?.count}<span> /{e?.inActive} 非活性</span></h2>
+                                {/* <p className={cls.HomePage__card__card__text}>User percentage: {e?.percentage}%</p> */}
                                 <p className={cls.HomePage__card__card_role}>{e?.type}</p>
                             </div>
                         ))
@@ -84,8 +86,8 @@ export default function HomePage() {
                 </div>
                 <div className={cls.HomePage__chart}>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>JLPT certificate</h3>
-                        <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
+                        <h3 className={cls.HomePage__chart__title}>JLPT</h3>
+                        <p className={cls.HomePage__chart__text}>Japanese-Language Proficiency Test</p>
                         <div className={cls.HomePage__test__wrap} >
                             <div>
                                 <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
@@ -120,8 +122,8 @@ export default function HomePage() {
                         </div>
                     </div>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>JDU certificate</h3>
-                        <p className={cls.HomePage__chart__text}>If you do what you've always done, you'll get what you've always gotten.</p>
+                        <h3 className={cls.HomePage__chart__title}>JDU</h3>
+                        <p className={cls.HomePage__chart__text}>Japan Digital University</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
                                 <div className={`${cls.HomePage__test} ${cls.HomePage__test2}`} style={{ borderBottom: `${Math.round((((JDU?.Q1 / maxValue) * 100) / 100) * 185) || 2}px solid #DC7E27` }}>

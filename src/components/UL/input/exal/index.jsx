@@ -26,7 +26,7 @@ export default function ExalInput({ onChange, setResolv, teacher, exalError, res
     return (
         <>
             <div className={cls.ExalInput}>
-                <p className={cls.ExalInput__text}>Choose excel file</p>
+                <p className={cls.ExalInput__text}>EXCELファイルを選択してください</p>
                 <div className={cls.ExalInput__wrap}>
                     <label className={cls.ExalInput__label} >
                         <FileIcons />

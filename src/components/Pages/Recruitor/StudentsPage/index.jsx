@@ -62,7 +62,7 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                             <div className={cls.StudentsPage__search}>
                                 <p className={cls.StudentsPage__search__text}>
                                     {
-                                        data?.length == 0 ? "WE can not find this student" : "Search student by category you want"
+                                        data?.length == 0 ? "学生はまだいません" : "気になるカテゴリーで学生を検索"
                                     }
                                 </p>
 

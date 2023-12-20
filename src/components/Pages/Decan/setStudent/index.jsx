@@ -193,8 +193,8 @@ export default function SetStudent({ data, role }) {
                                     <AddInput
                                         register={{ ...register2('brithday') }}
                                         type={"date"}
-                                        label={"brithday"}
-                                        placeholder={"brithday"}
+                                        label={"生年月日"}
+                                        placeholder={"生年月日"}
                                         value={watchedFiles2?.brithday || ''}
                                         onChange={() => clearErrors("brithday")}
                                         style={{ marginTop: "10px" }}
@@ -223,9 +223,9 @@ export default function SetStudent({ data, role }) {
                     <AddInput
                         style={{ marginTop: "10px", width: "100%" }}
                         type={"textarea"}
-                        label={"Bio"}
+                        label={"自己紹介"}
                         value={["null", "undefined", null, undefined].includes(watchedFiles2?.bio) ? "bio" : watchedFiles2?.bio}
-                        placeholder={"bio"}
+                        placeholder={"自己紹介"}
                         onChange={() => clearErrors("bio")}
                         register={{ ...register2('bio') }}
                     />
@@ -234,13 +234,13 @@ export default function SetStudent({ data, role }) {
 
                 <div className={cls.SetStudent__wrap}>
                     <div className={cls.SetStudent__wrap__img}>
-                        <p className={cls.SetStudent__wrap__text}>Gallery</p>
+                        <p className={cls.SetStudent__wrap__text}>ギャラリー</p>
                         <div className={cls.SetStudent__wrap__img__box}>
 
                             <label>
                                 <div>
                                     <GalaryIcons />
-                                    <p>upload photo</p>
+                                    <p>写真アップロード</p>
                                 </div>
                                 <input type="file" accept="image/jpeg, image/png" onChange={(e) => hendleimg2(e)} />
                             </label>
@@ -271,8 +271,8 @@ export default function SetStudent({ data, role }) {
                 <AddInput
                     style={{ marginTop: "10px", width: "100%" }}
                     type={"textarea"}
-                    label={"Description"}
-                    placeholder={"Description"}
+                    label={"概要"}
+                    placeholder={"概要"}
                     value={["null", "undefined", null, undefined].includes(watchedFiles2?.desc) ? "Description" : watchedFiles2?.desc}
                     onChange={() => clearErrors("desc")}
                     register={{ ...register2('desc') }}

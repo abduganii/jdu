@@ -271,7 +271,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     avater={oneStuednt?.avatar}
                     role={'student'}
                     progress={oneStuednt?.universityPercentage?.AllMarks}
-                    years={`${+newDate.getFullYear() - oneStuednt.brithday?.split('-')[0]}年生 `}
+                    years={`${+newDate.getFullYear() - oneStuednt.brithday?.split('-')[0]}歳 `}
                     remove={async () => {
                         setLoading(true)
 
@@ -306,7 +306,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     GroupChange={true}
                     defaultGruop={oneStuednt2?.groupId}
                     progress={oneStuednt2?.universityPercentage?.AllMarks}
-                    years={`${+newDate.getFullYear() - oneStuednt2.brithday?.split('-')[0]}年生 `}
+                    years={`${+newDate.getFullYear() - oneStuednt2.brithday?.split('-')[0]}際 `}
 
                     className={personId2 ? cls.openMadal : ''}
                     close={() => {

@@ -25,7 +25,7 @@ export const navLinks = [
   {
     id: 76,
     link: "/employees",
-    label: "Employees",
+    label: "職員",
     icon: (e) => PersonIcon({ fill: e }),
   },
 
@@ -38,7 +38,7 @@ export const navLinks = [
   {
     id: 2,
     link: "/parents",
-    label: "Parents",
+    label: "保護者",
     icon: (e) => PersonIcon({ fill: e }),
   },
   {
@@ -51,20 +51,20 @@ export const navLinks = [
   {
     id: 6,
     link: "/selected",
-    label: "お気に入り",
+    label: "気になる",
     icon: (e) => SelectedIcon({ fill: e }),
   },
 
   {
     id: 9,
     link: "/me",
-    label: "私については",
+    label: "プロフィール",
     icon: (e) => PersonIcon({ fill: e }),
   },
   {
     id: 10,
     link: "/myChild",
-    label: "My Child",
+    label: "生徒",
     icon: (e) => PersonIcon({ fill: e }),
   },
 ];
@@ -84,18 +84,18 @@ export const settingLinks = [
   },
 ];
 
-export const recruitorLink = ["ホーム", "学生", "お気に入り"];
+export const recruitorLink = ["ホーム", "学生", "気になる"];
 
 export const teacherLink = ["ホーム", "学生",];
 
 export const decanLink = [
   "ホーム",
   "学生",
-  "Employees",
+  "職員",
   "スケジュール",
   "リクルーター",
-  "Parents",
+  "保護者",
 ];
-export const studentLink = ["ホーム", "スケジュール", "私については"];
+export const studentLink = ["ホーム", "スケジュール", "プロフィール"];
 
-export const parentLink = ["ホーム", "My Child",];
+export const parentLink = ["ホーム", "生徒",];

@@ -61,8 +61,8 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
             <div >
                 <div className={cls.TopStudents} >
                     <div className={cls.TopStudents__wrap}>
-                        <h3 className={cls.TopStudents__title}>University Groups</h3>
-                        <p className={cls.TopStudents__text}>24 groups for 1376 students </p>
+                        <h3 className={cls.TopStudents__title}>大学のグループ</h3>
+                        <p className={cls.TopStudents__text}>以下で大学のグループを閲覧できます</p>
                     </div>
                     {decan && <div className={cls.TopStudents__btn} onClick={CreateGruop}><GruopPlusIcons /></div>}
                 </div>
@@ -86,7 +86,7 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
                                             setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
                                         }}>
                                         <h3 className={cls.GruopList__title}>{e?.collection}</h3>
-                                        <p className={cls.GruopList__student}>{e?.students} students</p>
+                                        <p className={cls.GruopList__student}>{e?.students}学生</p>
                                     </div>
 
                                     <DoteBtn style={{ margin: "0 0 0 auto" }} onClick={() => setIseId(e?.id)} />
@@ -135,10 +135,10 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
                         setSearchParams({ ...paramsToObject(params.entries()), group: '', isArchive: true })
 
                     }}>
-                        <div className={cls.GruopList__name}>000</div>
+                        <div className={cls.GruopList__name}>Group</div>
                         <div className={cls.GruopList__div}>
-                            <h3 className={cls.GruopList__title}>Archive</h3>
-                            <p className={cls.GruopList__student}>{countArchiv} students</p>
+                            <h3 className={cls.GruopList__title}>特別</h3>
+                            <p className={cls.GruopList__student}>{countArchiv}学生</p>
                         </div>
 
 

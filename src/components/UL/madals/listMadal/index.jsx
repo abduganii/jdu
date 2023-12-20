@@ -7,7 +7,7 @@ export default function ListModal({ update, moveTo, remove, role, select, lebel,
             {
                 role == "student" ? <button className={cls.ListModal__btn} onClick={select}> {lebel && lebel}</button> : <>
                     <button className={cls.ListModal__btn} onClick={update}>編集</button>
-                    {moveTo && <button className={cls.ListModal__btn} onClick={moveTo}> move to</button>}
+                    {moveTo && <button className={cls.ListModal__btn} onClick={moveTo}> 移行</button>}
                     <button className={cls.ListModal__btn} onClick={remove}>削除</button>
                 </>
             }

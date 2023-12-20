@@ -126,7 +126,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         setLoading(false)
                     }
                     if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
                         setLoading(false)
                     } if (err.response.data.message === "email must be unique") {
                         setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
@@ -162,7 +162,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
-                    setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                    setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
                     setLoading(false)
                 } if (err.response.data.message === "email must be unique") {
                     setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
@@ -192,11 +192,11 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                 }
                 }>
                     <PlusIcon />
-                    リクレーターを追加
+                    保護者を追加
                 </BlueButtun>
             </div>
             <div className={cls.TeacherPage__div}>
-                <TopList text={["Parents fullname", "Parent ID", "Student", "Phone", "Email", "アクション"]} />
+                <TopList text={["保護者", "ID", "学生", "電話番号", "電子メール", "アクション"]} />
                 {data && data?.map(e => (
                     <PersonList
                         onClick={() => router(`/decan/parents/${e?.id}`)}
@@ -252,7 +252,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             }
             {openMadal && query == 'true' &&
                 <AddMadal
-                    role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
+                    role={`${query == 'true' ? "保護者を変更" : "保護者の追加"} `}
                     OnSubmit={handleSubmit(UpdateStudentFunc)}
                     style={{ maxWidth: "775px" }}
                     closeMadal={() => {
@@ -326,10 +326,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
-                            register={{ ...register('email', { required: "メールは必要です！" }) }}
+                            register={{ ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"email"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             value={watchedFiles?.email || ''}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
@@ -342,7 +342,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             }
             {openMadal && query == 'false' &&
                 <AddMadal
-                    role={`${query == 'true' ? "採用担当者を更新" : "採用担当者の追加"} `}
+                    role={`${query == 'true' ? "保護者を更新" : "保護者の追加"} `}
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => {
                         setOpenMadal(false)
@@ -353,8 +353,8 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         <AddInput
                             register={{ ...register('email') }}
                             type={"email"}
-                            label={"メール"}
-                            placeholder={"メール"}
+                            label={"電子メール"}
+                            placeholder={"電子メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px", maxWidth: "100%" }}
