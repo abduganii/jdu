@@ -380,6 +380,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         setResolv={setexal}
                         resolv={exal}
                         exalError={exalError}
+                        parent={true}
                         onChange={(e) => {
                             reset()
                             setExalError(false)
