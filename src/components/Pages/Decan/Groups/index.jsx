@@ -139,7 +139,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
         }
         }>
           <PlusIcon />
-          リクレーターを追加
+          リクルーターを追加
         </BlueButtun>
       </div>
       <GroupTopList />

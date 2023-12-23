@@ -105,7 +105,7 @@ export default function DeleteMadel({ id, orginalId, defaultGruop, GroupChange, 
                             remove()
                         }
                     }} style={{ padding: "14px 30px" }}>
-                        {GroupChange ? "Change Group" : "削除"}
+                        {GroupChange ? "変更" : "削除"}
                     </BlueButtun>
                 </div>
             </div>

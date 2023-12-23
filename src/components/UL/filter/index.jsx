@@ -21,7 +21,7 @@ export default function Filter({ page, back }) {
     const [yearRateText, setRateYears] = useState("学年")
     const [JLPTText, setJLPTText] = useState("JLPT")
     const [JDUText, setJDUYears] = useState("JDU")
-    const [specialisationText, setSpecialisation] = useState("役職")
+    const [specialisationText, setSpecialisation] = useState("部署")
     const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
@@ -81,7 +81,7 @@ export default function Filter({ page, back }) {
                 setJDUYears('JDU')
                 setN(false)
                 setRateYears("学年")
-                setSpecialisation("役職")
+                setSpecialisation("部署")
                 setRateRate("人気")
             }}>
                 {!cahneSet || params.get('group') ? <CloseIcon /> : <FilterIcon />}
