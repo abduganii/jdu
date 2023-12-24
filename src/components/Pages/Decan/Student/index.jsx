@@ -21,7 +21,8 @@ import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
 import GruopList from '../../../UL/gruop'
 import { AddGroup, Groupdelete, GroupGetById, UpdateGroup } from '../../../../services/gruop'
-import TopList2 from '../../../UL/list/TopList2'
+
+import UserCheckBoz from '../../../UL/userCheckBox'
 
 const Course = [
     {
@@ -48,6 +49,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
 
     const queryClient = useQueryClient()
+    const [openUser, setopenUser] = useState("inputs")
     const [params] = useSearchParams()
     const router = useNavigate()
     const [personId, setPersonId] = useState(false)
@@ -166,8 +168,9 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                 })
         } else {
             if (regex.test(e?.email)) {
+
                 const formData = new FormData()
-                formData.append("loginId", e?.email?.slice(0, -7))
+                formData.append("loginId", e?.loginId)
                 formData.append("email", e?.email)
                 if (groupIdim) formData.append("groupId", groupIdim)
                 await StudentsAdd(formData)
@@ -185,7 +188,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     })
                     .catch(err => {
                         if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                            setError('email', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+                            setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
                             setLoading(false)
                         }
                         if (err.response.data.message == "Validation isEmail on email failed") {
@@ -220,11 +223,9 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                     学生を追加
                 </BlueButtun>
             </div>
-
-
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList2 text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
+                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList
@@ -326,28 +327,47 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                         setYears()
                     }}>
 
-                    <div className={cls.StudentPage__addInputs}>
-                        <AddInput
-                            register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"email"}
-                            label={"メール"}
-                            placeholder={"メール"}
-                            alert={errors.email?.message}
-                            onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px", maxWidth: "100%" }}
-                            disabled={exal ? true : false}
-                        />
-                    </div>
+                    <UserCheckBoz openUser={openUser} setopenUser={setopenUser} />
 
-                    <ExalInput
-                        setResolv={setexal}
-                        resolv={exal}
-                        exalError={exalError}
-                        onChange={(e) => {
-                            reset()
-                            setExalError(false)
-                        }}
-                    />
+                    {
+                        openUser == 'inputs' ?
+                            <>
+                                <div className={cls.StudentPage__addInputs}>
+                                    <AddInput
+                                        register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
+                                        type={"text"}
+                                        label={"ID"}
+                                        placeholder={"ID"}
+                                        alert={errors.loginId?.message}
+                                        onChange={() => clearErrors("loginId")}
+                                        style={{ marginTop: "4px" }}
+                                        disabled={exal ? true : false}
+                                    />
+                                    <AddInput
+                                        register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
+                                        type={"email"}
+                                        label={"メール"}
+                                        placeholder={"メール"}
+                                        alert={errors.email?.message}
+                                        onChange={() => clearErrors("email")}
+                                        style={{ marginTop: "4px" }}
+                                        disabled={exal ? true : false}
+                                    />
+                                </div>
+                            </>
+                            : ""}
+                    {
+                        openUser == 'excel' ?
+                            <ExalInput
+                                setResolv={setexal}
+                                resolv={exal}
+                                exalError={exalError}
+                                onChange={(e) => {
+                                    reset()
+                                    setExalError(false)
+                                }}
+                            />
+                            : ""}
                 </AddMadal>}
 
             {openMadal2 &&

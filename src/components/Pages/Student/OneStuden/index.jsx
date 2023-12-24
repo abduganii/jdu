@@ -36,7 +36,6 @@ export default function OneStudent({ user, role }) {
 
     }, [lessonId])
 
-
     return (
         <div className={cls.OneStudent}>
 
@@ -78,9 +77,8 @@ export default function OneStudent({ user, role }) {
                                     プロファイル編集
                                 </BlueButtun> : ""
                         }
-
                         {
-                            role !== "parent" ? user?.Parents?.length ? <div className={cls.OneStudent__person}>
+                            role !== "parent" && user?.Parents?.[0]?.isActive ? user?.Parents?.length ? <div className={cls.OneStudent__person}>
                                 <div className={cls.OneStudent__person__box} onClick={() => router(`/decan/parents/${user?.Parents?.[0]?.id}`)}>
                                     {user?.Parents?.[0]?.avatar ? <img
                                         src={user?.Parents?.[0]?.avatar}
@@ -110,7 +108,7 @@ export default function OneStudent({ user, role }) {
                     </div>
                 </div>
 
-                <div className={`${cls.OneStudent__content} ${role !== "parent" && user?.Parents?.length ? cls.margin : ""}`} >
+                <div className={`${cls.OneStudent__content} ${role !== "parent" && user?.Parents?.[0]?.isActive && user?.Parents?.length ? cls.margin : ""}`} >
                     {
                         ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && user?.images && <h3 className={cls.OneStudent__title}>自己紹介</h3>
                     }

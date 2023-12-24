@@ -47,7 +47,7 @@ export default function Filter({ page, back }) {
         })
 
         data.forEach(e => {
-            if (e?.name == params.get('役職')) {
+            if (e?.name == params.get('specialisation')) {
                 setSpecialisation(e?.name)
             }
         })
@@ -164,7 +164,7 @@ export default function Filter({ page, back }) {
                         setY(true)
                         SetCahnegSet(false)
                     }}>
-                        <p className={cls.Filter__Select__p}>{params.get('職員') || "職員"}</p>
+                        <p className={cls.Filter__Select__p}>{params.get('role') == "teacher" ? "先生" : params.get('role') == "staff" ? "一般の職員" : "全て"}</p>
                         <img
                             src={'/Image/Icons.svg'}
                             width={16}
@@ -176,7 +176,7 @@ export default function Filter({ page, back }) {
                                 <p
                                     key={e?.id}
                                     className={`${cls.Filter__Select__dropdown__text}
-                                      ${params.get('職員') == e?.text && cls.Filter__Select__dropdown__textActive1}`}
+                                      ${params.get('role') == e?.text && cls.Filter__Select__dropdown__textActive1}`}
                                     onClick={() => {
                                         setSearchParams({ ...paramsToObject(params.entries()), role: e?.link })
                                         SetCahnegSet(true)
@@ -205,7 +205,7 @@ export default function Filter({ page, back }) {
                                 <p
                                     key={e?.id}
                                     className={`${cls.Filter__Select__dropdown__text}
-                                      ${params.get('役職') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
+                                      ${params.get('specialisation') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
                                     onClick={() => {
                                         setSearchParams({ ...paramsToObject(params.entries()), specialisation: e?.name })
                                         SetCahnegSet(true)
@@ -216,6 +216,73 @@ export default function Filter({ page, back }) {
                             ))}
                         </div>
                     </div>
+                </>
+            }
+
+            {
+                page == "parent" && <>
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setY(true)
+                        setW(true)
+                    }}>
+                        <p className={cls.Filter__Select__p}>グループ</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${w ? "displayBlock" : "displayNone"}`}>
+                            <input
+                                className={cls.Filter__Select__dropdown__search}
+                                type="text"
+                                value={inoutVal}
+                                placeholder='グループを入力'
+                                onChange={(e) => {
+                                    setSearchParams({ ...paramsToObject(params.entries()), groups: e.target.value })
+                                    SetCahnegSet(false)
+                                    SetInoutVal(e.target.value)
+                                }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={cls.Filter__Select} onClick={() => {
+                        setH(true)
+                        setY(true)
+                        SetCahnegSet(false)
+                    }}>
+                        <p className={cls.Filter__Select__p}>{yearRateText}</p>
+                        <img
+                            src={'/Image/Icons.svg'}
+                            width={16}
+                            height={16}
+                            objectFit="contain"
+                        />
+                        <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
+
+
+                            {YearsRate?.map(e => (
+                                <p
+                                    key={e?.id}
+                                    className={`${cls.Filter__Select__dropdown__text}  ${params.get('year') == e?.link && cls.Filter__Select__dropdown__textActive1}`}
+                                    onClick={() => {
+                                        setH(false)
+                                        setY(false)
+                                        setSearchParams({ ...paramsToObject(params.entries()), year: e?.link })
+                                        SetCahnegSet(false)
+
+                                    }}
+
+                                >
+                                    {e.text}
+                                </p>
+                            ))
+                            }
+
+                        </div>
+                    </div>
+
+
                 </>
             }
             {

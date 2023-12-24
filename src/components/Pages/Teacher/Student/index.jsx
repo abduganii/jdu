@@ -21,7 +21,6 @@ import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
 import GruopList from '../../../UL/gruop'
-import TopList2 from '../../../UL/list/TopList2'
 
 
 const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
@@ -72,7 +71,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList2 text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
+                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList

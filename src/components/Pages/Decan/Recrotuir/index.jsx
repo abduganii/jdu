@@ -189,7 +189,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                                     setLoading(false)
                                 }
                                 setPersonId(false)
-
                                 setLoading(false)
                                 queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
 
@@ -299,7 +298,17 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         reset()
                     }}>
                     <div className={cls.TeacherPage__addInputs}>
-
+                        <AddInput
+                            register={{ ...register('loginId', { required: "IDは必要です！" }) }}
+                            type={"text"}
+                            label={"ID"}
+                            placeholder={"ID"}
+                            geterat={true}
+                            loginGenerate={(e) => setValue("loginId", e)}
+                            alert={errors.loginId?.message}
+                            onChange={() => clearErrors("loginId")}
+                            style={{ marginBottom: "20px" }}
+                        />
                         <AddInput
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"email"}
@@ -307,7 +316,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             placeholder={"電子メール"}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px", maxWidth: "100%" }}
+                            style={{ marginBottom: "20px" }}
                         />
                     </div>
                     <p className={cls.TeacherPage__inputtext}>
