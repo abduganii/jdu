@@ -19,8 +19,6 @@ export default function AddInput({
     ...other
 }) {
 
-
-
     function generateLoginId() {
         var length = 6,
             charset = "0123456789",

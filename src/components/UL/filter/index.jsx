@@ -129,6 +129,7 @@ export default function Filter({ page, back }) {
                             src={'/Image/Icons.svg'}
                             width={16}
                             height={16}
+                            alt={"img"}
                             objectFit="contain"
                         />
                         <div className={`${cls.Filter__Select__dropdown} ${h ? "displayBlock" : "displayNone"}`}>
