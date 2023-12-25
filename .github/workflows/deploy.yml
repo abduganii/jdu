@@ -38,7 +38,7 @@ jobs:
           script: |
             cd /home/user/getter/jdu-admin
             git stash
-            rm package-lock.json
+            git rebase --skip
             git pull origin main --ff
             npm install --yes --legacy-peer-deps
             npm run build
