@@ -17,7 +17,7 @@ export default function DecParents() {
       page: pageParam,
       search: params.get('search') || '',
       year: params.get('year') || '',
-      groups: params.get('search') || '',
+      groups: params.get('groups') || '',
     }) || {},
 
     {
