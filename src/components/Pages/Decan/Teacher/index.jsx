@@ -390,7 +390,28 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     OnSubmit={handleSubmit(AddStudentFunc)}
                     closeMadal={() => setOpenMadal(false)}>
 
-
+                    <div className={cls.TeacherPage__checkBox}>
+                        <label className={`${role == "teacher" ? cls.TeacherPage__checkBox__active : ""}`}>
+                            <input
+                                name='role'
+                                type={"radio"}
+                                value={"teacher"}
+                                checked={role == "teacher" ? true : false}
+                                onChange={(e) => setRole(e.target.value)}
+                            />
+                            <p > 先生</p>
+                        </label>
+                        <label className={`${role == "staff" ? cls.TeacherPage__checkBox__active : ""}`}>
+                            <input
+                                name='role'
+                                type={"radio"}
+                                value={"staff"}
+                                checked={role == "staff" ? true : false}
+                                onChange={(e) => setRole(e.target.value)}
+                            />
+                            <p>一般の職員</p>
+                        </label>
+                    </div>
                     <UserCheckBoz openUser={openUser} setopenUser={setopenUser} />
                     {
                         openUser == "inputs" && <div className={cls.TeacherPage__addInputs}>
@@ -425,29 +446,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             setExalError(false)
                         }} />
                     }
-                    <div className={cls.TeacherPage__checkBox}>
-                        <label>
-                            <input
-                                name='role'
-                                type={"radio"}
-                                value={"teacher"}
-                                checked={role == "teacher" ? true : false}
 
-                                onChange={(e) => setRole(e.target.value)}
-                            />
-                            <p> 先生</p>
-                        </label>
-                        <label>
-                            <input
-                                name='role'
-                                type={"radio"}
-                                value={"staff"}
-                                checked={role == "staff" ? true : false}
-                                onChange={(e) => setRole(e.target.value)}
-                            />
-                            <p>一般の職員</p>
-                        </label>
-                    </div>
                 </AddMadal>
             }
             <Toaster />
