@@ -40,5 +40,5 @@ jobs:
             git stash
             git rebase --skip
             git pull origin main --ff
-            npm install --yes --legacy-peer-deps --no-optional
+            npm install --yes --legacy-peer-deps
             npm run build
