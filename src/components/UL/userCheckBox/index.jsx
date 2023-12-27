@@ -11,7 +11,7 @@ export default function UserCheckBoz({ openUser, setopenUser, ...other }) {
                     checked={openUser == "inputs" ? true : false}
                     onChange={(e) => setopenUser(e.target.value)}
                 />
-                <p>Form</p>
+                <p>Single</p>
             </label>
             <label>
 
@@ -22,7 +22,7 @@ export default function UserCheckBoz({ openUser, setopenUser, ...other }) {
 
                     onChange={(e) => setopenUser(e.target.value)}
                 />
-                <p>  excel</p>
+                <p>  Excel</p>
             </label>
         </div>
     )

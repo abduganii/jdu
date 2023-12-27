@@ -9,7 +9,6 @@ export const ParentGet = async (query) => {
      console.log(error.response.data.message);
     }
 }
-
 export const ParentGetById = async (id) => {
     try {
      const res = await api.get(`/parent/${id}`, {withCredentials: true})
