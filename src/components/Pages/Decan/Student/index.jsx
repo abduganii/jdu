@@ -225,7 +225,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
             </div>
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
+                    <TopList text={["学生", "学生ID", "グループ", "JLPT", "JDU日本語認定", "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList

@@ -13,7 +13,7 @@ function SmallExample({ data, teacher, parent }) {
               <th>First Name</th>
               <th>Last Name</th>
               <th>ID</th>
-              <th>JDU</th>
+              <th>JDU日本語認定</th>
               <th>JLPT</th>
             </tr>
           </thead>
