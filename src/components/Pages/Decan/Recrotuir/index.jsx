@@ -149,7 +149,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
             </div>
             <div className={cls.TeacherPage__div}>
 
-                <TopList text={["リクルーター", "ID", "会社", "電話番号", "電子メール", "アクション"]} />
+                <TopList text={["リクルーター", "リクルーターID", "会社", "電話番号", "電子メール", "アクション"]} />
                 {data && data?.map(e => (
                     <PersonList
                         onClick={() => router(`/decan/recruitors/${e?.id}`)}

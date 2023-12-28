@@ -194,7 +194,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                 </BlueButtun>
             </div>
             <div className={cls.TeacherPage__div}>
-                <TopList text={["保護者", "ID", "学生", "電話番号", "電子メール", "アクション"]} />
+                <TopList text={["保護者", "保護者ID", "学生", "電話番号", "電子メール", "アクション"]} />
                 {data && data?.map(e => (
                     <PersonList
                         onClick={() => router(`/decan/parents/${e?.id}`)}
