@@ -68,7 +68,6 @@ export default function Filter({ page, back }) {
             <button className={`${cls.Filter__btn} ${!cahneSet || params.get('group') ? cls.Filter__btn__active : ""}`} onClick={() => {
                 SetInoutVal('')
                 SetInoutVal1('')
-
                 SetCahnegSet(true)
                 setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", groups: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
                 setY(false)

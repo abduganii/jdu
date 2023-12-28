@@ -11,6 +11,8 @@
         display: flex !important;
         justify-content: space-between !important;
         align-items: flex-start !important;
+
+       
     }
 
     &__title {
@@ -86,6 +88,7 @@
         }
 
         &__id {
+            display: inline-block;
             border-radius: 1000px;
             border: 1px solid #1381E6;
             color: #1381E6;
@@ -95,7 +98,7 @@
             font-weight: 400;
             line-height: normal;
             text-align: center;
-            padding: 4px 8px;
+            padding: 4px 15px;
         }
 
         a {

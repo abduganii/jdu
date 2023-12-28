@@ -87,7 +87,7 @@ export default function OneStudent({ user, role }) {
                                         alt={"img"}
                                         style={{ borderRadius: "50%", objectFit: "cover" }}
                                     /> :
-                                        <Avatar name={"Name"} size="64" round={64} />
+                                        <Avatar name={`${user?.Parents?.[0]?.firstName} ${user?.Parents?.[0]?.lastName}`} size="64" round={64} />
                                     }
 
                                     <div className={cls.OneStudent__person__dv}>

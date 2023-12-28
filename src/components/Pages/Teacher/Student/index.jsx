@@ -60,7 +60,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
             <div className={cls.StudentPage__filter}>
                 <Filter page={"student"} />
                 {
-                    role == "teacher" && <BlueButtun light={true} onClick={() => {
+                    <BlueButtun light={true} onClick={() => {
                         setOpenMadal(true)
                         setexal(null)
                     }}>
@@ -71,7 +71,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList text={["学生", "学生ID", "グループ", "JLPT", "JDU日本語認定", "アクション"]} />
+                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList
@@ -96,7 +96,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             {openMadal && role == "teacher" &&
                 <AddMadal
-                    role={"JLPT & JDU日本語認定"}
+                    role={"JLPT & JDU"}
                     OnSubmit={handleSubmit(AddDataSubmit)}
                     closeMadal={() => {
                         setOpenMadal(false)

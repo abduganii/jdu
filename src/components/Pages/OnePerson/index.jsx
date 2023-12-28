@@ -25,7 +25,7 @@ export default function OnePerson({ loginId, firstName, position, section, lastN
     const router = useNavigate()
     return (
         <Container className={cls.OnePerson__container}>
-            <div>
+            <div >
                 <BackBtn onClick={() => router(-1)} style={{ marginBottom: "40px" }} />
                 <Person id={loginId} name={`${firstName} ${lastName}`} position={position} section={section} email={email} avatar={avatar} year={work} />
             </div>
@@ -38,7 +38,7 @@ export default function OnePerson({ loginId, firstName, position, section, lastN
                             height={60}
                             alt={"img"}
                             style={{ borderRadius: "50%", objectFit: "cover" }}
-                        /> : <Avatar name={"Name"} size="64" round={64} />
+                        /> : <Avatar name={`${student?.[0]?.firstName} ${student?.[0]?.lastName}`} size="64" round={64} />
                         }
 
                         <div className={cls.OnePerson__person__dv}>
