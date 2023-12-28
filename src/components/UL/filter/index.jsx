@@ -20,7 +20,7 @@ export default function Filter({ page, back }) {
     const [inoutVal1, SetInoutVal1] = useState()
     const [yearRateText, setRateYears] = useState("学年")
     const [JLPTText, setJLPTText] = useState("JLPT")
-    const [JDUText, setJDUYears] = useState("JDU")
+    const [JDUText, setJDUYears] = useState("JDU日本語認定")
     const [specialisationText, setSpecialisation] = useState("部署")
     const [RateRateText, setRateRate] = useState("人気")
     const [ys, setY] = useState(false)
