@@ -36,6 +36,8 @@ export default function OneStudent({ user, role }) {
 
     }, [lessonId])
 
+
+
     return (
         <div className={cls.OneStudent}>
 
@@ -114,7 +116,12 @@ export default function OneStudent({ user, role }) {
                     }
                     {
                         ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && <>
-                            <p className={cls.OneStudent__text}>{user?.bio}</p>
+                            {
+                                user.bio?.split('\n')?.map(e => (
+
+                                    <p className={cls.OneStudent__text}>  {e}</p>
+                                ))
+                            }
                         </>
                     }
                     {

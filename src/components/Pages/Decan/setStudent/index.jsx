@@ -31,6 +31,7 @@ export default function SetStudent({ data, role }) {
 
 
     const watchedFiles2 = watch2()
+
     useEffect(() => {
         setValue2("firstName", data?.firstName)
         setValue2("lastName", data?.lastName)
@@ -89,7 +90,6 @@ export default function SetStudent({ data, role }) {
         }
     }
     const deleteAvatar = async () => {
-
         await FileRemove({ url: data?.avatar })
         setValue2('avatar', ' ')
         setAvatar(null)
