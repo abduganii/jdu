@@ -59,7 +59,7 @@ export default function LoginPage() {
                         <p className={cls.Form__idtext}>ログイン</p>
                         <LoginInput
                             type={'text'}
-                            placeholder={"IDを入力してください"}
+                            placeholder={"電子メール"}
                             style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
                             register={{ ...register("loginId", { required: "ログインIDが必要です" }) }}
                             alert={errors.loginId?.message}

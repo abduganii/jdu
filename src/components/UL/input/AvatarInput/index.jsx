@@ -11,7 +11,7 @@ export default function AvatarInput({ onChange, url, ...other }) {
     return (
         <div className={cls.AvatarInput}  {...other} >
             <label >
-                <input type="file" accept="image/jpeg, image/png" onChange={(e) => {
+                <input type="file" accept="image/jpeg, image/png" alt='img' onChange={(e) => {
                     onChange(e)
                 }
                 } />

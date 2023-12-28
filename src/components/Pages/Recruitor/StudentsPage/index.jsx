@@ -11,7 +11,7 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
-                <Filter page={"student"} />
+                <Filter page={"student2"} />
                 <div className={cls.StudentsPage__div}>
                     <ul className={cls.StudentsPage__top}>
                         <li className={cls.StudentsPage__top__item}>学生</li>

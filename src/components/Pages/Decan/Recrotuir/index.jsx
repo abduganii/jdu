@@ -57,7 +57,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
     const AddStudentFunc = async (data) => {
         setLoading(true)
-        await RecruitorAdd(data)
+        await RecruitorAdd({ loginId: data?.email?.substring(0, data?.email?.indexOf('@')), ...data })
             .then(res => {
                 if (res?.data?.message) {
                     toast(res?.data?.message)
@@ -106,8 +106,9 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
             })
             .catch(err => {
+                setLoading(false)
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                    setError('loginId', { type: 'custom', message: err.response.data.message })
+                    setError('email', { type: 'custom', message: err.response.data.message })
                     setLoading(false)
                 }
                 if (err.response.data.message == "Validation isEmail on email failed") {
@@ -119,7 +120,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                 if (err.response.data.message === "Validation len on password failed") {
                     setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                 }
-                setLoading(false)
             })
     }
 
@@ -141,7 +141,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                     setOpenMadal(true)
                     router('?updete=false')
                     reset()
-
                 }
                 }>
                     <PlusIcon />
@@ -190,7 +189,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                                     setLoading(false)
                                 }
                                 setPersonId(false)
-
                                 setLoading(false)
                                 queryClient.invalidateQueries(['recruiters', params.get('companyName'), params.get('search')])
 
@@ -279,7 +277,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"電子メール"}
                             placeholder={"電子メール"}
                             value={watchedFiles?.email || ''}
@@ -300,7 +298,6 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         reset()
                     }}>
                     <div className={cls.TeacherPage__addInputs}>
-
                         <AddInput
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
@@ -312,10 +309,9 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             onChange={() => clearErrors("loginId")}
                             style={{ marginBottom: "20px" }}
                         />
-
                         <AddInput
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"電子メール"}
                             placeholder={"電子メール"}
                             alert={errors.email?.message}

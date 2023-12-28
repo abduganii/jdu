@@ -21,6 +21,7 @@ import Loader from '../../../UL/loader'
 import ExalInput from '../../../UL/input/exal'
 import { useQueryClient } from 'react-query'
 import { ImageUpload } from '../../../../utils/imageUpload'
+import UserCheckBoz from '../../../UL/userCheckBox'
 
 const lavozim = [
     {
@@ -46,6 +47,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const oneStuednt = data.find(e => e.id === personId)
     const [loading, setLoading] = useState(false)
     const [role, setRole] = useState("teacher")
+    const [openUser, setopenUser] = useState("inputs")
     const router = useNavigate()
     const [exalError, setExalError] = useState(false)
     const [personId1, setPersonId1] = useState()
@@ -59,9 +61,10 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
-
+    console.log(role)
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
+    const regex = /@jdu\.uz$/g;
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
             const res = await TeacherGetById(id);
@@ -112,36 +115,41 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     setExalError(true)
                 })
         } else {
-            await TeacherAdd({ role: role, ...data })
-                .then(res => {
-                    if (res?.data?.message) {
-                        toast(res?.data?.message)
-                    } else if (res.status == 201) {
-                        toast('recrutiar created')
-                        setOpenMadal(false)
-                    }
-                    setLoading(false)
-                    queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
-                })
-                .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+            if (regex.test(data?.email)) {
+                await TeacherAdd({ role: role, ...data })
+                    .then(res => {
+                        if (res?.data?.message) {
+                            toast(res?.data?.message)
+                        } else if (res.status == 201) {
+                            toast('recrutiar created')
+                            setOpenMadal(false)
+                        }
                         setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                        queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation')])
+                    })
+                    .catch(err => {
+                        if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
+                            setError('loginId', { type: 'custom', message: "IDまたはパスワードが間違っています" })
+                            setLoading(false)
+                        }
+                        if (err.response.data.message == "Validation isEmail on email failed") {
+                            setError('email', { type: 'custom', message: "メールが存在しないか、スペルが間違っています" })
+                            setLoading(false)
+                        } if (err.response.data.message === "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data.message === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        if (err.response.data.message.includes("type integer")) {
+                            setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
+                        }
                         setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data.message === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: " パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    if (err.response.data.message.includes("type integer")) {
-                        setError('courseNumber', { type: 'custom', message: "コース番号は数値でなければなりません" })
-                    }
-                    setLoading(false)
-                })
+                    })
+            } else {
+                setLoading(false)
+                setError('email', { type: 'custom', message: "email must include jdu.uz" })
+            }
         }
     }
 
@@ -350,15 +358,13 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         <AddInput
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"電子メール"}
                             placeholder={"電子メール"}
                             value={watchedFiles?.email || ''}
                             alert={errors.email?.message}
                             onChange={() => clearErrors("email")}
                             style={{ marginBottom: "20px" }}
-
-
                         />
 
                         <AddInput
@@ -385,17 +391,17 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     closeMadal={() => setOpenMadal(false)}>
 
                     <div className={cls.TeacherPage__checkBox}>
-                        <label>
-                            <input name='role'
+                        <label className={`${role == "teacher" ? cls.TeacherPage__checkBox__active : ""}`}>
+                            <input
+                                name='role'
                                 type={"radio"}
                                 value={"teacher"}
                                 checked={role == "teacher" ? true : false}
-
                                 onChange={(e) => setRole(e.target.value)}
                             />
-                            <p>  先生</p>
+                            <p > 先生</p>
                         </label>
-                        <label>
+                        <label className={`${role == "staff" ? cls.TeacherPage__checkBox__active : ""}`}>
                             <input
                                 name='role'
                                 type={"radio"}
@@ -406,37 +412,41 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             <p>一般の職員</p>
                         </label>
                     </div>
-                    <div className={cls.TeacherPage__addInputs}>
+                    <UserCheckBoz openUser={openUser} setopenUser={setopenUser} />
+                    {
+                        openUser == "inputs" && <div className={cls.TeacherPage__addInputs}>
+                            <AddInput
+                                register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
+                                type={"text"}
+                                label={"ID"}
+                                placeholder={"ID"}
+                                style={{ marginTop: "4px" }}
+                                onChange={() => clearErrors("loginId")}
+                                alert={errors.loginId?.message}
+                                value={watchedFiles?.loginId || ''}
+                                disabled={exal ? true : false}
+                            />
+                            <AddInput
+                                register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
+                                type={"email"}
+                                label={"電子メール"}
+                                placeholder={"電子メール"}
+                                style={{ marginTop: "4px" }}
+                                onChange={() => clearErrors("email")}
+                                alert={errors.email?.message}
+                                value={watchedFiles?.email || ''}
+                                disabled={exal ? true : false}
+                            />
+                        </div>
+                    }
+                    {
 
-                        <AddInput
-                            register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
-                            type={"text"}
-                            label={"ID"}
-                            placeholder={"ID"}
-                            style={{ marginBottom: "20px" }}
-                            onChange={() => clearErrors("loginId")}
-                            alert={errors.loginId?.message}
-                            value={watchedFiles?.loginId || ''}
-                            disabled={exal ? true : false}
-                        />
+                        openUser == "excel" && < ExalInput setResolv={setexal} exalError={exalError} resolv={exal} onChange={() => {
+                            reset()
+                            setExalError(false)
+                        }} />
+                    }
 
-                        <AddInput
-                            register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"text"}
-                            label={"電子メール"}
-                            placeholder={"電子メール"}
-                            style={{ marginBottom: "20px" }}
-                            onChange={() => clearErrors("loginId")}
-                            alert={errors.email?.message}
-                            value={watchedFiles?.email || ''}
-                            disabled={exal ? true : false}
-                        />
-                    </div>
-
-                    <ExalInput setResolv={setexal} exalError={exalError} resolv={exal} onChange={() => {
-                        reset()
-                        setExalError(false)
-                    }} />
                 </AddMadal>
             }
             <Toaster />

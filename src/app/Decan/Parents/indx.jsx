@@ -11,11 +11,13 @@ export default function DecParents() {
   const { ref, inView } = useInView()
   const [params, setSearchParams] = useSearchParams()
   const { data, isLoading: isNewsLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
-    ['parent', params.get('search')],
+    ['parent', params.get('search'), params.get('year'), params.get('groups')],
     async ({ pageParam = 1 }) => await ParentGet({
       limit: 15,
       page: pageParam,
-      search: params.get('search') || ''
+      search: params.get('search') || '',
+      year: params.get('year') || '',
+      groups: params.get('groups') || '',
     }) || {},
 
     {

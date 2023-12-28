@@ -1,9 +1,11 @@
 .TopList {
+    padding: 0 20px;
     padding-bottom: 19px;
 
     border-bottom: 1px solid rgb(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
+    gap: 5px;
     width: 100%;
     margin-top: 41px;
 
@@ -17,39 +19,14 @@
         color: #101828;
         opacity: 0.6;
 
+
         width: 100%;
-        margin-left: 30px;
 
-        &:first-child {
-            max-width: 222px;
-        }
+        &:last-child {
+            width: 128px !important;
 
-        &:nth-child(2) {
-            max-width: 90px;
-            margin-left: 30px;
-        }
-
-        &:nth-child(3) {
-            max-width: 130px;
-            margin-left: 60px;
-        }
-
-
-        &:nth-child(4) {
-            max-width: 184px;
-            margin-left: 60px;
-        }
-
-        &:nth-child(5) {
-            max-width: 230px;
-            margin-left: 70px;
-        }
-
-        &:nth-child(6) {
-            max-width: 100px;
-            margin-left: 36px;
-            text-align: center;
-
+            min-width: 128px !important;
+            text-align: end;
         }
     }
 }

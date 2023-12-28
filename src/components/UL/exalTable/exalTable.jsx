@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 
-function SmallExample({ data, teacher }) {
-
+function SmallExample({ data, teacher, parent }) {
+  console.log(parent)
   return (
     <Table striped bordered hover >
 
@@ -38,8 +38,8 @@ function SmallExample({ data, teacher }) {
               <th>#</th>
               <th>First Name</th>
               <th>Last Name</th>
-              <th>ID</th>
               <th>gmail</th>
+              {parent ? <th>ParentGmail</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -49,8 +49,10 @@ function SmallExample({ data, teacher }) {
                   <td>{i}</td>
                   <td>{e?.firstName}</td>
                   <td>{e?.lastName}</td>
-                  <td>{e?.id}</td>
                   <td>{e?.email}</td>
+                  {
+                    parent && <>{e?.parent ? <td> {e?.parent}</td> : <td>-</td>}</>
+                  }
                 </tr>
               ))
             }
@@ -58,7 +60,7 @@ function SmallExample({ data, teacher }) {
           </tbody>
         </>
       }
-    </Table>
+    </Table >
   );
 }
 

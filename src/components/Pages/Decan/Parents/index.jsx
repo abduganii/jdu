@@ -19,12 +19,14 @@ import ExalInput from '../../../UL/input/exal'
 import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById, ParentAllAdd } from '../../../../services/parent'
 import { StudentsGetByloginId } from '../../../../services/student'
 import { ImageUpload } from '../../../../utils/imageUpload'
+import UserCheckBoz from '../../../UL/userCheckBox'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
 
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
 
+    const [openUser, setopenUser] = useState("inputs")
     const [personId, setPersonId] = useState(false)
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
@@ -95,7 +97,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         setLoading(false)
                     }
 
-
                     setexal(null)
                 })
                 .catch(err => {
@@ -105,36 +106,29 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         } else {
             setLoading(true)
             await ParentAdd(data)
+
                 .then(res => {
                     if (res?.data?.message) {
                         toast(res?.data?.message)
-
                     } else if (res.status == 201) {
                         toast('parent created')
                         setOpenMadal(false)
-
                     }
-
                     setLoading(false)
-                    queryClient.invalidateQueries(['parent', params.get('search')])
+                    queryClient.invalidateQueries(['parent', params.get('search'), params.get('year'), params.get('groups')])
 
                 })
                 .catch(err => {
-                    if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
-                        setError('loginId', { type: 'custom', message: err.response.data.message })
-                        setLoading(false)
-                    }
-                    if (err.response.data.message.includes('StudentId')) {
-                        setError('studentId', { type: 'custom', message: err.response.data.message })
-                        setLoading(false)
-                    }
-                    if (err.response.data.message == "Validation isEmail on email failed") {
+
+                    setLoading(false)
+
+                    if (err.response.data == "Validation isEmail on email failed") {
                         setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
                         setLoading(false)
-                    } if (err.response.data.message === "email must be unique") {
+                    } if (err.response.data == "email must be unique") {
                         setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
                     }
-                    if (err.response.data.message === "Validation len on password failed") {
+                    if (err.response.data === "Validation len on password failed") {
                         setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
                     }
                     setLoading(false)
@@ -143,11 +137,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
     }
 
+
     const UpdateStudentFunc = async (data) => {
 
         setLoading(true)
-
-
         await ParentUpdate(data, personId1)
             .then(res => {
                 if (res?.data?.message) {
@@ -159,8 +152,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     setAvatar(null)
                 }
                 setLoading(false)
-                queryClient.invalidateQueries(['parent', params.get('search')])
-
+                queryClient.invalidateQueries(['parent', params.get('search'), params.get('year'), params.get('gruop')])
             })
             .catch(err => {
                 if (err.response.data.message.includes('loginId') || err.response.data.message.includes('Login')) {
@@ -187,12 +179,10 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setAvatar(URL.createObjectURL(e.target.files[0]))
         }
     }
-
-
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
-                <Filter page={'recruiter'} />
+                <Filter page={'parent'} />
                 <BlueButtun light={true} onClick={() => {
                     setOpenMadal(true)
                     router('?updete=false')
@@ -245,7 +235,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                                 }
                                 setPersonId(false)
                                 setLoading(false)
-                                queryClient.invalidateQueries(['parents', params.get('search')])
+                                queryClient.invalidateQueries(['parents', params.get('search'), params.get('year'), params.get('gruop')])
 
                             }).catch(err => {
                                 toast(err)
@@ -335,7 +325,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         />
                         <AddInput
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
-                            type={"text"}
+                            type={"email"}
                             label={"電子メール"}
                             placeholder={"電子メール"}
                             value={watchedFiles?.email || ''}
@@ -356,56 +346,65 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         setOpenMadal(false)
                         setAvatar(null)
                         reset()
-                    }}> <div className={cls.TeacherPage__addInputs}>
+                    }}>
+                    <UserCheckBoz openUser={openUser} setopenUser={setopenUser} />
+                    {
+                        openUser == 'inputs' ?
+                            <>
 
-                        <AddInput
-                            register={{ ...register('loginId') }}
-                            type={"text"}
-                            label={"ID"}
-                            placeholder={"ID"}
-                            geterat={true}
-                            loginGenerate={(e) => setValue("loginId", e)}
-                            alert={errors.loginId?.message}
-                            onChange={() => clearErrors("loginId")}
-                            style={{ marginBottom: "20px" }}
-                            disabled={exal ? true : false}
-                        />
+                                <div className={cls.TeacherPage__addInputs}>
+                                    <AddInput
+                                        register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
+                                        type={"text"}
+                                        label={"ID"}
+                                        placeholder={"ID"}
+                                        geterat={true}
+                                        loginGenerate={(e) => setValue("loginId", e)}
+                                        alert={errors.loginId?.message}
+                                        onChange={() => clearErrors("loginId")}
+                                        style={{ marginBottom: "20px" }}
+                                        disabled={exal ? true : false}
+                                    />
+                                    <AddInput
+                                        register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
+                                        type={"email"}
+                                        label={"電子メール"}
+                                        placeholder={"電子メール"}
+                                        alert={errors.email?.message}
+                                        onChange={() => clearErrors("email")}
+                                        style={{ marginBottom: "20px" }}
+                                        disabled={exal ? true : false}
+                                    />
+                                </div>
+                                <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
+                                    <AddInput
+                                        type={"text"}
+                                        label={"Student ID"}
+                                        placeholder={"Student ID"}
+                                        onChange={(e) => {
+                                            getlogin(e.target.value)
+                                        }}
+                                        style={{ marginBottom: "20px" }}
+                                        disabled={exal ? true : false}
+                                    />
 
-                        <AddInput
-                            register={{ ...register('email') }}
-                            type={"text"}
-                            label={"電子メール"}
-                            placeholder={"電子メール"}
-                            alert={errors.email?.message}
-                            onChange={() => clearErrors("email")}
-                            style={{ marginBottom: "20px" }}
-                            disabled={exal ? true : false}
-                        />
-                    </div>
-                    <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
-                        <AddInput
-                            type={"text"}
-                            label={"Student ID"}
-                            placeholder={"Student ID"}
-                            onChange={(e) => {
-                                getlogin(e.target.value)
-                            }}
-                            style={{ marginBottom: "20px" }}
-                            disabled={exal ? true : false}
-                        />
-
-                        {studentName ? <p> {studentName}</p> : ""}
-                    </div>
-
-                    <ExalInput
-                        setResolv={setexal}
-                        resolv={exal}
-                        exalError={exalError}
-                        onChange={(e) => {
-                            reset()
-                            setExalError(false)
-                        }}
-                    />
+                                    {studentName ? <p> {studentName}</p> : ""}
+                                </div>
+                            </>
+                            : ""}
+                    {
+                        openUser == 'excel' ?
+                            <ExalInput
+                                setResolv={setexal}
+                                resolv={exal}
+                                exalError={exalError}
+                                parent={true}
+                                onChange={(e) => {
+                                    reset()
+                                    setExalError(false)
+                                }}
+                            />
+                            : ""}
                 </AddMadal>
             }
             <Toaster />

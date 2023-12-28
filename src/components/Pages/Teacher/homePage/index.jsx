@@ -100,7 +100,7 @@ export default function HomeTechPage({ user }) {
 
     const UpdateTeacherFunc = async (data) => {
 
-        if (section1 && section3 && section4) {
+        if (section1 && section4 && user?.role == "staff" || section3) {
             setLoading(true)
             const formData = new FormData()
             if (data.avatar) formData.append("avatar", data.avatar)

@@ -15,6 +15,7 @@
 
         @media only screen and (max-width:800px) {
             width: 100%;
+            padding: 0 20px;
         }
 
         &__top {
@@ -60,12 +61,7 @@
 
 
         @media only screen and (max-width:800px) {
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 9;
-            opacity: .2;
+            display: none;
         }
 
     }
