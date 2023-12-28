@@ -25,15 +25,15 @@ import { FileRemove } from '../../../services/upload'
 const lavozim = [
     {
         id: "bolim boshlig'i",
-        name: "bolim boshlig'i",
+        name: "部長",
     },
     {
         id: "leader",
-        name: "leader",
+        name: "リーダー",
     },
     {
         id: "masul hodim",
-        name: "masul hodim",
+        name: "担当者",
     }
 
 ]
@@ -453,9 +453,9 @@ export default function SettingsPage({ data }) {
                                     <SettingsInput
                                         className={cls.SettingsPage__inputs__wrap}
                                         type={"select"}
-                                        label={"Bo’lim"}
+                                        label={"部署"}
 
-                                        placeholder={"Bo’lim"}
+                                        placeholder={"部署"}
                                         value={section1}
 
                                         Specialisation={section}
@@ -469,8 +469,8 @@ export default function SettingsPage({ data }) {
                                     <SettingsInput
                                         className={cls.SettingsPage__inputs__wrap}
                                         type={"select"}
-                                        label={"Lavozimi"}
-                                        placeholder={"Lavozimir"}
+                                        label={"役職"}
+                                        placeholder={"役職"}
                                         value={section4}
 
                                         Specialisation={lavozim}
@@ -495,8 +495,8 @@ export default function SettingsPage({ data }) {
                                 <SettingsInput
                                     className={cls.SettingsPage__inputs__wrap}
                                     type={"text"}
-                                    label={"phoneNumber"}
-                                    placeholder={"phoneNumber"}
+                                    label={"電話番号"}
+                                    placeholder={"電話番号"}
                                     register={{ ...register("phoneNumber", { required: "電話番号は必要です！" }) }}
                                     alert={errors.phoneNumber?.message}
                                     onChange={() => clearErrors("phoneNumber")}

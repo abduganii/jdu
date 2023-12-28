@@ -26,15 +26,15 @@ import UserCheckBoz from '../../../UL/userCheckBox'
 const lavozim = [
     {
         id: "bolim boshlig'i",
-        name: "bolim boshlig'i",
+        name: "部長",
     },
     {
         id: "leader",
-        name: "leader",
+        name: "リーダー",
     },
     {
         id: "masul hodim",
-        name: "masul hodim",
+        name: "担当者",
     }
 ]
 

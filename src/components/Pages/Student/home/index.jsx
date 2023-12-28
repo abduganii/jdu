@@ -228,7 +228,7 @@ export default function HomePage({ user }) {
 
             {!user.isActive && openMadal &&
                 <AddMadal
-                    role={"Registeration"}
+                    role={"登録"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={handleSubmit(UpdateStudentFunc)}
                     closeMadal={async () => {

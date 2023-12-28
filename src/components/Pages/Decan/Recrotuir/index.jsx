@@ -144,7 +144,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                 }
                 }>
                     <PlusIcon />
-                    リクレーターを追加
+                    リクルーターを追加
                 </BlueButtun>
             </div>
             <div className={cls.TeacherPage__div}>

@@ -18,15 +18,15 @@ import { ImageUpload } from '../../../../utils/imageUpload';
 const lavozim = [
     {
         id: "bolim boshlig'i",
-        name: "bolim boshlig'i",
+        name: "部長",
     },
     {
         id: "leader",
-        name: "leader",
+        name: "リーダー",
     },
     {
         id: "masul hodim",
-        name: "masul hodim",
+        name: "担当者",
     }
 
 ]
@@ -277,7 +277,7 @@ export default function HomeTechPage({ user }) {
 
             {!user?.isActive && openMadal &&
                 <AddMadal
-                    role={"申し込み"}
+                    role={"登録"}
                     style={{ maxWidth: "775px" }}
                     OnSubmit={
                         handleSubmit(UpdateTeacherFunc)}
