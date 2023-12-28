@@ -201,7 +201,7 @@ export default function HomePage({ user }) {
                         </div>
                     </div>
                     <div className={cls.HomePage__chart__wrap}>
-                        <h3 className={cls.HomePage__chart__title}>JDU</h3>
+                        <h3 className={cls.HomePage__chart__title}>JDU日本語認定</h3>
                         <p className={cls.HomePage__chart__text}>Japan Digital University</p>
                         <div className={cls.HomePage__test__wrap}>
                             <div>
