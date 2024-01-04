@@ -242,7 +242,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}
                     name={oneStuednt?.firstName}
-                    avater={oneStuednt?.specialisation}
+                    avater={oneStuednt?.avatar}
                     role={'teacher'}
                     progress={oneStuednt?.progress}
                     years={""}
