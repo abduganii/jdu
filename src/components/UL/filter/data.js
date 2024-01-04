@@ -125,3 +125,18 @@ export const JDU = [
     link: "N5",
   },
 ];
+
+export const SectionArr = [
+  {
+      id: "学長室",
+      name: "学長室",
+  },
+  {
+      id: "広報部",
+      name: "広報部",
+  },
+  {
+      id: "新しいプロジェクト部",
+      name: "新しいプロジェクト部",
+  }
+]

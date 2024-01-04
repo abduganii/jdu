@@ -8,9 +8,11 @@ import paramsToObject from '../../../utils/paramsToObject.js'
 import BackBtn from '../buttun/backBtn/index.jsx'
 import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
 
-import { filterRate, YearsRate, YearsRate1, TeacherRate, JLPT, JDU } from './data.js'
+import { filterRate, YearsRate, YearsRate1, TeacherRate, JLPT, JDU, SectionArr } from './data.js'
 
 import cls from "./filter.module.scss"
+
+
 
 export default function Filter({ children, page, decan, back }) {
     const navigate = useNavigate()
@@ -23,12 +25,14 @@ export default function Filter({ children, page, decan, back }) {
     const [JLPTText, setJLPTText] = useState("JLPT")
     const [JDUText, setJDUYears] = useState("JDU日本語認定")
     const [specialisationText, setSpecialisation] = useState("部署")
+    const [positionText, setPositionText] = useState("役職")
     const [RateRateText, setRateRate] = useState("人気")
     const [HideChild, setHideChild] = useState()
     const [ys, setY] = useState(false)
     const [w, setW] = useState(false)
     const [x, setX] = useState(false)
     const [h, setH] = useState(false)
+    const [k, setK] = useState(false)
     const [j, setJ] = useState(false)
     const [n, setN] = useState(false)
     const [g, setG] = useState(false)
@@ -54,6 +58,13 @@ export default function Filter({ children, page, decan, back }) {
                 setSpecialisation(e?.name)
             }
         })
+
+        SectionArr.forEach(e => {
+            if (e?.name == params.get('position')) {
+                setPositionText(e?.name)
+            }
+        })
+
         const fetchData = async () => {
             const data2 = await SectionGet2()
             SetData(data2)
@@ -86,6 +97,7 @@ export default function Filter({ children, page, decan, back }) {
                         setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", groups: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
                         setY(false)
                         setW(false)
+                        setK(false)
                         setH(false)
                         setX(false)
                         setG(false)
@@ -118,6 +130,7 @@ export default function Filter({ children, page, decan, back }) {
                             setW(false)
                             setH(false)
                             setX(false)
+                            setK(false)
                             setG(false)
                             setJ(false)
                             setN(false)
@@ -245,6 +258,35 @@ export default function Filter({ children, page, decan, back }) {
                                       ${params.get('specialisation') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
                                             onClick={() => {
                                                 setSearchParams({ ...paramsToObject(params.entries()), specialisation: e?.name })
+                                                SetCahnegSet(true)
+                                            }}
+                                        >
+                                            {e.name}
+                                        </p>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className={cls.Filter__Select} onClick={() => {
+                                setK(true)
+                                setY(true)
+                                setW(true)
+                                SetCahnegSet(false)
+                            }}>
+                                <p className={cls.Filter__Select__p}>{positionText}</p>
+                                <img
+                                    src={'/Image/Icons.svg'}
+                                    width={16}
+                                    height={16}
+                                    objectFit="contain"
+                                />
+                                <div className={`${cls.Filter__Select__dropdown} ${k ? "displayBlock" : "displayNone"}`}>
+                                    {SectionArr?.map(e => (
+                                        <p
+                                            key={e?.id}
+                                            className={`${cls.Filter__Select__dropdown__text}
+                                      ${params.get('position') == e?.name && cls.Filter__Select__dropdown__textActive1}`}
+                                            onClick={() => {
+                                                setSearchParams({ ...paramsToObject(params.entries()), position: e?.name })
                                                 SetCahnegSet(true)
                                             }}
                                         >

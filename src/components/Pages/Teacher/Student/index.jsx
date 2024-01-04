@@ -55,7 +55,6 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             })
     }
-    console.log(openMadal)
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>

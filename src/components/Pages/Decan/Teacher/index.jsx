@@ -280,7 +280,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                                 setPersonId(false)
 
                                 setLoading(false)
-                                queryClient.invalidateQueries(['teachers', params.get('search'), params.get('specialisation'), params.get('role')])
+                                queryClient.invalidateQueries(['teachers', params.get('position'), params.get('search'), params.get('specialisation'), params.get('role')])
 
                             }).catch(err => {
                                 toast(err)

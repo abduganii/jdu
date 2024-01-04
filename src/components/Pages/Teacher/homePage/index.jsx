@@ -74,7 +74,7 @@ export default function HomeTechPage({ user }) {
                 setSection(res)
             }
             if (user?.role == "staff") {
-                setSection(SectionArr)
+
             }
         }
         fetchData4()
@@ -115,6 +115,19 @@ export default function HomeTechPage({ user }) {
 
 
     useEffect(() => {
+        const fetchData4 = async () => {
+            if (user?.role == "teacher") {
+                const res = await SectionGet();
+                setSection(res)
+            }
+            if (user?.role == "staff") {
+                setSection(SectionArr)
+            }
+        }
+        fetchData4()
+            .then((err) => {
+                console.log(err);
+            })
         setValue("firstName", user?.firstName)
         setValue("lastName", user?.lastName)
     }, [user])
@@ -295,8 +308,8 @@ export default function HomeTechPage({ user }) {
                 </div>
             </div>
 
-            {!user?.isActive && openMadal &&
-
+            {/* {!user?.isActive && openMadal && */}
+            {true &&
                 <AddMadal
                     role={"登録"}
                     style={{ maxWidth: "775px" }}
