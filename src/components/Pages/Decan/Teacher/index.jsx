@@ -61,7 +61,6 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
     const Lacation = useLocation()
     const query = Lacation?.search.split('?')?.[1]?.split('=')?.[1]
-    console.log(role)
     const { register, handleSubmit, reset, clearErrors, setError, setValue, watch, formState: { errors } } = useForm();
     const watchedFiles = watch()
     const regex = /@jdu\.uz$/g;
@@ -198,16 +197,17 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
-                <Filter page={"staff"} />
-                <BlueButtun light={true} onClick={() => {
-                    setOpenMadal(true)
-                    router('?updete=false')
-                    reset()
+                <Filter page={"staff"} >
+                    <BlueButtun light={true} onClick={() => {
+                        setOpenMadal(true)
+                        router('?updete=false')
+                        reset()
 
-                }}>
-                    <PlusIcon />
-                    職員を追加
-                </BlueButtun>
+                    }}>
+                        <PlusIcon />
+                        職員を追加
+                    </BlueButtun>
+                </Filter>
             </div>
 
             <div className={cls.TeacherPage__div}>

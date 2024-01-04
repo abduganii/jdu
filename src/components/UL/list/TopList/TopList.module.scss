@@ -1,14 +1,12 @@
 .TopList {
-    padding: 0 20px;
+    padding-left: 20px;
     padding-bottom: 19px;
-
     border-bottom: 1px solid rgb(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     gap: 5px;
     width: 100%;
     margin-top: 41px;
-
 
     &__item {
         font-family: 'Inter';
@@ -20,12 +18,14 @@
         opacity: 0.6;
 
 
+
         width: 100%;
 
         &:last-child {
-            width: 128px !important;
 
-            min-width: 128px !important;
+            width: 100%;
+            max-width: 80px;
+            min-width: 80px;
             text-align: end;
         }
     }

@@ -12,6 +12,9 @@
     top: 0;
     height: calc(100vh - 154px);
 
+    @media screen and (max-width:1440px) {
+        display: none;
+    }
 
 }
 

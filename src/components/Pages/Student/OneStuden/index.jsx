@@ -36,8 +36,6 @@ export default function OneStudent({ user, role }) {
 
     }, [lessonId])
 
-
-
     return (
         <div className={cls.OneStudent}>
 

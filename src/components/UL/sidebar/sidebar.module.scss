@@ -16,6 +16,34 @@
 
     height: calc(100vh - 82px);
 
+    @media screen and (max-width:800px) {
+        position: absolute;
+        margin-top: 0;
+        border-radius: 10px;
+        border: none;
+        top: 60px;
+        left: 10px;
+        z-index: 100;
+
+        display: none;
+
+    }
+
+    &__shodow {
+        display: none;
+
+        @media screen and (max-width:800px) {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgb(0, 0, 0, .2);
+            z-index: 99;
+        }
+    }
+
 
     &::-webkit-scrollbar {
         width: 0;
@@ -149,4 +177,10 @@
 
 
 
+}
+
+.SideBarClose {
+    @media screen and (max-width:800px) {
+        display: inline-block;
+    }
 }

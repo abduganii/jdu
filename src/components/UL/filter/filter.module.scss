@@ -7,7 +7,22 @@
     padding: 6px;
     margin-right: 10px;
 
+    &__responsive {
+        border: none;
+        flex-direction: column;
+    }
 
+    &__wrap {
+        // width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__wrap1 {
+        border: 1px solid rgba(168, 171, 179, 0.3);
+        margin-top: 10px;
+        border-radius: 4px;
+    }
 
     &__btn {
         padding: 8px 12px;
@@ -26,11 +41,16 @@
         z-index: 16;
         display: flex;
         align-items: center;
+        margin-right: auto;
 
         &__active {
             background: #5627DC;
             color: #FFFFFF;
         }
+    }
+
+    &__gruopBtn {
+        margin-right: auto;
     }
 
     &__back {
@@ -69,6 +89,10 @@
         position: relative;
         height: 36px;
 
+        @media screen and (max-width:550px) {
+            gap: 10px;
+        }
+
         &__p {
             font-family: 'Inter';
             font-style: normal;
@@ -78,6 +102,11 @@
             color: #344054;
             opacity: 0.6;
             width: 107px;
+
+            @media screen and (max-width:850px) {
+                width: 100%;
+                max-width: 107px;
+            }
 
         }
 

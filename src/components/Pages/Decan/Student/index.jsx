@@ -212,16 +212,17 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
         }
     }
 
-
-
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
-                <Filter page={"student"} back={true} />
-                <BlueButtun light={true} onClick={() => setOpenMadal(true)}>
-                    <PlusIcon />
-                    学生を追加
-                </BlueButtun>
+                <Filter page={"student"} decan={true} back={true} >
+                    <BlueButtun light={true} onClick={() => setOpenMadal(true)}>
+                        <PlusIcon />
+                        学生を追加
+                    </BlueButtun>
+                </Filter>
+
+
             </div>
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>

@@ -39,7 +39,6 @@ import ParentHome from '../app/Parant/home'
 export default function AppRouter() {
     const [topStudent, setTopStudent] = useState([])
     const [user, setUser] = useState()
-
     const router = useLocation()
     const navigate = useNavigate()
 

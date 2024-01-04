@@ -220,7 +220,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             {
                 personId && <DeleteMadel
                     id={oneStuednt?.loginId}
-                    name={`${"?.firstName"} ${"oneStuednt?.lastName"}`}
+                    name={`${oneStuednt?.firstName} ${oneStuednt?.lastName}`}
                     avater={oneStuednt?.avatar}
                     role={'Parent'}
                     progress={oneStuednt?.progress}
