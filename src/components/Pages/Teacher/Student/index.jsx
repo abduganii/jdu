@@ -55,12 +55,14 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             })
     }
+    console.log(openMadal)
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
                 <Filter page={"student"} />
                 {
                     <BlueButtun light={true} onClick={() => {
+                        console.log("ok")
                         setOpenMadal(true)
                         setexal(null)
                     }}>
@@ -94,7 +96,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                 />
             </div>
 
-            {openMadal && role == "teacher" &&
+            {openMadal &&
                 <AddMadal
                     role={"JLPT & JDU"}
                     OnSubmit={handleSubmit(AddDataSubmit)}
