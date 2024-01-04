@@ -25,16 +25,31 @@ import UserCheckBoz from '../../../UL/userCheckBox'
 
 const lavozim = [
     {
-        id: "bolim boshlig'i",
+        id: "部長",
         name: "部長",
     },
     {
-        id: "leader",
+        id: "リーダー",
         name: "リーダー",
     },
     {
-        id: "masul hodim",
+        id: "担当者",
         name: "担当者",
+    }
+]
+
+const SectionArr = [
+    {
+        id: "学長室",
+        name: "学長室",
+    },
+    {
+        id: "広報部",
+        name: "広報部",
+    },
+    {
+        id: "新しいプロジェクト部",
+        name: "新しいプロジェクト部",
     }
 ]
 
@@ -56,6 +71,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const [section1, setSection1] = useState()
     const [section2, setSection2] = useState()
     const [section3, setSection3] = useState()
+    const [userRole, setSetUserRole] = useState()
     const [section4, setSection4] = useState()
     const [exal, setexal] = useState()
 
@@ -67,8 +83,14 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
     const fitchOnePerson = (id) => {
         const fetchData = async () => {
             const res = await TeacherGetById(id);
-            const data = await SectionGet()
-            setSection(data)
+            setSetUserRole(res?.role)
+            if (res?.role == "teacher") {
+                const data = await SectionGet()
+                setSection(data)
+            }
+            if (res.role == "staff") {
+                setSection(SectionArr)
+            }
 
             setValue("avatar", res?.avatar)
             setValue("firstName", res?.firstName)
@@ -221,9 +243,10 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             img={e?.avatar}
                             id={e?.loginId}
                             name={`${e?.firstName} ${e?.lastName}`}
-                            gruop={e?.specialisation || "null"}
+                            gruop={e?.section || "null"}
                             phone={e?.phoneNumber}
                             email={e?.email}
+                            action={true}
                             remove={() => setPersonId(e?.id)}
                             update={() => {
                                 router('?updete=true')
@@ -333,7 +356,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             }}
                         />
 
-                        <AddInput
+                        {userRole == "teacher" && <AddInput
                             type={"select"}
                             label={"職員"}
                             placeholder={"職員"}
@@ -344,7 +367,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                                 const data = section2.find(el => el?.id == e)
                                 setSection3(data?.name)
                             }}
-                        />
+                        />}
 
                         <AddInput
                             type={"select"}

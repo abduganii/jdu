@@ -35,7 +35,7 @@ export default function OneStudent({ user, role }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
-
+    console.log(user?.images)
     return (
         <div className={cls.OneStudent}>
 
@@ -113,18 +113,19 @@ export default function OneStudent({ user, role }) {
                         ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && user?.images && <h3 className={cls.OneStudent__title}>自己紹介</h3>
                     }
                     {
-                        ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && <>
+                        ["null", "undefined", null, undefined].includes(user?.bio) || user?.bio && <div className={cls.OneStudent__text__wrap}>
                             {
                                 user.bio?.split('\n')?.map(e => (
 
                                     <p className={cls.OneStudent__text}>  {e}</p>
                                 ))
                             }
-                        </>
+                        </div>
                     }
                     {
+
                         <>
-                            {user?.images ?
+                            {user?.images?.length ?
                                 <>
                                     <p className={cls.OneStudent__title}>ギャラリー</p>
                                     <div className={cls.OneStudent__imgs}>
@@ -145,7 +146,12 @@ export default function OneStudent({ user, role }) {
                                         </div>
                                         {["null", "undefined", null, undefined].includes(user?.desc) || user?.desc && <>
 
-                                            <p className={cls.OneStudent__text}>{user?.desc}</p>
+
+                                            {
+                                                user?.desc?.split('\n')?.map(e => (
+                                                    <p className={cls.OneStudent__text}>  {e}</p>
+                                                ))
+                                            }
                                         </>
                                         }
                                     </div>

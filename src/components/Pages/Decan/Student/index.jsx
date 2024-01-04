@@ -235,6 +235,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             key={e?.id}
                             name={`${e?.firstName} ${e?.lastName}`}
                             img={e?.avatar}
+                            action={true}
                             gruop={e?.group?.name || "-"}
                             rate={e?.jlpt || "-"}
                             skill={e?.jdu || "-"}

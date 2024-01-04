@@ -11,7 +11,7 @@ import cls from "./personlist.module.scss";
 import { Link } from '@react-email/link'
 
 
-export default function PersonList({ id, img, name, gruop, student, moveTo, rate, phone, skill, email, remove, update, onClick }) {
+export default function PersonList({ id, img, name, gruop, action, student, moveTo, rate, phone, skill, email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
     const [clickTrue, setClick] = useState(false)
     const x = useRef()
@@ -49,9 +49,9 @@ export default function PersonList({ id, img, name, gruop, student, moveTo, rate
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}
                 {student ? <div className={cls.PersonList__skill}>{skill}</div> : ""}
                 {email && <a href={`mailto:${email}`} className={cls.PersonList__email} ref={em}>{email}</a>}
-                <div className={cls.PersonList__action}>
+                {action && <div className={cls.PersonList__action}>
                     <DoteBtn ref={y} onClick={() => setIseId(true)} />
-                </div>
+                </div>}
                 <hr className={cls.PersonList__line} />
             </div>
             <div
@@ -64,24 +64,26 @@ export default function PersonList({ id, img, name, gruop, student, moveTo, rate
                 style={useId ? { display: "flex" } : { display: "none" }}
                 className={cls.backround}
             ></div>
-            <ListModal
-                remove={() => {
-                    setIseId(false)
-                    remove()
-                }
-                }
-                update={() => {
-                    setIseId(false)
-                    update()
-                }}
+            {
+                action && <ListModal
+                    remove={() => {
+                        setIseId(false)
+                        remove()
+                    }
+                    }
+                    update={() => {
+                        setIseId(false)
+                        update()
+                    }}
 
-                moveTo={moveTo ? () => {
-                    setIseId(false)
-                    moveTo()
-                } : false}
-                onClick={onClick}
-                style={useId ? { display: "block" } : { display: "none" }}
-            />
+                    moveTo={moveTo ? () => {
+                        setIseId(false)
+                        moveTo()
+                    } : false}
+                    onClick={onClick}
+                    style={useId ? { display: "block" } : { display: "none" }}
+                />
+            }
         </div>
     )
 }

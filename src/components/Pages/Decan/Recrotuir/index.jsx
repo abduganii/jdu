@@ -159,6 +159,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         name={`${e?.firstName} ${e?.lastName}`}
                         gruop={e?.companyName}
                         phone={e?.phoneNumber}
+                        action={true}
                         email={e?.email}
                         remove={() => setPersonId(e?.id)}
                         update={() => {

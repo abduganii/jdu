@@ -205,6 +205,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         gruop={e?.Students?.[0].firstName}
                         phone={e?.phoneNumber}
                         email={e?.email}
+                        action={true}
                         remove={() => setPersonId(e?.id)}
                         update={() => {
                             router('?updete=true')

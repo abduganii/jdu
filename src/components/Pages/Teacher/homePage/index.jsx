@@ -17,19 +17,35 @@ import { ImageUpload } from '../../../../utils/imageUpload';
 
 const lavozim = [
     {
-        id: "bolim boshlig'i",
+        id: "部長",
         name: "部長",
     },
     {
-        id: "leader",
+        id: "部長",
         name: "リーダー",
     },
     {
-        id: "masul hodim",
+        id: "部長",
         name: "担当者",
     }
 
 ]
+
+const SectionArr = [
+    {
+        id: "学長室",
+        name: "学長室",
+    },
+    {
+        id: "広報部",
+        name: "広報部",
+    },
+    {
+        id: "新しいプロジェクト部",
+        name: "新しいプロジェクト部",
+    }
+]
+
 
 export default function HomeTechPage({ user }) {
     const [JDU, setJDU] = useState({})
@@ -53,8 +69,13 @@ export default function HomeTechPage({ user }) {
     useEffect(() => {
 
         const fetchData4 = async () => {
-            const res = await SectionGet();
-            setSection(res)
+            if (user?.role == "teacher") {
+                const res = await SectionGet();
+                setSection(res)
+            }
+            if (user?.role == "staff") {
+                setSection(SectionArr)
+            }
         }
         fetchData4()
             .then((err) => {
@@ -158,7 +179,6 @@ export default function HomeTechPage({ user }) {
         }
     }
     const router = useNavigate()
-    console.log(data2?.First?.percentage)
     return (
         <>
             <div className={cls.HomePage} >
@@ -276,6 +296,7 @@ export default function HomeTechPage({ user }) {
             </div>
 
             {!user?.isActive && openMadal &&
+
                 <AddMadal
                     role={"登録"}
                     style={{ maxWidth: "775px" }}

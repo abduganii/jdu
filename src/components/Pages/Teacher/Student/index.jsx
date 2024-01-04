@@ -73,7 +73,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", "アクション"]} />
+                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", ""]} />
 
                     {data && data?.map(e => (
                         <PersonList
