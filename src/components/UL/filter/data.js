@@ -128,15 +128,15 @@ export const JDU = [
 
 export const SectionArr = [
   {
-      id: "学長室",
-      name: "学長室",
-  },
-  {
-      id: "広報部",
-      name: "広報部",
-  },
-  {
-      id: "新しいプロジェクト部",
-      name: "新しいプロジェクト部",
-  }
+    id: "部長",
+    name: "部長",
+},
+{
+    id: "リーダー",
+    name: "リーダー",
+},
+{
+    id: "担当者",
+    name: "担当者",
+}
 ]
