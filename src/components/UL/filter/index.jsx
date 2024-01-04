@@ -94,7 +94,7 @@ export default function Filter({ children, page, decan, back }) {
                         SetInoutVal('')
                         SetInoutVal1('')
                         SetCahnegSet(true)
-                        setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", companyName: "", group: "", groups: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
+                        setSearchParams({ ...paramsToObject(params.entries()), specialisation: "", position: "", companyName: "", group: "", groups: "", jdu: "", jlpt: "", isArchive: false, Group: "", rate: "", year: "" })
                         setY(false)
                         setW(false)
                         setK(false)
