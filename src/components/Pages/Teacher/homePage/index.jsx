@@ -308,8 +308,8 @@ export default function HomeTechPage({ user }) {
                 </div>
             </div>
 
-            {/* {!user?.isActive && openMadal && */}
-            {true &&
+            {!user?.isActive && openMadal &&
+
                 <AddMadal
                     role={"登録"}
                     style={{ maxWidth: "775px" }}
