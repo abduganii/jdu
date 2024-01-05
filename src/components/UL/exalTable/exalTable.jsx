@@ -1,12 +1,10 @@
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 
 function SmallExample({ data, teacher, parent }) {
-  console.log(parent)
   return (
-    <Table striped bordered hover >
-
-      {
-        teacher ? <>
+    <Table striped bordered hover>
+      {teacher ? (
+        <>
           <thead>
             <tr>
               <th>#</th>
@@ -18,21 +16,20 @@ function SmallExample({ data, teacher, parent }) {
             </tr>
           </thead>
           <tbody>
-            {
-              data?.map((e, i) => (
-                <tr key={i}>
-                  <td>{i}</td>
-                  <td>{e?.firstname}</td>
-                  <td>{e?.lastname}</td>
-                  <td>{e?.id}</td>
-                  <td>{e?.JLPT}</td>
-                  <td>{e?.JDU}</td>
-                </tr>
-              ))
-            }
-
+            {data?.map((e, i) => (
+              <tr key={i}>
+                <td>{i}</td>
+                <td>{e?.firstname}</td>
+                <td>{e?.lastname}</td>
+                <td>{e?.id}</td>
+                <td>{e?.JLPT}</td>
+                <td>{e?.JDU}</td>
+              </tr>
+            ))}
           </tbody>
-        </> : <>
+        </>
+      ) : (
+        <>
           <thead>
             <tr>
               <th>#</th>
@@ -43,24 +40,21 @@ function SmallExample({ data, teacher, parent }) {
             </tr>
           </thead>
           <tbody>
-            {
-              data?.map((e, i) => (
-                <tr key={i}>
-                  <td>{i}</td>
-                  <td>{e?.firstName}</td>
-                  <td>{e?.lastName}</td>
-                  <td>{e?.email}</td>
-                  {
-                    parent && <>{e?.parent ? <td> {e?.parent}</td> : <td>-</td>}</>
-                  }
-                </tr>
-              ))
-            }
-
+            {data?.map((e, i) => (
+              <tr key={i}>
+                <td>{i}</td>
+                <td>{e?.firstName}</td>
+                <td>{e?.lastName}</td>
+                <td>{e?.email}</td>
+                {parent && (
+                  <>{e?.parent ? <td> {e?.parent}</td> : <td>-</td>}</>
+                )}
+              </tr>
+            ))}
           </tbody>
         </>
-      }
-    </Table >
+      )}
+    </Table>
   );
 }
 
