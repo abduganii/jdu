@@ -22,6 +22,7 @@ import ExalInput from '../../../UL/input/exal'
 import { useQueryClient } from 'react-query'
 import { ImageUpload } from '../../../../utils/imageUpload'
 import UserCheckBoz from '../../../UL/userCheckBox'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 const lavozim = [
     {
@@ -55,6 +56,7 @@ const SectionArr = [
 
 
 const TeacherPage = React.forwardRef(({ data }, ref) => {
+    const widthwindow = useGetWindowWidth()
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const [personId, setPersonId] = useState(false)
@@ -234,7 +236,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
             <div className={cls.TeacherPage__div}>
 
-                <TopList text={["職員", "職員ID", "部署", "電話番号", "電子メール", "アクション"]} />
+                <TopList text={["職員", widthwindow > 600 ? "職員ID" : null, widthwindow > 1030 ? "部署" : null, widthwindow > 500 ? "電話番号" : null, widthwindow > 1130 ? "電子メール" : null, "アクション"]} />
                 {data &&
                     data?.map(e => (
                         <PersonList
@@ -243,9 +245,9 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             img={e?.avatar}
                             id={e?.loginId}
                             name={`${e?.firstName} ${e?.lastName}`}
-                            gruop={e?.section || "null"}
-                            phone={e?.phoneNumber}
-                            email={e?.email}
+                            gruop={widthwindow > 1030 ? e?.section || "null" : null}
+                            phone={widthwindow > 500 ? e?.phoneNumber : null}
+                            email={widthwindow > 1130 ? e?.email : null}
                             action={true}
                             remove={() => setPersonId(e?.id)}
                             update={() => {

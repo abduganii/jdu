@@ -6,7 +6,7 @@ import { useGetWindowWidth } from '../../../hooks/useGetWindowWith.js'
 import { SectionGet2 } from '../../../services/teacher.js'
 import paramsToObject from '../../../utils/paramsToObject.js'
 import BackBtn from '../buttun/backBtn/index.jsx'
-import { CloseIcon, FilterIcon, LeftIcon } from '../icons.jsx'
+import { CloseIcon, FilterIcon, LeftIcon, PlusIcon } from '../icons.jsx'
 
 import { filterRate, YearsRate, YearsRate1, TeacherRate, JLPT, JDU, SectionArr } from './data.js'
 
@@ -73,13 +73,18 @@ export default function Filter({ children, page, decan, back }) {
             .then((err) => {
                 console.log(err);
             })
-        if (page == "student") {
+        if (page == "student" || page == "student2") {
             setHideChild(1440)
         }
         if (page == "staff") {
-            setHideChild(1140)
+            setHideChild(1240)
         }
-
+        if (page == "parent") {
+            setHideChild(1040)
+        }
+        if (page == "recruiter") {
+            setHideChild(880)
+        }
 
     }, [params])
 
@@ -90,7 +95,7 @@ export default function Filter({ children, page, decan, back }) {
 
                 <div className={cls.Filter__wrap}>
 
-                    <button className={`${cls.Filter__btn} ${!cahneSet || params.get('group') ? cls.Filter__btn__active : ""}`} onClick={() => {
+                    <button className={`${cls.Filter__btn} ${decan & HideChild >= windowWidth ? cls.Filter__btnMr : ""}  ${!cahneSet || params.get('group') ? cls.Filter__btn__active : ""}`} onClick={() => {
                         SetInoutVal('')
                         SetInoutVal1('')
                         SetCahnegSet(true)
@@ -113,8 +118,11 @@ export default function Filter({ children, page, decan, back }) {
                         フィルター
                     </button>
                     {
-                        decan & HideChild >= windowWidth ? <div className={cls.Filter__gruopBtn}>
+                        decan & HideChild >= windowWidth ? <div className={cls.Filter__gruopBtn} onClick={() => {
+                            setSearchParams({ ...paramsToObject(params.entries()), onepgruop: true })
+                        }}>
                             Gruops
+                            <div><PlusIcon /></div>
                         </div> : ""
                     }
                     {
@@ -499,7 +507,7 @@ export default function Filter({ children, page, decan, back }) {
 
                     {
                         page == "student2" && <>
-                            <div className={cls.Filter__Select} onClick={() => {
+                            {windowWidth > 1040 ? <div className={cls.Filter__Select} onClick={() => {
                                 setY(true)
                                 setW(true)
                             }}>
@@ -523,7 +531,7 @@ export default function Filter({ children, page, decan, back }) {
                                     />
                                 </div>
                             </div>
-
+                                : ""}
                             <div className={cls.Filter__Select} onClick={() => {
                                 setH(true)
                                 setY(true)

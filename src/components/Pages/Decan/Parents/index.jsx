@@ -20,9 +20,10 @@ import { ParentAdd, Parentdelete, ParentUpdate, ParentGetById, ParentAllAdd } fr
 import { StudentsGetByloginId } from '../../../../services/student'
 import { ImageUpload } from '../../../../utils/imageUpload'
 import UserCheckBoz from '../../../UL/userCheckBox'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 const PerantPage = React.forwardRef(({ data }, ref) => {
-
+    const widthwindow = useGetWindowWidth()
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
 
@@ -182,19 +183,22 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
-                <Filter page={'parent'} />
-                <BlueButtun light={true} onClick={() => {
-                    setOpenMadal(true)
-                    router('?updete=false')
-                    reset()
-                }
-                }>
-                    <PlusIcon />
-                    保護者を追加
-                </BlueButtun>
+                <Filter page={'parent'} >
+                    <BlueButtun light={true} onClick={() => {
+                        setOpenMadal(true)
+                        router('?updete=false')
+                        reset()
+                    }
+                    }>
+                        <PlusIcon />
+                        保護者を追加
+                    </BlueButtun>
+                </Filter>
+
             </div>
             <div className={cls.TeacherPage__div}>
-                <TopList text={["保護者", "保護者ID", "学生", "電話番号", "電子メール", "アクション"]} />
+
+                <TopList text={["保護者", widthwindow > 600 ? "保護者ID" : null, widthwindow > 1030 ? "学生" : null, widthwindow > 500 ? "電話番号" : null, widthwindow > 1130 ? "電子メール" : null, "アクション"]} />
                 {data && data?.map(e => (
                     <PersonList
                         onClick={() => router(`/decan/parents/${e?.id}`)}
@@ -202,9 +206,9 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         img={e?.avatar}
                         id={e?.loginId}
                         name={`${e?.firstName} ${e?.lastName}`}
-                        gruop={e?.Students?.[0].firstName}
-                        phone={e?.phoneNumber}
-                        email={e?.email}
+                        gruop={widthwindow > 1030 ? e?.Students?.[0].firstName : null}
+                        phone={widthwindow > 500 ? e?.phoneNumber : null}
+                        email={widthwindow > 1130 ? e?.email : null}
                         action={true}
                         remove={() => setPersonId(e?.id)}
                         update={() => {

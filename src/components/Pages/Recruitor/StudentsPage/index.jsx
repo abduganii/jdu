@@ -1,4 +1,5 @@
 import React from 'react'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 import Container from '../../../UL/container'
 import Filter from '../../../UL/filter'
 import StudentList from '../../../UL/list/studentList'
@@ -7,7 +8,7 @@ import TopStudents from '../../../UL/topStudents'
 import cls from "./StudentsPage.module.scss"
 
 const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
-
+    const widthwindow = useGetWindowWidth()
     return (
         <>
             <Container style={{ paddingTop: "100px" }}>
@@ -15,12 +16,13 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                 <div className={cls.StudentsPage__div}>
                     <ul className={cls.StudentsPage__top}>
                         <li className={cls.StudentsPage__top__item}>学生</li>
-                        <li className={cls.StudentsPage__top__item}>ID</li>
-                        <li className={cls.StudentsPage__top__item}>グループ</li>
-                        <li className={cls.StudentsPage__top__item}>JLPT</li>
-                        <li className={cls.StudentsPage__top__item}>JDU</li>
+                        {widthwindow > 1040 ? <li className={cls.StudentsPage__top__item}>ID</li> : null}
+                        {widthwindow > 600 ? <li className={cls.StudentsPage__top__item}>グループ</li> : null}
+                        {widthwindow > 1200 ? <li className={cls.StudentsPage__top__item}>JLPT</li> : null}
+                        {widthwindow > 1200 ? <li className={cls.StudentsPage__top__item}>JDU</li> : null}
                         <li className={cls.StudentsPage__top__item}>アクション</li>
                     </ul>
+
                     <ul>
                         {data?.length ? data?.map(e => {
 
@@ -35,8 +37,8 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                                             loginId={e?.loginId}
                                             avatar={e?.avatar}
                                             gruop={e?.group?.name}
-                                            jdu={e?.jdu || "-"}
-                                            jlpt={e?.jlpt || "-"}
+                                            jdu={widthwindow > 1200 ? e?.jdu || "-" : null}
+                                            jlpt={widthwindow > 1200 ? e?.jlpt || "-" : null}
                                             isSelcted={e?.isSelected}
                                             student={true}
                                         />
@@ -50,9 +52,9 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                                         id={e?.id}
                                         loginId={e?.loginId}
                                         avatar={e?.avatar}
-                                        gruop={e?.group?.name}
-                                        jdu={e?.jdu || "-"}
-                                        jlpt={e?.jlpt || "-"}
+                                        gruop={widthwindow > 600 ? e?.group?.name : null}
+                                        jdu={widthwindow > 1200 ? e?.jdu || "-" : null}
+                                        jlpt={widthwindow > 1200 ? e?.jlpt || "-" : null}
                                         isSelcted={e?.isSelected}
                                         student={true}
                                     />

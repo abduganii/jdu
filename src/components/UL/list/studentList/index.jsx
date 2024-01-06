@@ -12,9 +12,10 @@ import { StudentSelect, StudentSelectDel } from '../../../../services/recruter'
 import ListModal from '../../madals/listMadal'
 import { useQueryClient } from 'react-query'
 import IdBtn from '../../buttun/idBtn'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 export default function StudentList({ isSelcted, avatar, name, gruop, id, loginId, select, jdu, jlpt }) {
-
+    const widthwindow = useGetWindowWidth()
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
@@ -51,23 +52,25 @@ export default function StudentList({ isSelcted, avatar, name, gruop, id, loginI
                         /> : <Avatar name={name} size="48" round={true} />}
                         <div className={cls.StudentList__pirson__div}>
                             <p className={cls.StudentList__pirson__name}>{name}</p>
-
+                            {widthwindow < 1040 ? <p className={cls.StudentList__pirson__Id}>ID:{loginId}</p> : ""}
                         </div>
                     </div>
                 </div>
-                <div className={cls.StudentList__id}>
+                {widthwindow > 1040 ? <div className={cls.StudentList__id}>
                     <IdBtn>ID:{loginId}</IdBtn>
-                </div>
-                <div className={cls.StudentList__gruop}>
+                </div> : ""}
+                {gruop && <div className={cls.StudentList__gruop}>
                     {gruop}
-                </div>
-                <div className={cls.StudentList__jdu}>
+                </div>}
+                {jdu && <div className={cls.StudentList__jdu}>
                     {jdu}
-                </div>
-                <div className={cls.StudentList_jlpt}>
+                </div>}
+                {jlpt && <div className={cls.StudentList_jlpt}>
                     {jlpt}
-                </div>
-                <DoteBtn onClick={(e) => setIseId(true)} style={{ marginLeft: "100px" }} />
+                </div>}
+                {<div className={cls.StudentList__action}>
+                    <DoteBtn onClick={(e) => setIseId(true)} />
+                </div>}
 
 
                 <hr className={cls.StudentList__line} />

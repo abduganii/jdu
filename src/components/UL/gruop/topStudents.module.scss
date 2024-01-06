@@ -12,9 +12,30 @@
     top: 0;
     height: calc(100vh - 154px);
 
+    &__shodow {
+        display: none;
+
+        @media screen and (max-width:1440px) {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgb(0, 0, 0, .2);
+            z-index: 99;
+        }
+    }
+
     @media screen and (max-width:1440px) {
         display: none;
+        position: absolute;
+        top: 90px;
+        z-index: 100000;
+
     }
+
+
 
 }
 
@@ -150,4 +171,10 @@
 
 .GruopListactive {
     background-color: #EEE9FB;
+}
+
+.asiderClose {
+    @media screen and (max-width:1440px) {
+        display: inline-block;
+    }
 }

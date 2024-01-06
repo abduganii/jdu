@@ -23,6 +23,7 @@ import GruopList from '../../../UL/gruop'
 import { AddGroup, Groupdelete, GroupGetById, UpdateGroup } from '../../../../services/gruop'
 
 import UserCheckBoz from '../../../UL/userCheckBox'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 const Course = [
     {
@@ -46,7 +47,7 @@ const Course = [
 
 
 const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
-
+    const widthwindow = useGetWindowWidth()
 
     const queryClient = useQueryClient()
     const [openUser, setopenUser] = useState("inputs")
@@ -226,7 +227,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
             </div>
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList text={["学生", "学生ID", "グループ", "JLPT", "JDU日本語認定", "アクション"]} />
+                    <TopList text={["学生", widthwindow > 600 ? "学生ID" : null, widthwindow > 600 ? "グループ" : null, widthwindow > 1200 ? "JLPT" : null, widthwindow > 1200 ? "JDU日本語認定" : null, "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList
@@ -236,9 +237,9 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             name={`${e?.firstName} ${e?.lastName}`}
                             img={e?.avatar}
                             action={true}
-                            gruop={e?.group?.name || "-"}
-                            rate={e?.jlpt || "-"}
-                            skill={e?.jdu || "-"}
+                            gruop={widthwindow > 600 ? e?.group?.name || "-" : null}
+                            rate={widthwindow > 1200 ? e?.jlpt || "-" : null}
+                            skill={widthwindow > 1200 ? e?.jdu || "-" : null}
                             update={() => router(`/decan/studentsSet/${e?.id}`)}
                             moveTo={() => setPersonId2(e?.id)}
                             remove={() => setPersonId(e?.id)}

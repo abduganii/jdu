@@ -21,9 +21,11 @@ import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import ExalInput from '../../../UL/input/exal'
 import GruopList from '../../../UL/gruop'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 
 const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
+    const widthwindow = useGetWindowWidth()
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
@@ -58,21 +60,21 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
-                <Filter page={"student"} />
-                {
+                <Filter decan={true} page={"student"} >
                     <BlueButtun light={true} onClick={() => {
-                        console.log("ok")
+
                         setOpenMadal(true)
                         setexal(null)
                     }}>
                         日本語能力試験を追加
                     </BlueButtun>
-                }
+                </Filter>
+
             </div>
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList text={["学生", "ID", "グループ", "JLPT", "JDU", ""]} />
+                    <TopList teacher={true} text={["学生", widthwindow > 600 ? "学生ID" : null, widthwindow > 600 ? "グループ" : null, widthwindow > 1200 ? "JLPT" : null, widthwindow > 1200 ? "JDU日本語認定" : null, null]} />
 
                     {data && data?.map(e => (
                         <PersonList
@@ -81,12 +83,13 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                             key={e?.id}
                             name={`${e?.firstName} ${e?.lastName}`}
                             img={e?.avatar}
-                            gruop={e?.group?.name}
-                            rate={e?.jlpt || "-"}
-                            skill={e?.jdu || "-"}
+                            gruop={widthwindow > 600 ? e?.group?.name || "-" : null}
+                            rate={widthwindow > 1200 ? e?.jlpt || "-" : null}
+                            skill={widthwindow > 1200 ? e?.jdu || "-" : null}
                             student={true}
                         />
                     ))}
+
 
                     <div ref={ref} style={{ padding: "10px" }}></div>
                 </div>

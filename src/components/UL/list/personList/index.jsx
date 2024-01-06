@@ -9,6 +9,7 @@ import { useRef, useState } from 'react'
 import Avatar from 'react-avatar';
 import cls from "./personlist.module.scss";
 import { Link } from '@react-email/link'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 
 export default function PersonList({ id, img, name, gruop, action, student, moveTo, rate, phone, skill, email, remove, update, onClick }) {
@@ -20,7 +21,7 @@ export default function PersonList({ id, img, name, gruop, action, student, move
     const u = useRef()
     const em = useRef()
     const [number, setNumber] = useState(0)
-
+    const widthwindow = useGetWindowWidth()
     return (
         <div style={{ position: 'relative' }}>
             <div className={cls.PersonList} onClick={(e) => {
@@ -36,18 +37,21 @@ export default function PersonList({ id, img, name, gruop, action, student, move
                         alt={img}
                     /> : <Avatar name={name} size="48" round={true} />
                     }
-                    <p className={cls.PersonList__name}>{name}</p>
+                    <div>
+                        <p className={cls.PersonList__name}>{name}</p>
+                        {widthwindow < 600 ? <p className={cls.PersonList__idreponsice}>ID:{id}</p> : ""}
+                    </div>
                 </div>
-                <div className={cls.PersonList__id}>
+                {widthwindow > 600 ? <div className={cls.PersonList__id}>
                     <IdBtn>ID:{id}</IdBtn>
-                </div>
-                <p className={cls.PersonList__Gruop}>{gruop}</p>
+                </div> : ""}
+                {gruop && <p className={cls.PersonList__Gruop}>{gruop}</p>}
                 {rate && <div className={cls.PersonList__progres}>
                     {rate}
                 </div>
                 }
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}
-                {student ? <div className={cls.PersonList__skill}>{skill}</div> : ""}
+                {student && skill ? <div className={cls.PersonList__skill}>{skill}</div> : ""}
                 {email && <a href={`mailto:${email}`} className={cls.PersonList__email} ref={em}>{email}</a>}
                 {action && <div className={cls.PersonList__action}>
                     <DoteBtn ref={y} onClick={() => setIseId(true)} />

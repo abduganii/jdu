@@ -17,10 +17,12 @@ import { RecruitorAdd, Recruitordelete, RecruitorGetById, RecruitorUpdate } from
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
 import { ImageUpload } from '../../../../utils/imageUpload'
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 const RecruitorPage = React.forwardRef(({ data }, ref) => {
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
+    const widthwindow = useGetWindowWidth()
 
     const [personId, setPersonId] = useState(false)
     const [personId1, setPersonId1] = useState()
@@ -136,20 +138,23 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
     return (
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
-                <Filter page={'recruiter'} />
-                <BlueButtun light={true} onClick={() => {
-                    setOpenMadal(true)
-                    router('?updete=false')
-                    reset()
-                }
-                }>
-                    <PlusIcon />
-                    リクルーターを追加
-                </BlueButtun>
+                <Filter page={'recruiter'} >
+
+                    <BlueButtun light={true} onClick={() => {
+                        setOpenMadal(true)
+                        router('?updete=false')
+                        reset()
+                    }
+                    }>
+                        <PlusIcon />
+                        リクルーターを追加
+                    </BlueButtun>
+                </Filter>
             </div>
             <div className={cls.TeacherPage__div}>
 
-                <TopList text={["リクルーター", "リクルーターID", "会社", "電話番号", "電子メール", "アクション"]} />
+
+                <TopList text={["リクルーター", widthwindow > 600 ? "リクルーターID" : null, widthwindow > 1030 ? "会社" : null, widthwindow > 500 ? "電話番号" : null, widthwindow > 1130 ? "電子メール" : null, "アクション"]} />
                 {data && data?.map(e => (
                     <PersonList
                         onClick={() => router(`/decan/recruitors/${e?.id}`)}
@@ -157,10 +162,10 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         img={e?.avatar}
                         id={e?.loginId}
                         name={`${e?.firstName} ${e?.lastName}`}
-                        gruop={e?.companyName}
-                        phone={e?.phoneNumber}
+                        gruop={widthwindow > 1030 ? e?.companyName || "null" : null}
+                        phone={widthwindow > 500 ? e?.phoneNumber : null}
                         action={true}
-                        email={e?.email}
+                        email={widthwindow > 1130 ? e?.email : null}
                         remove={() => setPersonId(e?.id)}
                         update={() => {
                             router('?updete=true')

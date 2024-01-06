@@ -43,12 +43,24 @@
         width: 100%;
 
 
+
         cursor: pointer;
 
         img {
             border-radius: 50%;
             object-fit: cover;
+         
         }
+    }
+
+    &__idreponsice {
+        color: #667085;
+
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
     }
 
     &__name {

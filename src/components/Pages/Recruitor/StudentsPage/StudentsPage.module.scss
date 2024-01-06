@@ -22,31 +22,11 @@
             line-height: 18px;
             color: #101828;
             opacity: 0.6;
+            width: 100%;
 
-
-            &:first-child {
+            &:last-child {
                 width: 100%;
-                max-width: 320px;
-            }
-
-            &:nth-child(2) {
-                width: 100%;
-                max-width: 120px;
-            }
-
-            &:nth-child(3) {
-                width: 100%;
-                max-width: 110px;
-            }
-
-            &:nth-child(4) {
-                width: 100%;
-                max-width: 80px;
-            }
-
-            &:nth-child(5) {
-                width: 100%;
-                max-width: 80px;
+                max-width: 100px;
             }
         }
     }
