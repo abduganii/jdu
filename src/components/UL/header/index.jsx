@@ -11,9 +11,7 @@ export default function Header({ user }) {
     const tokyoTime = useTime('Asia/Tokyo')
     const router = useNavigate()
     const [openSearch, setOpenSearch] = useState(false)
-    const [openSiteBar, setOpenSiteBar] = useState(false)
-
-
+    params.get('sideBar')
 
     return (
         <>
@@ -55,8 +53,13 @@ export default function Header({ user }) {
                         <div
                             className={`${cls.Header__humberger} ${params.get('sideBar') == "true" ? cls.Header__humbergerOpen : ""}`}
                             onClick={() => {
-                                setOpenSiteBar(!openSiteBar)
-                                setSearchParams({ ...paramsToObject(params.entries()), sideBar: !openSiteBar })
+
+                                if (params.get('sideBar') == "true") {
+                                    setSearchParams({ ...paramsToObject(params.entries()), sideBar: false })
+                                } else {
+                                    setSearchParams({ ...paramsToObject(params.entries()), sideBar: true })
+
+                                }
                             }}
                         >
 

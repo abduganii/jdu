@@ -41,6 +41,7 @@ export default function DecanStudent() {
       fetchNextPage()
     }
   }, [inView])
+
   return (
     <>
       <StudentPage data={students} Specialisation={specialisation} ref={ref} />
