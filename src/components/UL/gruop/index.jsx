@@ -83,12 +83,12 @@ export default function GruopList({ setGrupId1, decan, setGrupIdIm, fitchOnePers
                                         <div className={cls.GruopList__name} onClick={
                                             () => {
                                                 setGrupIdIm(e?.id)
-                                                setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
+                                                setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, onepgruop: false, isArchive: false })
                                             }}>{e?.name}</div>
                                         <div className={cls.GruopList__div} onClick={
                                             () => {
                                                 setGrupIdIm(e?.id)
-                                                setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, isArchive: false })
+                                                setSearchParams({ ...paramsToObject(params.entries()), group: e?.name, onepgruop: false, isArchive: false })
                                             }}>
                                             <h3 className={cls.GruopList__title}>{e?.collection}</h3>
                                             <p className={cls.GruopList__student}>{e?.students}学生</p>
