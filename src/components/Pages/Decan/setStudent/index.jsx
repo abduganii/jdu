@@ -95,7 +95,7 @@ export default function SetStudent({ data, role }) {
         setAvatar(null)
     }
     return (
-        <Container className={cls.SetStudent__container} style={{ marginTop: "100px", marginLeft: "40px" }} >
+        <Container className={cls.SetStudent__container}  >
             <form onSubmit={handleSubmit2(AddDataSubmit)}>
                 <div className={cls.SetStudent__logout2__wrap} ref={x} onClick={(e) => {
                     if (e.target == x.current) {

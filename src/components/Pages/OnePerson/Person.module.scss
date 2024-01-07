@@ -62,6 +62,13 @@
         padding: 8px;
         padding-bottom: 32px;
 
+        @media screen and (max-width:450px) {
+            max-width: 160px;
+            padding: 4px;
+            padding-bottom: 12px;
+
+        }
+
         &__box {
             width: 100%;
             border-radius: 5px;
@@ -74,6 +81,11 @@
             gap: 8px;
             cursor: pointer;
 
+            @media screen and (max-width:450px) {
+                padding: 4px 2px;
+                gap: 6px;
+
+            }
         }
 
         &__text {
@@ -85,6 +97,12 @@
             font-weight: 500;
             line-height: normal;
             margin-bottom: 8px;
+
+            @media screen and (max-width:450px) {
+
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
         }
 
         &__id {
@@ -99,6 +117,10 @@
             line-height: normal;
             text-align: center;
             padding: 4px 15px;
+
+            @media screen and (max-width:450px) {
+                padding: 2px 4px;
+            }
         }
 
         a {
@@ -116,21 +138,37 @@
             line-height: normal;
             gap: 9px;
 
+
             svg {
                 width: 18px;
                 height: 18px;
             }
 
+            color: #0094FF;
+
+
+            @media screen and (max-width:450px) {
+                font-size: 12px;
+                margin-left: 14px;
+                margin-top: 15px;
+            }
+
             p {
                 max-width: 140px;
                 overflow: hidden;
-            }
 
-            color: #0094FF;
+                @media screen and (max-width:450px) {
+                    max-width: 80px;
+                }
+            }
 
             &:last-child {
                 color: black;
                 margin-top: 15px;
+
+                @media screen and (max-width:450px) {
+                    margin-top: 7px;
+                }
             }
         }
     }

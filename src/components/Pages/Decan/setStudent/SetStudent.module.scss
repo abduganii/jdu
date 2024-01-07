@@ -3,12 +3,29 @@
         width: 100%;
         max-width: 868px !important;
         margin-bottom: 86px !important;
+        margin-top: 100px !important;
+        margin-left: 40px !important;
+
+        @media screen and (max-width:980px) {
+            margin-bottom: 76px !important;
+            margin-left: 10px !important;
+        }
     }
+
 
     &__top {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 36px;
+
+        @media screen and (max-width:1160px) {
+            flex-direction: column-reverse;
+            align-items: flex-end;
+            gap: 10px;
+            margin-bottom: 0px;
+
+        }
 
         &__Info {
             display: flex;
@@ -20,6 +37,10 @@
             border: 1px solid rgba(168, 171, 179, 0.30);
             background: #FFF;
             gap: 24px;
+
+            @media screen and (max-width:1160px) {
+                max-width: 100%;
+            }
 
             div {
                 cursor: pointer;
@@ -67,7 +88,7 @@
 
         }
 
-        margin-bottom: 36px;
+
     }
 
     &__upload {
@@ -199,6 +220,7 @@
             max-width: 293px;
 
 
+
             &::placeholder {
                 color: rgb(37, 36, 48, .4);
             }
@@ -324,6 +346,16 @@
         justify-content: space-between;
         gap: 38px;
         margin: 60px 0;
+
+        @media screen and (max-width:980px) {
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        @media screen and (max-width:650px) {
+            flex-direction: column;
+        }
+
     }
 
     &__content {
@@ -505,6 +537,10 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+
+                @media screen and (max-width:590px) {
+                    width: calc((100% - 18px) / 2);
+                }
             }
 
             input {
@@ -530,6 +566,10 @@
 
         &__cartume {
             width: calc((100% - 18px) / 4);
+
+            @media screen and (max-width:590px) {
+                width: calc((100% - 18px) / 2);
+            }
 
             border-radius: 8px;
             position: relative;

@@ -1,4 +1,7 @@
 .CancelBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -9,4 +12,7 @@
     background: #EEECF4;
     border-radius: 4px;
     cursor: pointer;
+
+
+
 }

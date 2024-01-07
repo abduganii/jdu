@@ -464,7 +464,7 @@
 
         @media screen and (max-width: 650px) {
             max-width: 140px !important;
-            padding: 10px 25px !important;
+            padding: 10px !important;
             margin-left: auto !important;
 
         }
@@ -501,6 +501,12 @@
         padding: 8px;
         padding-bottom: 32px;
 
+        @media screen and (max-width:450px) {
+            max-width: 150px;
+            padding: 4px;
+            padding-bottom: 12px;
+
+        }
 
         &__box {
             cursor: pointer;
@@ -514,6 +520,11 @@
             align-items: center;
             gap: 8px;
 
+            @media screen and (max-width:450px) {
+                padding: 4px 2px;
+                gap: 6px;
+
+            }
 
         }
 
@@ -527,6 +538,12 @@
             font-weight: 500;
             line-height: normal;
             margin-bottom: 8px;
+
+            @media screen and (max-width:450px) {
+
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
         }
 
         &__id {
@@ -541,6 +558,10 @@
             line-height: normal;
             text-align: center;
             padding: 4px 8px;
+
+            @media screen and (max-width:450px) {
+                padding: 2px 4px;
+            }
         }
 
         a {
@@ -559,16 +580,31 @@
             line-height: normal;
             gap: 9px;
 
+
             color: #0094FF;
+
+            @media screen and (max-width:450px) {
+                font-size: 12px;
+                margin-left: 14px;
+                margin-top: 15px;
+            }
 
             p {
                 max-width: 160px;
                 overflow: hidden;
+
+                @media screen and (max-width:450px) {
+                    max-width: 80px;
+                }
             }
 
             &:last-child {
                 color: black;
                 margin-top: 15px;
+
+                @media screen and (max-width:450px) {
+                    margin-top: 7px;
+                }
             }
         }
     }

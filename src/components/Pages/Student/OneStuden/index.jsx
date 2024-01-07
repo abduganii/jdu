@@ -48,7 +48,7 @@ export default function OneStudent({ user, role }) {
                                 light={true}
                                 className={cls.OneStudent__btn}
                                 onClick={() => router(`/${role}/studentsSet/${user?.id}`)}
-                                style={{ padding: "14px 30px" }}
+
                             >
                                 プロフィール編集
                             </BlueButtun> :
@@ -82,8 +82,8 @@ export default function OneStudent({ user, role }) {
                                 <div className={cls.OneStudent__person__box} onClick={() => router(`/decan/parents/${user?.Parents?.[0]?.id}`)}>
                                     {user?.Parents?.[0]?.avatar ? <img
                                         src={user?.Parents?.[0]?.avatar}
-                                        width={130}
-                                        height={130}
+                                        width={64}
+                                        height={65}
                                         alt={"img"}
                                         style={{ borderRadius: "50%", objectFit: "cover" }}
                                     /> :
