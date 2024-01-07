@@ -16,28 +16,28 @@
     max-width: 540px;
     background: #FFFFFF;
     border-radius: 12px;
-
-
-    &__top {
-      font-family: "Inter";
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 17px;
-      color: #101828;
-      padding: 18px 22px;
-      border-bottom: 1px solid rgb(16, 24, 40, 0.1);
-    }
-
-    &__inputs {
-      padding: 35px 40px 35px 45px;
-    }
-
-    &__btm {
-      display: flex;
-      padding: 20px 40px;
-      gap: 5px;
-      border-top: 1px solid rgb(16, 24, 40, 0.1);
-    }
   }
+
+  &__top {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #101828;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgb(16, 24, 40, 0.1);
+  }
+
+  &__inputs {
+    padding: 35px 40px 35px 45px;
+  }
+
+  &__btm {
+    display: flex;
+    padding: 20px 40px;
+    gap: 5px;
+    border-top: 1px solid rgb(16, 24, 40, 0.1);
+  }
+
 }

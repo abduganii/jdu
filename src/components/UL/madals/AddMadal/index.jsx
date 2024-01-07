@@ -1,5 +1,3 @@
-"use client"
-
 import CancelBtn from '../../buttun/cancel'
 import BlueButtun from '../../buttun/blueBtn'
 import React, { useRef } from 'react'

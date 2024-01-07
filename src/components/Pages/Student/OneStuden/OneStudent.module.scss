@@ -9,6 +9,7 @@
 
         margin-right: 375px !important;
         margin-bottom: 200px !important;
+
     }
 
     &__content {
@@ -17,6 +18,15 @@
         margin-top: 60px;
         width: 100%;
         max-width: 690px;
+
+        @media screen and (max-width: 1200px) {
+            margin-left: 24px;
+        }
+
+        @media screen and (max-width: 600px) {
+            margin-left: 0;
+            margin-top: 40px;
+        }
 
         progress {
             border-radius: 0px;
@@ -81,6 +91,11 @@
         &__wrap {
             margin-top: 5px;
             margin-bottom: 40px;
+
+            @media screen and (max-width: 600px) {
+
+                margin-top: 30px;
+            }
         }
 
     }
@@ -130,6 +145,11 @@
 
         margin-top: 20px;
         margin-bottom: 60px;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
     }
 
     &__skills {
@@ -438,12 +458,24 @@
     &__btn {
         width: 100% !important;
         max-width: 200px !important;
+        padding: 14px 30px !important;
+        margin-left: auto !important;
+
+
+        @media screen and (max-width: 650px) {
+            max-width: 140px !important;
+            padding: 10px 25px !important;
+            margin-left: auto !important;
+
+        }
     }
 
     &__Wrap {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+
+
     }
 
     &__Wrap1 {
@@ -451,6 +483,11 @@
         align-items: center;
         margin-bottom: 40px;
         gap: 10px;
+
+        @media screen and (max-width: 600px) {
+
+            margin-bottom: 20px;
+        }
     }
 
     &__person {
@@ -556,6 +593,7 @@
         &__wrap {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 20px;
             margin-top: 20px;
             margin-bottom: 60px;
@@ -622,5 +660,8 @@
 }
 
 .margin {
-    margin-top: -20px;
+
+    @media screen and (min-width: 1200px) {
+        margin-top: -20px;
+    }
 }

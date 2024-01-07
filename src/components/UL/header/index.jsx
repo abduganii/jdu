@@ -14,6 +14,7 @@ export default function Header({ user }) {
     const [openSiteBar, setOpenSiteBar] = useState(false)
 
 
+
     return (
         <>
             <header className={cls.Header}>
@@ -87,6 +88,10 @@ export default function Header({ user }) {
                             placeholder="検索"
                         />
                     </div>
+                }
+
+                {
+                    openSearch && <div className={cls.Header__openWindow} onClick={() => setOpenSearch(false)}></div>
                 }
             </header>
         </>

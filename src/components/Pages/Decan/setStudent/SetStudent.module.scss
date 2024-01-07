@@ -432,13 +432,13 @@
 
         top: 0;
         left: 0;
+        z-index: 100000;
         position: fixed;
         width: 100vw;
         overflow: hidden;
         height: 100vh;
 
         background: rgb(16, 24, 40, 0.1);
-        z-index: 100;
         padding-top: 36px;
         text-align: center;
     }

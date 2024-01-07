@@ -3,6 +3,9 @@
     margin-top: 100px;
     width: 100%;
 
+    @media screen and (max-width:800px) {
+        margin-top: 66px;
+    }
 
 
     &__filter {

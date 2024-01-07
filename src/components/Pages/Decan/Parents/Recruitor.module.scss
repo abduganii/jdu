@@ -3,6 +3,10 @@
     margin-top: 100px;
     width: 100%;
 
+    @media screen and (max-width:800px) {
+        margin-top: 66px;
+    }
+
     &__filter {
         width: 100%;
         display: flex;
@@ -27,6 +31,7 @@
         width: 100%;
         max-width: 352px;
     }
+
     &__div {
         width: 100%;
         height: calc(100vh - 150px);

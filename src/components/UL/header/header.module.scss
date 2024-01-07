@@ -23,17 +23,31 @@
 
 
     &__openSearch {
+        background: #FFFFFF;
+        left: 0;
+        position: absolute;
         padding-bottom: 9px;
         padding-top: 15px;
-        margin-left: 12px;
-        margin-right: 12px;
+
         border-bottom: 1px solid #E5E5E5;
         display: none;
         width: 100%;
 
+        z-index: 100000 !important;
+
         @media screen and (max-width:800px) {
             display: inline-block;
         }
+    }
+
+    &__openWindow {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+
     }
 
     &__logo {

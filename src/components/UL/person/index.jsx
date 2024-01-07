@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
+import { useGetWindowWidth } from '../../../hooks/useGetWindowWith'
 import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
 export default function Person({ avatar, role, position, section, name, id, year, email, Professor, rate }) {
     const [open, setOpen] = useState(false)
+    const widthWindow = useGetWindowWidth()
     return (
         <div className={cls.Person}>
             {
@@ -13,10 +15,10 @@ export default function Person({ avatar, role, position, section, name, id, year
                 </div> : avatar ? <img
                     onClick={() => setOpen(true)}
                     src={avatar}
-                    width={130}
-                    height={130}
+                    width={widthWindow > 600 ? 130 : 100}
+                    height={widthWindow > 600 ? 130 : 100}
                     alt={"img"}
-                /> : <Avatar name={name} size="130" round={true} />
+                /> : <Avatar name={name} size={widthWindow > 600 ? 130 : 100} round={true} />
 
             }
 

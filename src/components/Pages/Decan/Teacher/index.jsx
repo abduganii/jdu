@@ -219,7 +219,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
 
     return (
-        <div className={cls.TeacherPage}>
+        <div className={`${cls.TeacherPage}`}>
             <div className={cls.TeacherPage__filter}>
                 <Filter page={"staff"} >
                     <BlueButtun light={true} onClick={() => {
