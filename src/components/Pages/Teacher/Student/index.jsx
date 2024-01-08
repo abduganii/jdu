@@ -61,7 +61,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
                 <Filter decan={true} page={"student"} >
-                    <BlueButtun light={true} onClick={() => {
+                    <BlueButtun className={cls.StudentPage__filter__btn} light={true} onClick={() => {
 
                         setOpenMadal(true)
                         setexal(null)

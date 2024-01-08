@@ -165,6 +165,7 @@ export default function SetStudent({ data, role }) {
                                 </div>
                                 <div className={cls.SetStudent__content}>
                                     <AddInput
+                                        className={cls.SetStudent__content__input}
                                         style={{ marginTop: "10px" }}
                                         type={"text"}
                                         label={"名前"}
@@ -173,6 +174,7 @@ export default function SetStudent({ data, role }) {
                                         value={watchedFiles2?.firstName || ''}
                                     />
                                     <AddInput
+                                        className={cls.SetStudent__content__input}
                                         style={{ marginTop: "10px" }}
                                         type={"text"}
                                         label={"名字"}
@@ -181,6 +183,7 @@ export default function SetStudent({ data, role }) {
                                         value={watchedFiles2?.lastName || ''}
                                     />
                                     <AddInput
+                                        className={cls.SetStudent__content__input}
                                         style={{ marginTop: "10px" }}
                                         type={"text"}
                                         label={"ID"}
@@ -191,6 +194,7 @@ export default function SetStudent({ data, role }) {
                                     />
 
                                     <AddInput
+                                        className={cls.SetStudent__content__input}
                                         register={{ ...register2('brithday') }}
                                         type={"date"}
                                         label={"生年月日"}
@@ -200,6 +204,7 @@ export default function SetStudent({ data, role }) {
                                         style={{ marginTop: "10px" }}
                                     />
                                     <AddInput
+                                        className={cls.SetStudent__content__input}
                                         style={{ marginTop: "10px" }}
                                         type={"text"}
                                         label={"電子メール"}
@@ -209,6 +214,7 @@ export default function SetStudent({ data, role }) {
                                         register={{ ...register2('email') }}
                                     />
                                     <AddInput
+                                        className={cls.SetStudent__content__input}
                                         style={{ marginTop: "10px" }}
                                         type={"password"}
                                         label={"パスワード"}

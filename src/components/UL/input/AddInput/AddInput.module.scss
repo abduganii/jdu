@@ -4,6 +4,10 @@
     display: inline-block;
     position: relative;
 
+    @media screen and (max-width:600px) {
+        max-width: 100%;
+    }
+
     &__label {
         font-family: 'Inter';
         font-style: normal;
@@ -33,6 +37,21 @@
 
         &:focus {
             border: 1px solid rgba(16, 24, 40, 0.3);
+        }
+    }
+
+    &__responsice {
+        width: calc((100% - 20px) / 3);
+        max-width: 100%;
+
+        @media screen and (max-width:700px) {
+            width: calc((100% - 20px) / 2);
+
+        }
+
+        @media screen and (max-width:500px) {
+            width: 100%;
+
         }
     }
 

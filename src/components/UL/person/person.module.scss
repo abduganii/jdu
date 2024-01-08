@@ -151,12 +151,9 @@
         align-items: center;
         gap: 11px;
 
+
         cursor: pointer;
 
-        @media screen and (max-width:1200px) {
-            margin-top: 0;
-
-        }
 
         @media screen and (max-width:600px) {
             gap: 7px;

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { KeyIcon, ReflashIcons } from "../../icons";
 export default function AddInput({
     onChange,
+    className,
     label,
     placeholder,
     Specialisation = [],
@@ -14,6 +15,7 @@ export default function AddInput({
     type,
     onKeyDawn,
     alert,
+    responsive,
     value,
     disabled,
     ...other
@@ -29,7 +31,7 @@ export default function AddInput({
         return retVal;
     }
     return (
-        <label className={`${cls.AddInput} ${type === "textarea" && cls.widthFull}`} {...other}>
+        <label className={`${cls.AddInput} ${type === "textarea" && cls.widthFull} ${responsive && cls.AddInput__responsice} ${className && className}`} {...other}>
             <p className={cls.AddInput__label}>{label}</p>
             {
                 type === "textarea" ? <textarea  {...register} className={cls.AddInput__textArea} placeholder={placeholder}>

@@ -139,7 +139,17 @@
             flex-wrap: wrap;
 
             img {
+                object-fit: cover;
                 cursor: pointer;
+                width: calc((100% - 20px) / 3);
+
+                @media screen and (max-width:980px) {
+                    width: calc((100% - 20px) / 2);
+                }
+
+                @media screen and (max-width:400px) {
+                    width: 100%;
+                }
             }
         }
 

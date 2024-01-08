@@ -227,6 +227,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
+                            responsive={true}
                             register={{ ...register('firstName', { required: "名前は必要です！" }) }}
                             type={"text"}
                             label={"名前"}
@@ -238,6 +239,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('lastName', { required: "名字は必要です！" }) }}
                             type={"text"}
                             label={"名字"}
@@ -248,6 +250,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"ID"}
@@ -260,6 +263,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
                             type={"text"}
                             label={"電話番号"}
@@ -270,6 +274,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                             style={{ marginBottom: "20px" }}
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('companyName', { required: "会社名は必要です！" }) }}
                             type={"text"}
                             label={"会社名"}
@@ -282,6 +287,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
+                            responsive={true}
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"email"}
                             label={"電子メール"}

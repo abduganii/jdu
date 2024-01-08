@@ -314,6 +314,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
+                            responsive={true}
                             register={{ ...register('firstName', { required: "名前は必要です！" }) }}
                             type={"text"}
                             label={"名前"}
@@ -325,6 +326,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('lastName', { required: "名字は必要です！" }) }}
                             type={"text"}
                             label={"名字"}
@@ -336,6 +338,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             type={"text"}
                             label={"ID"}
                             placeholder={"ID"}
@@ -345,6 +348,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                             onChange={() => clearErrors("loginId")}
                         />
                         <AddInput
+                            responsive={true}
                             type={"select"}
                             label={"部署"}
                             placeholder={"部署"}
@@ -359,6 +363,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         {userRole == "teacher" && <AddInput
+                            responsive={true}
                             type={"select"}
                             label={"職員"}
                             placeholder={"職員"}
@@ -372,6 +377,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         />}
 
                         <AddInput
+                            responsive={true}
                             type={"select"}
                             label={"役職"}
                             placeholder={"役職"}
@@ -382,6 +388,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
+                            responsive={true}
                             register={{ ...register('email', { required: "メールは必要です！" }) }}
                             type={"email"}
                             label={"電子メール"}
@@ -393,6 +400,7 @@ const TeacherPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
+                            responsive={true}
                             register={{ ...register('phoneNumber', { required: "名前は必要です！" }) }}
                             type={"text"}
                             label={"電話番号"}

@@ -11,11 +11,12 @@
   top: 0;
   left: 0;
 
-  &__upade{
+  &__upade {
 
     @media screen and (max-width:600px) {
-  align-items: flex-start;
-}  }
+      align-items: flex-start;
+    }
+  }
 
 
   &__content {

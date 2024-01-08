@@ -270,6 +270,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     />
                     <div className={cls.TeacherPage__addInputs}>
                         <AddInput
+                            responsive={true}
                             register={{ ...register('firstName', { required: "名前は必要です！" }) }}
                             type={"text"}
                             label={"名前"}
@@ -281,6 +282,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('lastName', { required: "名字は必要です！" }) }}
                             type={"text"}
                             label={"名字"}
@@ -292,6 +294,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('phoneNumber', { required: "電話番号は必要です！" }) }}
                             type={"text"}
                             label={"電話番号"}
@@ -303,6 +306,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                         />
 
                         <AddInput
+                            responsive={true}
                             register={{ ...register('loginId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"Id"}
@@ -316,6 +320,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('studentId', { required: "IDは必要です！" }) }}
                             type={"text"}
                             label={"Student ID"}
@@ -329,6 +334,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                         />
                         <AddInput
+                            responsive={true}
                             register={{ ...register('email', { required: "電子メールは必要です！" }) }}
                             type={"email"}
                             label={"電子メール"}
@@ -359,6 +365,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
 
                                 <div className={cls.TeacherPage__addInputs}>
                                     <AddInput
+
                                         register={!exal && { ...register('loginId', { required: "IDは必要です！" }) }}
                                         type={"text"}
                                         label={"ID"}
@@ -371,6 +378,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                                         disabled={exal ? true : false}
                                     />
                                     <AddInput
+
                                         register={!exal && { ...register('email', { required: "電子メールは必要です！" }) }}
                                         type={"email"}
                                         label={"電子メール"}
@@ -383,6 +391,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                                 </div>
                                 <div className={cls.TeacherPage__addInputs} style={{ alignItems: "center" }}>
                                     <AddInput
+
                                         type={"text"}
                                         label={"Student ID"}
                                         placeholder={"Student ID"}

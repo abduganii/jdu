@@ -62,7 +62,6 @@ export default function Header({ user }) {
                                 }
                             }}
                         >
-
                         </div>
                         <div className={cls.Header__profil} onClick={() => router('/settings')}>
                             {
