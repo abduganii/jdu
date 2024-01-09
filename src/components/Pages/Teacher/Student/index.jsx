@@ -15,7 +15,7 @@ import { Student } from "./data"
 
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { StudentsAdd, Studentscertificates, Studentsdelete } from '../../../../services/student'
+import { StudentsAdd, Studentscertificates, Studentsdelete, StudentsGetById, StudentsGetByloginId, StudentsUpdate } from '../../../../services/student'
 import { useForm } from 'react-hook-form'
 import Loader from '../../../UL/loader'
 import { useQueryClient } from 'react-query'
@@ -24,20 +24,73 @@ import GruopList from '../../../UL/gruop'
 import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 
+const JLPT = [
+    {
+
+        text: "None",
+        id: "None",
+    },
+    {
+
+        text: "N1",
+        id: "N1",
+    },
+    {
+
+        text: "N2",
+        id: "N2",
+    },
+    {
+        id: 3,
+        text: "N3",
+        id: "N3",
+    },
+    {
+        text: "N4",
+        id: "N4",
+    },
+    {
+        text: "N5",
+        id: "N5",
+    },
+];
+
 const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
+
+    const { register, handleSubmit, setValue, watch } = useForm();
+    const { handleSubmit: handleSubmit2, watch: watch2, setValue: setValue2 } = useForm();
+    const watchedFiles = watch2()
+
     const widthwindow = useGetWindowWidth()
     const queryClient = useQueryClient()
     const [params] = useSearchParams()
     const router = useNavigate()
     const [exal, setexal] = useState()
     const [openMadal, setOpenMadal] = useState(false)
+    const [personId, setPersonId] = useState(false)
     const [loading, setLoading] = useState(false)
     const [Sunject, setSunject] = useState("JLPT & JDU")
+    const [jdu, setJdu] = useState("None")
+    const [jlpt, setJlpt] = useState("None")
 
     const [GrupIdIm, setGrupIdIm] = useState()
 
+    const fitchOnePerson = (id) => {
 
-    const { register, handleSubmit, setValue, watch } = useForm();
+        const fetchData = async () => {
+            const res = await StudentsGetById(id);
+
+            setJdu(res?.jdu)
+            setJlpt(res?.jlpt)
+
+
+        }
+        fetchData()
+            .then((err) => {
+            })
+    }
+
+
     const AddDataSubmit = async () => {
         setLoading(true)
 
@@ -57,12 +110,26 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             })
     }
+    const AddDataJubject = async () => {
+        setLoading(true)
+
+        await StudentsUpdate({ jdu: jdu == "None" ? null : jdu, jlpt: jlpt == "None" ? null : jlpt }, personId)
+            .then(res => {
+                setLoading(false)
+                setPersonId(false)
+                queryClient.invalidateQueries(['student', params.get('Group'), params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
+            })
+            .catch(err => {
+                toast(err.response.data.message)
+                setLoading(false)
+
+            })
+    }
     return (
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
                 <Filter decan={true} page={"student"} >
                     <BlueButtun className={cls.StudentPage__filter__btn} light={true} onClick={() => {
-
                         setOpenMadal(true)
                         setexal(null)
                     }}>
@@ -74,7 +141,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             <div className={cls.StudentPage__page}>
                 <div className={cls.StudentPage__page__div}>
-                    <TopList teacher={true} text={["学生", widthwindow > 600 ? "学生ID" : null, widthwindow > 600 ? "グループ" : null, widthwindow > 1200 ? "JLPT" : null, widthwindow > 1200 ? "JDU日本語認定" : null, null]} />
+                    <TopList text={["学生", widthwindow > 600 ? "学生ID" : null, widthwindow > 600 ? "グループ" : null, widthwindow > 1200 ? "JLPT" : null, widthwindow > 1200 ? "JDU日本語認定" : null, "アクション"]} />
 
                     {data && data?.map(e => (
                         <PersonList
@@ -83,6 +150,11 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                             key={e?.id}
                             name={`${e?.firstName} ${e?.lastName}`}
                             img={e?.avatar}
+                            role={"teacher"}
+                            update={() => {
+                                setPersonId(e?.id)
+                                fitchOnePerson(e?.id)
+                            }}
                             gruop={widthwindow > 600 ? e?.group?.name || "-" : null}
                             rate={widthwindow > 1200 ? e?.jlpt || "-" : null}
                             skill={widthwindow > 1200 ? e?.jdu || "-" : null}
@@ -98,6 +170,35 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                 />
             </div>
 
+            {
+                personId && <AddMadal
+                    role={"Boho qo'yish"}
+                    OnSubmit={handleSubmit2(AddDataJubject)}
+                    closeMadal={() => {
+                        setPersonId(false)
+                    }}>
+                    <div className={cls.StudentPage__addInputs}>
+                        <AddInput
+                            type={"select"}
+                            label={"JLPT"}
+                            Specialisation={JLPT}
+                            value={jlpt}
+                            placeholder={"JLPT"}
+                            onChange={(e) => setJlpt(e)}
+                            style={{ marginBottom: "20px" }}
+                        />
+                        <AddInput
+                            type={"select"}
+                            label={"JDU"}
+                            Specialisation={JLPT}
+                            value={jdu}
+                            placeholder={"JDU"}
+                            onChange={(e) => setJdu(e)}
+                            style={{ marginBottom: "20px" }}
+                        />
+                    </div>
+                </AddMadal>
+            }
             {openMadal &&
                 <AddMadal
                     role={"JLPT & JDU"}

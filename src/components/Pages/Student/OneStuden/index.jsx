@@ -35,7 +35,7 @@ export default function OneStudent({ user, role }) {
         setsemestorId(arr?.semesters?.[0]?.id)
 
     }, [lessonId])
-    console.log(user?.images)
+
     return (
         <div className={cls.OneStudent}>
 
@@ -64,7 +64,10 @@ export default function OneStudent({ user, role }) {
                         avatar={user?.avatar}
                         year={newDate.getFullYear() - user.brithday?.split('-')[0] + "歳"}
                         email={user?.email}
+                        role={role}
                     />
+
+
                     <div style={{ width: "100%", }}>
                         {
                             role === "student" ?

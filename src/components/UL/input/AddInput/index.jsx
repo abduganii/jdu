@@ -37,7 +37,7 @@ export default function AddInput({
                 type === "textarea" ? <textarea  {...register} className={cls.AddInput__textArea} placeholder={placeholder}>
                 </textarea> : type === "select" ? <Select
                     defaultValue={placeholder}
-                    style={{ width: "100%", }}
+                    style={{ width: "100%", zIndex: "100" }}
                     value={value}
                     onChange={onChange}
                     disabled={disabled}

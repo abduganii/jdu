@@ -141,6 +141,18 @@
 
     }
 
+    &__select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+        border-radius: 1000px;
+        border: 1px solid rgba(247, 192, 47, 0.30);
+    }
+
     &__email {
         margin-top: 10px;
 
@@ -151,9 +163,7 @@
         align-items: center;
         gap: 11px;
 
-
         cursor: pointer;
-
 
         @media screen and (max-width:600px) {
             gap: 7px;

@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
 import Avatar from 'react-avatar'
-import { Link } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { useGetWindowWidth } from '../../../hooks/useGetWindowWith'
+import { StudentSelect, StudentSelectDel } from '../../../services/recruter'
 import { EmailNewIcon, SelectIcon } from '../icons'
 import cls from "./person.module.scss"
 
 export default function Person({ avatar, role, position, section, name, id, year, email, Professor, rate }) {
     const [open, setOpen] = useState(false)
+    const [color, setColor] = useState(false)
     const widthWindow = useGetWindowWidth()
+    const queryClient = useQueryClient()
+    const [params] = useSearchParams()
+    const { id: userId } = useParams()
+
     return (
         <div className={cls.Person}>
             {
@@ -39,8 +46,19 @@ export default function Person({ avatar, role, position, section, name, id, year
 
                         {year ? <p className={cls.Person__year}> {year}</p> : ""}
                         {Professor ? <p className={cls.Person__year}> {Professor}</p> : ""}
-
                     </div>
+                    {role == "recruitor" && <div className={cls.Person__select} onClick={async (e) => {
+
+                        if (color) {
+                            StudentSelectDel(userId)
+                            queryClient.invalidateQueries(['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
+                        } else {
+                            StudentSelect(userId)
+                            queryClient.invalidateQueries(['student', params.get('group'), params.get('groups'), params.get('rate'), params.get('year'), params.get('search')])
+                        }
+                        setColor(!color)
+                    }}
+                    > <SelectIcon fill={`${color ? "#F7C02F" : "none"}`} border={"#F7C02F"} /></div>}
                     <div className={cls.Person__div}>
                         {position ? <p className={cls.Person__year}> {position}</p> : ""}
                         {section ? <p className={cls.Person__year}> {section}</p> : ""}

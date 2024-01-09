@@ -80,7 +80,7 @@ export default function AppRouter() {
 
                 <Route path="/recruitor/home" element={<RecHome user={user} />} />
                 <Route path="/recruitor/students" element={<RecStudent role={user?.role} />} />
-                <Route path="/recruitor/students/:id" element={<StudentById />} />
+                <Route path="/recruitor/students/:id" element={<StudentById role={user?.role} />} />
                 <Route path="/recruitor/selected" element={<RecSeelctStudent role={user?.role} />} />
 
                 <Route path="/student/home" element={<StudentHome user={user} />} />

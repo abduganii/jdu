@@ -12,7 +12,7 @@ import { Link } from '@react-email/link'
 import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 
 
-export default function PersonList({ id, img, name, gruop, action, student, moveTo, rate, phone, skill, email, remove, update, onClick }) {
+export default function PersonList({ id, img, name, gruop, action, student, role, moveTo, rate, phone, skill, email, remove, update, onClick }) {
     const [useId, setIseId] = useState()
     const [clickTrue, setClick] = useState(false)
     const x = useRef()
@@ -53,7 +53,7 @@ export default function PersonList({ id, img, name, gruop, action, student, move
                 {phone && <p className={cls.PersonList__phone}>{phone}</p>}
                 {student && skill ? <div className={cls.PersonList__skill}>{skill}</div> : ""}
                 {email && <a href={`mailto:${email}`} className={cls.PersonList__email} ref={em}>{email}</a>}
-                {action && <div className={cls.PersonList__action}>
+                {<div className={cls.PersonList__action}>
                     <DoteBtn ref={y} onClick={() => setIseId(true)} />
                 </div>}
                 <hr className={cls.PersonList__line} />
@@ -69,12 +69,13 @@ export default function PersonList({ id, img, name, gruop, action, student, move
                 className={cls.backround}
             ></div>
             {
-                action && <ListModal
+                <ListModal
                     remove={() => {
                         setIseId(false)
                         remove()
                     }
                     }
+                    role={role}
                     update={() => {
                         setIseId(false)
                         update()
