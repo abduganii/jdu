@@ -32,6 +32,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
     const [personId1, setPersonId1] = useState()
     const [avatar, setAvatar] = useState()
     const [studentName, setStudentName] = useState()
+    const [studentOk, setStudentOk] = useState(false)
     const [loading, setLoading] = useState(false)
     const [exal, setexal] = useState()
     const oneStuednt = data.find(e => e.id === personId)
@@ -54,7 +55,6 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
             setAvatar(data?.avatar)
             setValue("studentId", res?.Students?.[0]?.loginId)
             setValue("email", res?.email)
-
         }
         fetchData()
             .then((err) => {
@@ -68,9 +68,15 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         }
         const fetchData = async () => {
             const res = await StudentsGetByloginId(id);
-            if (res) {
+
+            if (res && !res.parent) {
+                setStudentOk(true)
                 setStudentName(`${res?.firstName} ${res.lastName}`)
+            } else if (res.parent) {
+                setStudentOk(false)
+                setStudentName("Student already has a parent")
             } else {
+                setStudentOk(false)
                 setStudentName("student not found")
             }
         }
@@ -105,35 +111,36 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                     setExalError(true)
                 })
         } else {
-            setLoading(true)
-            await ParentAdd(data)
-
-                .then(res => {
-                    if (res?.data?.message) {
-                        toast(res?.data?.message)
-                    } else if (res.status == 201) {
-                        toast('parent created')
-                        setOpenMadal(false)
-                    }
-                    setLoading(false)
-                    queryClient.invalidateQueries(['parent', params.get('search'), params.get('year'), params.get('groups')])
-
-                })
-                .catch(err => {
-
-                    setLoading(false)
-
-                    if (err.response.data == "Validation isEmail on email failed") {
-                        setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
+            if (studentOk) {
+                setLoading(true)
+                await ParentAdd(data)
+                    .then(res => {
+                        if (res?.data?.message) {
+                            toast(res?.data?.message)
+                        } else if (res.status == 201) {
+                            toast('parent created')
+                            setOpenMadal(false)
+                        }
                         setLoading(false)
-                    } if (err.response.data == "email must be unique") {
-                        setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
-                    }
-                    if (err.response.data === "Validation len on password failed") {
-                        setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
-                    }
-                    setLoading(false)
-                })
+                        queryClient.invalidateQueries(['parent', params.get('search'), params.get('year'), params.get('groups')])
+
+                    })
+                    .catch(err => {
+
+                        setLoading(false)
+
+                        if (err.response.data == "Validation isEmail on email failed") {
+                            setError('email', { type: 'custom', message: "電子メールが存在しないか、スペルが間違っています" })
+                            setLoading(false)
+                        } if (err.response.data == "email must be unique") {
+                            setError('email', { type: 'custom', message: "電子メールは一意である必要があります" })
+                        }
+                        if (err.response.data === "Validation len on password failed") {
+                            setError('password', { type: 'custom', message: "パスワードの最小の長さは 8 文字である必要があります" })
+                        }
+                        setLoading(false)
+                    })
+            }
         }
 
     }
@@ -402,7 +409,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
                                         disabled={exal ? true : false}
                                     />
 
-                                    {studentName ? <p> {studentName}</p> : ""}
+                                    {studentName ? <p className={cls.TeacherPage__texterorr}> {studentName}</p> : ""}
                                 </div>
                             </>
                             : ""}
