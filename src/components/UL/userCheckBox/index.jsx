@@ -11,7 +11,7 @@ export default function UserCheckBoz({ openUser, setopenUser, ...other }) {
                     checked={openUser == "inputs" ? true : false}
                     onChange={(e) => setopenUser(e.target.value)}
                 />
-                <p>Single</p>
+                <p>手入力</p>
             </label>
             <label>
 

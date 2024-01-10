@@ -133,7 +133,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                         setOpenMadal(true)
                         setexal(null)
                     }}>
-                        日本語能力試験を追加
+                        学生の成績を追加
                     </BlueButtun>
                 </Filter>
 
@@ -172,7 +172,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
 
             {
                 personId && <AddMadal
-                    role={"Boho qo'yish"}
+                    role={"成績を追加"}
                     OnSubmit={handleSubmit2(AddDataJubject)}
                     closeMadal={() => {
                         setPersonId(false)
@@ -189,10 +189,10 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
                         />
                         <AddInput
                             type={"select"}
-                            label={"JDU"}
+                            label={"JDU日本語認定"}
                             Specialisation={JLPT}
                             value={jdu}
-                            placeholder={"JDU"}
+                            placeholder={"JDU日本語認定"}
                             onChange={(e) => setJdu(e)}
                             style={{ marginBottom: "20px" }}
                         />
@@ -201,7 +201,7 @@ const StudentTeachPage = React.forwardRef(({ data, role }, ref) => {
             }
             {openMadal &&
                 <AddMadal
-                    role={"JLPT & JDU"}
+                    role={"JLPT & JDU日本語認定"}
                     OnSubmit={handleSubmit(AddDataSubmit)}
                     closeMadal={() => {
                         setOpenMadal(false)
