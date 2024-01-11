@@ -12,6 +12,15 @@
         display: flex;
         justify-content: space-between;
 
+        &__btn {
+            @media screen and (max-width:1000px) {
+                padding: 8px 10px !important;
+            }
+
+            @media screen and (max-width:500px) {
+                padding: 8px 0px !important;
+            }
+        }
 
     }
 

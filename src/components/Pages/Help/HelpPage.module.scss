@@ -2,6 +2,11 @@
     &__container {
         margin-top: 140px !important;
         margin-left: 40px !important;
+
+        @media screen and (max-width:800px) {
+            margin-top: 80px !important;
+            margin-left: 20px !important;
+        }
     }
 
     &__title {
@@ -56,6 +61,7 @@
             &:last-child {
                 border-bottom: none;
             }
+
         }
 
         &__title {

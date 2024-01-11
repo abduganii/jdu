@@ -28,7 +28,6 @@ export default function DecanStudent() {
     }) || {},
     {
       getNextPageParam: (lastPage, pages) => {
-
         return lastPage?.count > pages?.length * 15 ? pages.length + 1 : undefined
       }
     }
