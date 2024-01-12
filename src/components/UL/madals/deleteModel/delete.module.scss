@@ -2,7 +2,6 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 15;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -10,7 +9,7 @@
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 100000;
+    z-index: 100;
 
     &__wrap {
         background: #FFFFFF;

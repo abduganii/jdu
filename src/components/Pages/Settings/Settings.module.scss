@@ -32,7 +32,7 @@
             align-items: flex-end;
             gap: 10px;
             margin-bottom: 0px;
-            width: 90% !important;
+            width: 95% !important;
 
         }
 
@@ -126,7 +126,7 @@
         gap: 28px;
 
         @media screen and (max-width:1175px) {
-            width: 85%;
+            width: 95%;
         }
 
         @media screen and (max-width:575px) {
@@ -292,9 +292,9 @@
 
             @media screen and (max-width:1175px) {
                 margin-top: 30px;
-                margin-left: 11px;
+                margin-left: 0px;
 
-                width: 85%;
+                width: 95%;
             }
 
             @media screen and (max-width:575px) {
@@ -311,8 +311,8 @@
 
             @media screen and (max-width:1175px) {
                 margin-top: 30px;
-                width: 85%;
-                margin-left: 11px;
+                width: 95%;
+                margin-left: 0px;
             }
 
         }

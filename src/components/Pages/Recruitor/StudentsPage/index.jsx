@@ -11,7 +11,7 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
     const widthwindow = useGetWindowWidth()
     return (
         <>
-            <Container style={{ paddingTop: "100px" }}>
+            <Container style={{ paddingTop: `${widthwindow > 600 ? "100px" : "70px"}` }}>
                 <Filter page={"student2"} />
                 <div className={cls.StudentsPage__div}>
                     <ul className={cls.StudentsPage__top}>

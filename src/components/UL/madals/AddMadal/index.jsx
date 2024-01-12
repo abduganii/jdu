@@ -4,12 +4,12 @@ import React, { useRef } from 'react'
 import cls from "./AddMadal.module.scss"
 import { useSearchParams } from 'react-router-dom'
 
-export default function AddMadal({ role, children, closeMadal, OnSubmit, ...other }) {
+export default function AddMadal({ role, update, children, closeMadal, OnSubmit, ...other }) {
     const x = useRef()
     const [param] = useSearchParams()
 
     return (
-        <div ref={x} className={`${cls.AddMadal} ${param.get('updete') == "true" ? cls.AddMadal__upade : ""} `}>
+        <div ref={x} className={`${cls.AddMadal} ${param.get('updete') == "true" || update ? cls.AddMadal__upade : ""} `}>
             <form className={cls.AddMadal__content} {...other} onSubmit={OnSubmit}>
                 <h3 className={cls.AddMadal__top}> {role}</h3>
                 <div className={cls.AddMadal__inputs}>{children}</div>

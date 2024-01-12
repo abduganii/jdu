@@ -41,12 +41,12 @@ export default function Person({ avatar, role, position, section, name, id, year
             <div className={cls.Person__contect}>
                 <div>
                     <p className={cls.Person__name}>{name}</p>
-                    <div className={cls.Person__div}>
+                    {year || Professor ? <div className={cls.Person__div}>
                         <p className={cls.Person__id}>ID:{id}</p>
 
                         {year ? <p className={cls.Person__year}> {year}</p> : ""}
                         {Professor ? <p className={cls.Person__year}> {Professor}</p> : ""}
-                    </div>
+                    </div> : ""}
                     {role == "recruitor" && <div className={cls.Person__select} onClick={async (e) => {
 
                         if (color) {
@@ -59,10 +59,10 @@ export default function Person({ avatar, role, position, section, name, id, year
                         setColor(!color)
                     }}
                     > <SelectIcon fill={`${color ? "#F7C02F" : "none"}`} border={"#F7C02F"} /></div>}
-                    <div className={cls.Person__div}>
+                    {position || section ? <div className={cls.Person__div}>
                         {position ? <p className={cls.Person__year}> {position}</p> : ""}
                         {section ? <p className={cls.Person__year}> {section}</p> : ""}
-                    </div>
+                    </div> : ""}
                     {rate && <div className={cls.Person__rate}><SelectIcon fill={"black"} border={"black"} /> <p>{rate}</p></div>}
                 </div>
                 {email && <a href={`mailto:${email}`} className={cls.Person__email}><EmailNewIcon /> {email}</a>}

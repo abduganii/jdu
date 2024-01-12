@@ -140,7 +140,7 @@ const RecruitorPage = React.forwardRef(({ data }, ref) => {
             <div className={cls.TeacherPage__filter}>
                 <Filter page={'recruiter'} >
 
-                    <BlueButtun light={true} onClick={() => {
+                    <BlueButtun light={true} className={cls.TeacherPage__filter__btn} onClick={() => {
                         setOpenMadal(true)
                         router('?updete=false')
                         reset()

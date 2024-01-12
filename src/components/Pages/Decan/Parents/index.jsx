@@ -191,7 +191,7 @@ const PerantPage = React.forwardRef(({ data }, ref) => {
         <div className={cls.TeacherPage}>
             <div className={cls.TeacherPage__filter}>
                 <Filter page={'parent'} >
-                    <BlueButtun light={true} onClick={() => {
+                    <BlueButtun light={true} className={cls.TeacherPage__filter__btn} onClick={() => {
                         setOpenMadal(true)
                         router('?updete=false')
                         reset()

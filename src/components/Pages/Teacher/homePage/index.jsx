@@ -313,6 +313,7 @@ export default function HomeTechPage({ user }) {
                 <AddMadal
                     role={"登録"}
                     style={{ maxWidth: "775px" }}
+                    update={true}
                     OnSubmit={
                         handleSubmit(UpdateTeacherFunc)}
                     closeMadal={async () => {

@@ -174,7 +174,7 @@ export default function OneStudent({ user, role }) {
                     }
 
                     {
-                        user?.jlpt || user?.jud && <h3 className={cls.OneStudent__title}>Japan Language tests</h3>
+                        user?.jlpt || user?.jud ? <h3 className={cls.OneStudent__title}>Japan Language tests</h3> : ""
                     }
 
                     <div className={cls.OneStudent__Test__wrap}>
