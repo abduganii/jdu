@@ -10,7 +10,7 @@ export default function ListModal({ update, moveTo, remove, role, select, lebel,
                     <button className={cls.ListModal__btn} onClick={update}>成績を追加</button>
                 </> : <>
                     <button className={cls.ListModal__btn} onClick={update}>編集</button>
-                    {moveTo && <button className={cls.ListModal__btn} onClick={moveTo}> 移行</button>}
+                    {moveTo && <button className={cls.ListModal__btn} onClick={moveTo}> グループ変更</button>}
                     <button className={cls.ListModal__btn} onClick={remove}>削除</button>
                 </>
             }

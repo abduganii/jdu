@@ -16,7 +16,7 @@ const StudentsPage = React.forwardRef(({ data, data2, selected }, ref) => {
                 <div className={cls.StudentsPage__div}>
                     <ul className={cls.StudentsPage__top}>
                         <li className={cls.StudentsPage__top__item}>学生</li>
-                        {widthwindow > 1040 ? <li className={cls.StudentsPage__top__item}>ID</li> : null}
+                        {widthwindow > 1040 ? <li className={cls.StudentsPage__top__item}>学生ID</li> : null}
                         {widthwindow > 600 ? <li className={cls.StudentsPage__top__item}>グループ</li> : null}
                         {widthwindow > 1200 ? <li className={cls.StudentsPage__top__item}>JLPT</li> : null}
                         {widthwindow > 1200 ? <li className={cls.StudentsPage__top__item}>JDU</li> : null}
