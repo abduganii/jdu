@@ -375,7 +375,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
             {openMadal2 &&
                 <AddMadal
-                    role={`${query == 'true' ? "Update group" : "Add group"} `}
+                    role={`${query == 'true' ? "グループを変更" : "Add group"} `}
                     OnSubmit={handleSubmit2(AddGruopFunc)}
                     closeMadal={() => {
                         setOpenMadal2(false)
@@ -387,8 +387,8 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             register={{ ...register2('name', { required: "name is required" }) }}
                             value={watchedFiles?.name || ''}
                             type={"text"}
-                            label={"Group name"}
-                            placeholder={"Group name"}
+                            label={"グループの名前"}
+                            placeholder={"グループの名前"}
                             style={{ marginBottom: "10px" }}
                             // alert={errors2.name?.message}
                             onChange={() => clearErrors2("name")}
@@ -396,8 +396,8 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                         <AddInput
                             value={year}
                             type={"select"}
-                            label={"Course year"}
-                            placeholder={"Course year"}
+                            label={"学年"}
+                            placeholder={"学年"}
                             Specialisation={Course}
                             // alert={errors2.year?.message}
                             style={{ marginBottom: "10px" }}
@@ -407,8 +407,8 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
                             register={{ ...register2('collection', { required: "collection is required" }) }}
                             value={watchedFiles?.collection || ''}
                             type={"text"}
-                            label={"Faculty"}
-                            placeholder={"Faculty"}
+                            label={"学部"}
+                            placeholder={"学部"}
                             style={{ marginBottom: "10px" }}
                         />
                     </div>
