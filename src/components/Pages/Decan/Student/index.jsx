@@ -375,7 +375,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
 
             {openMadal2 &&
                 <AddMadal
-                    role={`${query == 'true' ? "グループを変更" : "Add group"} `}
+                    role={`${query == 'true' ? "グループを変更" : "グループを追加"} `}
                     OnSubmit={handleSubmit2(AddGruopFunc)}
                     closeMadal={() => {
                         setOpenMadal2(false)

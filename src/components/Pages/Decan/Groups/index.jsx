@@ -177,7 +177,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
 
       {openMadal &&
         <AddMadal
-          role={`${query == 'true' ? "Update group" : "Add group"} `}
+          role={`${query == 'true' ? "グループを変更" : "グループを追加"} `}
           OnSubmit={handleSubmit(AddStudentFunc)}
           closeMadal={() => {
             setOpenMadal(false)
