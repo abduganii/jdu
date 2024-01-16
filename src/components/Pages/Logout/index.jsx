@@ -42,7 +42,7 @@ export default function LogoutPage() {
                             <LoginInput
                                 type={'text'}
                                 placeholder={"電子メールアドレスを入力"}
-                                style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "50px" }}
+                                style={{ backgroundImage: "url('/Image/icons/Iconsid.svg')", marginBottom: "50px" }}
                                 alert={errors.email?.message}
                                 register={{ ...register("email", { required: "電子メールは必要です！" }) }}
                             />

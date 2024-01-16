@@ -122,7 +122,7 @@ export default function Filter({ children, page, decan, back }) {
                             setSearchParams({ ...paramsToObject(params.entries()), onepgruop: true })
                         }}>
                             Gruops
-                            <div><PlusIcon /></div>
+                            {/* <div><PlusIcon /></div> */}
                         </div> : ""
                     }
                     {

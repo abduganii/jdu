@@ -45,7 +45,7 @@ export default function SideBar({ user }) {
         <>
             <div
                 className={`${cls.SideBar__shodow} ${params.get("sideBar") == "true" ? cls.SideBarClose : ""}`}
-                onClick={() => { setSearchParams({ ...paramsToObject(params.entries()), sideBar:false }) } }
+                onClick={() => { setSearchParams({ ...paramsToObject(params.entries()), sideBar: false }) }}
             ></div>
             <div className={`${cls.SideBar} ${params.get("sideBar") == "true" ? cls.SideBarClose : ""}`}>
                 <div className={cls.SideBar__hello}>
@@ -99,7 +99,7 @@ export default function SideBar({ user }) {
                             }}>
                                 はい
                             </CancelBtn>
-                            <BlueButtun onClick={() => x.current.classList.remove("displayBlock")} style={{ paddingLeft: "30px" }}  >いいえ</BlueButtun>
+                            <BlueButtun onClick={() => x.current.classList.remove("displayBlock")}   >いいえ</BlueButtun>
                         </div>
                     </div>
                 </div>

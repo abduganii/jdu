@@ -65,10 +65,8 @@
         margin-right: auto;
         border-radius: 4px;
         background: #F5F5F5;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 2px 10px;
+
+        padding: 8px 20px;
         color: #121212;
         font-family: Inter;
         font-size: 14px;
@@ -76,23 +74,19 @@
         font-weight: 400;
         line-height: 20px;
 
-        div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 16px;
-            padding: 6px;
-            background: #EEE9FB;
-        }
+        // div {
+   //     display: flex;
+   //     align-items: center;
+   //     justify-content: center;
+   //     border-radius: 16px;
+   //     padding: 6px;
+   //     background: #EEE9FB;
+   // }
 
         @media screen and (max-width:510px) {
-            gap: 2px;
-            padding: 5px;
+
             font-size: 12px;
 
-            div {
-                padding: 3px;
-            }
         }
     }
 

@@ -28,19 +28,19 @@ import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith'
 const Course = [
     {
         id: "First",
-        name: "First"
+        name: "1年生"
     },
     {
         id: "Second",
-        name: "Second"
+        name: "2年生"
     },
     {
         id: "Third",
-        name: "Third"
+        name: "3年生"
     },
     {
         id: "Fourth",
-        name: "Fourth"
+        name: "4年生"
     }
 ]
 
@@ -217,7 +217,7 @@ const StudentPage = React.forwardRef(({ data, gruop }, ref) => {
         <div className={cls.StudentPage}>
             <div className={cls.StudentPage__filter}>
                 <Filter page={"student"} decan={true} back={true} >
-                    <BlueButtun  className={cls.StudentPage__filter__btn} light={true} onClick={() => setOpenMadal(true)}>
+                    <BlueButtun className={cls.StudentPage__filter__btn} light={true} onClick={() => setOpenMadal(true)}>
                         <PlusIcon />
                         学生を追加
                     </BlueButtun>

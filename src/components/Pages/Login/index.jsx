@@ -60,7 +60,7 @@ export default function LoginPage() {
                         <LoginInput
                             type={'text'}
                             placeholder={"電子メール"}
-                            style={{ backgroundImage: "url('/Image/inutIcons.png')", marginBottom: "40px" }}
+                            style={{ backgroundImage: "url('/Image/icons/Iconsid.svg')", marginBottom: "40px" }}
                             register={{ ...register("loginId", { required: "ログインIDが必要です" }) }}
                             alert={errors.loginId?.message}
                             value={watchedFiles?.loginId || ''}
@@ -70,7 +70,7 @@ export default function LoginPage() {
                             type={curPass}
                             placeholder={"パスワードを入力してください"}
                             register={{ ...register("password", { required: "パスワードが必要です" }) }}
-                            style={{ backgroundImage: "url('/Image/Iconsinpt.png')" }}
+                            style={{ backgroundImage: "url('/Image/icons/Iconspas.svg')" }}
                             alert={errors.password?.message}
                             value={watchedFiles?.password || ''}
                             icon={eyeOpenIcons()}
