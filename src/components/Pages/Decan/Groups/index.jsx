@@ -177,7 +177,7 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
 
       {openMadal &&
         <AddMadal
-          role={`${query == 'true' ? "Update group" : "Add group"} `}
+          role={`${query == 'true' ? "グループを変更" : "グループを追加"} `}
           OnSubmit={handleSubmit(AddStudentFunc)}
           closeMadal={() => {
             setOpenMadal(false)
@@ -193,8 +193,8 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               register={{ ...register('name', { required: "name is required" }) }}
               value={watchedFiles?.name || ''}
               type={"text"}
-              label={"Group name"}
-              placeholder={"Group name"}
+              label={"グループの名前"}
+              placeholder={"グループの名前"}
               style={{ marginBottom: "10px" }}
               alert={errors.name?.message}
               onChange={() => clearErrors("name")}
@@ -202,8 +202,8 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
             <AddInput
               value={year}
               type={"select"}
-              label={"Course year"}
-              placeholder={"Course year"}
+              label={"学年"}
+              placeholder={"学年"}
               Specialisation={Course}
               alert={errors.year?.message}
               style={{ marginBottom: "10px" }}
@@ -213,8 +213,8 @@ const GroupsPage = React.forwardRef(({ groups }, ref) => {
               register={{ ...register('collection', { required: "collection is required" }) }}
               value={watchedFiles?.collection || ''}
               type={"text"}
-              label={"Faculty"}
-              placeholder={"Faculty"}
+              label={"学部"}
+              placeholder={"学部"}
               style={{ marginBottom: "10px" }}
             />
           </div>
