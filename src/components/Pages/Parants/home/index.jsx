@@ -164,7 +164,7 @@ export default function HomePage({ user }) {
                 <div className={cls.HomePage__chart}>
                     <div className={cls.HomePage__chart__wrap}>
                         <h3 className={cls.HomePage__chart__title}>JLPT certificate</h3>
-                        <p className={cls.HomePage__chart__text}>Japanese-Language Proficiency Test</p>
+                        <p className={cls.HomePage__chart__text}>Japanese Language Proficiency Test</p>
                         <div className={cls.HomePage__test__wrap} >
                             <div className={cls.HomePage__test__width}>
                                 <div className={cls.HomePage__test} style={{ borderBottom: `${Math.round((((JLPT?.N1 / maxValue) * 100) / 100) * 185) || 2}px solid #5627DC` }}>
